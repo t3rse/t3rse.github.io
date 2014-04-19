@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twining - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I&#8217;ve been quiet but still working on Twining.&nbsp; Unfortunately lots of distractions at work have slowed me down. Most of what I&#8217;ve &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/04/02/twining">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twining</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-02T00:02:00-05:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I&#8217;ve been quiet but still working on <a href="http://www.t3rse.com/twining">Twining</a>.&nbsp; Unfortunately lots of distractions at work have slowed me down. Most of what I&#8217;ve done of late is adding unit tests for the functionality that already exists.&nbsp; I twittered that adding unit tests <em>a posteriori</em> is not fun and tends to have the effect of one simply verifying what they&#8217;ve done with pasted code.&nbsp;&nbsp; Now that most of that is done I&#8217;d like to add a few things: </p> <p>1. Operating on queries like tables for export and copy.&nbsp; Everywhere that you see &#8220;table&#8221; below, I&#8217;d like to have &#8220;query&#8221;:<br></p><pre class="csharpcode">database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.database(cn2)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.xmlFieldsAsAttributes(<span class="str">"c:\\here.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.xmlFieldsAsElements(<span class="str">"c:\\there.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.delimited(<span class="str">"\t"</span>, <span class="str">"c:\\foaf.tsv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.delimited(<span class="str">"\t"</span>, <span class="str">"c:\\foaf_no_trans.tsv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.csv(<span class="str">"c:\\foo.csv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.xmlFieldsAsAttributes(<span class="str">"c:\\here.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.xmlFieldsAsElements(<span class="str">"c:\\there.xml"</span>)</pre><pre class="csharpcode">how about: </pre><pre class="csharpcode">database(cn).query(<span class="str">"select this, that, [the other] from foo"</span>).copyto.csv(<span class="str">"c:\\querydata.csv"</span>)</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p><font color="#0000ff"><font color="#000000">2. Support for SqlBulkCopy - as far as I know this is only available between Sql Servers (or, more specifically SqlConnection instances).</font></font></p><br /><p>3. Cloning of tables - if you use sql server, this is quite simple with the following TSQL:</p><pre class="csharpcode"><span class="kwrd">SELECT</span> * <span class="kwrd">INTO</span> MYCOPYTABLE <span class="kwrd">FROM</span> MYORIGINALTABLE <span class="kwrd">WHERE</span> 1 = 2</pre><br /><p><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br />4. Database &#8220;ping&#8221; - just a simple way to test connection strings.</p><pre class="csharpcode">cn = <span class="str">"my connection string"</span><br />database(cn).ping() </pre><br /><p>5. Inspired by ConfigObj I&#8217;m wondering what a JSON like table definition would look like. In ConfigObj, you can define things like: </p><pre class="csharpcode">section2 = {<br />    <span class="str">'keyword5'</span>: <span class="str">'value5'</span>,<br />    <span class="str">'keyword6'</span>: <span class="str">'value6'</span>,<br />    <span class="str">'sub-section'</span>: {<br />        <span class="str">'keyword7'</span>: <span class="str">'value7'</span><br />        }<br />}</pre><br /><p>I wonder if one could have the following for a table: </p><pre class="csharpcode">tableDef = {<br />    <span class="str">'personid'</span>: {<br />        <span class="str">'datatype'</span>:<span class="str">'int'</span>,<br />        <span class="str">'identity'</span>:<span class="str">'true'</span>,<br />        <span class="str">'seed'</span>:1        <br />    },<br />    <span class="str">'firstname'</span>:[<span class="str">'varchar'</span>,50, <span class="str">'null'</span>]<br />}</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br />Just something to gnaw on&#8230; <br /><p>&nbsp;</p><br /><p>I&#8217;ll hopefully get a chance to work on this stuff soon. </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-02T00:02:00-05:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/04/02/twining/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/04/02/twining/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/03/30/data-access-strategy/" title="Previous Post: Data Access Strategy">&laquo; Data Access Strategy</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/04/03/generate-catalog-images-in-ironpython/" title="Next Post: Generate Catalog Images in IronPython">Generate Catalog Images in IronPython &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

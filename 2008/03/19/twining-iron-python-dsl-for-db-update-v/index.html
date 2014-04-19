@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twining: Iron Python DSL for DB Update V - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I&#8217;m still at it with Twining. A few projects and events have distracted me temporarily but I had a few moments last night to do a few things &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/03/19/twining-iron-python-dsl-for-db-update-v">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twining: Iron Python DSL for DB Update V</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-19T13:22:00-05:00" pubdate data-updated="true">Mar 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I&#8217;m still at it with Twining. A few projects and events have distracted me temporarily but I had a few moments last night to do a few things that I&#8217;ve intended to for some time.&nbsp; First a summary of functionality with what&#8217;s new in red.</p> <p><font face="Courier New" size="2">cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB1;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB2;Integrated Security=SSPI;&#8221; </font> <p><font size="2"><font face="Courier New"><font color="#ff0000"># dest, source (you can use the same source column over and over)<br># dest, source can be field names, example below uses ordinal position<br>colmap = {&#8220;DestinationField1&#8221;:1, &#8220;DestinationField2&#8221;:2, &#8220;DestinationField3&#8221;:1}<br>database(cn).table(&#8220;MyTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;foo.csv&#8221;)</font> </font></font> <p><font face="Courier New" size="2">#old stuff<br>mytrans = {&#8220;Field1&#8221;:&#8221;upper&#8221;,&#8221;Field2&#8221;: lambda x: x.upper(),&#8221;Field3&#8221;: lambda x: x[::-1]}<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.database(cn2)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;here.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.xmlFieldsAsElements(&#8220;c:&#92;there.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;foaf.tsv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;foaf_no_trans.tsv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;here.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;there.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;temp&#92;loungin.bak&#8221;)</font>  <p>Footnotes: I&#8217;m working on changing my implementation of all things CSV/delimiter to using ADO.NET providers - the manually concatenated strings were just proof of concept. Back in 2004 in <a href="http://discuss.techinterview.org/default.asp?joel.3.1282.11">a thread</a> that none other than Joel Spolsky responded to I learned not to try to reinvent a very hard CSV wheel. <p>The other bigger change I made was breaking the project apart. What was originally in multiple files as a &#8220;sketch&#8221; was becoming a nuisance besides poorly structured. I&#8217;ve deconstructed into the following files:  <p>registrar.py - holds global, static data.<br>sqlhelper.py - runs dynamic sql statements<br>errorhandle.py - exception handling<br>database.py - reference to databases, constituent tables, and holds the copyto and importfrom objects<br>copyto.py - object for exporting as CSV, XML, and database to database<br>importfrom.py - object for importing data (currently on rough sketch for CSV import)  <p>Most remains unchanged from the last upload but here is the code for the importfrom functionality: <pre>import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.Data.OleDb import *<br />from System.IO import *<br /><br />from registrar import *<br />from sqlhelper import *<br /><br /><br />class importfrom:<br />	"""Model data import process"""<br />	<br />	def __init__(self):<br />		self.columnmap = {}<br />	<br />	def build_destination(self):<br />		""" If destination does not exist, construct table"""<br />		pass<br />	<br />	def csv(self, path):<br />		""" Import data from a csv file """<br />		fileName = path.split("\\")[-1]<br />		fileDir = path.replace(fileName, "")<br />		connect = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='text;HDR=No;FMT=Delimited'"<br />		csvConnection = OleDbConnection(String.Format(connect, fileDir))<br />		csvConnection.Open()<br />		csvCommand = OleDbCommand("select * from " + fileName, csvConnection)<br />		sourceReader = csvCommand.ExecuteReader(CommandBehavior.CloseConnection)<br />		masterInsert = ""<br /><br />		while sourceReader.Read():<br />			cols, vals = "", ""<br />			for k in self.column_map.keys():<br />				cols, vals = cols + "[" + k + "],", vals + "'" + str(sourceReader[self.column_map[k]]) + "',"<br />			masterInsert += "insert into " + registrar.tableRegister + "(" + cols[:-1] + ")VALUES(" + vals[:-1] + ")\n"<br />		sourceReader.Close()<br /><br />		try:<br />			sqlhelper().run_sql(registrar.databaseRegister, masterInsert)<br />		except Exception, inst:<br />			errorhandle().print_error("Error occured during import", inst)<br /></pre><br /><p><a href="http://www.seruyange.com/metadeveloper/Twining.zip">Download everything here</a> as a zip file. I&#8217;ve hopefully carved a little space in the schedule amongst various projects to spend more time going back and polishing things. I&#8217;ve just been tasked with migrating about 120,000 records out of Excel so this should provide a good opportunity to add functionality and test it&#8217;s breakability for the type of thing I often have to do.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Hey Robert, <BR/><BR/>The story I&#8217;m hoping for this will be: <BR/><BR/>database(&#8216;excel&#8217;).tables(&#8216;sheet1&#8217;).copyto.database(&#8216;mydb&#8217;)<BR/><BR/>Since I find myself having to do this often, I&#8217;m willing to deal with some pain and nuances for an easy one liner in the future. I&#8217;ve seen a lot of &#8220;copy/paste&#8221; approaches to importing data from excel and because it&#8217;s something one can&#8217;t automate I tend to avoid it.<BR/><BR/>Hopefully no mangling will take place but I do need to check out Resolver.</div>
+</div>
+<div class='comment'>
+<div class='author'>robert</div>
+<div class='content'>
+Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolutely have to mangle Excel data through Python and into a database&#8230; can I recommend Resolver? It won&#8217;t cost you anything and it might just solve your problem.<BR/><BR/>Cheers, Robert</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-19T13:22:00-05:00" pubdate data-updated="true">Mar 19<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/03/19/twining-iron-python-dsl-for-db-update-v/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/03/19/twining-iron-python-dsl-for-db-update-v/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/03/12/brash-boys/" title="Previous Post: Brash Boys">&laquo; Brash Boys</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/03/25/twining-updates/" title="Next Post: Twining Updates">Twining Updates &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Jean Paul Understands - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{After listening to the .NET Rocks podcast he was on covering Test Driven Development, I glanced at his blog and saw this post/rant against &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/07/25/jean-paul-understands">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Jean Paul Understands</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-25T23:25:00-05:00" pubdate data-updated="true">Jul 25<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />After listening to the <a href="http://www.dotnetrocks.com/default.aspx?showID=171">.NET Rocks podcast</a> he was on covering Test Driven Development, I glanced at his blog and saw <a href="http://www.jpboodhoo.com/blog/TheDarkSideOfDeclaritiveDatabinding.aspx">this post/rant</a> against declarative databinding.  Since the Visual Basic 5 Form Data Wizard, a lot of this automated stuff has remained beyond my liking.  Well, actually that VB 5 Form Data wizard did work out really well once: I had a meeting with a client and nothing to show so it bailed me out that time&#8230;<br /><br />Here are my big problems with declarative databinding:<br />1. When does it happen?<br />I have no idea based on the demos.  You set things up at design time and run the app after which you&#8217;re supposed to smile and think that it&#8217;s cool, but databinding for me in the &#8220;real world&#8221; never seems to happen that way.  Sometimes binding is conditional or based on circumstances that can only be evaluated programmatically.  Not only that, but sometimes I&#8217;m binding many many things (think 10 dropdown lists) and don&#8217;t want a data source control for each one.<br /><br />2. Embed SQL statements in the ASP.NET Page?<br />Never, ever, ever.  Usually stuff like this is tucked in the business layer with a stored procedure. I like the idea of object data sources, but it seems like a lot of work for the small stuff, like lookup values.<br /><br />3. It&#8217;s never that simple.<br />Like the last project I worked on, in which some fields displayed in a grid were too long, so I had to iterate bound data and make tooltips. Or the column that&#8217;s an encoded link based on some data outside of the grid.  Or the column that displays various images based on some criteria (think: sometimes a PDF icon, sometimes a Word doc icon, and so on).<br /><br />Don&#8217;t get me wrong at all: databinding is good and I use it every day.  <span style="font-style: italic;">Declarative databinding</span>, however, has never proved useful to me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-25T23:25:00-05:00" pubdate data-updated="true">Jul 25<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/07/25/jean-paul-understands/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/07/25/jean-paul-understands/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/07/25/say-hello/" title="Previous Post: Say Hello">&laquo; Say Hello</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/07/25/reddit-expansion/" title="Next Post: Reddit Expansion">Reddit Expansion &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

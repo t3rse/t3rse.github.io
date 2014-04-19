@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Keyboard Shortcuts With Javascript - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{Creating shortcuts on textboxes is none too difficult in Javascript, but (and don&#8217;t get me wrong - I love Mr. Flanagan) the Rhino book is a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2007/03/02/keyboard-shortcuts-with-javascript">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Keyboard Shortcuts With Javascript</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-03-02T20:47:00-06:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Creating shortcuts on textboxes is none too difficult in Javascript, but (and don&#8217;t get me wrong - I love Mr. Flanagan) the <a href="http://www.amazon.com/dp/0596101996?tag=davidflanagancom&camp=14573&amp;creative=327641&linkCode=as1&amp;creativeASIN=0596101996&adid=1DZYSV00EEJ1FSS84DY1&amp;">Rhino book</a> is a bit abstruse. I was adding this functionality to my night project and pared it down to:<br /><br /><span style="font-family:courier new;font-size:85%;">function handleKeyCommand(event){ </span><br /><span style="font-family:courier new;font-size:85%;">var e = event window.event; // Key event object </span><br /><span style="font-family:courier new;font-size:85%;">var kCode = e.keyCode &#166;&#166; e.which; // What key was pressed </span><br /><span style="font-family:courier new;font-size:85%;">// I am trapping Ctrl+e (69) here </span><br /><span style="font-family:courier new;font-size:85%;">if(e.ctrlKey &&amp; (kCode == 69)){ </span><br /><span style="font-family:courier new;font-size:85%;">var theButton = document.getElementById(&#8216;actionButton&#8217;); </span><br /><span style="font-family:courier new;font-size:85%;">theButton.click(); </span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />I&#8217;m calling that from the onKeyDown event of a TextArea the boring way; because I&#8217;m assigning it from the server side in ASP.NET, I have:<br /><br /><span style="font-family:courier new;font-size:85%;">actionButton.Attributes.Add(&#8220;onKeyDown&#8221;, &#8220;handleKeyCommand(event);&#8221;);</span><br /><br />Which translates to onKeyDown=&#8221;handleKeyCommand(event)&#8221;&#8230; the Web 2.0 kids would thumb this down since it&#8217;s not an <a href="http://raibledesigns.com/rd/entry/tse_building_modern_web_applications">anonymous javacript function</a> assigned after the page is loaded (I need to question that &#8220;inobtrusive javascript&#8221; ideology, but it&#8217;s a post in the making), but this keeps it simple.<br /><br />The main pitfall for me was in using onKeyDown rather than onKeyPress - the latter is more appropriate for obtaining ASCII related keyboard events, not special keys like shift, control, and so on. Another pitfall was browser compatibility; Flanagan also uses a nifty idiom when he allows the assignment of the event object occur with the operator. It returns the first true value and since an unassigned object returns false in javascript, writing the following assigns a reference to the event object based either on the parameter which would be passed by the browser (Firefox) or the built in window.event object (IE):<br /><br /><span style="font-family:courier new;font-size:85%;">var e = event &#166;&#166; window.event; // Key event object </span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Thanks Aaron, very good alternative with a smaller footprint.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+So another way to get a form button clicked using the keyboard: accesskey. <BR/><BR/>&lt;input type=&#8221;submit&#8221; name=&#8221;go&#8221; value=&#8221;Click me&#8221; accesskey=&#8221;e&#8221; /&gt;<BR/><BR/>In FF 2: use ALT-SHIFT-E<BR/>In pre FF 2: use ALT-E<BR/>In IE: use ALT-E<BR/><BR/>One difference is that in IE the button just gets focus while in FF the button is actually clicked, you can work around this by adding both an accesskey and an onfocus attribute:<BR/><BR/>&lt;input type=&#8221;submit&#8221; name=&#8221;go&#8221; value=&#8221;Click me&#8221; accesskey=&#8221;e&#8221; <BR/>onfocus=&#8221;document.form.submit()&#8221;<BR/>/&gt;<BR/><BR/>Safari doesn&#8217;t support accesskey&#8217;s, but that&#8217;s just because it sucks.<BR/><BR/>AJ</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-03-02T20:47:00-06:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2007/03/02/keyboard-shortcuts-with-javascript/" data-via="t3rse" data-counturl="http://t3rse.github.io/2007/03/02/keyboard-shortcuts-with-javascript/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/03/02/fizbuzz-conundrum-ramanujan/" title="Previous Post: The FizBuzz Conundrum, Ramanujan">&laquo; The FizBuzz Conundrum, Ramanujan</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/03/09/perlcast-interviewed/" title="Next Post: Perlcast Interviewed">Perlcast Interviewed &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

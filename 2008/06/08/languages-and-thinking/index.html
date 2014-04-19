@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Languages and Thinking - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I&#8217;m approaching the end to a rough week and should be coding but the virus scanner on my office machine is slowing development to a point &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/06/08/languages-and-thinking">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Languages and Thinking</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-08T23:08:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m approaching the end to a rough week and should be coding but the virus scanner on my office machine is slowing development to a point where it&#8217;s not bearable for me.&#160; I&#8217;ll pass the time with a quick thought about how programming languages affect thinking and why it makes me both picky about languages I use and also curious to see how the different languages solve problems.</p>  <p>I will confess that the project I&#8217;ve been working on is written in VB.NET.&#160; The reason for that was very practical since our client was adept at VBA and needed to, on occasion, get to the code level of things.&#160; I&#8217;d spent a lot of time in Visual Basic (the &quot;classical&quot; VB) so I thought nothing of it - perhaps somewhat of a refreshment after so many years away.&#160; As we wrote more and more code, I started noticing a lot of nested &quot;If&quot; statements in the style of: </p>  <p></p>  <pre>If Some Condition Then<br />	If SomeOtherCondition Then<br />		If YetAnotherCondition Then</pre><br /><br /><p>You get the picture.</p><br /><br /><p>I remember working with a different VB programmer and she was also given to writing a lot of nested conditions in the same manner even though we were using C#:</p><br /><br /><pre>if(cond){<br />	if(cond2){<br />		if(cond3){	</pre><br /><br /><p>At the time it really bothered me in a &quot;code smell&quot; sort of way; nesting conditions, I would have argued, invites clutter and entropy. Since I&#8217;ve been attending Hanselman University for a while now I can say with more technical gravitas that they increase cyclomatic complexity and this was why they smelled bad. The alternative I would have wished for would have been:</p><br /><br /><pre>if(cond &amp;&amp; cond2 &amp;&amp; cond3){<br />...<br />}</pre><br /><br /><p>Pretty natural, right?&#160; Actually no, especially if you&#8217;re coming from Visual Basic because the Visual Basic And and Or operators don&#8217;t do short circuit evaluation.&#160; If you combine boolean expressions you have to make a mental note to verify that they both will work at runtime - that there is no dependency between them.&#160; That&#8217;s something a C# progammer completely takes for granted often writing code like this which is a ticking bomb in VB.NET (it won&#8217;t go off until you&#8217;re demonstrating the app to your client, trust me):</p><br /><br /><pre>If Not MyCollection Is Nothing And MyCollection(0) = &quot;Something&quot; Then<br />	...</pre><br /><br /><p>One expects the second expression will be passed if the first fails in a &quot;short circuit&quot; approach. Unfortunately, Visual Basic .NET will attempt to evaluate the second even if the first is not true!</p><br /><br /><p>To clean this all up the VB.NET folks provided the AndAlso and OrElse operators which do traditional short circuit evaluation. I read somewhere that the reason And and Or were left as is was for backward compatibility and people who were &quot;upgrading&quot; their code from Visual Basic to Visual Basic.NET. Using these operators you&#8217;re back to thinking &quot;normally&quot; as a C#, C, Javascript, etc&#8230; developer.</p><br /><br /><p>So back to my original thought - nested If blocks are a simple way around an operator that doesn&#8217;t short circuit and it&#8217;s a way of thinking if you&#8217;ve spent a lot of time writing Visual Basic code. The language is what drives that even though there may be alternatives. Even though it may produce cyclomatic complexity. Some people tell me picking a language is just a simple process of picking a tool, but I think it&#8217;s more than that; it&#8217;s picking a way of thinking. That&#8217;s why it&#8217;s not only important to me, it&#8217;s interesting to see how different languages lead us in different directions. Even if an idiom is available elsewhere, it&#8217;s getting to think that way that is most often&#160; the trick to being better in both languages.</p><br /><br /><p>One more side note, I can chart a few different ways in which new languages have affected me. Take a look at the type of thing I did before a lot: </p><br /><br /><pre>foreach(string s in stuff){	<br />	master += s + &quot;,&quot;;<br />}<br />master = master.Substring(0, master.Length -1);</pre><br /><br /><p>Nowadays:</p><br /><br /><pre>// like a map, I first started thinking this way from perl<br />stuff.ForEach(delegate(string s) { master += s + &quot;,&quot;; });<br />// like a join, very Pythonic<br />String.Join(&quot;,&quot;, stuff.ToArray())</pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Good post.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-08T23:08:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/06/08/languages-and-thinking/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/06/08/languages-and-thinking/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/06/01/galloway-et-al-roundtable-podcast/" title="Previous Post: Galloway et. al. Roundtable Podcast">&laquo; Galloway et. al. Roundtable Podcast</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/06/11/regex-replace-multiple-strings-in/" title="Next Post: Regex: replace multiple strings in a single pass with C#">Regex: replace multiple strings in a single pass with C# &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

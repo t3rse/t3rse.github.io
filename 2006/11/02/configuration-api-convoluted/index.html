@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Configuration API Convoluted? - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.Our &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/11/02/configuration-api-convoluted">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Configuration API Convoluted?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-02T20:11:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.<br /><br />Our application has had connection strings littered all over the place - okay, 8 to be exact and I know this because of my frequent usage of &#8220;replace in files&#8221; to toggle connection strings. But we&#8217;re at a point when this needs to be centralized and mutable without doing a new build.<br /><br />In my head this is simple: slap a config file into the project and off I go.  Some kind of one liner along the lines of:<br /><br />ConfLib.CONNECTION  = ConfigurationSettings.AppSettings[&#8220;Connect&#8221;];<br /><br />Simple, right?  I do it with web applications all the time.<br /><br />The first issue is that ConfigurationSettings, which the old school .NET folks are used to, is deprecated.  The message tells you to use ConfigurationManager but neglects to mention that a physical reference to System.Configuration.dll (in the GAC) is needed.  This isn&#8217;t a big issue and 2 minutes later I&#8217;ve referenced it, and rewritten my line of code as:<br /><br />ConfLib.CONNECTION  = ConfigurationManager.AppSettings[&#8220;Connect&#8221;];<br /><br />Not quite.  I&#8217;m now in the habit of doing unit tests so I realize that Visual Studio 2005 <span style="font-style: italic;">copies your libraries</span> to a new directory when it does unit tests.  I look at the &#8220;post build event&#8221; options and wonder if it&#8217;s worth the hassle. So instead I ditch the unit test and return to the main solution, manually copy the *.config file into my application&#8217;s directory and try.<br /><br />No dice.<br /><br />Maybe ConfigurationManager is too nebulous?  So I try the following:<br /><br />Configuration conf = ConfigurationManager.OpenExeConfiguration(&#8220;ConfigHelper.dll&#8221;);<br /><br />Which, when I run it in the debugger seems to pull my keys out of the config file but gives me an access violation when I try:<br /><br />ConfLib.CONNECTION  = conf.AppSettings[&#8220;Connect&#8221;];<br /><br />This is quite some time later and I&#8217;m pretty annoyed because I must have absolutely not gotten the memo or configuration is bloated.  Almost to prove to myself how simple this should be, I create a file called Settings.xml and put in a couple of elements and write the following:<br /><br />XmlDocument configDoc = new XmlDocument();<br />configDoc.Load(Path.Combine(Directory.GetCurrentDirectory(), &#8220;Settings.xml&#8221;));<br />ConfLib.CONNECTION = configDoc.SelectSingleNode(&#8220;//Database/text()&#8221;).Value;<br />ConfLib.VERSION = configDoc.SelectSingleNode(&#8220;//Version/text()&#8221;).Value;<br /><br />That simple.<br /><br />Granted I am WELL AWARE that the Configuration API has lots of goodies stuffed into it but should that make the process of pulling it out of a configuration file so convoluted?  Things that are designed well work for the simple things as easily as they solve the complex.<br /><br />My configuration files always have the same pattern: I create a class that is designed to read the xml file with static variables for each configuration value.  I use a static initializer to read these from the file and have a single static variable I reference when the app is loaded.  I&#8217;ve worked on a lot of stuff that benefits from this but almost always configuration stuff seems to boil down to a simple name/value pair you can leverage.<br /><br />I could have made an indexer and had the pulling look like the AppSettings collection on the ConfigurationManager but I dislike the fact that the compiler doesn&#8217;t catch errors related to misspelled key names. <br /><br />Oh well, I&#8217;ll leave it in its current state. Maybe I&#8217;ll get the memo tomorrow but I doubt it.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-02T20:11:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/11/02/configuration-api-convoluted/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/11/02/configuration-api-convoluted/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/10/31/classpath-struggle-even-jedi/" title="Previous Post: Classpath struggle, even the Jedi">&laquo; Classpath struggle, even the Jedi</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/11/04/configuration-api-confession/" title="Next Post: Configuration API Confession, Repentance">Configuration API Confession, Repentance &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Remove Carriage Return, Line Feed, Tab in TSQL - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{&#8211; remove carriage return, line feed, and tab from a field in tsqlREPLACE(REPLACE(REPLACE(MyField, CHAR(10), &#8221;), CHAR(13), &#8221;), &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/03/30/remove-carriage-return-line-feed-tab">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Remove Carriage Return, Line Feed, Tab in TSQL</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-30T15:59:00-05:00" pubdate data-updated="true">Mar 30<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><span style="color: rgb(0, 153, 0);">&#8211; remove carriage return, line feed, and tab from a field in tsql</span><br />REPLACE(REPLACE(REPLACE(MyField, CHAR(10), &#8221;), CHAR(13), &#8221;), CHAR(9), &#8221;)<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>GuitarSam7</div>
+<div class='content'>
+Superb!!  Thank yoU!!!</div>
+</div>
+<div class='comment'>
+<div class='author'>New blogger</div>
+<div class='content'>
+Life saver, thanks!! </div>
+</div>
+<div class='comment'>
+<div class='author'>ramakrishna</div>
+<div class='content'>
+thanks u very much this exactly im looking for..</div>
+</div>
+<div class='comment'>
+<div class='author'>Deepak Giri</div>
+<div class='content'>
+<b>Thanks,</b> was looking for exactly this! :)</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad Renstrom</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>raj</div>
+<div class='content'>
+TQ very much</div>
+</div>
+<div class='comment'>
+<div class='author'>Brent</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad</div>
+<div class='content'>
+That was exactly what I have been after.<br /><br />Thank you !</div>
+</div>
+<div class='comment'>
+<div class='author'>Me</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>alex_uk</div>
+<div class='content'>
+Found this helpful. Thanks you.</div>
+</div>
+<div class='comment'>
+<div class='author'>Safety Harbor Shaman</div>
+<div class='content'>
+Thanks, this line of code was great - did it exactly what I needed - <br /><br />Thx,<br /><br />Jon Bloom<br />http://www.tampabaybi.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Lily</div>
+<div class='content'>
+Thanks for your help my boyfriend was having many problems with that last week so when I saw your blog I called him immediately and even he pay for it to a technician we never imagine that it was so easy. <a href="http://www.safemeds.com/" rel="nofollow">Viagra Online</a> <br /> <a href="http://www.safemeds.com/generic-viagra.htm" rel="nofollow">Generic Viagra</a>  <a href="http://www.safemeds.com/viagra/buy.html" rel="nofollow">Buy Viagra</a></div>
+</div>
+<div class='comment'>
+<div class='author'>musclPete</div>
+<div class='content'>
+Excellent - googled it and in 20 seconds had a working app!!</div>
+</div>
+<div class='comment'>
+<div class='author'>caractacus</div>
+<div class='content'>
+Trim leading/trailing characters.<br /><br /><br />DECLARE @value VARCHAR(1000)<br />DECLARE @pat varchar(10) <br />SET @pat = &#39;%[^ &#39; + char(09) + char(10) + &#39;]%&#39;<br /><br />SET @value = CHAR(10) + &#39;   &#39; + CHAR(10) + &#39;message test &#39; + char(10) + &#39; values  &#39; + CHAR(10) + &#39;   &#39; + CHAR(10) + CHAR(10) + &#39;   &#39; + CHAR(10) <br /><br />SELECT SUBSTRING(<br />  @value, <br />  PATINDEX(@pat, @value),<br />  LEN(@value) - PATINDEX(@pat, @value) - PATINDEX(@pat, REVERSE(@value)) + 2)</div>
+</div>
+<div class='comment'>
+<div class='author'>Darkstar</div>
+<div class='content'>
+Pure Briliance!</div>
+</div>
+<div class='comment'>
+<div class='author'>Durga</div>
+<div class='content'>
+Thanks a million.Instant code.I fixed my code in exactly 5 mts with this Info</div>
+</div>
+<div class='comment'>
+<div class='author'>Bharath</div>
+<div class='content'>
+Thanks&#8230; This post helped me&#8230;.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nae</div>
+<div class='content'>
+thank you for your code.</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Do you have any suggestions on how to strip just the trailing CR/LFs?</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Perfect!</div>
+</div>
+<div class='comment'>
+<div class='author'>Katie</div>
+<div class='content'>
+Thank you so much! This is exactly what I was looking for - and so much more simple than everything else I found out there. Nice job!</div>
+</div>
+<div class='comment'>
+<div class='author'>ME2007</div>
+<div class='content'>
+I have a flat file with multiple lines that belong to one person account and i need to bring all lines to one line making them as one line of comma separate type data. For example as below:<BR/>DateIn&#8221; 2007/01/01 account:155555<BR/>name&#8221; john smith Age: 18<BR/>&#8212;&#8212;&#8211;<BR/>DateIn&#8221; 2007/01/01 account:166665<BR/>name&#8221; josh sammy Age: 20<BR/><BR/>With this example, how can i join the 2 lines to one line then i join the final 2 lines in one line.  By the way, i have been trying to work on this in my sql server 2000.<BR/><BR/>Thanks,<BR/><BR/>ME2007.</div>
+</div>
+<div class='comment'>
+<div class='author'>Oscar &#8220;Oggelito&#8221; Aagren</div>
+<div class='content'>
+Thanks, was looking for exactly this.</div>
+</div>
+<div class='comment'>
+<div class='author'>jakrpanda</div>
+<div class='content'>
+just wanted to say thanks for the snippet of SQL code to remove carriage return/line feeds</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-30T15:59:00-05:00" pubdate data-updated="true">Mar 30<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/03/30/remove-carriage-return-line-feed-tab/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/03/30/remove-carriage-return-line-feed-tab/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/02/25/simple-is-new-robust/" title="Previous Post: Simple is the new robust">&laquo; Simple is the new robust</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/03/31/comment-out-server-controls-aspnet/" title="Next Post: Comment Out Server Controls (ASP.NET)">Comment Out Server Controls (ASP.NET) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

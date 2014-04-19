@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Configuration API Confession, Repentance - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area. A few nights ago I thought I&#8217;d update my current &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/11/04/configuration-api-confession">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Configuration API Confession, Repentance</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-04T23:33:00-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area.  A few nights ago I thought I&#8217;d update my current development project to have its connection string maintained in a config file so that it could be changed without a recompile in a single location.<br /><br />I knew this was the approach we&#8217;d eventually take having used it like breathing on all of my previous .NET projects (which were ASP.NET).  But Windows Forms applications are slightly different and I ran into the brick wall of not grokking the structure Microsoft uses for configuration.<br /><br />The big problem in my understanding was that I wanted to have my configuration read in a separate library, thinking I&#8217;d reuse the pattern on any future project where I wanted to do something similar.  So I created a library project and knowing a little but not enough created a config file manually to use. Knowing a little but not enough (or not updated?) I named my configuration file ConfigHelper.dll.config because this is a well known convention in .NET. I also manually copied this file to the \bin folder and even considered adding a &#8220;post build event&#8221; to the Visual Studio 2005 project to do this. And when it didn&#8217;t work and my attempts to read the config file weren&#8217;t successful, I became very frustrated and even took the time to write it up.  Luckily no one besides <a href="http://www.cephas.net/blog/">A</a> the jedi master reads this blog so my voice of ignorance got drown in the black hole that is blogger. No matter: this blog is for me, like a &#8220;captains log&#8221; to chart my experiences and thoughts.<br /><br />I realized a while back that I knew just enough from the past few years programming ASP.NET to make ignorant mistakes and convoluted work-around solutions so I&#8217;ve been reading <a href="http://www.softinsight.com/bnoyes/">Brian Noyes&#8217;s</a> <a href="http://www.awprofessional.com/bookstore/product.asp?isbn=032126892X&rl=1">Data Binding with Windows Forms 2.0</a> on <a href="http://safari.oreilly.com">Safari</a> trying to grok the whole picture as Microsoft intends it. <br /><br />So here is the skinny, as embarrasing as it is for me to explain how wrong I had it:<br /><br />1. In your project, create an App.config file.  In Visual Studio 2005 this is the &#8220;Application Configuration File&#8221; option.<br />2. Make entries as you like in the configuration file.<br />3. Compiling your application will produce a MyAssembly.exe.config or MyLibrary.dll.config file in the \bin directory.<br />4. Libraries aren&#8217;t meant to read from their own configuration files. Hence attempting to read an entry even if you&#8217;ve manually copied over your MyLibrary.dll.config file will result in an empty string once retrieved. BUT!<br />5. BUT! BUT! The library is designed to read values from the configuration file of the executable.  So if you place the following line in your library:<br />string foo = ConfigurationManager.AppSettings[&#8220;bar&#8221;];<br />Your library is looking for the &#8220;bar&#8221; value in the configuration file of your application.<br /><br />To my own credit, a lot of the time when I find myself fighting with something I usually know deep down that it&#8217;s a struggle to understand what the framework designer intended and not something that is &#8220;stupid.&#8221;  In this case, what the framework designers intended is quite elegant because when you have, like us, many different libraries that all need to pull something common (connection string is probably most obvious) it can be based on the configuration of the application and managed in a single location.<br /><br />Okay, now that I got the memo, I can move on.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >} </span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-04T23:33:00-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/11/04/configuration-api-confession/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/11/04/configuration-api-confession/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/11/02/configuration-api-convoluted/" title="Previous Post: Configuration API Convoluted?">&laquo; Configuration API Convoluted?</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/11/09/falsification-and-unit-testing/" title="Next Post: Falsification and Unit Testing">Falsification and Unit Testing &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

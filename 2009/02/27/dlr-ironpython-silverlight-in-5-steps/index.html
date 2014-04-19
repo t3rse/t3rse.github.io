@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DLR + IronPython + Silverlight in 5 Steps (With Pictures) - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ A simple step by step1. 1. Download the Silverlight DLR SDK 2. Map the binaries (the folder with Chiron2 et. al.)&#160; in your PATH Environment &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2009/02/27/dlr-ironpython-silverlight-in-5-steps">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">DLR + IronPython + Silverlight in 5 Steps (With Pictures)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-27T01:35:00-06:00" pubdate data-updated="true">Feb 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A simple step by step<sup>1</sup>.</p>  <p>1. Download the <a href="http://www.codeplex.com/sdlsdk/Release/ProjectReleases.aspx?ReleaseId=11955">Silverlight DLR SDK</a></p>  <p>2. Map the binaries (the folder with Chiron<sup>2</sup> et. al.)&#160; in your PATH Environment variable.     <br />    <br /><img src="http://seruyange.com/metadeveloper/ChironPath.jpg" /> </p>  <p>3. Download <a href="http://seruyange.com/metadeveloper/Starter.zip">this starter template</a>.</p>  <p>4. Run <font face="Courier New"><strong>chiron /w</strong></font> from the command line in the directory of the starter.     <br />    <br /><img src="http://seruyange.com/metadeveloper/ChironInit.jpg" />     <br />    <br /><em>a) Make sure you&#8217;re in the correct folder      <br />b) The command is</em><font face="Courier New"><em> </em><strong><em>chiron /w          <br /></em></strong></font><em>c) You&#8217;ll get a message that Chiron is serving at </em><a href="http://localhost:2060"><em></em><a href="http://localhost:2060a">http://localhost:2060</a></a>a</a></p>  <p>5. Navigate to <a href="http://localhost:2060">http://localhost:2060</a> and hit index.html to see what&#8217;s up.</p>  <p><img src="http://seruyange.com/metadeveloper/ChironRunning.jpg" />     <br />    <br /><img src="http://seruyange.com/metadeveloper/StarterPyLight.jpg" />&#160; <br />The starter<sup>3</sup> should make it easy to get up and running. Open the <em>app.py</em> and <em>app.xaml</em> files and you will be able to modify the xaml and write code to customize it into your own creation.</p>  <p>1. Michael Foord aka Voidspace is <strong>the guy</strong> when it comes to IronPython. He wrote a book on it. He has <a href="http://www.voidspace.org.uk/ironpython/silverlight/introduction.shtml">a &quot;getting started&quot; tutorial that is much more extensive</a> if you want more details. His tutorial isn&#8217;t as terse so I thought I&#8217;d write this one for people who just want a step by step before poking around. There are other people like <a href="http://blog.jimmy.schementi.com/">JimmyThinking</a> who offer a lot of help to beginners but lean towards IronRuby.</p>  <p>2. The name <a href="http://en.wikipedia.org/wiki/Chiron">Chiron</a> for a tool makes me think about a few things: first, being born out of time since most BigCo shops today name computers and tools in a hollow, mechanistic fashion. In the salad days of computing on Unix, tools had cool names like ed or yacc. The second thing I think is that <a href="http://blogs.msdn.com/dmitryr/default.aspx">Dmitri</a> (and I&#8217;m sure there&#8217;s an &quot;et. al.&quot;) must be a cool, interdisciplinary fellow to come up with a name like that.</p>  <p>3. The exchange in the sample is from Swahili classes at <a href="http://www.rusinga.ac.ke/">Rusinga Primary School</a> in Nairobi.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>gefilte</div>
+<div class='content'>
+When you said &#8220;in 5 steps&#8221; I was hoping for interpretive dance.  C&#8217;est la vie.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-27T01:35:00-06:00" pubdate data-updated="true">Feb 27<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2009/02/27/dlr-ironpython-silverlight-in-5-steps/" data-via="t3rse" data-counturl="http://t3rse.github.io/2009/02/27/dlr-ironpython-silverlight-in-5-steps/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/02/26/nregex-9/" title="Previous Post: nRegex 9">&laquo; nRegex 9</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/03/03/ironpython-silverlightfx/" title="Next Post: IronPython + SilverlightFX">IronPython + SilverlightFX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

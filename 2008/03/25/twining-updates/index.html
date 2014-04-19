@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twining Updates - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ What&#8217;s the big picture and why are you doing it? A comment from my last post got me thinking I need to get back to the big picture. Robert &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/03/25/twining-updates">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twining Updates</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-25T00:42:00-05:00" pubdate data-updated="true">Mar 25<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>What&#8217;s the big picture and why are you doing it?</p> <p>A comment from my last post got me thinking I need to get back to the big picture. Robert wrote: </p> <blockquote> <p>Wow. That looks like a hard way to solve your problem. <br>If you absolutely have to mangle Excel data through Python and into a database&#8230; can I recommend Resolver? It won&#8217;t cost you anything and it might just solve your problem.</p></blockquote> <p>I&#8217;ll post about Resolver in a second but I want to go back to my original thoughts on developing Twining. I spend a lot of time doing quick and dirty types of data import and export.&nbsp; Sometimes it&#8217;s grabbing stuff off a production system so that I can develop off of it. Other times we get a simple file from someone and we need to pull it into the database.&nbsp; Still other times we move data from one location to the next because we&#8217;ve done staging or cleanup.&nbsp; <p>Traditionally the Microsoft tools for this are quite heavy.&nbsp; DTS, which I used a lot, and SSIS which I haven&#8217;t used much but have heard and read about are both GUI/IDE approaches towards the problem.&nbsp; SSIS in particular isn&#8217;t an out of the box solution for a developer like myself who doesn&#8217;t always install every iota of SQL Server tool there is to install.&nbsp; Usually I can express my problems in a simple sentence:  <p>&#8220;Copy the data from this table to that table.&#8221;<br>&#8220;Build an insert script for this table&#8217;s data&#8221;<br>&#8220;Import this CSV file to this database&#8221; <p>I wondered why language couldn&#8217;t be used as a tool for this type of work rather than launching a big GUI tool or writing throwaway C# console applications for the job.&nbsp; That&#8217;s the origin of the thought, cultivated when I heard Neal Ford give a talk at CodeMash on DSLs.&nbsp; A single &#8220;sentence&#8221; lodged itself in my head and I thought, wow, that would be a nice solution: <p>database(&#8220;foo&#8221;).tables(&#8220;bar&#8221;).copyto.database(&#8220;biff&#8221;) <p>I have to admit to being more of a gardener than an architect when it comes to these things so I started a notepad file with some &#8220;forms&#8221; I thought would work and one friday afternoon, after being burned out on regular work I started what I call &#8220;sketching&#8221;; seeing how things might work. Since then I&#8217;ve been gnawing on it in a public way since learning Python and thinking in a Pythonic way are probably even more important than my little module which may end up just being fabulous meware. <p>I had posted that I had a little database import project of about 110,000 records distributed over two excel files.&nbsp; The story I got was exactly the one I envisioned:  <p><font face="Courier New" size="2">cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB;Integrated Security=SSPI;&#8221;<br>colmap = {&#8220;Field1&#8221;:0, &#8220;Field2&#8221;:5, &#8220;Field3&#8221;:7} #destination:source - you may want to use the same source multiple times&#8230;<br>database(cn).table(&#8220;DestinationTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;temp&#92;widgetCo&#92;update1.csv&#8221;)<br>database(cn).table(&#8220;DestinationTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;temp&#92;widgetCo&#92;update2.csv&#8221;)</font> <p>I will admit it wasn&#8217;t perfect the first time - my lazy use of string concatenation rather than the .NET StringBuilder was a huge penalty (~10 minutes). I rewrote those pieces and the whole process took less than 30 seconds. Cheers for ADO.NET on that one - the updates were _massive. <p>So, back to Resolver; I read <a href="http://www.sdtimes.com/content/article.aspx?ArticleID=31818">a glowing review</a> from Larry O&#8217;Brien (his column is the first thing I read in SD Times when it crosses my desk) and the comment propelled me to watch <a href="http://www.resolversystems.com/screencasts/resolver-one-in-one/">a few</a> <a href="http://www.resolversystems.com/screencasts/web-app-in-10-mins/">screencasts</a> and <a href="http://www.resolversystems.com/documentation/index.php/Writing_to_a_database">dig around</a> but the goal of the product wasn&#8217;t quite in line with the story I recount above.&nbsp; Perhaps it&#8217;s possible but it seems more like an interface in which one dwells on providing complex functionality in the spreadsheet rather than just quick and dirty import/export business. <p>More updates forthcoming but a short note: I spent a good part of the weekend trying to read through the code of <a href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj 4</a> courtesy of Michael Foord (aka &#8220;Fuzzyman&#8221; aka &#8220;Voidspace&#8221;).&nbsp; I&#8217;ll dwell on it further soon but one thing I realized I&#8217;d done that was a big mistake is to break the project into lots of files. I put them back together again and am in the process of figuring out how and where to host them. CodePlex/Google Code? Not sure if it&#8217;s ready for that yet.&nbsp; My own abode <a href="http://www.t3rse.com">t3rse</a> might work but I&#8217;d like to figure out how to generate documentation before I do that&#8230; <p>Enough said, <a href="http://www.t3rse.com/twining/Twining.py.txt">here is what&#8217;s latest</a>, details and unit tests tomorrow. <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+&#8220;trying to read through the code of ConfigObj 4&#8221; - what are you mad! That code wasn&#8217;t meant to be read. :-)<BR/><BR/>The parser at the heart of ConfigObj is pretty nasty, but the rest of the code should be ok. A lot of the methods are too long though, the code should definitely be more modular.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-25T00:42:00-05:00" pubdate data-updated="true">Mar 25<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/03/25/twining-updates/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/03/25/twining-updates/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/03/19/twining-iron-python-dsl-for-db-update-v/" title="Previous Post: Twining: Iron Python DSL for DB Update V">&laquo; Twining: Iron Python DSL for DB Update V</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/03/26/unit-tests-with-iron-python/" title="Next Post: Unit Tests with Iron Python">Unit Tests with Iron Python &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

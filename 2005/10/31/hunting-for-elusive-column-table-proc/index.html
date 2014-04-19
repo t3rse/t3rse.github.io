@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hunting for the Elusive Column, Table, Proc, ... - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{One of our clients has a Microsoft SQL Server table with 284 fields. So when I&#8217;m given a spec that references the &#8220;OrigLoanAmount&#8221 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2005/10/31/hunting-for-elusive-column-table-proc">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hunting for the Elusive Column, Table, Proc, ...</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-31T22:22:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">One of our clients has a Microsoft SQL Server table with 284 fields. So when I&#8217;m given a spec that references the &#8220;OrigLoanAmount&#8221; field, it&#8217;s sometimes difficult to ascertain where that field lives. On some systems, especially if you&#8217;ve got familiarity where data are likely to be stored, you can make an educated guess. But if you&#8217;re interested in some quick digging, try these queries from the Information Schema views:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; find that elusive column</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Columns WHERE Column_Name LIKE &#8216;%MyColumn%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; list out the tables</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Tables</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">For procedures, views, and functions, I&#8217;ve just queried sysobjects. I learned this from a guy who was in my class once; I used to be one of the hapless Enterprise Manager users until I saw him digging effortlessly with queries like:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all stored procedures</span><br /><span style="font-size:85%;">SELECT * FROM syobjects WHERE type = &#8216;p&#8217; AND name NOT LIKE &#8216;dt%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all views </span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;v&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all user defined functions</span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;FN&#8217; </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">&#8230; and so on. </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-31T22:22:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2005/10/31/hunting-for-elusive-column-table-proc/" data-via="t3rse" data-counturl="http://t3rse.github.io/2005/10/31/hunting-for-elusive-column-table-proc/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/10/31/web-developer-tools/" title="Previous Post: Web Developer Tools">&laquo; Web Developer Tools</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/11/01/remedial-css/" title="Next Post: Remedial CSS">Remedial CSS &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

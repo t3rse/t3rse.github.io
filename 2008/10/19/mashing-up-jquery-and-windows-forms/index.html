@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mashing Up: JQuery and Windows Forms, a First WIB - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/10/19/mashing-up-jquery-and-windows-forms">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mashing Up: JQuery and Windows Forms, a First WIB</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-19T00:52:00-05:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for practical reasons but also think there are advantages to fat clients that sit on the Windows platform. I&#8217;m getting to a point where I will start doing more than poking around with WPF but at present two factors hold me at bay: the control library is not robust enough (another tutorial of how to make a custom button in blend isn&#8217;t incentive enough) and XAML is still a bit daunting for what usually end up being rather involved UIs. Here, for example, is a UI from an application I&#8217;ve been working on for a while (small intentionally to impart an idea of complexity without revealing any details):</p>  <p><img src="http://seruyange.com/metadeveloper/Torment.jpg" /> </p>  <p>I think a lot of &quot;do it in XAML&quot; problems can be solved with a more web development style paradigm in Windows. A simple example is template driven databinding with styles. That&#8217;s easy to do in web applications but a little less flexible in a control based world (think a GridView with CSS versus the Windows Forms DataGridView). </p>  <p>As a proof of concept I decided to use the System.Windows.Forms.WebBrowser in a Windows Forms application to get cool features from JQuery while maintaining the strengths of a windows app. Here&#8217;s the scenario: a photo manager application. It builds and manages a database of photos from a digital camera. Rather than uploading the 300+ pictures taken in a single session to Flickr (or in conjunction with that act) one can open it up, start annotating their files and saving the comments to a portable &quot;database&quot; that they can back up along with the files on their home machine.&#160; On any machine with the application they point to the directory and can view their original comments along with the pictures. Here is a screen shot:</p>  <p><img src="http://seruyange.com/metadeveloper/Photobase.jpg" /> </p>  <p>The strength in this scenario of Windows Forms is the ease with which one can build the editing interface: textboxes, buttons and other &quot;drag / drop&quot; pieces of the control library. The strength of JQuery is in the display - I&#8217;ve chosen to use an animation and the accordion to spruce up the interface where the user looks at their photos.</p>  <p><a href="http://seruyange.com/metadeveloper/WibPhoto.zip">You can download the whole thing here</a>. (Very 0.1 but posted as an example/idea - just use the next / previous buttons to view some photos, get a feel of things).</p>  <p>I wonder if this paradigm can be a kind of Ajax &quot;aha&quot; moment; Ajax was centered on the use of a single, relatively simple MSXML component. Though System.Web.Forms.WebBrowser is not simple, it&#8217;s a single component that has a lot of room for leverage.&#160; Ajax set up some pretty standard protocols / approaches to using asynchronous HTTP requests from a client - I think an interesting parallel could exist in wrapping jQuery and Html controls into a kind of framework that is easy for any developer to use with the WebBrowser control. Imagine a grid you drop with some properties and a CSS.&#160; The last thing that made Ajax pop was the catchy name. I love naming things myself so I&#8217;ve been calling this kind of application a WIB (Windows + Web) but perhaps there&#8217;s something more catchy one could use.</p>  <p>Just some ideas, I&#8217;d be curious in the following: </p>  <p>1. Any existing applications written with this approach.    <br />2. Any potential applications that could benefit with the pros of both Windows and Web     <br />3. Any glaring shortfalls </p>  <h1><font color="#0000ff">}</font></h1>  <p>&#160;</p>  <p>ps. Thanks to Corey for encouragement on the blogging tip.</p>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Atul Rungta</div>
+<div class='content'>
+wow&#8230;. its awesome&#8230;. thnx for idea&#8230;. gr8 approach&#8230;.<br />wait one month and you can watch a demo application at http://www.itxgen.com</div>
+</div>
+<div class='comment'>
+<div class='author'>нет!</div>
+<div class='content'>
+Hello, any luck with that ?</div>
+</div>
+<div class='comment'>
+<div class='author'>thomas_huber</div>
+<div class='content'>
+Awesome - wow.<br />Thanks for this example.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-19T00:52:00-05:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/10/19/mashing-up-jquery-and-windows-forms/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/10/19/mashing-up-jquery-and-windows-forms/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/10/01/yui-file-disjoin-complexity-help/" title="Previous Post: YUI File Disjoin Complexity HELP">&laquo; YUI File Disjoin Complexity HELP</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/10/20/better-know-framework-zip-package/" title="Next Post: Better Know a Framework: Zip / Package Multiple Files in C#">Better Know a Framework: Zip / Package Multiple Files in C# &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

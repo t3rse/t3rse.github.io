@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Yegge's Kingdom of Nouns - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I&#8217;m late to the party once again; I discovered Steve Yegge just recently and ran across his essay &#8221;Execution in the Kingdom of Noungs &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/08/12/yegges-kingdom-of-nouns">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Yegge's Kingdom of Nouns</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-08-12T08:42:00-05:00" pubdate data-updated="true">Aug 12<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;m late to the party once again; I discovered <a href="http://steve-yegge.blogspot.com/">Steve Yegge</a> just recently and ran across his essay &#8221;<a href="http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html">Execution in the Kingdom of Noungs</a>.&#8221;  Yegge is a great writer and I can see why the essay recieved a lot of attention.  Yegge basically asserts that Java is a kingdom of nouns; a language which focuses on things (objects) which he parallels as &#8220;nouns&#8221; over actions which he parallels as &#8220;verbs.&#8221; This leads to a lot of verbose monstrositities in code and is, in his opinion, a bad thing compared to languages where verbs are parallel or even more first class than nouns - from which we get references to functional languages and the nirvana of LISP.<br /><br />I remember learning java many years ago coming from the black sheep of all programming languages, Visual Basic.  When I got to programming user interfaces with AWT and SWING, I remember being mesmerized by the sheer weight of it.  In Visual Basic, one would double click on a button and the tool would create an event procedure that looked like this:<br /><br />Sub MyButton_Click()<br />  &#8216;code here<br />End Sub<br /><br />I made the assumption that the tool was abstracting details away for me, but it was simple, intuitive, and effective.<br /><br />In Java, I learned that to write an event handler I needed to implement an interface with a different class or override a method from an anonymous instance of a class that implemented the event handling interface.  At first it seemed cool to throw all the terms around: &#8220;listener interface, anonymous instance&#8230; &#8221; but I had trouble stitching it all together cohesively by hand.  It&#8217;s been a while but I remember liking the idea of keeping a separate class to do my event handling rather than using an anonymous one but running into the trickiness of making references to data in the UI class where the event was being triggered. <br /><br />I thought this was just a matter of tools; if I got the right IDE I would be able to nail the issue. But the IDEs I used tended to do things differently; I&#8217;m digging into memory here but I remember liking Borland&#8217;s JBuilder for development and disliking how it used Borland helper classes for event handling to try to clean things up.<br /><br />I think Yegge could have driven his point home about nouns if he&#8217;d focused entirely on event handling.  To handle an event you need to know about two nouns: the listener interface and the class that implements that interface for you wherein you are given an opportunity to write your code. <br /><br />I remember getting finally to go to training in Java (after I&#8217;d taught myself most of what I&#8217;d eventually know) and asking about that.  People looked at me with the condescending &#8220;complexity is cool&#8221; look that usually sends Visual Basic programmers back to their environments to be productive.<br /><br />And I can see some niceties of the extra nouns in Java.  Building even more layers of abstraction is easier (e.g. handling many events with the same class implementing the listener interface) -<br /><br />It&#8217;s been a long time but I may be returning to the Java world; I made need to get Java certification for academic reasons. It will be interesting to study the language again with these thoughts in mind.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-08-12T08:42:00-05:00" pubdate data-updated="true">Aug 12<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/08/12/yegges-kingdom-of-nouns/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/08/12/yegges-kingdom-of-nouns/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/08/07/joel-mapreduce-javascript-closures/" title="Previous Post: Joel, MapReduce, Javascript Closures, Flanagan">&laquo; Joel, MapReduce, Javascript Closures, Flanagan</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/08/16/kiko-down-for-count-but/" title="Next Post: Kiko, Down For the Count But...">Kiko, Down For the Count But... &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

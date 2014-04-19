@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Reading Source, Minima III - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ As my reading of Minima source code continues I wanted next to comment upon the database interaction which is novel (to me at least) in that it is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/07/29/reading-source-minima-iii">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Reading Source, Minima III</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-29T00:05:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>As my reading of <a href="http://www.codeplex.com/Minima">Minima source code</a> continues I wanted next to comment upon the database interaction which is novel (to me at least) in that it is exclusively a LINQ implementation with no stored procedure or ADO.NET implementation.&#160; I&#8217;ve seen LINQ quite a bit, but many using it seem to stick to using the query syntax rather than using raw lambda expressions.&#160; All the LINQ in Minima that I&#8217;ve seen uses lambda expressions and I&#8217;ve&#160; come to appreciate it as a clean, sparse syntax.&#160; To illustrate a more trivial example, assuming I have a table Users with Username / Password columns I wanted to verify for access. The first step with all things LINQ is to make your data model, which amounts to a DBML file that you map database objects to with drag and drop. Next you can write query expressions to pull data out of the database - notice that the db variable here points to the data model as embodied in a &quot;data context&quot; object: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            var authUserQuery = from u in db.Users <br />                    where u.Email == Login1.UserName &amp;&amp; u.Passphrase == Login1.Password<br />                        select u;</pre><br /><br /><p>Unfortunately the query expressions return an IEnumerable&lt;T&gt; that doesn&#8217;t support a Count or Length property. It&#8217;s a somewhat inflexible thing that in my *very* limited experience is useful mainly for iterating with a ForEach - and I suspect it&#8217;s reasons like this that led Betz to using a lambda syntax that is much cleaner and gets more bang with less code: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;Data.User, Boolean&gt; checkUser = x =&gt; x.Email == Login1.UserName &amp;&amp; x.Passphrase = Login1.Password;<br />            Data.User u = db.Users.SingleOrDefault(checkUser);</pre><br /><br /><p>You can use nullability to test for the presence of a record based on the LINQ query. Some source from Minima that demonstrates this is verification of the existence of a blog author: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;AuthorLINQ, Boolean&gt; authorExists = x =&gt; x.AuthorEmail == authorEmail;<br />            authorLinq = db.Authors.SingleOrDefault(authorExists);<br />            if (authorLinq == null)<br />            {<br />                throw new ArgumentException(message);<br />            }</pre><br /><br /><p>It&#8217;s truly novel and I don&#8217;t mean to make that sound like a trivial or ornamental type &quot;novel&quot; I write; after spending so much time building a data access layer with stored procedures and ADO.NET (Connection, Command, Reader, DataSet, ad nauseum) it seems like our collective destiny is to walk away from that and let something like a DBML data context do black magic for us.</p><br /><br /><p>Even though the ADO.NET Entity Framework is getting a <a href="http://efvote.wufoo.com/forms/ado-net-entity-framework-vote-of-no-confidence/">FAIL</a> vote from some people, I&#8217;m interested to see how this overlaps with LINQ. Even after listening to Hanselman&#8217;s <a href="http://www.hanselminutes.com/default.aspx?showID=120">interview</a> of Mike Pizzo I&#8217;m still a little unclear. My plan of action is to get serious about NHibernate to try to understand, as Scott would say, &quot;the gestalt&quot; of an ORM and then make the call on ADO.NET Entity Framework when it&#8217;s released.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-29T00:05:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/07/29/reading-source-minima-iii/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/07/29/reading-source-minima-iii/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/07/24/twining-twydl/" title="Previous Post: Twining, TwyDL">&laquo; Twining, TwyDL</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/09/30/yui-file-disjoint-complexity-fail/" title="Next Post: YUI File Disjoint Complexity FAIL">YUI File Disjoint Complexity FAIL &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

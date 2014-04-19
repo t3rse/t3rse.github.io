@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Interesting Data Points From How Facebook Ships Code - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I ran across this blog entry which is an unofficial attempt by somoene to glean the internal workings of Facebook’s product and software &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2011/01/24/interesting-data-points-from-how">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Interesting Data Points From How Facebook Ships Code</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T23:57:00-06:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <p>I ran across <a href="http://framethink.wordpress.com/2011/01/17/how-facebook-ships-code/">this blog entry</a> which is an unofficial attempt by somoene to glean the internal workings of Facebook’s product and software development processes. There are some very interesting things to be noted, most of which I’ll just quote from the article directly: </p>  <blockquote>   <p>“resourcing for projects is purely voluntary”</p> </blockquote>  <p>It’s interesting from this unofficial post that project dynamics are organic and based on what engineers want to work on. It begs the question of how the more difficult and less pleasing problems are solved but I would hedge that by having people who are talented and motivated, difficult and more grimy problems might be what attract people that are always seeking challenges. Indeed, from later in the article: “<em>engineers generally want to work on infrastructure, scalability and “hard problems” — that’s where all the prestige is.</em>”.</p>  <blockquote>   <p>“Engineers handle entire feature themselves — front end javascript, backend database code, and everything in between.&#160; If they want help from a Designer (there are a limited staff of dedicated designers available), they need to get a Designer interested enough in their project to take it on.&#160; Same for Architect help.&#160; But in general, expectation is that engineers will handle everything they need themselves.”</p> </blockquote>  <p>This is one of the more fascinating points because it reflects one side of an approach to programming that I’ve encountered: that delivering some functionality is a process of ownership where a person generalizes across disciplines and technologies. The opposing viewpoint sees programming more in terms of division of labor with staff assigned to “tiers” of the technological back end: database developers, “business layer” or component programmers, user interface and so on. I always think of sports with this dichotomy where the former thinks of software development like basketball – a game that involves some specialization but really rewards the generalist who can play any role on a team, and football – a game of specialists where it’s a liability to do too many things since even the physique is developed on a per position basis. </p>  <p>Many people acknowledge generalists for small organization but it appears that Facebook, a company as large as they come, prefers them. </p>  <blockquote>   <p>“engineers responsible for testing, bug fixes, and post-launch maintenance of their own work.&#160; there are some unit-testing and integration-testing frameworks available, but only sporadically used.”</p> </blockquote>  <p>There are a few edits and comments to this point but the reason I find it interesting is that they are a corollary to the views that Joel Spolsky expressed on the StackOverflow podcast. Many developers, myself included, berate ourselves on a lack of unit testing with the assumption that “everyone is doing it, why can’t I?” As time passes, however, I realize that TDD and Unit Testing are very important but not essential. It’s a very unpopular opinion and while I admit that I strive to make my code testable and, especially on personal projects where I have enough control, architect my software so that it’s testable from the get-go. </p>  <h3><font color="#0000ff">}</font></h3>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-24T23:57:00-06:00" pubdate data-updated="true">Jan 24<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2011/01/24/interesting-data-points-from-how/" data-via="t3rse" data-counturl="http://t3rse.github.io/2011/01/24/interesting-data-points-from-how/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/01/22/learning-f-with-fizzbuzz-match/" title="Previous Post: Learning F# with FizzBuzz: Match">&laquo; Learning F# with FizzBuzz: Match</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/01/29/primes-sums-of-primes-2011-in-c/" title="Next Post: Primes, Sums of Primes, 2011 in C#">Primes, Sums of Primes, 2011 in C# &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

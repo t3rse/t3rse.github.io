@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>NRegex - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I embarrassed myself today (yelling at the work desk, telling everyone I&#8217;d take them to McDonalds)&nbsp;but with good cause: a tool I wrote &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2007/08/24/nregex">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">NRegex</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-24T23:39:00-05:00" pubdate data-updated="true">Aug 24<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1>{</h1> <p><a href="http://www.nregex.com" atomicselection="true"><img src="http://www.nregex.com/nregex/images/nregex.gif"></a> </p> <p>I embarrassed myself today (yelling at the work desk, telling everyone I&#8217;d take them to McDonalds)&nbsp;but with good cause: <a href="http://www.nregex.com/nregex/default.aspx">a tool</a> I wrote some time back made it to Scott Hanselman&#8217;s <a href="http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx">2007 Ultimate Developer/Power User Tools List</a>. The goal of the tool was simple: to do browser based&nbsp;evaluation of regular expressions using the .NET engine.&nbsp; Prior to writing it I would frequent <a href="http://www.rexv.org/">Rexv.org</a> but because the engines supported there were different, I&#8217;d usually have to do some conversion to get things to the .NET world. </p> <p>There are quite a few .NET Regular Expression tools: <a href="http://www.ultrapico.com/Expresso.htm">Expresso</a>, which is my first and favorite since I&#8217;ve used it longest, but also tools like Roy Osherove&#8217;s <a href="http://tools.osherove.com/CoolTools/TheRegulator/tabid/185/Default.aspx">The Regulator</a>. The problem with these tools, however, was that as fat clients I wasn&#8217;t always easily able to use them: I work on different machines (home, work, client sites) and also assist people quite a bit away from my desk.</p> <p>There are also quite a few Regular Expression tools for the web, Rexv, which I mentioned before but also RegexPal. But these tools support either javascript or alternate implementations so patterns like (?&lt;foo&gt;\w+) usually return some kind of error.&nbsp; </p> <p>The way <a href="http://www.nregex.com">Nregex</a> works is pretty straight forward: I&#8217;m using <a href="http://developer.yahoo.com/yui/">YUI</a> for the Ajax library and working with the .NET implementation of the regular expression on the server.&nbsp; A simultaneous goal of mine is to get into more of YUI because I&#8217;m always building little knick-knacks in javascript and I think it&#8217;s the library to beat right now.</p> <p>Of course it&#8217;s a fledgling: I worked on it a few nights when I could and fixed bugs here are there when I had a moment.&nbsp; Please use it and give me <a href="http://www.nregex.com/nregex/Feedback.aspx">feedback</a> since that will be my biggest help in making it better.</p> <p>One more thing: I&#8217;m trying to collect useful regular expressions. I&#8217;d like to build a good library of expressions to help users of the tool. Use the <a href="http://www.nregex.com/nregex/Feedback.aspx">feedback form</a> and let me know if you&#8217;ve got one you&#8217;ve found handy. Don&#8217;t worry if it&#8217;s not .NET specific, I&#8217;ll do the translation.</p> <h1>}</h1></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+dude, that&#8217;s really really cool.  There&#8217;s nothing better than having your peers compliment your work. Congrats!</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-24T23:39:00-05:00" pubdate data-updated="true">Aug 24<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2007/08/24/nregex/" data-via="t3rse" data-counturl="http://t3rse.github.io/2007/08/24/nregex/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/08/12/what-comes-first/" title="Previous Post: What Comes First?">&laquo; What Comes First?</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/08/27/net-301-redirect/" title="Next Post: .NET 301 Redirect">.NET 301 Redirect &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Firefox Hiding Namespaces! ARG. - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{For a while I&#8217;ve had people ask me how I did my photoblog and because I wrote it from scratch it&#8217;s not really useful (and it&#8217;s &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/10/07/firefox-hiding-namespaces-arg">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Firefox Hiding Namespaces! ARG.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-07T15:49:00-05:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />For a while I&#8217;ve had people ask me how I did my <a href="http://hobbitwerk.brinkster.net/phoDak">photoblog</a> and because I wrote it from scratch it&#8217;s not really useful (and it&#8217;s definitely &#8220;Me-ware&#8221;: unusable to just about anyone but me).  I always direct people towards Flickr but it doesn&#8217;t have the photoblog experience quite like mine and other photoblogs.<br /><br />This weekend I&#8217;ve been writing a tool called Flickr-Fu that grabs the RSS feed from Flickr and attempts to simulate the photoblog experience allowing a user to navigate forward and backward one photograph at a time.  The RSS xml structure is extended by Yahoo with it&#8217;s own namespace: http://search.yahoo.com/mrss - all such tags are given a &#8220;media&#8221; prefix to distinguish them from the structure of RSS 2.0. Using XPaths with .NET is pretty straight forward until you run into the namespace issue, at which point there is a class XmlNamespaceManager that you will need to tame in order to get the job done.<br /><br />But before this point I was hitting my head against a wall: I could see the media:content tag that I needed to get the image URL but I could see no namespace associated with it!  It doesn&#8217;t follow as well-formed XML to have namespaces without some namespace URI but sure enough, Firefox was hiding the namespace URI. I pasted to IE and was able to get a proper reference to use with the XmlNamespaceManager.  What a strange thing to display XML in a stylesheet but leave off the namespace references in the root element!  Just to prove I&#8217;m not hallucinating, here&#8217;s a screen cap:<br /><br /><div><br /><img src="http://hobbitwerk.brinkster.net/images/NamespaceIssues.jpg" style="border: 9px solid white;" /><br /></div><br />Once the namespace issue was cleared up for me, the code was quite simple:<br /><br /><!-- {\rtf1\ansi\ansicpg\lang1024\noproof1252\uc1 \deff0{\fonttbl{\f0\fnil\fcharset0\fprq1 Courier New;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0??;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;??\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;??\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;??\red192\green192\blue192;}??\fs20 XmlNamespaceManager spaceManager = \cf2 new\cf0  XmlNamespaceManager(doc.NameTable);\par ??spaceManager.AddNamespace(\cf13 "media"\cf0 , \cf13 "http://search.yahoo.com/mrss"\cf0 );\par ??linkToBig = xnItem.SelectSingleNode(\cf13 "media:content/@url"\cf0 , spaceManager).InnerText;} --><br /><div    style="background: white none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;font-family:Courier New;font-size:10pt;color:black;"><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   21</span> XmlNamespaceManager spaceManager = <span style="color:blue;">new</span> XmlNamespaceManager(doc.NameTable);</p><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   22</span> spaceManager.AddNamespace(<span style="color:maroon;">&#8220;media&#8221;</span>, <span style="color:maroon;">&#8220;http://search.yahoo.com/mrss&#8221;</span>);</p><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   23</span> linkToBig = xnItem.SelectSingleNode(<span style="color:maroon;">&#8220;media:content/@url&#8221;</span>, spaceManager).InnerText;</p><br /></div><br />Flickr-Fu is a work in progress but you can have a look <a href="http://hobbitwerk.brinkster.net/FlickrFu">here</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Aaron Johnson</div>
+<div class='content'>
+I spent way more time than I should have tonight trying to find a reason why Firefox does that to no avail. Anyway, if don&#8217;t want to have to fire up IE, you can see the namespace declarations by using the view-source keyword in front of your URL in Firefox like so:<BR/><BR/>view-source:http://cephas.net/blog/feed/<BR/><BR/>AJ</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-07T15:49:00-05:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/10/07/firefox-hiding-namespaces-arg/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/10/07/firefox-hiding-namespaces-arg/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/10/06/raganwald-responds/" title="Previous Post: Raganwald Responds">&laquo; Raganwald Responds</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/10/08/rhino-book/" title="Next Post: Rhino Book">Rhino Book &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

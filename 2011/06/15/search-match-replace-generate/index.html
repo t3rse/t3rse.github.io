@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Search, Match, Replace, Generate - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ Many moons ago I got about 0.25 seconds of fame when nRegex, a tool I wrote for evaluating regular expressions of the .NET flavor,&#160; got a bit &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2011/06/15/search-match-replace-generate">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Search, Match, Replace, Generate</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-15T23:56:00-05:00" pubdate data-updated="true">Jun 15<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h2><font color="#0000ff">{</font></h2>  <p>Many moons ago I got about <a href="http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx">0.25 seconds of fame</a> when <a href="http://www.nregex.com">nRegex</a>, a tool I wrote for evaluating regular expressions of the .NET flavor,&#160; got a bit of acclaim. It was one of the better days of my life, an encouragement that sometimes struggling alone in a South Dakota basement can lead to a little bit of notice. </p>  <p>One of the tricks that keeps me going back to nRegex is being able to generate code by using a regular expressions. Regular Expressions, though often reviled, turn out to be quite handy in a lot of situations. </p>  <p>Let’s say you have a table that looks like this:</p>  <pre class="brush:sql">	CREATE TABLE PackingList(<br />		PackingListId	INT IDENTITY PRIMARY KEY, <br />		PackingItem		VARCHAR(50), <br />		Destination		VARCHAR(50)<br />	)<br />	GO</pre><br /><br /><p>&#160;</p><br /><br /><p>Let’s say you have a list of values:</p><br /><br /><pre class="brush:sql">Shoes<br />Camera<br />Laptop<br />Wallet</pre><br /><br /><p>The list is short for brevity but let&#8217;s say you want to insert them all into your table for a destination called //Build/. You know the syntax for an INSERT but it&#8217;s a bit of a nuisance to type over and over again. One thing you can do is to use a regular expression to match and then reference the results of your match in a replace. Over on nRegex, we&#8217;d paste in our list of items into the main text area and then use the regular expression (.+) to match each item, line by line. Because the items are matched into a group with your parenthesis, you can now write something like the following for your replace: </p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('$1', '//Build/')</pre><br /><br /><p>And voila! You now just have to copy the results: </p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('Shoes', '//Build/')<br />INSERT INTO PackingList VALUES('Camera', '//Build/')<br />INSERT INTO PackingList VALUES('Laptop', '//Build/')<br />INSERT INTO PackingList VALUES('Wallet', '//Build/')</pre><br /><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://www.t3rse.com/meta_images/GeneratingCode1.jpg" /> <br /><br /><p>But that&#8217;s just a tip of the iceberg. There&#8217;s a lot more nifty regular expressions tricks for working with code. Here&#8217;s another one I run into quite often. Let&#8217;s say I have some code that looks like this:</p><br /><br /><pre class="brush:csharp">  rs[&quot;foo&quot;] = myFoo;<br />  rs[&quot;bar&quot;] = myBar;</pre><br /><br /><p>I want to swap what&#8217;s on either side of the equals sign to do the opposite type of assignment. Here&#8217;s my regular expression: </p><br /><br /><pre class="brush:pl">(.+)\s=\s(.+);</pre><br /><br /><p>And my replacement expression</p><br /><br /><pre class="brush:pl">$2 = $1;</pre><br /><br /><p>Et voila aussi! You can now copy the swapped values to wherever they need to go. </p><br /><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://www.t3rse.com/meta_images/GeneratingCode2.jpg" /> <br /><br /><p>One final thing: any place that offers you regular expressions you can use these techniques. There are some subtle differences but as long as you have a conceptual understanding of what your goal is it&#8217;s quite easy to bend to the flavor of regular expressions presented. For example, if you are using Notepad++ and want to accomplish the same thing, you reference your groups with a leading backslash rather than the &quot;$&quot; character - in our first example you would use the following:</p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('\1', '//Build/')</pre><br /><br /><p>This is, of course, just scratching the surface. It’s not that hard though! Once you learn the meaning of things like ^ or $ then you can manipulate strings in all sorts of ways that may have once not seemed possible. The best way to learn regular expressions hasn’t changed for many years. The two canonical books I always refer to are <a href="http://oreilly.com/catalog/9780596528126/index.html">Mastering Regular Expressions</a> by <a href="http://regex.info/blog/">Jeffrey Friedl</a> and the <a href="http://oreilly.com/catalog/9780596520694">Regular Expressions Cookbook</a> by Goyvaerts and Levithan. </p><br /><br /><table><tbody><br />    <tr><br />      <td><a href="http://oreilly.com/catalog/9780596528126/index.html"><img src="http://www.t3rse.com/meta_images/Mastering Regular Expressions.gif" /></a></td><br /><br />      <td><a href="http://oreilly.com/catalog/9780596520694"><img src="http://www.t3rse.com/meta_images/Regular Expressions Cookbook.gif" /></a></td><br />    </tr><br />  </tbody></table><br /><br /><p>&#160;</p><br /><br /><p>Although nRegex will allow you to hobble by I also recommend <a href="http://www.regexbuddy.com/">RegexBuddy</a>. <a href="http://www.rexv.org">Rexv</a> (which inspired nRegex) is a good tool though the Regular Expression engine is not .NET.</p><br /><br /><p>Last thing: do you have any nifty regex to code generation tricks you use on a regular basis? The audience of one you have in this space would love to learn them. </p><br /><br /><h2><font color="#0000ff">}</font></h2>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-15T23:56:00-05:00" pubdate data-updated="true">Jun 15<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2011/06/15/search-match-replace-generate/" data-via="t3rse" data-counturl="http://t3rse.github.io/2011/06/15/search-match-replace-generate/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/06/15/on-features/" title="Previous Post: On Features">&laquo; On Features</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/06/20/ndc-2011/" title="Next Post: NDC 2011">NDC 2011 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Library of the Week: Json.NET - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ In the Christian Bible there’s a story of 10 lepers miraculously healed by Jesus. Even if you don’t believe in Christianity, imagine a leper &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2009/09/27/library-of-week-jsonnet">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Library of the Week: Json.NET</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-27T23:35:00-05:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>In the Christian Bible there’s <a href="http://www.biblegateway.com/passage/index.php?search=luke+17:11-19">a story</a> of 10 lepers miraculously healed by Jesus. Even if you don’t believe in Christianity, imagine a leper living in the dregs of society, totally dejected until one day a man shows up and heals him and nine other fellow outcasts. Imagine how happy they should be. </p>  <p>They’d say thank you, right? </p>  <p>In the Bible story, only one of the men returns to say thank you and the other nine are so busy getting back to the lives they wished they had that they forget about the reason they were healed in the first place.</p>  <p>There’s evidence of this kind of lack of gratitude in the ecosystem of free libraries and projects available for .NET developers on the web. I’m a part of that club and not proud of it. I use open source .NET libraries on a regular basis and don’t say thank you. But more than just me, I look at the community participation on CodePlex projects and find it amazing how few people say a simple “thank you.”</p>  <p>With that in mind, I’m going to start profiling libraries that I’ve used with success to build up awareness of their existence and hopefully inspire the people who write them to do more good work since what they do is so tremendously helpful. </p>  <p>The first library I want to profile is the <a href="http://json.codeplex.com/">Json.NET</a> library available from CodePlex. It contains a great, intuitive Json serialization/deserialization library. You can point to most serializable objects and convert them to a JSON format with such simple sleight of hand as: </p>  <p></p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	List&lt;Foo&gt; data = new List&lt;Foo&gt;();<br />	// adds to data<br />	string json = <span style="color: orange">JsonConvert.Serialize(data)</span>;</pre><br /><br /><p></p><br /><br /><p>As if that wasn’t simple, retrieving values from their serialized format is also made trivial: </p><br /><br /><p></p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	string jsonItems = GetYourJSON();<br />	List&lt;Foo&gt; data = <span style="color: orange">JsonConvert.DeserializeObject&lt;List&lt;Foo&gt;&gt;(jsonItems)</span>;	</pre><br /><br /><p></p><br /><br /><p>One great differentiator of Silverlight versus existing web technologies is the ability to have a virtual file system on a client computer. While HTML 5 seems to include facilities for this it is not yet built into existing browsers and even when it is, previous track records on “standards” are a precedent for how balkanized the implementation of them can be. In many areas of web development, you can push the envelope of existing technologies to get what you do out of Silverlight, but the existence of Isolated Storage is a killer feature.</p><br /><br /><p>Give Json.NET a try whether you’re doing Silverlight or using a different .NET related paradigm. It’s a great library.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-27T23:35:00-05:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2009/09/27/library-of-week-jsonnet/" data-via="t3rse" data-counturl="http://t3rse.github.io/2009/09/27/library-of-week-jsonnet/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/09/21/exception-hof-pattern-in-c/" title="Previous Post: Exception HOF Pattern in C#">&laquo; Exception HOF Pattern in C#</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/10/08/library-of-week-imagetools/" title="Next Post: Library Of The Week: ImageTools">Library Of The Week: ImageTools &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

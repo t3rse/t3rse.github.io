@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Agile Perlcast - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{The latest Perlcast features Andy Hunt, one of the Pragmatic Programmers, talking about Agile Programming. Although my use of perl in a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/07/20/agile-perlcast">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Agile Perlcast</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-20T00:01:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />The <a href="http://perlcast.com/2006/07/12/practices-of-an-agile-developer/">latest Perlcast</a> features <a href="http://toolshed.com/blog/">Andy Hunt</a>, one of the <a href="http://www.pragmaticprogrammer.com/">Pragmatic Programmers</a>, talking about Agile Programming.  Although my use of perl in a professional context is limited, Perlcast is one of my favorite developer podcasts in no small part to its host, Josh McAdams -<br /><br />The following are discussed:<br /><br />1. Pair programming<br />Andy gives an analogy of a driver and navigator.  Interesting, but I have to admit the whole pair thing has never quite had appeal for me. At least, not as the &#8220;navigator.&#8221;<br /><br />2. Learning sessions<br />Andy recommends company learning sessions in the middle of the week (my own company does it on Friday).  It&#8217;s a good idea since the beginning of the week is catch up usually, and by the end a lot of people have checked out.  I do like the fact that on Friday, however, there is a bit more of a relaxed atmosphere in the office, making the learning sessions double as a sort of group bonding where the developers can hang out and not feel too much stress. <br /><br />3. On keeping up with what&#8217;s current<br />Focus on awareness, not necessarily depth.  It&#8217;s impossible to know about absolutely everything going on, but keep your radar going and understand the big picture meaning of what&#8217;s new.  Easily said, but I will admit to frequent moments like today: feeling utterly overwhelmed by  the amount of useful information that&#8217;s out there. And no time to process the little I get a handle on from time to time.<br /><br />4. Estimation<br />Andy&#8217;s gotten companies to go with incremental estimates of time for projects.  This is a great idea, but as Andy seemed to concede, it&#8217;s sometimes hard to get a client to look at things that way.  Because budgeting for a project is usually based on a proposal, and the proposal must take into account the entire scope of work, I wonder at a good angle from which to introduce this&#8230; maybe with shorter cycles up front.  Unfortunately, the beginning of a project is usually a lot of design work and may not involve a ton of demonstrated progress.  Hm&#8230;<br /><br />5. Testing<br />Wow - this was the best part of the podcast.  Andy goes through a bunch of acronyms to use to remember the different ways to approach unit testing.  I&#8217;m not usually one for acronyms, but in this case I think it can&#8217;t hurt.  He recommends as much test code as production code&#8230; a really tough sell since I don&#8217;t think any of the clients I&#8217;ve worked with run numbers on bug fixing costs.  Because of that what&#8217;s important to budget both time and financially is the &#8220;development&#8221; cycle and whatever is left over before the magic deadline must be applied to bugs.<br />But here&#8217;s where I take it: the half/half production/test code thing is about the effort a developer makes to test and have automated unit tests available for their code.  And, from a guy who&#8217;s spent the last many days almost exclusively fixing bugs, I&#8217;d rather invest in test cases than bug fixes.  I&#8217;ll have to strategize on having lots of shiny things to throw at the client in order to demonstrate progress but somehow pace development so that much more is invested in unit testing.<br /><br />6. SCRUM<br />Andy finishes with some talk about <a href="http://www.controlchaos.com/">SCRUM</a> as a lightweight development process. I&#8217;ll have to read into that a bit; it seems to formalize some of the things that I&#8217;ve done in the past but it seems like a magical ideal that is very difficult to be disciplined with in real life. For example, quick meetings at the beginning of each day tend to expand in the amount of time they take. A lot of the time, if there&#8217;s something that is really involved (like it&#8217;s going to take a few days or weeks to develop) I prefer to just get to work and get into my code since mornings are one of the more productive times of day for me.<br />One thing we&#8217;ve done on my current project is have an email sent out that lists what everyone is working on, seems like a good compromise.<br /><br />7. Write readable code<br />&#8216;nuff said.<br /><br />8.  Some OO design commentary, bleeds into contracts, encapsulation.<br /><br />9. Architects should code.<br />I think Joel said it all when he <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">wrote</a> about Architecture Astronauts. Another funny article I recently refound online a  humorous essay about  <span style="text-decoration: underline;"></span><a href="http://www.acmqueue.org/modules.php?name=Content&pa=showpage&amp;pid=130">UML Fever</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-20T00:01:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/07/20/agile-perlcast/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/07/20/agile-perlcast/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/07/17/monad/" title="Previous Post: Monad">&laquo; Monad</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/07/20/monad-vs-unix-grey-beards/" title="Next Post: Monad vs. Unix Grey Beards">Monad vs. Unix Grey Beards &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

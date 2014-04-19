@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sieve of Eratosthenes, Python, Set Operations - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I pretty much broke down after TechEd. I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2007/07/15/sieve-of-eratosthenes-python-set">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Sieve of Eratosthenes, Python, Set Operations</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-15T23:22:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I pretty much broke down after TechEd.  I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to learn it, whitespaces or no.<br /><br />The first thing I did was check out Guido van Rossum&#8217;s tutorial for programmers, which was an excellent first step.  I&#8217;ve followed that up with some random programming - a lot of fun so far.<br /><br />I was wondering about the set operations in python and how that made a difference in programming since there aren&#8217;t syntactical equivalents in .NET.  Incidentally at the time I was reading The Man Who Loved Only Numbers and ran across a short description of the Sieve of Eratosthenes as a way of finding primes.  I thought it would be a good way to check out the set operations of Python.<br /><br />I wrote the following:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />def multiples(num, thresh):<br /> multi = []<br /> for i in range(2,thresh):<br />  m = num * i<br />  if(m < thresh):<br />   multi.append(m)<br />  else:<br />   break<br /> return multi<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> nums = set(nums) - set(multiples(n, primeThresh))<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />Interesting, but slow.  The way I may do something like that in C# (which also works just fine in Python) would be this, which I wrote later:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> for m in range(2,primeThresh):<br />  try:<br />   mult = n * m<br />   if(mult > primeThresh):<br />    break<br />   nums.remove(mult)<br />  except:<br />   pass<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />It&#8217;s a lot faster than the previous approach which makes sense - doing set algebra on large sets should take a long time&#8230; but that begs the question: are those set operations dangerous (ie. so slow as to be costly).<br /><br />I&#8217;m wondering what&#8217;s &#8220;pythonic&#8221; and how a jedi would write this most effeciently.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>marc.gaudette</div>
+<div class='content'>
+I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re interested in the sieve, site www.primestructure.com has an extensive discussion re. adding structure to it.<BR/><BR/>Marc</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-15T23:22:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2007/07/15/sieve-of-eratosthenes-python-set/" data-via="t3rse" data-counturl="http://t3rse.github.io/2007/07/15/sieve-of-eratosthenes-python-set/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/07/15/being-better/" title="Previous Post: Being Better">&laquo; Being Better</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/07/19/codepress/" title="Next Post: CodePress">CodePress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

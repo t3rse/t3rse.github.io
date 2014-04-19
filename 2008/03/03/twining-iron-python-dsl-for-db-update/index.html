@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Twining: Iron Python DSL for DB Update IV - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ long entry because it was written at an airport, just back from celebrating 3 years with my beautiful wife in Monterey, CA&#8230; A few &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2008/03/03/twining-iron-python-dsl-for-db-update">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Twining: Iron Python DSL for DB Update IV</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-03T23:57:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p><em>long entry because it was written at an airport, just back from celebrating 3 years with my beautiful wife in Monterey, CA&#8230; </em><br></p> <p>A few interesting things, but first just a summary of what can be done with what&#8217;s new in red:</p> <p><font face="courier new " size="2">#connection strings<br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=DB_SOURCE;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=DB_DESTINATION;Integrated Security=SSPI;&#8221;<br><br>#back up the database to a file<br>database(cn).backupto(&#8220;C:&#92;temp&#92;loungin.bak&#8221;)<br><br>#copy/export basic<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.csv(&#8220;c:&#92;spam.csv&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam.xml&#8221;) </font> <p><font face="courier new " color="#ff0000" size="2">#pick your delimiter<br>database(cn).table(&#8220;Photos&#8221;).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;spam.tsv&#8221;) </font></p> <p><font face="courier new " size="2">#copy to database<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.database(cn2)<br><br>#all copy operations can leverage transform dictionary<br>mytrans = {&#8220;FIELD1&#8221;:&#8221;upper&#8221;,&#8221;FIELD2&#8221;: lambda x: x.upper(),&#8221;FIELD3&#8221;: lambda x: x[::-1]}<br><br><font color="#ff0000">database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;spam.tsv&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.database(cn2)</font></font><br>&#8230; and so on, see above</p> <p>Some internal changes:<br>1. Error Handling, quite lazy for now simply stores a combination of a friendly message along with full text of the exception thrown:<br></p> <p><font face="Courier New" size="2">class errorhandle:<br>&nbsp;&nbsp;&nbsp; def print_error(self, text, error):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221; Handle an exception by just printing a friendly message and then the error&#8217;s guts&#8221;&#8220;&#8221;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print text<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print error </font> <p><font face="Courier New" size="2">try:<br>&nbsp;&nbsp;&nbsp; sqlhelper().run_sql(registrar.databaseRegister, sqlBackup)<br>except Exception, inst:<br>&nbsp;&nbsp;&nbsp; errorhandle().print_error(&#8220;Error occured during backup&#8221;, inst)</font></p> <p>2. Some Pythonic prettiness (via Catherine):  <p><font face="Courier New" size="2">#if registrar.transforms.has_key(field): &#8211; es muy fao!<br>if field in registrar.transforms:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font> <p>I do like the more idiomatic form myself.&nbsp; This a perfect example of where, as a .NET developer I look around for methods and miss a beautiful idiom. <p>3. Right under my nose, back to idiom, were a few simple pythonic forms that took away a lot of the line noise and clutter I was producing during my initial rabid sketches of the idea. Doing multiple assignment out of a SqlDataReader is something I only thought of now, though it makes such perfect sense: <p><font face="Courier New" size="2">column_name, column_type, column_length, column_identity = \<br>&nbsp;&nbsp;&nbsp; r[&#8220;name&#8221;], r[&#8220;typename&#8221;], str(r[&#8220;max_length&#8221;]), r[&#8220;is_identity&#8221;] </font> <p>4. Returning tuples rather than lists.&nbsp; Tuples are more effecient and as effective.&nbsp; A question that&#8217;s begun burgeoning now is whether excessive use of tuples is lazy when a specific type is more clear.&nbsp; For example, when I read column data from a table, I need to know two things: the column name and whether it&#8217;s an identity (autonumbering). Right now I&#8217;m doing the following lazy gesture: <p><font face="Courier New" size="2">colTypeInfo.append((column_name, column_identity)) #(column_name, column_identity) is the tuple added to the list.</font> <p>But if I start to add other useful bits of info, like the datatype of the underlying column, I wonder if a class would be better since you could have something like: <p><font face="Courier New" size="2">colTypeInfo.append(ColumnData(column_name, column_identity, column_type)) #Where ColumnData is a type somewhere</font> <p>Right now the tuple approach works fine and a class feels like overkill. For now, I&#8217;m just afraid of it bloating as needs present themselves&#8230;  <p>5. Speaking of identity columns, I added better support for them in tables being copied.&nbsp; I also now use brackets for column names since certain people like to use reserved words for columns (or don&#8217;t have a choice). <p>6. I mentioned in a comment that I tried to reconcile feedback from both <a href="http://catherinedevlin.blogspot.com/">Catherine</a> and <a href="http://www.voidspace.org.uk/python/weblog/index.shtml">Michael &#8220;Fuzzyman&#8221; Foord</a>.&nbsp; When I match columns for transformations I allow any TypeError to be suppressed, but also store it in a &#8220;warnings&#8221; list that I&#8217;ll incorporate into the completed process. <p><font face="Courier New" size="2">def checkAndTransform(self, field, value):<br>&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221; Perform transformation on fields based on either:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a) keyword entries (&#8220;upper&#8221;, &#8220;lower&#8221;, etc&#8230; )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b) lambda expressions<br>&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221;<br>&nbsp;&nbsp;&nbsp; if field in registrar.transforms:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if callable(registrar.transforms[field]):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value = registrar.transforms[field](value)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except TypeError:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; registrar.warnings.append(&#8220;Your transform failed on field %s&#8221; % field)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elif registrar.transforms[field] == &#8220;upper&#8221;: #more of this kind of stuff _maybe later.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value = value.upper()<br>&nbsp;&nbsp;&nbsp; return value&nbsp;&nbsp;&nbsp; </font> <p>As always you can have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the entire thing here</a>.&nbsp; It&#8217;s been great getting guidance, any comment is welcome and will be studied. <p>What is on the list?<br>1. I&#8217;ve been using a cheap, unstudied approach to delimited files. I&#8217;ll need to look at the &#8220;official&#8221; way of escaping entries.<br>2. Importing data<br>3. A few more variants of operating on databases, like &#8220;create.&#8221; <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>milf</div>
+<div class='content'>
+<A HREF="http://black-mold-exposure-symptoms.blogspot.com/2008/03/health-problems-from-mold.html" REL="nofollow">black mold exposure</A><A HREF="http://black-exposuremold-symptom.blogspot.com/2008/03/black-exposure-mold-symptom.html" REL="nofollow">black mold symptoms of exposure</A><A HREF="http://iron-garden-gates.blogspot.com/2008/03/hand-crafted-by-renown-metal-artists.html" REL="nofollow">wrought iron garden gates</A><A HREF="http://wrought-iron-gates.blogspot.com/2008/03/wrought-iron-doors-are-one-of-many.html" REL="nofollow">iron garden gates find them here</A><A HREF="http://hairstyles-for-fine-thinhair.blogspot.com/2008/03/hair-styles-for-fine-thin-hair.html" REL="nofollow">fine thin hair hairstyles</A><A HREF="http://hairstyles-forfine-thinhair.blogspot.com/2008/03/hair-styles-fine-thin-hair.html" REL="nofollow">search hair styles for fine thin hair</A><A HREF="http://purchase-nightvision-vinoculars.blogspot.com/2008/03/purchase-night-vision-binoculars.html" REL="nofollow">night vision binoculars</A><A HREF="http://purchasenightvisionbinoculars.blogspot.com/2008/03/purchase-night-vision-binoculars.html" REL="nofollow">buy night vision binoculars</A><A HREF="http://allergicreaction-tolipitor.blogspot.com/2008/03/allergic-reaction-to-lipitor.html" REL="nofollow">lipitor reactions</A><A HREF="http://lipitoralcohol.blogspot.com/2008/03/lipitor-and-alcohol.html" REL="nofollow">lipitor allergic reactions</A><A HREF="http://beach-resort-philippines.blogspot.com/2008/03/beach-resort-philippines.html" REL="nofollow">luxury beach resort in the philippines</A><BR/><BR/><A HREF="http://beachresort-inthe-philippines.blogspot.com/2008/03/beach-resort-in-philippines.html" REL="nofollow">afordable beach resorts in the philippines</A><A HREF="http://homeopathycures-foreczema.blogspot.com/2008/03/homeopathy-cures-for-eczema.html" REL="nofollow">homeopathy for eczema.</A><A HREF="http://homeopathycures-forbabyeczema.blogspot.com/2008/03/homeopathy-cures-for-baby-eczema.html" REL="nofollow">baby eczema.</A><A HREF="http://mineral-makeup-bargains.blogspot.com/2008/03/mineral-makeup-bargains.html" REL="nofollow">save big with great mineral makeup bargains</A><A HREF="http://bargain-minera-makeup.blogspot.com/2008/03/bargain-mineral-makeup.html" REL="nofollow">mineral makeup wholesalers</A><A HREF="http://prodamiphone-praha.blogspot.com/2008/03/now-iphone-owners-can-unlock-iphone.html" REL="nofollow">prodam iphone </A><A HREF="http://prodam-iphone-praha.blogspot.com/2008/03/prodam-iphone-praha.html" REL="nofollow">Apple prodam iphone praha</A><A HREF="http://iphone-clonecect-manual.blogspot.com/2008/03/iphone-clone-cect-manual.html" REL="nofollow">cect iphone manual</A><A HREF="http://manual-iphoneclone-cect.blogspot.com/2008/03/iphone-clone-cect.html" REL="nofollow">manual for P 168 iphone</A><A HREF="http://fero52-binoculars-nightvision.blogspot.com/2008/03/fero-52-binoculars-night-vision.html" REL="nofollow">fero 52 binoculars</A><A HREF="http://fero52-nightvisionbinoculars.blogspot.com/2008/03/good-binocular-dealer.html" REL="nofollow">night vision Fero 52 binoculars</A><A HREF="http://night-vision-binocularshtm.blogspot.com/2008/03/night-vision-binoculars-htm.html" REL="nofollow">The best night vision binoculars here</A><BR/><BR/><A HREF="http://nightvision-binocularshtm.blogspot.com/2008/03/night-vision-binoculars.html" REL="nofollow">night vision binoculars bargains</A><A HREF="http://computerprograms-tomake-photoalbum.blogspot.com/2008/03/computer-programs-to-make-photo-albums.html" REL="nofollow">free photo albums computer programs</A><A HREF="http://computerprograms-make-photoalbums.blogspot.com/2008/03/photo-albums-programs.html" REL="nofollow">free software to make photo albums</A><A HREF="http://freeprintabletaxforms.blogspot.com/2008/03/free-printable-tax-forms.html" REL="nofollow">free tax forms</A><A HREF="http://free-printable-taxforms.blogspot.com/2008/03/free-printable-tax-forms.html" REL="nofollow">printable tax forms for free </A><A HREF="http://craftmatic-adjustable-airbed.blogspot.com/2008/03/craftmatic-adjustable-air-bed.html" REL="nofollow">craftmatic air bed</A><A HREF="http://craftmaticadjustableairbed.blogspot.com/2008/03/craftmatic-adjustable-air-bed.html" REL="nofollow">craftmatic air bed adjustable info here</A><A HREF="http://boyd-night-airbed.blogspot.com/2008/03/boyd-night-air-bed.html" REL="nofollow">boyd air bed</A><A HREF="http://boydnightairbed.blogspot.com/2008/03/boyd-night-air-bed.html" REL="nofollow">boyd night air bed lowest price</A><A HREF="http://airbedinwisconsin.blogspot.com/2008/03/air-bed-in-wisconsin.html" REL="nofollow">find air beds in wisconsin</A><A HREF="http://airbeds-wisconsin.blogspot.com/2008/03/air-bed-in-wisconsin.html" REL="nofollow">best air beds in wisconsin</A><A HREF="http://cloudair-inflatablebed.blogspot.com/2008/03/cloud-air-inflatable-bed.html" REL="nofollow">cloud air beds</A><BR/><BR/><A HREF="http://cloudairinflatablebed.blogspot.com/2008/03/cloud-air-inflatable-bed.html" REL="nofollow">best cloud inflatable air beds</A><A HREF="http://portable-sealy-airbed.blogspot.com/2008/03/portable-sealy-air-bed.html" REL="nofollow">sealy air beds portable</A><A HREF="http://portablesealyairbed.blogspot.com/2008/03/portable-sealy-air-bed.html" REL="nofollow">portables air beds</A><A HREF="http://aluminum-rvluggage-racks.blogspot.com/2008/03/aluminum-rv-luggage-racks.html" REL="nofollow">rv luggage racks</A><A HREF="http://aluminumrvluggageracks.blogspot.com/2008/03/aluminum-rv-luggage-racks.html" REL="nofollow">aluminum made rv luggage racks</A><A HREF="http://airbed-formraised.blogspot.com/2008/03/air-bed-form-raised.html" REL="nofollow">air bed raised</A><A HREF="http://airbedformraised.blogspot.com/2008/03/air-bed-form-raised.html" REL="nofollow">best form raised air beds</A><A HREF="http://support-equipments-aircraft.blogspot.com/2008/03/support-equipments-aircraft.html" REL="nofollow">aircraft support equipments</A><A HREF="http://support-equipmentsaircraft.blogspot.com/2008/03/support-equipments-aircraft.html" REL="nofollow">best support equipments for aircrafts</A><A HREF="http://informercialsbedair.blogspot.com/2008/03/informercials-bed-air.html" REL="nofollow">bed air informercials</A><A HREF="http://informercials-bedair.blogspot.com/2008/03/informercials-bed-air.html" REL="nofollow">best informercials bed air</A><A HREF="http://mattress-sized-airbeds.blogspot.com/2008/03/mattress-sized-air-beds.html" REL="nofollow">mattress sized air beds</A><BR/><BR/><A HREF="http://mattresssized-airbeds.blogspot.com/2008/03/mattress-sized-air-beds.html" REL="nofollow">bestair bed mattress </A><A HREF="http://antiquedoorknob-identification.blogspot.com/2008/03/antique-doorknob-identification.html" REL="nofollow">antique doorknobs</A><A HREF="http://antique-doorknob-identification.blogspot.com/2008/03/antique-doorknob-identification.html" REL="nofollow">antique doorknob identification tips</A><A HREF="http://troubleshootingdvdplayer.blogspot.com/2008/03/troubleshooting-dvd-player.html" REL="nofollow">dvd player troubleshooting</A><A HREF="http://troubleshooting-dvd-player.blogspot.com/2008/03/troubleshooting-dvd-player.html" REL="nofollow">troubleshooting with the dvd player</A><A HREF="http://flatpaneltelevisionlcd-versusplasma.blogspot.com/2008/03/flat-panel-television-lcd-versus-plasma.html" REL="nofollow">flat panel television lcd vs plasma</A><A HREF="http://flatpaneltvlcd-versusplasma.blogspot.com/2008/03/flat-panel-television-lcd-versus-plasma.html" REL="nofollow">flat panel lcd television  versus plasma pic the best</A><A HREF="http://causesof-economicrecession.blogspot.com/2008/03/causes-of-economic-recession.html" REL="nofollow">The causes of economic recession</A><A HREF="http://causesofeconomicrecession.blogspot.com/2008/03/causes-of-economic-recession.html" REL="nofollow">what are the causes of economic recession</A><A HREF="http://bed-airfoam-adjustable.blogspot.com/2008/03/bed-air-foam-adjustable.html" REL="nofollow">adjustable bed air foam </A><A HREF="http://bedairfoamadjustable.blogspot.com/2008/03/bed-air-foam-adjustable.html" REL="nofollow">The best bed air foam </A><BR/><BR/><A HREF="http://hoofprintsantiqueequestrian.blogspot.com/2008/03/hoof-prints-antique-and-unusual.html" REL="nofollow">hoof prints antique equestrian prints</A><A HREF="http://hoofprints-antique-equestrianprints.blogspot.com/2008/03/hoof-prints-antique-and-unusual.html" REL="nofollow">antique hoof prints  equestrian prints</A><A HREF="http://buy-adjustable-airbed.blogspot.com/2008/03/buy-adjustable-air-bed.html" REL="nofollow">Buy air bedadjustable</A><A HREF="http://buyadjustableairbed.blogspot.com/2008/03/buy-adjustable-air-bed.html" REL="nofollow">buy the best adjustable air beds</A><A HREF="http://air-bedscanadian-stores.blogspot.com/2008/03/air-bedscanadian-stores.html" REL="nofollow">air beds canadian stores</A><A HREF="http://airbedscanadianstores.blogspot.com/2008/03/air-bedscanadian-stores.html" REL="nofollow">Canadian stores for air beds</A><BR/><BR/><A HREF="http://floridamigraineheadacheclinic.blogspot.com/2008/04/florida-migraine-headache-clinic.html" REL="nofollow">migraine cause</A><A HREF="http://migraineheadacheclinicflorida.blogspot.com/2008/04/florida-migraine-headache-clinic.html" REL="nofollow">migraine treatments florida</A><A HREF="http://florida-migraineheadache-clinic.blogspot.com/2008/04/miss-brown-told-me-i-am-constantly.html" REL="nofollow">florida headache clinic</A><A HREF="http://airdryerdessicantbed.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">drying dessicant</A><A HREF="http://air-dryer-dessicant-bed.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">air drying dessicant</A><A HREF="http://airbed-dryerdessicant.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">dessicant air dryer</A><A HREF="http://asthmaspecialistinvirginia.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">pediatric asthma</A><A HREF="http://asthma-specialist-virginia.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">asthma specialist</A><A HREF="http://virginia-asthma-specialists.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">asthma children specialist</A><A HREF="http://dallasbestprofessionalcarpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaning dallas tx</A><A HREF="http://dallas-professional-carpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaners dallas</A><A HREF="http://dallas-professionalcarpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaning dallas</A><BR/><BR/><A HREF="http://beachhomevacationvero.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">vero beach vacation</A><A HREF="http://beach-homevacation-vero.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">vero beach vacations</A><A HREF="http://verobeach-homevacation.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">beach vacation homes vero</A><A HREF="http://vacationcondosmsbeach.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach vacations</A><A HREF="http://msbeach-vacationcondos.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach vacation</A><A HREF="http://msbeach-vacation-condos.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach condos</A><A HREF="http://mauibeach-vacationclub.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach vacation</A><A HREF="http://mauibeachvacationclub.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach vacations</A><A HREF="http://maui-beachvacation-club.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach club</A><A HREF="http://bestbeach-vacations.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">beach vacations</A><A HREF="http://thebestbeachvacations.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">your beach vacations</A><A HREF="http://vacationsinthebestbeach.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">cheap beach vacations</A><BR/><BR/><A HREF="http://layered-bob-haircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob hairstyle</A><A HREF="http://boblayeredhaircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob haircuts</A><A HREF="http://bob-layered-haircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob layered</A><A HREF="http://best-classic-bob-haircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">pob hairstyle</A><A HREF="http://classicbobhaircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">bobbed</A><A HREF="http://classic-bob-haircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">classic bob</A><A HREF="http://haircareandcurlyhair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">Care for Curly Hair</A><A HREF="http://haircare-curlyhair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">Tips for Curly Hair</A><A HREF="http://hair-care-for-curly-hair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">curly hair</A><A HREF="http://truck-bus-tires12r22-5bestprices.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">12r 22.5 best price</A><A HREF="http://tires-truckbus-12r22-5-bestprices.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">tires truck bus</A><A HREF="http://tirestruckbus12r22-5bestprice.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">tires 12r 22.5</A></div>
+</div>
+<div class='comment'>
+<div class='author'>MuthuSelvan</div>
+<div class='content'>
+Hi,<BR/>Nice Blog!<BR/>We provides exclusive and highly accurate Data, <A HREF="http://e-datapro.net/" REL="nofollow">data coding</A> at least of 99.995% accuracy. With complete confidentiality and high level of accuracy the customers prefer to outsource their jobs to us. We Offer services for all kinds of textual data capturing from printed matter, manuscripts, scanned images, web research etc. with high accuracy levels.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-03T23:57:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2008/03/03/twining-iron-python-dsl-for-db-update/" data-via="t3rse" data-counturl="http://t3rse.github.io/2008/03/03/twining-iron-python-dsl-for-db-update/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/02/26/twining-iron-python-dsl-for-db-update/" title="Previous Post: Twining: Iron Python DSL for DB Update III">&laquo; Twining: Iron Python DSL for DB Update III</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/03/05/just-do-it-yourself/" title="Next Post: Just Do It Yourself">Just Do It Yourself &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

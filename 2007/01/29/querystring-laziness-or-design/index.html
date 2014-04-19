@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Querystring: Laziness or Design? - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{Mads Kristensen posted about retrieving items from the querystring by a series of checks against nullness (is that a word?) and type values. His &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2007/01/29/querystring-laziness-or-design">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Querystring: Laziness or Design?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-29T20:55:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Mads Kristensen <a href="http://www.madskristensen.dk/blog/CommentView,guid,f5e5799e-0afa-4e62-b0b6-f3caee3c1b1a.aspx">posted</a> about retrieving items from the querystring by a series of checks against nullness (is that a word?) and type values. His starts with:<br /><br /><span style="font-family:courier new;font-size:85%;">if(!Request.QueryString[&#8220;foo&#8221;] == null){</span><br /><span style="font-family:courier new;font-size:85%;">// do interesting things</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />Continues with a little more elegance:<br /><br /><span style="font-family:courier new;font-size:85%;">if(String.IsNullOrEmpty(Request.QueryString[&#8220;foo&#8221;])){</span><br /><span style="font-family:courier new;font-size:85%;">// do interesting things</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />Finishes with a check on type integrity during the querystring check:<br /><br /><span style="font-family:courier new;font-size:85%;">if(!String.IsNullOrEmpty(Request.QueryString[&#8220;foo&#8221;]) &&amp; </span><br /><span style="font-family:courier new;font-size:85%;">Request.QueryString[&#8220;foo&#8221;].length == 5){</span><br /><span style="font-family:courier new;font-size:85%;">// do interesting things</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />I like seeing things like this because it&#8217;s interesting to look at how someone does something I do all the time with a different twist. I&#8217;m a pretty lazy guy, and although I hope to attribute it to the perl affinity in me, I&#8217;m not sure if it&#8217;s really a spade being a spade and I actually am lazy in a bad way.<br /><br />For most of my projects (except when I&#8217;m at a client or somewhere that I need to <strike>copy</strike> follow a defined pattern) I usually write a little &#8220;helper&#8221; class with static methods for this sort of thing:<br /><br /><span style="font-family:courier new;font-size:85%;">class Helper{</span><br /><span style="font-family:courier new;font-size:85%;">public static string GetQS(Page page, string key){<br />return (page.Request[key] ?? String.Empty); // ?? is so slick yo.</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />When I&#8217;m reading out querystring values, I sometimes read and assign simultaneously:<br /><br /><span style="font-family:courier new;font-size:85%;">string foo;</span><br /><span style="font-family:courier new;font-size:85%;">if((foo = Helper.GetQS(this, &#8220;foo&#8221;))!= String.Empty){</span><br /><span style="font-family:courier new;font-size:85%;">// do interesting things with foo</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />Of course this is a variation on Mad&#8217;s theme, but one critical difference - a lazy one - is that my gut reaction is to intentionally allow failure on type integrity outside the querystring check. That failure usually invokes a more generic handler related to the operation in question rather than having to decide what happens the moment I know I have a bad querystring value. For example:<br /><br /><span style="font-family:courier new;font-size:85%;">string quantity;</span><br /><span style="font-family:courier new;font-size:85%;">if((quantity = Helper.GetQS(this, &#8220;quantity&#8221;))!=String.Empty){</span><br /><span style="font-family:courier new;font-size:85%;">this.UpdateQuantity(Convert.ToInt32(quantity));</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />My rational is that I can write my exception handler for the operation &#8220;UpdateQuantity&#8221; rather than the specific querystring item. UpdateQuantity may throw different types of exceptions and I can capture them all in one fell swoop instead of defensively trying to test everything up front.<br /><br /><span style="font-family:courier new;font-size:85%;">try{</span><br /><span style="font-family:courier new;font-size:85%;">string quantity;<br />if((quantity = Helper.GetQS(this, &#8220;quantity&#8221;))!=String.Empty){<br />this.UpdateQuantity(Convert.ToInt32(quantity));<br />}</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><span style="font-family:courier new;font-size:85%;">catch(FormatException ex){</span><br /><span style="font-family:courier new;font-size:85%;">// specific exceptions I can of more assistance</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><span style="font-family:courier new;font-size:85%;">catch(Exception ex){</span><br /><span style="font-family:courier new;font-size:85%;">// log and inform *shrug*</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />Of course that&#8217;s lazy. I&#8217;d like to think it&#8217;s lazy in a perl way rather than lazy in a couch potato way. What say you?<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Good point, very valid. Depending on the situation it could totally work. But a few things to consider:<br /><br />1. In a separate method, you&#8217;ve got more wiggle room for your querystring check. For example, if you needed to check for an additional key in the querystring collection for security, it keeps the code for retrieval nice and tight. Alternatively, you could throw an exception for &#8220;required&#8221; items - an overload like: <br />Helper.GetQS(this,&#8221;key&#8221;,Arg.Required);<br /><br />2. You can implement changes in querystring checks across the entire app in one place. <br /><br />Depends on the complexity of the app - what you wrote would (in my book) be good laziness if things were really that simple.</div>
+</div>
+<div class='comment'>
+<div class='author'>Big Red</div>
+<div class='content'>
+why don&#8217;t you just do?<br /><br />string foo = Request[&#8220;foo&#8221;] ?? string.Empty;</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-29T20:55:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2007/01/29/querystring-laziness-or-design/" data-via="t3rse" data-counturl="http://t3rse.github.io/2007/01/29/querystring-laziness-or-design/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/01/27/yahoo-blew-it/" title="Previous Post: Yahoo Blew It">&laquo; Yahoo Blew It</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/01/30/are-you-good/" title="Next Post: Are You Good?">Are You Good? &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Beginning With Delegates in C# - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{Delegates are one of the mind benders of the .NET framework. Not once have I been teaching the concept without feeling a bit of inadequacy at &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2005/04/14/beginning-with-delegates-in-c">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Beginning With Delegates in C#</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-14T08:15:00-05:00" pubdate data-updated="true">Apr 14<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 0, 153);font-size:180%;" >{</span><br /><br />Delegates are one of the mind benders of the .NET framework.  Not once have I been teaching the concept without feeling a bit of inadequacy at drawing up a clear and concise explanation.  Unless a developer has worked with function pointers in C, they are a new concept.  I&#8217;ll start off with the most basic example of delegate usage, after which I&#8217;ll write some posts with some more novel ways to leverage them.<br /><br />If I wrote the following line of code, you&#8217;d know what I mean:<br /><span style="font-size:85%;"><span style="color: rgb(51, 51, 255);">int </span>x = 3;</span><br /><br />We&#8217;ve declared a variable x and it points to the value &#8220;3&#8221; on the stack.<br /><br />If I wrote the next line of code, you&#8217;d also know what was meant:<br /><span style="font-size:85%;">Foo f = <span style="color: rgb(51, 102, 255);">new </span>Foo();</span><br /><br />We&#8217;ve declared a variable &#8220;f&#8221; and pointed it to an instance of the class &#8220;Foo&#8221; on the heap.<br /><br />I&#8217;m stating the obvious because if the previous two lines of code are understandable, you already know the very first thing about delegates: a delegate is a type, just like our primitive int or our class &#8220;Foo.&#8221;  The next leap that must be made is that a delegate points to a method somewhere in your code.<br /><br />Let&#8217;s expand the definition of the class Foo:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 102, 255);">class </span>Foo{<br /> <span style="color: rgb(51, 102, 255);">public void</span> FooMeth(){ &#8230; }<br />}</span><br /><br />Is it possible to make a reference to the instance method FooMeth() somewhere in code?  Absolutely, my good man; that&#8217;s what the delegate is for.  To make a reference to this method, first define a delegate somewhere:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 102, 255);font-size:85%;" >public delegate void </span>MethPointer()</span><br /><br />Let&#8217;s break that down: public - access modifier, accessible anywhere, void - this is a delegate that will point to a method that returns no value, MethPointer - this is the name of our delegate, and finally () - the empty parenthesis mean that the delegate will point to a method with no parameters.  Delegates are typesafe method pointers - the typesafe part is what you see in the definition: our delegate can only point to a method with an identical return value and parameter list.<br /><br />So now that we&#8217;ve defined our delegate, how do we create an instance that points to the instance method FooMeth() as we mentioned previously?  FooMeth() is an instance method, which means that we need an instance of the class first:<br /><br /><span style="font-size:85%;">Foo f = <span style="color: rgb(51, 102, 255);">new </span>Foo();</span><br /><br />Now we create a reference to the delegate in the following manner:<br /><br /><span style="font-size:85%;">MethPointer <span style="color: rgb(255, 102, 102);">d</span> = <span style="color: rgb(51, 102, 255);">new </span>MethPointer(f.FooMeth);</span><br /><br />We pass the method to the constructor of the delegate.  All the hard work is done.  To invoke the delegated method, we simply do the following:<br /><br /><span style="font-size:85%;"><span style="color: rgb(255, 102, 102);">d</span>();</span><br /><br />One more thing about syntax and then I&#8217;ll introduce a first basic usage for delegates.  If you got this far and you&#8217;re doing okay, this is a side note you should be able to figure out on your own.  A lot of the time, a delegate is declared as a public variable in a class.  Something like the following:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 102, 255);">public class</span> MyClass{<br />  <span style="color: rgb(51, 102, 255);">public delegate void</span> Del();<br />}</span><br /><br />So the line above when we created a reference to it comes to us often as:<br /><br /><span style="color: rgb(51, 102, 255);font-size:85%;" ><span style="color: rgb(51, 0, 51);">MyClass.Del d =</span> new </span><span style="font-size:85%;">MyClass.Del(f.FooMeth);</span><br /><br />This is just a simple matter of understanding that if we declare something inside a class, we need to use the classname to access it.<br /><br />Now that we&#8217;ve got the syntax for a basic delegate, how on earth does one use such things?<br /><br />The example I always like to start with is a &#8220;callback&#8221;: you can call a remote method and pass a reference to a method in your local class.  For example, let&#8217;s say we had a database utility class called DB that had a RunLongQuery method.  This method runs a query against our database that sometimes takes 0.0005 seconds, but for large reports it can take 5, 10, sometimes 25 seconds.  Whenever the query finishes, you&#8217;d like to invoke a method from your application.<br /><br />So I&#8217;ve got a class MyDatabaseApp which makes a call to RunLongQuery from DB.  But we can design RunLongQuery to accept a reference to a method as a parameter by first putting a delegate in DB and then using it as a parameter on the method.  Check it out:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 102, 255);">public class</span> DB{<br />  <span style="color: rgb(51, 102, 255);">public delegate void</span> Done();<br />  <span style="color: rgb(51, 102, 255);">public void</span> RunLongQuery(<span style="color: rgb(51, 102, 255);">string </span>sql, Done cback){<br />    // code from query<br />    cback(); // invoke the callback method<br />  }<br />}</span><br /><br />Let&#8217;s also look at the internals of the class MyDatabaseApp:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 204, 255);"><span style="color: rgb(51, 102, 255);">public class</span> </span>MyDatabaseApp{<br />  <span style="color: rgb(51, 102, 255);">public void</span> FinishedQuery(){ &#8230; }<br /> <br />  <span style="color: rgb(51, 102, 255);">public void</span> MyAppQuery(){<br />    DB.Done <span style="color: rgb(255, 0, 0);">d</span> = <span style="color: rgb(51, 102, 255);">new </span>DB.Done(this.FinishedQuery);<br />    DB dbhelper = <span style="color: rgb(51, 102, 255);">new </span>DB();<br />    dbhelper.RunLongQuery(&#8220;select&#8230; &#8220;, <span style="color: rgb(255, 102, 102);">d</span>);<br />  }<br />}</span><br /><br />When MyAppQuery calls the RunLongQuery method from the instance of DB, dbhelper, it passes a delegate reference to the FinishedQuery method.  This will automatically be invoked when the query is completed - see inside the definition of DB to see how it&#8217;s being invoked.<br /><br />You can download a VS.NET 2003 example of the following <a href="http://hobbitwerk.brinkster.net/metadeveloper/BasicDelegates.zip">here</a> (~15kb).<br /><br />These are the very beginnings of delegates - our example is also quite trivial because it&#8217;s just a teaser for one of the more seductive <span style="font-style: italic;">asynchronous </span>callback that can be done with delegates.  But by this time, you should be aware that delegates are types - they can be referenced by variables and to create an instance of a delegate we need first to define the delegate and then pass a method that meets its requirements (return type and signature).<br /><br />Questions? david DOT(.)  seruyange AT(@) gmail DOT(.) com<br /><br /><span style="color: rgb(51, 0, 153);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-14T08:15:00-05:00" pubdate data-updated="true">Apr 14<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2005/04/14/beginning-with-delegates-in-c/" data-via="t3rse" data-counturl="http://t3rse.github.io/2005/04/14/beginning-with-delegates-in-c/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/03/15/done-not-dead/" title="Previous Post: Done, Not Dead">&laquo; Done, Not Dead</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/04/21/winforms-combobox-itemdata/" title="Next Post: WinForms ComboBox ItemData">WinForms ComboBox ItemData &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

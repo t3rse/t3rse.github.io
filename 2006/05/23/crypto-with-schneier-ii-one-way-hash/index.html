@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Crypto With Schneier II: One Way Hash - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{My reading of Schneier has continued. He still proves to be a very accomodating writer; consider the following on the &#8220;One-Time Pad,&#8221; a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2006/05/23/crypto-with-schneier-ii-one-way-hash">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Crypto With Schneier II: One Way Hash</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-23T21:28:00-05:00" pubdate data-updated="true">May 23<span>rd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />My reading of Schneier has continued.  He still proves to be a very accomodating writer; consider the following on the &#8220;One-Time Pad,&#8221; a encryption scheme that can be literally unbreakable:<br /><br /><blockquote>&#8220;Many Soviet spy messages to agents were encrypted using one-time pads.  These messages are still secure today and will remain that way forever. It doesn&#8217;t matter how long the supercomputers work on the problem. Even after the aliens from Andromeda land with their massive spaceships and undreamed-of computing power, they will not be able to read the Soviet spy messages encrypted with one-time pads (unless they can also go back in time and get the one-time pads).&#8221;</blockquote>In the second chapter he is discussing the basics of protocols and describes the one-way hash: &#8220;a function, mathematical or otherwise, that takes a variable-length input string (pre-image) and converts it to a fixed-length output string.  Essentially, a computed hash represents a fixed length byte array that is unique for whatever its input stream was.  This is interesting and useful beyond cryptography. <br /><br />Here&#8217;s a simple idea from Steve Oualline&#8217;s book &#8221;<a href="http://www.nostarch.com/frameset.php?startat=wcps"><span style="font-style: italic;">Wicked Cool Perl Scripts</span></a>,&#8221; but implemented in C#: you can compute a hash to check to see if two files are different or the same.<br /><br />The following code uses the System.IO and System.Security.Cryptography namespaces:<br /><br />        private static bool CompareFiles(string path1, string path2) {<br />            byte[] hash1 = GetMD5Hash(path1);<br />            byte[] hash2 = GetMD5Hash(path2);<br />            for (int i = 0; i < hash1.Length; i++)<br />            {<br />                if (hash1[i] != hash2[i])<br />                {<br />                    return false;<br />                }<br />            }<br />            return true;<br />        }<br /><br />        private static byte[] GetMD5Hash(string pth)<br />        {<br />            MD5 hasher = MD5.Create();<br />            byte[] fileBytes = File.ReadAllBytes(pth);<br />            byte[] hash = hasher.ComputeHash(fileBytes);<br />            return hash;<br />        }<br /><br />I was curious about the performance of this technique - I was originally testing it on 40MB files.  I extracted some old database backup files - about 200MB a piece and the comparison took somewhere on the order of 20 seconds.  My laptop has a P4  3Ghz with  1GB of RAM.  Nice, but not out of the ordinary (especially these days).  I&#8217;ve also got suspicions that the speed was not necessarily on the hash computation, but rather on reading out the byte array in the file. I&#8217;ll test sometime to see&#8230;<br /><br /><span style="font-size:180%;"><span style="color: rgb(51, 51, 255);">}</span></span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-23T21:28:00-05:00" pubdate data-updated="true">May 23<span>rd</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2006/05/23/crypto-with-schneier-ii-one-way-hash/" data-via="t3rse" data-counturl="http://t3rse.github.io/2006/05/23/crypto-with-schneier-ii-one-way-hash/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/05/20/personal-projects/" title="Previous Post: Personal Projects">&laquo; Personal Projects</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/05/26/radiobuttonlist-javascript-accessible/" title="Next Post: RadioButtonList Javascript Accessible">RadioButtonList Javascript Accessible &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ Steve posted a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/blog/page/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>An open letter</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/27/change-dispensed/">Change Dispensed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-27T12:51:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Steve <a href="http://blog.stevenlevithan.com/archives/change-dispenser">posted</a> a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and implemented it with just a small variation on pluralizing coin denominations.     <br />    <br /></p>  <pre style="line-height:120%;padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; padding-top: 10px; font-family: courier">def make_change(amt):<br />    output = &quot;Change is &quot;<br />    coins = (['quarte|r|rs', 25], ['dim|e|es', 10], ['nicke|l|ls', 5], ['penn|y|ies',1])<br />    for i in coins:   <br />        r = amt // i[1]<br />        if(r &gt; 0):<br />            coinout = re.split('\|', i[0])<br />            output += &quot;%d %s%s &quot; % (r, coinout[0], coinout[1:][r &gt; 1])<br />            amt = amt - (r * i[1])<br />    print output<br />    <br />make_change(48)</pre><br /><br /><p><br />  <br />A few things I learned along the way: <br /><br />  <br />* I was reminded that dictionary objects do not guarantee order. <br /><br />  <br />* I was using Python regular expressions to do a match on the string &quot;this |and|or that&quot; and discovered if you use match with simply \|(\w+) it returns nothing since the match must start from the beginning of the string! <br /><br />  <br />* I was going to use a lambda expression for the pluralization but that&#8217;s such a large hammer for what in the end would become a split</p><br /><br /><p>Python&#8217;s behavior with booleans is another point of interest - when I test the following: coinout[1:][r &gt; 1] I&#8217;m taking advantage of anything true being a 1. I wonder if this is &quot;bad&quot; but it&#8217;s a seductive thing to take advantage of&#8230; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/23/deep-fried-bytes-yegge-interviewing/">Deep Fried Bytes, Yegge, Interviewing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-23T23:50:00-05:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Found a good podcast today, &quot;<a href="http://deepfriedbytes.com/podcast">Deep Fried Bytes</a>.&quot; Skip the first episode but the second on interviewing is a gem. Although it was posted on May 29, it ties in quite well with thoughts delivered (not simply written, but delivered) by Steve Yegge in his recent post on finding good people, <a href="http://steve-yegge.blogspot.com/2008/06/done-and-gets-things-smart.html">Done and Gets Things Smart</a>. Not only is it entertaining to hear <a href="http://www.ayende.com/Blog/">Ayende Rahein</a> take nonusers of using blocks to task, but later Scott Belware seems to be on the same page as Yegge on how you can know if people are &quot;good.&quot;&#160; Here is his approach (listen to the podcast if you want total accuracy): </p>  <p>- I don&#8217;t ask questions I do pair programming for interviews&#8230;   <br />- Interview questions are irrelevent&#8230; most of the people asking interview questions are showing the people who are interviewing what they know    <br />- Ask for a code sample with unit tests that run inside Visual Studio    <br />- If that&#8217;s okay ask them to come in for 4 hours of pair programming    <br />- Most interview related items would come up during the pair programming session</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/13/c-multiple-replace-extension-methods/">C# Multiple Replace Extension Methods, Levithan Style</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-13T00:04:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A couple of nights ago I <a href="http://metadeveloper.blogspot.com/2008/06/regex-replace-multiple-strings-in.html">blogged</a> about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan had <a href="http://blog.stevenlevithan.com/archives/multi-replace">an entry</a> on the approach (not mine in specific, just the approach and commenting on a few weaknesses). It inspired a few things out of me: first, making the multiple replace an extension method of the string class, and second to duplicate Steve&#8217;s approach which enables a more robust model because you can use metasequences etc&#8230; </p>  <p>Here is the code (included the using statement since the use of ToArray() from the Dictionary key collection isn&#8217;t available without System.Linq): </p>  <pre>using System;<br />using System.Linq;<br />using System.Collections.Generic;<br />using System.Text.RegularExpressions;<br /><br />static class RegexExtender {<br />    public static string MultiReplace(this string target, Dictionary<string , string> replacementDictionary) {<br />        return Regex.Replace(target,<br />                                &quot;(&quot; + String.Join(&quot;|&quot;, replacementDictionary.Keys.ToArray()) + &quot;)&quot;,<br />                                delegate(Match m) { return replacementDictionary[m.Value]; }<br />                                );<br />    }<br /><br />    public static string LevithansMultiReplace(this string target, Dictionary<string , string> replacementDictionary)<br />    {<br />        foreach (string key in replacementDictionary.Keys) {<br />            Regex r = new Regex(key, RegexOptions.None);<br />            target = r.Replace(target, replacementDictionary[key]);<br />        }<br />        return target;<br />    }<br /><br />}</pre><br /><p><br />Here is some usage:<br /></p><br /><pre><br /><br />// the original approach, as an extension method<br />string x = "Holly was a hunter";<br />Dictionary<string, string> rdict = new Dictionary<string, string>();<br />rdict.Add("Holly", "Hannah");<br />rdict.Add("hunter", "hatter");<br />Console.WriteLine(x.MultiReplace(rdict));<br /><br />// Steve's technique<br />rdict = new Dictionary<string, string>();<br />rdict.Add(@"[A-z]", "x");<br />rdict.Add(@"\d", "y");<br />string test = "David is 33";<br />Console.WriteLine(test.LevithansMultiReplace(rdict));<br /></pre><br /><br><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I think at the time I wrote this the regular .NET Dictionary defaulted to have a string key/value pair. Now you will need to use a strongly typed Dictionary. <br /><br />That is: Dictionary&lt;string, string&gt; instead of just Dictionary.</div>
+</div>
+<div class='comment'>
+<div class='author'>Marc W</div>
+<div class='content'>
+LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/11/regex-replace-multiple-strings-in/">Regex: Replace Multiple Strings in a Single Pass With C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-11T00:13:00-05:00" pubdate data-updated="true">Jun 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I wish I could say I was the clever one to think of this but I ran into it in my copy of the Python Cookbook (the original author is <a href="http://defrang.com/">Xavier Defrang</a>, the Python implementation <a href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/81330">here</a>). It&#8217;s cool enough that I ported it today - I&#8217;ll know I&#8217;ll use the C# implementation of it quite often: </p>  <pre>        static string MultipleReplace(string text, Dictionary<string , string> replacements) {<br />            return Regex.Replace(text, <br />                                    &quot;(&quot; + String.Join(&quot;|&quot;, adict.Keys.ToArray()) + &quot;)&quot;,<br />                                    delegate(Match m) { return replacements[m.Value]; }<br />                                    );<br />        }<br />	// somewhere else in code<br />            string temp = "Jonathan Smith is a developer";<br />            adict.Add("Jonathan", "David");<br />            adict.Add("Smith", "Seruyange");<br />            string rep = MultipleReplace(temp, adict);<br /></pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fabian</div>
+<div class='content'>
+Hi! Your code works well with simple replacement but will fail with complex pattern as the dictionnary key will not be the pattern but the matched string in the input.</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Partridge</div>
+<div class='content'>
+This is great, thank you!</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/08/languages-and-thinking/">Languages and Thinking</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-08T23:08:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m approaching the end to a rough week and should be coding but the virus scanner on my office machine is slowing development to a point where it&#8217;s not bearable for me.&#160; I&#8217;ll pass the time with a quick thought about how programming languages affect thinking and why it makes me both picky about languages I use and also curious to see how the different languages solve problems.</p>  <p>I will confess that the project I&#8217;ve been working on is written in VB.NET.&#160; The reason for that was very practical since our client was adept at VBA and needed to, on occasion, get to the code level of things.&#160; I&#8217;d spent a lot of time in Visual Basic (the &quot;classical&quot; VB) so I thought nothing of it - perhaps somewhat of a refreshment after so many years away.&#160; As we wrote more and more code, I started noticing a lot of nested &quot;If&quot; statements in the style of: </p>  <p></p>  <pre>If Some Condition Then<br />	If SomeOtherCondition Then<br />		If YetAnotherCondition Then</pre><br /><br /><p>You get the picture.</p><br /><br /><p>I remember working with a different VB programmer and she was also given to writing a lot of nested conditions in the same manner even though we were using C#:</p><br /><br /><pre>if(cond){<br />	if(cond2){<br />		if(cond3){	</pre><br /><br /><p>At the time it really bothered me in a &quot;code smell&quot; sort of way; nesting conditions, I would have argued, invites clutter and entropy. Since I&#8217;ve been attending Hanselman University for a while now I can say with more technical gravitas that they increase cyclomatic complexity and this was why they smelled bad. The alternative I would have wished for would have been:</p><br /><br /><pre>if(cond &amp;&amp; cond2 &amp;&amp; cond3){<br />...<br />}</pre><br /><br /><p>Pretty natural, right?&#160; Actually no, especially if you&#8217;re coming from Visual Basic because the Visual Basic And and Or operators don&#8217;t do short circuit evaluation.&#160; If you combine boolean expressions you have to make a mental note to verify that they both will work at runtime - that there is no dependency between them.&#160; That&#8217;s something a C# progammer completely takes for granted often writing code like this which is a ticking bomb in VB.NET (it won&#8217;t go off until you&#8217;re demonstrating the app to your client, trust me):</p><br /><br /><pre>If Not MyCollection Is Nothing And MyCollection(0) = &quot;Something&quot; Then<br />	...</pre><br /><br /><p>One expects the second expression will be passed if the first fails in a &quot;short circuit&quot; approach. Unfortunately, Visual Basic .NET will attempt to evaluate the second even if the first is not true!</p><br /><br /><p>To clean this all up the VB.NET folks provided the AndAlso and OrElse operators which do traditional short circuit evaluation. I read somewhere that the reason And and Or were left as is was for backward compatibility and people who were &quot;upgrading&quot; their code from Visual Basic to Visual Basic.NET. Using these operators you&#8217;re back to thinking &quot;normally&quot; as a C#, C, Javascript, etc&#8230; developer.</p><br /><br /><p>So back to my original thought - nested If blocks are a simple way around an operator that doesn&#8217;t short circuit and it&#8217;s a way of thinking if you&#8217;ve spent a lot of time writing Visual Basic code. The language is what drives that even though there may be alternatives. Even though it may produce cyclomatic complexity. Some people tell me picking a language is just a simple process of picking a tool, but I think it&#8217;s more than that; it&#8217;s picking a way of thinking. That&#8217;s why it&#8217;s not only important to me, it&#8217;s interesting to see how different languages lead us in different directions. Even if an idiom is available elsewhere, it&#8217;s getting to think that way that is most often&#160; the trick to being better in both languages.</p><br /><br /><p>One more side note, I can chart a few different ways in which new languages have affected me. Take a look at the type of thing I did before a lot: </p><br /><br /><pre>foreach(string s in stuff){	<br />	master += s + &quot;,&quot;;<br />}<br />master = master.Substring(0, master.Length -1);</pre><br /><br /><p>Nowadays:</p><br /><br /><pre>// like a map, I first started thinking this way from perl<br />stuff.ForEach(delegate(string s) { master += s + &quot;,&quot;; });<br />// like a join, very Pythonic<br />String.Join(&quot;,&quot;, stuff.ToArray())</pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Good post.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/01/galloway-et-al-roundtable-podcast/">Galloway Et. Al. Roundtable Podcast</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-01T19:45:00-05:00" pubdate data-updated="true">Jun 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>If you haven&#8217;t and you do Microsoft development, give an ear to <a href="http://weblogs.asp.net/jgalloway/default.aspx">John Galloway</a>, <a href="http://www.odetocode.com/">K. Scott Allen</a>, <a href="http://www.lazycoder.com/weblog/">Scott Koon</a>, and <a href="http://weblogs.asp.net/kdente/">Keven Dente</a> in their &quot;Technology Roundtable&quot; <a href="http://weblogs.asp.net/jgalloway/archive/tags/Podcast/default.aspx">podcast</a>.&#160; There are a lot of podcasts I find entertaining, (like Joel and Jeff&#8217;s <a href="http://blog.stackoverflow.com/">discussions</a>) but these guys seem to do what I do - and to contextualize that since it may sound presumptuous, they deal with Microsoft development tools building &quot;real world&quot; software.&#160;&#160; </p>  <p>I try to have &quot;take aways&quot; from podcasts so from the first more impetus to investigate Ninject and dependency injection as well as more investigation of LINQ to SQL and the ADO.NET Entity framework (opinions flew on these, I&#8217;d like to develop some of my own).&#160; Finally, even though I&#8217;ll probably skip the beta, I will look forward to .NET 3.5 SP1 since ASP.NET Dynamic Data will be packaged therein.</p>  <p>The second podcast had a great discussion on javascript libraries. I&#8217;ve used <a href="http://www.t3rse.com/proper">jQuery</a> and <a href="http://www.nregex.com">YUI</a> and Prototype on different projects and while my fondness for Prototype/Scriptaculous is probably greatest of all I am always eager to hear other people&#8217;s experiences. The framework I have yet to do anything serious with is Dojo - I did some quick prototyping of their flyout menu with ASP.NET server code and I hate to say it but the ASP.NET Menu control was a lot more effective and fast. While it wasn&#8217;t explicitly stated, this podcast has dampened my interest for the ASP.NET Ajax stuff - I looked at it again a few weeks ago and it seemed so&#8230; heavy.&#160; I&#8217;m not sure who mentioned it in the podcast but they said it seemed more oriented for writing controls versus Ajaxy type applications.&#160; I would have to concur with my limited knowledge.</p>  <p>I&#8217;ll stay tuned, it will be interesting to see what they talk about next time.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/31/knowing-c/">Knowing C</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-31T18:10:00-05:00" pubdate data-updated="true">May 31<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been having a good time listening to the <a href="http://blog.stackoverflow.com/">StackOverflow podcasts</a>. Joel&#8217;s a great curmudgeon and Atwood is as opinionated as ever.&#160; An ongoing disagreement between the two has been the usefulness of knowing C.&#160; Joel&#8217;s adamant about its importance and Atwood thinks there is much else a developer can spend their time in understanding.&#160; </p>  <p>Eric Sink has since chimed in with a post called <a href="http://www.ericsink.com/entries/c_morse_code.html">C and Morse Code</a> wherein he reveals his cards: like Joel, he thinks it&#8217;s of vital importance if you want to reach past mediocrity:</p>  <blockquote>   <p>I&#8217;m not going to take a black-and-white stance on this.&#160; I won&#8217;t go so far as to say that every developer must learn C.&#160; I&#8217;ve met lots of developers without C experience who are successful and making positive contributions to important software projects.</p>    <p>Furthermore, I&#8217;ll admit that knowing C is not a magic solution to poor skills.&#160; A lousy developer who happens to know C is simply better equipped to hurt himself or somebody nearby.</p>    <p>However, I can say these two things:</p>    <ol>     <li>All of the truly extraordinary developers I know are people who really understand the kind of low-level details that C forces you to know. </li>      <li>Every programmer without C experience has a clear path of personal development:&#160; Learn C.&#160; Get some real experience using C to write a serious piece of software.&#160; Even if you never use it again, you&#8217;ll be a better programmer when you&#8217;re done. </li>   </ol> </blockquote>  <p>My relationship with C is tenuous at best. I spent a few months some years ago delving into it (and C++) seriously - I&#8217;m curious to go back and find some of that code but it was a few machines ago*.&#160; I remember during that time I&#8217;d work on little toy programs (mostly an implementation of some algorithm) in C and then have the need for a utility and write it in something else.&#160; It would be interesting to take Eric up on his second point of writing a &quot;serious piece of software&quot; using the language.&#160; One interesting angle on this is how one would keep said &quot;serious piece of software&quot; strictly in the realm of C, without venturing too much into the world of C++ and object orientation done poorly.</p>  <p>So brainstorm question: what&#8217;s something nice and useful that could be implemented strictly within C? (That one might not yawn and think *gosh* that would take 1 minute to do in Python).</p>  <h1><font color="#0000ff">}</font></h1>  <p>   <br />*Great memories of Me, Markus, and <a href="http://www.codegear.com/downloads/free/cppbuilder">bcc32</a> in a coffee house somewhere in southern California.&#160; Too far gone are those days&#8230; </p>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/29/splitting-files-with-python/">Splitting Files With Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-29T23:09:00-05:00" pubdate data-updated="true">May 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been recently needing to generate sql scripts from large Excel spreadsheets. But once the script is finished I&#8217;ve had issues getting SQL Management Studio to execute as large a script in a single run. The solution? Split up the file with a little Python that takes it&#8217;s arguments like this:</p>  <p>ipy Splitter.py&#160; LargeFile.sql 3</p>  <p></p>  <pre>#import clr<br />#pass arguments like so:<br /># THISSCRIPT.PY FILE NUM_PARTS<br /># ipy Ringil.py LargeFile.sql 4<br /><br />import sys<br /><br />if(len(sys.argv) == 3):<br />    splits = int(sys.argv[2])<br />    f = open(sys.argv[1])<br />    data = f.readlines()<br />    lc = len(data)/splits<br />    print &quot;number of lines&quot;, len(data)<br />    for c in range(0,splits):<br />        outstream = open(&quot;data&quot; + str(c + 1) + &quot;.sql&quot;, 'w')<br />        for line in data[:lc]: <br />            outstream.write(line)<br />        outstream.close()<br />        del data[:lc]<br />    f.close()<br />else:<br />    print &quot;Expected arguments: file and number of splits\n example: ipy Splitter.py LargeFile.sql 4&quot;</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/20/it-speed-that-counts/">It&#8217;s Speed That Counts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-20T21:31:00-05:00" pubdate data-updated="true">May 20<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I usually don&#8217;t talk about hardware because I don&#8217;t pay too much attention to it unless something is bothering me.&nbsp; However I&#8217;ve discovered something interesting about myself in the last week.&nbsp; I&#8217;ve done a lot of my development over the last few years on an enormous <a href="http://www.notebookreview.com/default.asp?newsID=2248&amp;review=ZD8000">HP zd8000</a>.&nbsp; I jokingly called it &#8220;the 747&#8221; because of its size and girth - 10 lbs and a 17&#8221; screen.&nbsp; For a guy like me who&#8217;s usually also carrying a few books in his bag it&#8217;s quite a load as evidenced by my going through at least one laptop bag (my current one is also in poor shape).&nbsp; </p> <p>So because of some changes at work I got to try out a machine I&#8217;d liked the thought of - another HP but this one with a small 13&#8221; screen and weighing perhaps 4 lbs.&nbsp; It&#8217;s a great little machine and has a cool look but after about a week I&#8217;m back to the 747. </p> <p>Why go back to the back pains and encumbrance of this massive machine?&nbsp; One simple reason: speed.&nbsp; It&#8217;s got twice the RAM (2GB) and a much faster processor.&nbsp; I didn&#8217;t think about this much but for a person like me who is usually running an instance of SQL Server, an IDE of some sort, a text editor, web browsing with 10 tabs open, listening to music, chatting up friends (Messenger is no joke when it comes to resources), etc, etc - you get the picture - it&#8217;s frustrating to be on a beautiful, compact machine that you have to wait around for. I&#8217;d rather exchange power with encumbrance for convenience with time penalties.</p> <p>Or, as I like to joke with my South Dakota friends, I&#8217;m like a guy who exchanged his <a href="http://www.chevrolet.com/silverado/">Chevy Silverado</a> for a <a href="http://www.vw.com/touareg/en/us/#">crossover vehicle</a>&#8230; until he realized that he made his living hauling lumber.</p> <p>Footnote: I ordered a Thinkpad T61 which should be a foot in both worlds. I guess my bit of the economic stimulus went to China. </p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/19/nregex-mention/">Nregex Mention</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-19T23:54:00-05:00" pubdate data-updated="true">May 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Steven mentions <a href="http://www.nregex.com/nregex/default.aspx">Nregex</a> in a <a href="http://blog.stevenlevithan.com/archives/jrx-xregexp">list of regular expression testers</a> online. Nregex is still up and still useful especially if you need to work with .NET&#8217;s implementation of regular expressions. A coworker of mine just used it to build a parser for Sql Reporting Services RDL files.&#160; Steven&#8217;s own <a href="http://www.regexpal.com">RegexPal</a> is a fairly intense implementation of regular expressions in javascript, complete with syntax highlighting.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Steve</div>
+<div class='content'>
+&#8220;Nregex is still up and still useful especially if you need to work with .NET&#8217;s implementation of regular expressions.&#8221;<BR/><BR/>Yes, I think it&#8217;s easily the best online .NET regex tester. You are planning to keep it up, right? I&#8217;m hoping to recommend it for testing .NET regexes in an upcoming book, but if you&#8217;re thinking of taking it down, I&#8217;d appreciate a heads up so that I can look elsewhere. (I only mention this because of the &#8220;still up&#8221; notice in your post.)<BR/><BR/>Once again, great work!</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/15/on-features/">On Features</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
