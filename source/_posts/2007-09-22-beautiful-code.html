@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Beautiful Code"
+date: 2007-09-22T21:31:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Although it seems to be a little <a href="http://alarmingdevelopment.org/?p=79">disagreement</a> over the existence of beautiful code, a refactor I did today was pleasant to my eye.</p> <p>Starting with:</p> <p><font face="Courier New" size="1">string result;<br>if (parameterLessCommands.Contains(commandName))<br>{<br>&nbsp;&nbsp;&nbsp; result = RunArglessCommand(user, commandName);<br>}<br>else {<br>&nbsp;&nbsp;&nbsp; string commandArg = RetrievePairCommandArg(commandData);<br>&nbsp;&nbsp;&nbsp; result = RunArgCommand(user, commandName, commandArg);<br>}<br>return result;</font>  <p>Ending with:</p> <p><font face="Courier New" size="1">return <br></font><font face="Courier New" size="1">(parameterLessCommands.Contains(commandName)) ?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RunArglessCommand(user, commandName) : <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RunArgCommand(user, commandName, <br>RetrievePairCommandArg(commandName));</font>&nbsp;&nbsp;&nbsp; </p> <p>I'll take it. ()?: is your friend!</p> <h1><font color="#0000ff">}</font></h1></div>

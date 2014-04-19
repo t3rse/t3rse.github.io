@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Configuration Ammendment"
+date: 2007-02-23T19:20:00-08:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br /><span style="font-family:courier new;font-size:85%;">// get calling assembly settings classstring </span><br /><span style="font-family:courier new;font-size:85%;">assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;</span><br /><br />I had used the above in my previous code sample to retrieve the assembly name before obtaining settings from the config file. It works only if you are attempting to obtain configuration information from a library that is called by an *.exe. But what if you are in a library (*.dll) and you are using another library to read configuration information as I'd planned? The Assembly.GetCallingAssembly().FullName returns the name of the library, which as I mentioned before is not where the Configuration class naturally looks for settings. Using the following modification:<br /><br /><span style="font-family:courier new;font-size:85%;">// get calling assembly settings classstring<br />assemblyName = System.Reflection.Assembly.GetEntryAssembly().FullName; </span><br /><br />Ah, much better. A subtlety worth remembering: Assembly.GetCallingAssembly() returns a reference to whatever the caller, whether it's a library or executable whereas Assembly.GetEntryAssembly() will give you the name of an executable responsible for making that first call to the framework.<br /><br />Interestingly, in an ASP.NET 2.0 application where the runtime is processing libraries directly, Assembly.GetEntryAssembly() returns a null. <br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>

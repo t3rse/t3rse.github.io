@@ -1,0 +1,36 @@
+---
+layout: post
+title: "JSON Wars"
+date: 2007-01-04T20:38:00-08:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Perhaps not war, but there seems to be an upswell in the JSON versus XML discussion. JSON as many describe much better than I do is a javascript object literal you can return directly to a page along the lines of:<br /><br />{"name": "David Seruyange", "age":31, "preferredLanguages": ["C#","perl", "javascript","ruby"]}<br /><br />If you type a lot, you can do the same thing with an xml style of notation, something along the lines of an element person, nested element name, nested element or attribute for "David Seruyange"... the whole thing gets to be quite a bit (I'm too lazy to type it out at the moment).<br /><br />I first noticed Dare Obasanjo sniping <a href="http://www.25hoursaday.com/weblog/PermaLink.aspx?guid=39842a17-781a-45c8-ade5-58286909226b">a bit</a>, after which I saw a few trails elsewhere - <a href="http://www.tbray.org/ongoing/When/200x/2006/12/21/JSON">the post</a> he was responding to by Tim Bray, and another referenced one from <a href="http://pluralsight.com/blogs/dbox/archive/2007/01/03/45560.aspx">Don Box</a>. <br /><br />But it's extended - <a href="http://simonwillison.net/2006/Dec/20/json/">Simon Willison</a> chimed in on flexibility of JSON in response to Dave Winer's <a href="http://www.scripting.com/2006/12/20.html#godBlessTheReinventers">post</a> on JSON.  <a href="http://www.megginson.com/blogs/quoderat/2007/01/03/all-markup-ends-up-looking-like-xml/">Megginson</a> makes a comparison here (in the end favoring XML), and so the conversation goes.<br /><br />In terms of my own personal experience, I discovered and used JSON on my last project. It's a very, very seductive thing but I found killer gremlins in terms of making sure I used proper characters in my object literals.  Javascript does allow you to use the \ character to escape quotes in strings but as you ship strings around you have to make sure you keep track of what you escaped - especially in my case where users would have to "see" things on screen (remove the escape) and then be able to push them to a database.<br /><br />In the end I think JSON will prevail (by this I mean more and more developers will use JSON with AJAX than web services) not only because XML is more verbose but also because parsing out nodes in an xml document is more painstaking than leveraging the power of javascript to turn a literal into an object. I'm curious to see (or discover since they are probably out there) more JSON parsers than take care of things like escaped quotes and special characters. I'm equally curious to see server controls (or encapsulated code) that can ship data structures to a client as JSON - one night project I see coming up is a library that can take an ADO.NET DataTable, for example, and convert it to a JSON string. <br /><br />Oh, one last thing. At the time of my last project when I was deciding how to proceed with Ajax, I took a long look at an early beta for Atlas. I was surprised that the JSON functionality hadn't caught on there and it seemed to use full blown SOAP encoding web services.  This may have changed with the release candidate of ASP.NET Ajax but at the time JSON was pretty popular in the world of javascript.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Jim</div>
+<div class='content'>
+I've been converting ADO XML recordSet's exposed by a 3rd party API via WDDX in our production environment for years here. WDDX just being another overly simplified DTD for simple data structures (such as a hash table, aka associative array) like XML-RPC or even RSS.<BR/><BR/>I just put together a way to encapsulate the ADO XML recordSet in JSON through XSLT:<BR/><A HREF="http://www.overset.com/2008/02/21/convert-adodb-xml-to-json-through-xslt/" REL="nofollow">http://www.overset.com/2008/02/21/convert-adodb-xml-to-json-through-xslt/</A><BR/><BR/>The WDDX version is here:<BR/><A HREF="http://www.overset.com/2006/09/25/ado-xml-to-wddx-xml-xslt-transformation/" REL="nofollow">http://www.overset.com/2006/09/25/ado-xml-to-wddx-xml-xslt-transformation/</A></div>
+</div>
+<div class='comment'>
+<div class='author'>pudge</div>
+<div class='content'>
+JSON was never meant to be a replacement for XML, of course.  It's just a shortcut to use for AJAX etc. when a shortcut is all you need.<br /><br />It's like riding a bike down to the corner store instead of an SUV.<br /><br />If nothing else, a good enough reason to be for JSON in such cases is that Dave Winer hates it.<br /><br />Hi Dave!</div>
+</div>
+<div class='comment'>
+<div class='author'>yash</div>
+<div class='content'>
+JSON is sooo cool!! if only all web services decided to serve JSON along with XML, I can use <a href='http://www.openjsan.org/doc/y/yo/yoshida/JSONScriptRequest/0.03/lib/JSONScriptRequest.html'>JSONScriptRequest</a> to access cross domain services directly from the browser, then my server will just need to host plain static content with javaScript...mashup creation would be so damn easy!!</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+Also, you should use a library for generating your JSON, here's a .NET one:<br /><br />http://www.newtonsoft.com/products/json/<br /><br />I use JSON-lib (http://json-lib.sourceforge.net/) in Java and it's way easier than having to remember escape characters, etc..</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+I'm a big fan of JSON in the browser, not as a global replacement for XML.   One of best examples of how JSOn beats XML in the browser is the del.icio.us JSON API for including your tags on a web page. Its as simple as including (via a script tag) a link to your JSON feed and then iterating over the JavaScript array... no parsing of XML content, no XMLHTTPRequests, no asynchronous.<br /><br />For your browser, a good analogy might be reading a book... you're sailing along reading in your native language (HTML / JavaScript) and then all of a sudden a paragraph is in Swahili (XML). Now you have to go and do a context switch to your Swahili parser, read the Swahili chapter and then switch back to your native tongue. <br /><br />Why would you ever read a book that way?<br /><br />AJ</div>
+</div>
+</div>

@@ -1,0 +1,21 @@
+---
+layout: post
+title: "C# Multiple Replace Extension Methods, Levithan Style"
+date: 2008-06-12T22:04:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A couple of nights ago I <a href="http://metadeveloper.blogspot.com/2008/06/regex-replace-multiple-strings-in.html">blogged</a> about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan had <a href="http://blog.stevenlevithan.com/archives/multi-replace">an entry</a> on the approach (not mine in specific, just the approach and commenting on a few weaknesses). It inspired a few things out of me: first, making the multiple replace an extension method of the string class, and second to duplicate Steve's approach which enables a more robust model because you can use metasequences etc... </p>  <p>Here is the code (included the using statement since the use of ToArray() from the Dictionary key collection isn't available without System.Linq): </p>  <pre>using System;<br />using System.Linq;<br />using System.Collections.Generic;<br />using System.Text.RegularExpressions;<br /><br />static class RegexExtender {<br />    public static string MultiReplace(this string target, Dictionary<string , string> replacementDictionary) {<br />        return Regex.Replace(target,<br />                                &quot;(&quot; + String.Join(&quot;|&quot;, replacementDictionary.Keys.ToArray()) + &quot;)&quot;,<br />                                delegate(Match m) { return replacementDictionary[m.Value]; }<br />                                );<br />    }<br /><br />    public static string LevithansMultiReplace(this string target, Dictionary<string , string> replacementDictionary)<br />    {<br />        foreach (string key in replacementDictionary.Keys) {<br />            Regex r = new Regex(key, RegexOptions.None);<br />            target = r.Replace(target, replacementDictionary[key]);<br />        }<br />        return target;<br />    }<br /><br />}</pre><br /><p><br />Here is some usage:<br /></p><br /><pre><br /><br />// the original approach, as an extension method<br />string x = "Holly was a hunter";<br />Dictionary<string, string> rdict = new Dictionary<string, string>();<br />rdict.Add("Holly", "Hannah");<br />rdict.Add("hunter", "hatter");<br />Console.WriteLine(x.MultiReplace(rdict));<br /><br />// Steve's technique<br />rdict = new Dictionary<string, string>();<br />rdict.Add(@"[A-z]", "x");<br />rdict.Add(@"\d", "y");<br />string test = "David is 33";<br />Console.WriteLine(test.LevithansMultiReplace(rdict));<br /></pre><br /><br><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I think at the time I wrote this the regular .NET Dictionary defaulted to have a string key/value pair. Now you will need to use a strongly typed Dictionary. <br /><br />That is: Dictionary&lt;string, string&gt; instead of just Dictionary.</div>
+</div>
+<div class='comment'>
+<div class='author'>Marc W</div>
+<div class='content'>
+LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</div>
+</div>
+</div>

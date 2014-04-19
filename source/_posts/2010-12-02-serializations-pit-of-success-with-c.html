@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Serialization’s “Pit of Success” with C# and JSON"
+date: 2010-12-02T05:36:00-08:00
+---
+
+<div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <p>Although it’s been mentioned before here, it bears repeating that before you find yourself making a reference to the <a href="http://msdn.microsoft.com/en-us/library/bb410770.aspx">DataContractJsonSerializer</a>, you ought to consider and indeed are more likely better off with the NewtonSoft library <a href="http://json.codeplex.com/">Json.NET</a>. Whereas the DataContractJsonSerializer relies on giving you the flexibility of creating types and using the DataContract and DataMember attributes on them for a lot of granular control, this is burdensome with types that should naturally find themselves serializable and JSON friendly. For example, let’s say I have a Dictionary&lt;int, string&gt;; the intent of the user shouldn’t be too complicated in the serialization process. Or, if I have a class Foo with a couple of properties, and I want to serialize an IEnumerable of said class, again, the intent doesn’t require the extra use of attributes and a complexity overhead. </p>  <p>This is not to say that the DataContractJsonSerializer does not have its place; if you are leveraging WCF and choosing JSON as your serialization format, it is probably the best route to go. That said, however, I have fallen more than once into a “pit of success” with Json.NET after getting burdened with trying to use the DataContractJsonSerializer.</p>  <p>Json.NET is still quite active, the last release during the latter half of this year. <a href="http://json.codeplex.com/releases/view/50552#ReviewsAnchor">Check it out</a>.</p>  <h3><font color="#0000ff">}</font></h3>  </div>

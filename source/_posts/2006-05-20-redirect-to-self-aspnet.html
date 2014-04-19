@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Redirect to Self (ASP.NET)"
+date: 2006-05-20T19:47:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />It's easy to reset a page to it's initial state in ASP.NET by redirecting to itself. Here are 3 ways you can do it:<br /><br />1. Response.Redirect(Request.Path);<br /><br />In which the path to the request is presented in the following form: /MyApp/MyFile.aspx<br /><br />2. Response.Redirect(Request.RawUrl);<br /><br />In which not only is the path exposed, but also any querystring parameters like:<br />/MyApp/MyFile.aspx?foo=bar<br /><br />3. Response.Redirect(Request.Url.ToString());<br /><br />In which not only is the path and querystring parameters exposed, but made available as an absolute reference in the form:<br />http://MyServer/MyApp/MyFile.aspx?foo=bar<br /><br />Interestingly enough, if you have a named anchor in the form of &lt;a name=#test<a name="#test"></a>, this is not exposed by any of these methods!  (You'll see how I know a post or so from now, but suffices to say that you can still get this information from the client side by parsing the window.location object:<br /><br />alert(window.location);<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fanda</div>
+<div class='content'>
+Thank you for this information. Saves me a lot of time.</div>
+</div>
+<div class='comment'>
+<div class='author'>fahimeh</div>
+<div class='content'>
+Thank you! this was such a helpful for me!</div>
+</div>
+<div class='comment'>
+<div class='author'>fahimeh</div>
+<div class='content'>
+Thank you! this was very useful for me</div>
+</div>
+<div class='comment'>
+<div class='author'>Unknown</div>
+<div class='content'>
+Thank you! this was such a helpful for me!</div>
+</div>
+<div class='comment'>
+<div class='author'>Stefan</div>
+<div class='content'>
+Exactly what I needed! Thanks bud!</div>
+</div>
+<div class='comment'>
+<div class='author'>Sjoerd Perfors</div>
+<div class='content'>
+Thanks for the post, just what i needed</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+Thanks for posting this, it saved me a lot of time searching MSDN.</div>
+</div>
+</div>

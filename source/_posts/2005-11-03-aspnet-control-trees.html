@@ -1,0 +1,16 @@
+---
+layout: post
+title: "ASP.NET Control Trees"
+date: 2005-11-03T19:30:00-08:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Debugging a problem today I wrote </span><a href="http://hobbitwerk.brinkster.net/metadeveloper/DisplayControlTree.txt"><span style="font-size:85%;">this</span></a><span style="font-size:85%;">, which may be useful to someone. It displays all the controls on an ASP.NET Page in a tree structure. You can actually call it from any control, it will recursively traverse the heirarchy below it. I tested it on ASP.NET 2.0, and it works fine:<br /><br />Call it with the following:<br /><br />DisplayControlTree(this.Controls, 1, 30);<br /><br />Incidentally, the problem I had (and still have) comes from dynamically loading User Controls. Once they've been loaded using <em>LoadControl("... path")</em> they don't seem to persist themselves in the ViewState. I think my best hope for now is to save entries made to the User Controls by parsing the Querystring or Form collection manually. </span><span style="font-size:85%;"><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /><br /></span><span style="font-size:85%;"></span><span style="font-size:85%;"></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Rod</div>
+<div class='content'>
+You have a great blog here! I have a <A HREF="http://www.diabetesconcerns.com/" REL="nofollow">symptoms of diabetes</A> site. It covers everything about symptoms of diabetes as well as diabetes care, complications, treatment and insulin. You'll find it very informative. Check it out when you can :)<BR/>Rod</div>
+</div>
+</div>

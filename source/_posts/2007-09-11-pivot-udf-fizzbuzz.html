@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Pivot, UDF, FizzBuzz!"
+date: 2007-09-11T22:30:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>As I hit "publish" from <a href="http://metadeveloper.blogspot.com/2007/09/pivot-tables-with-udfs.html">my previous post</a> on pivot tables, a thought struck me on another most excellent use for them. No, really - for the next job interview: </p> <p>SELECT <br>&nbsp;&nbsp;&nbsp; CASE <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHEN I % 5 = 0 AND I % 3 = 0 THEN 'FizzBuzz'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHEN I % 3 = 0 THEN 'Fizz'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHEN I % 5 = 0 THEN 'Buzz'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ELSE CONVERT(VARCHAR(2), I) <br>&nbsp;&nbsp;&nbsp; END<br>FROM dbo.fnPivot(100) <h1><font color="#0000ff">}</font></h1></div>

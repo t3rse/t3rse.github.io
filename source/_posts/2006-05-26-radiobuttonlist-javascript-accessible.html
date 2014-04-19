@@ -1,0 +1,76 @@
+---
+layout: post
+title: "RadioButtonList Javascript Accessible"
+date: 2006-05-26T21:11:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I recently was trying to write some javascript that interacted with the ASP.NET 2.0 RadioButtonList.  My first attempts at obtaining a handle to the control via <span style="font-style: italic;">document.getElementById</span> were successful but unsuccessful. Successful in that they weren't giving me a "null" reference back, but unsuccessful in that I was not getting the selected value of the radio buttons.<br /><br />It turns out the RadioButtonList is rendered as an HTML Table element, with the table getting the corresponding id of the server control and the radio buttons getting id values that had an increment on the end. Their name attribute, which groups them, was the same as the RadioButtonList id.<br /><br />Simple example: you have a RadioButtonList you give an id of myList.  ASP.NET 2.0 renders a table with the id attribute of "myList."  You'll have your radio buttons inside, named myList_0, myList_1, and so on.  These radio buttons, rendered as <span style="font-style: italic;">getElementsByTagName("input") </span>to get your radio buttons.  Test to see which is selected and you're all done.  The following function encapsulates that logic, and we've begun reusing it all over the place. The radioList argument should just be the ClientId of your RadioButtonList:<br /><br />       function getRadioSelectedValue(radioList){<br />           var options = radioList.getElementsByTagName('input');<br />           for(i=0;i&lt;options.length;i++){<br />               var opt = options[i];<br />               if(opt.checked){<br />                   return opt.value;<br />               }<br />           }<br />       }<br /><span style="color: rgb(51, 51, 255);font-size:180%;" ><br />}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Pix</div>
+<div class='content'>
+Great Help !!</div>
+</div>
+<div class='comment'>
+<div class='author'>Shailendra</div>
+<div class='content'>
+hey good tips to solve d problem!!</div>
+</div>
+<div class='comment'>
+<div class='author'>ilan</div>
+<div class='content'>
+thanks for the helpfull post.<BR/>just to clear 1 thing, u said that the"radioList" is the id of the radio object, but it must be the client elemnet itself.<BR/>in case the user want to send only the client id, the first line of the function must change to:<BR/>var options = document.getElementById(radioList).getElementByTagName etc..</div>
+</div>
+<div class='comment'>
+<div class='author'>Emanuele</div>
+<div class='content'>
+Thanks for the solution!</div>
+</div>
+<div class='comment'>
+<div class='author'>robgonsalves</div>
+<div class='content'>
+You 'da man!<BR/><BR/>Rob in Boston</div>
+</div>
+<div class='comment'>
+<div class='author'>Yazılım Mühendisleri</div>
+<div class='content'>
+Thanks David. in Turkey</div>
+</div>
+<div class='comment'>
+<div class='author'>Tigris</div>
+<div class='content'>
+One thousand Thanks!!! I've been searching high and low for this answer (albeit for a databound checkboxlist).  Works like a champ!</div>
+</div>
+<div class='comment'>
+<div class='author'>Tigris</div>
+<div class='content'>
+Thank you!!! I've been searching high and low for this answer (albeit for a databound checkboxlist).  Works like a champ!</div>
+</div>
+<div class='comment'>
+<div class='author'>Khurram</div>
+<div class='content'>
+Hi David<BR/><BR/>Thanks for the solution, saved me from pulling my every hair out.</div>
+</div>
+<div class='comment'>
+<div class='author'>Nitin</div>
+<div class='content'>
+Thanks, nice solution for accessing radioButtonList in javascript</div>
+</div>
+<div class='comment'>
+<div class='author'>lokesh</div>
+<div class='content'>
+Thanks for nice solution<BR/>Good job</div>
+</div>
+<div class='comment'>
+<div class='author'>Julien</div>
+<div class='content'>
+Great tip!<BR/>The perfect answer to what I was looking for</div>
+</div>
+<div class='comment'>
+<div class='author'>Andrew</div>
+<div class='content'>
+Thanks David, this was very helpful.</div>
+</div>
+</div>

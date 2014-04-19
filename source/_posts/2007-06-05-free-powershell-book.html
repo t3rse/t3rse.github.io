@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Free Powershell Book"
+date: 2007-06-05T21:26:00-07:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />All I can say is that I'm loving powershell right now. Hopefully some more goodies will ensue upon this blog but if you're learning like me you can get a free book by leveraging the full length help that is offered on objects. You can print in the following steps:<br /><br />Get the cmdlets and send the documentation of each to its own file:<br /><span style="font-family:courier new;">get-command % {man $_ -full &gt;"C:/Power/$_.txt"} </span><br /><br />Now make an index page so you can navigate to the individuals:<br /><span style="font-family:courier new;">$cmd = get-command % {write-output "&lt;a href='$_.txt'&gt;$_&lt;/a&gt;&lt;br&gt;"}<br />"&lt;html&gt;$cmd&lt;/html&gt;" &gt;C:/Power/index.html </span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>

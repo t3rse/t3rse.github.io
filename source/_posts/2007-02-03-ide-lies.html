@@ -1,0 +1,16 @@
+---
+layout: post
+title: "IDE Distrust"
+date: 2007-02-03T12:26:00-08:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{<br /></span><br />Some time back I read Charles Petzold's essay <a href="http://www.charlespetzold.com/etc/DoesVisualStudioRotTheMind.html">Does Visual Studio Rot the Mind</a> which concerned itself with some of the negative aspects of how our tools drive us rather than us driving our tools. It's not just a handful of occasions where I've been called over to "troubleshoot" when a person's intellisense (or autocompletion) isn't popping up what they are expecting.<br /><br />But Visual Studio does impress upon you the wrong ideas sometimes.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/scriptLies.jpg" /><br /><br />In this case it will show an error for a missing mime type on a script tag. Granted, this may be some part of XHTML validation but after <a href="http://www.webstandards.org/2006/10/18/video-presentation-douglas-crockford-on-the-theory-of-the-dom/">listening to Douglas Crockford </a>(and also, incidentally, running into it in <a href="http://www.amazon.com/dp/0596101996?tag=davidflanagancom&camp=14573&amp;creative=327641&linkCode=as1&amp;creativeASIN=0596101996&adid=1QK0Q85Q2FMNZCZRB2YH&amp;">the Rhino book</a>), I discovered this type attribute isn't leveraged by any existing browsers.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/scriptLies2.jpg" /><br /><br />If you give in for the sake of XHTML and supply this attribute, you'll notice that Visual Studio suggests text/javascript which is actually incorrect. It <a href="http://www.webstandards.org/2006/10/18/video-presentation-douglas-crockford-on-the-theory-of-the-dom/">should be application/javascript</a>.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/createElementLies.jpg" /><br /><br />Here is something even more concerning - Visual Studio is suggesting two parameters for a method that actually only requires one (I looked in <a href="http://www.amazon.com/dp/0596101996?tag=davidflanagancom&camp=14573&amp;creative=327641&linkCode=as1&amp;creativeASIN=0596101996&adid=1QK0Q85Q2FMNZCZRB2YH&amp;">the Rhino book</a>).<br /><br />Visual Studio is a great tool, don't get me wrong - as much as I'd love to be an Emacs junkie and do my demonstrations in it while showing off my profficiency, I like how effecient Visual Studio is at allowing me to focus on my code - not my libraries, or my classpath, or anything else.<br /><br />With that said, it's important to master the tool, as opposed to being mastered by the tool. A healthy amount of distrust seems necessary to get the best out of it.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>BrendoMan</div>
+<div class='content'>
+Very true, I've run into things like that already.  But intellisense really comes in handy when you're writing a program without any books or notes for an exam :)</div>
+</div>
+</div>

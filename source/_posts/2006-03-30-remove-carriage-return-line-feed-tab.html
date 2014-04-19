@@ -1,0 +1,131 @@
+---
+layout: post
+title: "Remove Carriage Return, Line Feed, Tab in TSQL"
+date: 2006-03-30T12:59:00-08:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><span style="color: rgb(0, 153, 0);">-- remove carriage return, line feed, and tab from a field in tsql</span><br />REPLACE(REPLACE(REPLACE(MyField, CHAR(10), ''), CHAR(13), ''), CHAR(9), '')<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>GuitarSam7</div>
+<div class='content'>
+Superb!!  Thank yoU!!!</div>
+</div>
+<div class='comment'>
+<div class='author'>New blogger</div>
+<div class='content'>
+Life saver, thanks!! </div>
+</div>
+<div class='comment'>
+<div class='author'>ramakrishna</div>
+<div class='content'>
+thanks u very much this exactly im looking for..</div>
+</div>
+<div class='comment'>
+<div class='author'>Deepak Giri</div>
+<div class='content'>
+<b>Thanks,</b> was looking for exactly this! :)</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad Renstrom</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>raj</div>
+<div class='content'>
+TQ very much</div>
+</div>
+<div class='comment'>
+<div class='author'>Brent</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad</div>
+<div class='content'>
+That was exactly what I have been after.<br /><br />Thank you !</div>
+</div>
+<div class='comment'>
+<div class='author'>Me</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>alex_uk</div>
+<div class='content'>
+Found this helpful. Thanks you.</div>
+</div>
+<div class='comment'>
+<div class='author'>Safety Harbor Shaman</div>
+<div class='content'>
+Thanks, this line of code was great - did it exactly what I needed - <br /><br />Thx,<br /><br />Jon Bloom<br />http://www.tampabaybi.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Lily</div>
+<div class='content'>
+Thanks for your help my boyfriend was having many problems with that last week so when I saw your blog I called him immediately and even he pay for it to a technician we never imagine that it was so easy. <a href="http://www.safemeds.com/" rel="nofollow">Viagra Online</a> <br /> <a href="http://www.safemeds.com/generic-viagra.htm" rel="nofollow">Generic Viagra</a>  <a href="http://www.safemeds.com/viagra/buy.html" rel="nofollow">Buy Viagra</a></div>
+</div>
+<div class='comment'>
+<div class='author'>musclPete</div>
+<div class='content'>
+Excellent - googled it and in 20 seconds had a working app!!</div>
+</div>
+<div class='comment'>
+<div class='author'>caractacus</div>
+<div class='content'>
+Trim leading/trailing characters.<br /><br /><br />DECLARE @value VARCHAR(1000)<br />DECLARE @pat varchar(10) <br />SET @pat = &#39;%[^ &#39; + char(09) + char(10) + &#39;]%&#39;<br /><br />SET @value = CHAR(10) + &#39;   &#39; + CHAR(10) + &#39;message test &#39; + char(10) + &#39; values  &#39; + CHAR(10) + &#39;   &#39; + CHAR(10) + CHAR(10) + &#39;   &#39; + CHAR(10) <br /><br />SELECT SUBSTRING(<br />  @value, <br />  PATINDEX(@pat, @value),<br />  LEN(@value) - PATINDEX(@pat, @value) - PATINDEX(@pat, REVERSE(@value)) + 2)</div>
+</div>
+<div class='comment'>
+<div class='author'>Darkstar</div>
+<div class='content'>
+Pure Briliance!</div>
+</div>
+<div class='comment'>
+<div class='author'>Durga</div>
+<div class='content'>
+Thanks a million.Instant code.I fixed my code in exactly 5 mts with this Info</div>
+</div>
+<div class='comment'>
+<div class='author'>Bharath</div>
+<div class='content'>
+Thanks... This post helped me....</div>
+</div>
+<div class='comment'>
+<div class='author'>Nae</div>
+<div class='content'>
+thank you for your code.</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Do you have any suggestions on how to strip just the trailing CR/LFs?</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Perfect!</div>
+</div>
+<div class='comment'>
+<div class='author'>Katie</div>
+<div class='content'>
+Thank you so much! This is exactly what I was looking for - and so much more simple than everything else I found out there. Nice job!</div>
+</div>
+<div class='comment'>
+<div class='author'>ME2007</div>
+<div class='content'>
+I have a flat file with multiple lines that belong to one person account and i need to bring all lines to one line making them as one line of comma separate type data. For example as below:<BR/>DateIn" 2007/01/01 account:155555<BR/>name" john smith Age: 18<BR/>--------<BR/>DateIn" 2007/01/01 account:166665<BR/>name" josh sammy Age: 20<BR/><BR/>With this example, how can i join the 2 lines to one line then i join the final 2 lines in one line.  By the way, i have been trying to work on this in my sql server 2000.<BR/><BR/>Thanks,<BR/><BR/>ME2007.</div>
+</div>
+<div class='comment'>
+<div class='author'>Oscar "Oggelito" Aagren</div>
+<div class='content'>
+Thanks, was looking for exactly this.</div>
+</div>
+<div class='comment'>
+<div class='author'>jakrpanda</div>
+<div class='content'>
+just wanted to say thanks for the snippet of SQL code to remove carriage return/line feeds</div>
+</div>
+</div>

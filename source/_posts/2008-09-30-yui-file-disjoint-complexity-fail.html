@@ -1,0 +1,31 @@
+---
+layout: post
+title: "YUI File Disjoint Complexity FAIL"
+date: 2008-09-30T15:39:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>So here's what has been getting my goat for a while with YUI and a very smple application I've been using it to build.</p>  <p><img src="http://www.t3rse.com/t3rse/images/yahooCSS.jpg" />     <br /><img src="http://www.t3rse.com/t3rse/images/yahoojslib.jpg" /> </p>  <p>So for said application, I have to reference 12 separate Javascript files along with 5 separate CSS files.&#160; All for this simple interface (datatable, tabs, button, ajax (connection), events and maybe a few more things I am not remembering):   <br />     <br /><img height="272" src="http://www.t3rse.com/t3rse/images/keep.jpg" width="514" /> </p>  <p>This type of complexity is what makes YUI daunting for many developers and difficult to maintain; over at <a href="http://www.nregex.com">nRegex</a> I'm referencing a bunch of older versions of YUI and if/when I do decide to update there will be quite a few places in which compatibility and errors have the potential in manifesting themselves.</p>  <p>YUI controls are nice once working but I'm at the point of wondering if this kind of disjointedness should lead me towards <a href="http://jquery.com/">jQuery</a> or <a href="http://dojotoolkit.org/">Dojo</a>. Especially with Microsoft's <a href="http://weblogs.asp.net/scottgu/archive/2008/09/28/jquery-and-microsoft.aspx">recent adoption</a> of jQuery, I'm leaning in that direction. But I don't want to be rash so I'll ask:     <br />1. What is the canonical solution e.g. blessed by Yahoo! (I see a YUI loader of some kind)?    <br />2. What does that look like with the 5 CSS and 12 *.JS files I've got above?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Eric Miraglia</div>
+<div class='content'>
+You should be able to do all of this in just three requests as of YUI 2.5.2:<BR/><BR/>&lt;!-- css --&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/fonts/fonts-min.css&quot;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css&quot;&gt; <BR><BR/>&lt;!-- js --&gt; <BR><BR/>&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <BR/><BR/>As Dav says, head over to the YUI dependency configurator to explore your options.</div>
+</div>
+<div class='comment'>
+<div class='author'>Dav Glass</div>
+<div class='content'>
+Try the Dependency Configurator: <A HREF="http://developer.yahoo.com/yui/articles/hosting/" REL="nofollow">http://developer.yahoo.com/yui/articles/hosting/</A><BR/><BR/>Also an FYI, the <STRONG>yahoo-dom-event.js</STRONG> file is a roll up of the <STRONG>yahoo-min.js</STRONG>, <STRONG>dom-min.js</STRONG> &amp; the <STRONG>event-min.js</STRONG>. So there is no reason to include them over again.</div>
+</div>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I thought I should leak why I've been such a bad blogger of late.</div>
+</div>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+Sooo... what's a picture of an ultrasound doing on your blog post? Subtle hint or random choice?</div>
+</div>
+</div>

@@ -1,0 +1,8 @@
+---
+layout: post
+title: "True Story: The Cat Ate My Source"
+date: 2007-07-02T20:56:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />A security issue prompted my ISP to change passwords for all users.  Normally, this wouldn't be a problem - I'd go to my repository of code, divided at present by year in a "Code05," "Code06," "Code07" format and update a constant in my Constants class and *presto* the connectivity would be back.<br /><br />Problem is, what if I have to go back more than 3 years? <br /><br />I'm usually not that irresponsible.  In fact, I'm fiendish about backing things up.  Yes, I use source control, even on my own little-bitty projects that matter to no one but me.  But my mistake was using an external drive - a flakey one - which died after I'd had to reformat/reinstall.  I'd backed everything up to it, and my data was gone.<br /><br />Edge case since I'd after the reinstall I'd moved what was important back to the machine.  Edge case because it was in a "code archive" that was something like 6 years old - code that was so long forgotten it was like a head bludgeon when I got a phone call from the client saying that their site was down. <br /><br />After panicking and looking for some accidental backup (why do we look for things when we know they're gone for good?) I had an epiphany. <br /><br />I downloaded the *.aspx pages and the site dll - I then used <a href="http://www.aisto.com/roeder/dotnet/">Reflector</a> to disassemble and - I kid you not - 15 minutes later the client was up and running. <br /><br />And yes, I kept the source...<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
