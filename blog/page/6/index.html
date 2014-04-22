@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ The 8th annual New York Times magazine Year in Ideas featured a section on Goalkeeper Science profiling this paper by some Israeli scientists &hellip;">
+  <meta name="description" content="{ I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/20/parameterized-in-queries/">Parameterized in Queries</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-20T07:50:00-06:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan its lack of premature optimization but I think it&#8217;s novel enough to study because of the approach: using the SQL LIKE operator on your parameter rather than a field, which is what people like me are used to. There&#8217;s code on <a href="http://stackoverflow.com/questions/337704/parameterizing-a-sql-in-clause">the StackOverflow post</a> but I thought I&#8217;d paste some of the poking around I did in Sql Management Studio: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">-- setup<br />CREATE TABLE Person<br />(<br />      PersonID INT IDENTITY(1,1) PRIMARY KEY, <br />      FirstName VARCHAR(50) NULL<br />)<br />GO<br /><br />-- some data <br />INSERT INTO Person VALUES('David')<br />INSERT INTO Person VALUES('Jonathan')<br />INSERT INTO Person VALUES('Zlatan')<br />INSERT INTO Person VALUES('Trilby')<br /><br />-- here's the magic<br />DECLARE @FirstName VARCHAR(50)<br />SET @FirstName = '|David|Trilby|'<br />SELECT * FROM Person WHERE @FirstName like '%|' + FirstName + '|%'<br /><br />-- ported to a proc<br />CREATE PROC uspPersonSelector<br />      @FirstNames VARCHAR(500)<br />AS<br />      SELECT * FROM Person WHERE @FirstNames like '%|' + FirstName + '|%'<br />GO<br /><br />-- showing it works<br />uspPersonSelector '|David|Trilby|'<br /><br />-- somewhere in the netherworld of C#: <br />/* <br />string[] names = {&quot;David&quot;, &quot;Trilby&quot;};<br />SqlCommand cmd = GetACommandFromSomewhere();<br />cmd.Parameters.AddWithValue(&quot;@FirstNames&quot;, &quot;|&quot;.Join(names));<br />*/<br /><br />--teardown<br />Drop Table Person </pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -457,43 +494,6 @@ MVC likely is being driven by two things &#8230; the Alt.NET movement and the fa
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/10/23/recursive-copy-ala-linq/">Recursive Copy Ala LINQ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-10-23T00:30:00-05:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Tonight I needed to copy a bunch of images, no matter their level in the hierarchy to a single folder. Cake walk with C# and LINQ, I&#8217;ll post the Python equivalent tomorrow.</p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">string sourceDir = @&quot;C:\thesource&quot;;<br />string targDir = @&quot;c:\thetarget&quot;;<br />var files = new DirectoryInfo(sourceDir).GetFiles(&quot;*&quot;, SearchOption.AllDirectories)<br />                .Where(p=&gt; !p.Extension.Contains(&quot;db&quot;)) // exclude the pesky windows db file<br />                .Select(p =&gt; p.FullName);<br />foreach (string path in files) {<br />    File.Copy(path, Path.Combine(targDir, Path.GetFileName(path)));<br />}</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -511,6 +511,10 @@ MVC likely is being driven by two things &#8230; the Alt.NET movement and the fa
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
       </li>
     
@@ -524,10 +528,6 @@ MVC likely is being driven by two things &#8230; the Alt.NET movement and the fa
     
       <li class="post">
         <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
       </li>
     
   </ul>

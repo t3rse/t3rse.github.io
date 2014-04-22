@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ There&#8217;s a lot to learn these days (whenever isn&#8217;t there a lot?) and one thing I will do for 2008 is make a list of technologies I&# &hellip;">
+  <meta name="description" content="{ Code Climber has this great list of what you need to download and the order in which you must install it. I just completed my installation and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/12/11/installing-aspnet-35-mvc-preview/">Installing ASP.NET 3.5 MVC Preview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-11T22:39:00-06:00" pubdate data-updated="true">Dec 11<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Code Climber has this <a href="http://codeclimber.net.nz/archive/2007/12/10/How-to-install-ASP.NET-3.5-Extensions-Preview.aspx">great list</a> of what you need to download and the order in which you must install it. I just completed my installation and have begun to poke around.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -407,43 +444,6 @@ I liked this blog, is very interesting and wonderful.It catched my attention sin
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/10/21/leveraging-css-opacity-for-help/">Leveraging CSS Opacity for Help</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-21T17:27:00-05:00" pubdate data-updated="true">Oct 21<span>st</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>A few projects ago a control was created (who exactly did it I&#8217;m not sure) for displaying dialog &#8220;popups&#8221; without new browser windows.&nbsp; The technique was fairly straightforward: an IFRAME with an opacity filter and a div with the popup values.&nbsp; </p> <p>I wasn&#8217;t a huge fan of the infamous &#8220;popup&#8221; which managed to come up in project after project, but the idea of using opacity on an IFRAME for an overlay of helpful information struck me about a week ago.&nbsp; </p> <p>The <a href="http://www.nregex.com/">nRegex</a> interface, which is quite straightforward to me, still seems to pose some confusion to new users and so I thought I&#8217;d use it might be suitable for a virgin implementation of the idea.&nbsp; It&#8217;s a little crude* but the idea should come across: use the &#8216;How to use Nregex&#8217; button to display the overlay and it seeks to explain the various pieces of the interface.</p> <p><img height="110" src="http://www.seruyange.com/metadeveloper/nRegexOverlayLaunch.jpg" width="381"> </p> <p><img height="197" src="http://www.seruyange.com/metadeveloper/nregexoverlay.jpg" width="379"> </p> <p>The implementation is quite simple. There&#8217;s an IFRAME with the following attributes:</p> <p>frameBorder=&#8221;0&#8221; <br>scrolling=&#8221;no&#8221; <br>style=&#8221;z-index:1000;position:absolute;<br>top:0;left:0;width:2000px;height:2000px;<br><font color="#ff0000">FILTER:alpha(opacity=80);-moz-opacity:.80;opacity:.80;</font><br>display:none;&#8221; <br>src=&#8221;infoFrame.htm&#8221;</p> <p>Within the frame, a button hides the IFRAME calling a javascript function from the parent window.&nbsp; </p> <p>The easiest way to implement this is to use the skeleton of the interface in the *original* design.&nbsp; I&#8217;m interested in comments on this approach - would it be feasible as a way to document an interface&#8217;s functionality?</p> <h1><font color="#0000ff">}</font></h1></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -461,6 +461,10 @@ I liked this blog, is very interesting and wonderful.It catched my attention sin
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
       </li>
     
@@ -474,10 +478,6 @@ I liked this blog, is very interesting and wonderful.It catched my attention sin
     
       <li class="post">
         <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
       </li>
     
   </ul>

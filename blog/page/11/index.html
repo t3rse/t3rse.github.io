@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ &#8220;Testing is the engineering rigor of software development&#8221; - Neal Ford Got a little tip from fuzzyman on using unittest for Unit &hellip;">
+  <meta name="description" content="{ Joel&#8217;s got a big enough voice that I&#8217;m sure most people didn&#8217;t miss his Martian Headphones essay which explained the futility of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/03/26/jeff-zeldman-pixel8-interview/">Jeff Zeldman, Pixel8 Interview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-26T00:39:00-05:00" pubdate data-updated="true">Mar 26<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Joel&#8217;s got a big enough voice that I&#8217;m sure most people didn&#8217;t miss his Martian Headphones essay which explained the futility of standards.&nbsp; Jeff Zeldman, who I&#8217;ve always been aware of in my time lurking on the web <a href="http://pixel8.infragistics.com/Default.aspx#Episode:8691">chimes in</a> on web standards on Craig Shoemaker&#8217;s new gig, &#8221;<a href="http://pixel8.infragistics.com/Default.aspx">Pixel 8</a>.&#8221;&nbsp; The podcast sound is very rough but it&#8217;s a good context builder for the notion of standards and what they mean.&nbsp; If you&#8217;ve ever had to wrangle with a different look in different browsers, you appreciate standards even if they are complicated and never achieve perfection.</p> <p>Just noticed that Pixel8 has a podcast with Chris Wilson. That will have to wait until tomorrow - </p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -464,76 +501,6 @@ Hi,<BR/>Nice Blog!<BR/>We provides exclusive and highly accurate Data, <A HREF="
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/26/twining-iron-python-dsl-for-db-update/">Twining: Iron Python DSL for DB Update III</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-26T13:45:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; </p> <p>Unplanned illness slowed me down over the weekend, but the beauty of lambda expressions make transformations a breeze. I&#8217;ll let the code document what I added.</p> <p><pre>cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />mytrans = {"Field1":"upper","Field1": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br />database(cn).table("Photos").transform(mytrans).copyto.csv("c:\\foo.csv")<br /></pre><br /><p>As you can see, &#8220;mytrans&#8221; is a dictionary containing a matching of column names to both a keyword string, &#8220;upper&#8221;, and also lambda expressions that model functions to operate on the constituent data (the [::-1] idiom reverses a string).&nbsp; I&#8217;d add a few keywords for simple things people often do to data but the beauty of lambda expressions is that it keeps my code lazy and empowers whoever is using the script to make their own judgement about what to do with data.</p><br /><p>Here&#8217;s what goes on behind the scenes - the <font face="Courier New" size="2">copyto</font> class has a <font face="Courier New" size="2">checkAndTransform</font> method that matches up a field value with it&#8217;s &#8220;transform&#8221;:</p><br /><p><pre>	def checkAndTransform(self, field, value):<br />		if registrar.transforms.has_key(field):<br />			if repr(type(registrar.transforms[field])) == "&lt;type  'function'&gt;":<br />				value = registrar.transforms[field](value)<br />			if registrar.transforms[field] == "upper":<br />				value = value.upper()<br />		return value	<br /></pre><br /><p></p><br /><p>I&#8217;m not <em>Pythonic</em> enough yet to know if I need to call repr and do a string comparison when testing if a type is a function, but it works just fine.</p><br /><p>So a few thoughts:</p><br /><p>1. What are the usual changes we make to data when exporting or importing?<br>2. Is it stupid to have shortcut strings or should I just fall back on writing lambdas?<br>3. Is there a better way of testing for a function than <br><font face="Courier New" size="2">repr(type(registrar.transforms[field])) == &#8220;&lt;type &#8216;function&#8217;&gt;&#8221;</font></p><br /><p>The to-do list from my previous post is still intact, I&#8217;ll be working through it in the near future.&nbsp; Have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the complete script</a> and if you have thoughts or opinions, please let me know. A big goal here is not only to make something useful, but to learn Python (and be Pythonic, the two don&#8217;t necessarily coincide).</p><br /><p>Here&#8217;s a full list of what can be done at this point:</p><br /><p><pre>mytrans = {"Field1":"upper","Field2": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br /><br />database(cn).table("MyTable").transform(mytrans).copyto.csv("c:\\foo.csv") #with transform<br />database(cn).table("MyTable").copyto.csv("c:\\foo.csv") #without transform<br />database(cn).table("MyTable").copyto.database(cn2)<br />database(cn).table("MyTable").copyto.xmlFieldsAsAttributes("c:\\here.xml")<br />database(cn).table("MyTable").copyto.xmlFieldsAsElements("c:\\there.xml")<br />database(cn).backupto("C:\\temp\\my_backup.bak")<br /><br /></pre><br /><p></p><br /><h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>David Seruyange</div>
-<div class='content'>
-Great feedback!  <BR/><BR/>I changed my function checking &#8216;cuteness&#8217; for callable - what you say makes total sense and I ran into it while studying Mark Pilgrim&#8217;s <A HREF="http://www.diveintopython.org/" REL="nofollow">Dive Into Python</A>.<BR/><BR/>@fuzzyman - I started with the idea of built in types but the thing that I&#8217;m loving about the lambda is that it&#8217;s a generic, lazy approach that defers exactly which types of &#8220;transforms&#8221; are needed until the time of use if that makes sense.<BR/><BR/>@fuzzyman/catherine - I tried to merge both of your comments into the following compromise: I use the try/except from your comment but rather than let it pass I put a list in registrar (which is a goofy way of having a &#8220;global&#8221; space for things) called &#8220;warnings&#8221; in which I store the exceptional occurance. After something occurs I&#8217;ll check the length of warnings and display anything I find in there. Something like: <BR/>except TypeError:<BR/> registrar.warnings.append(&#8220;Your transform failed on field %s&#8221; % field)<BR/><BR/>I&#8217;ll post the updates I&#8217;ve made within the next day or so.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Regarding this approach:<BR/><BR/><BR/>try:<BR/>value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>pass<BR/><BR/>It has a minor problem that TypeErrors raised inside the transform will then be swallowed. *Personally* I think using callable is slightly better for this situation.</div>
-</div>
-<div class='comment'>
-<div class='author'>Catherine</div>
-<div class='content'>
-David, you&#8217;re writing code faster than I can read it and comment.  :)<BR/><BR/>What fuzzyman said about using callable - good advice.  Writing Pythonically, you try not to think about what an object <EM>is</EM>, but <EM>what you can do with it</EM>, because then you don&#8217;t break polymorphism - if I write some funky object that doesn&#8217;t look like a function to your test, but can be called, then you still want to accept it.<BR/><BR/>You can go a step further - not test at all and apply EAFP - Easier to Ask Forgiveness than Permission -<BR/><BR/>try:<BR/>    value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>    pass<BR/><BR/>Also, &#8220;if registrar.transforms.has_key(field):&#8221; is 100% legitimate, but I like &#8220;if field in registrar.transforms&#8221; better, because it looks prettier.<BR/><BR/>Anyway, I like your approach!  I&#8217;m looking at some ETL code I wrote years ago and thinking that it would be better using your dict-of-transforms idea.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Third and final thought (I promise&#8230;) - even better than checking for objects that are functions you can simply check if the object is callable:<BR/><BR/>if callable(something):<BR/><BR/>This is more Pythonic as it doesn&#8217;t restrict you to using functions, but allows any callable object.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-You can also replace your lambdas with builtin functions:<BR/><BR/>str.upper<BR/>reversed</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<BR/><BR/>The best way is to use the types module from the Python standard library.<BR/><BR/>from types import FunctionType<BR/><BR/>isinstance(something, FunctionType)<BR/><BR/>If you want to avoid the import you can do:<BR/><BR/>def nothing: pass<BR/>FunctionType = type(nothing)<BR/><BR/>Hope that helps.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -551,6 +518,10 @@ Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
       </li>
     
@@ -564,10 +535,6 @@ Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<
     
       <li class="post">
         <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
       </li>
     
   </ul>

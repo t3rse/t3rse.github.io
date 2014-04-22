@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area. A few nights ago I thought I&#8217;d update my current &hellip;">
+  <meta name="description" content="{Did I ever post that unit testing is hard? It&#8217;s hard. I&#8217;d love to see it in action at other shops since we&#8217;ve got so much to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/09/falsification-and-unit-testing/">Falsification and Unit Testing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-09T23:53:00-06:00" pubdate data-updated="true">Nov 9<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3366ff;">{</span><br /><br />Did I ever post that unit testing is hard? <br /><br />It&#8217;s hard. I&#8217;d love to see it in action at other shops since we&#8217;ve got so much to learn.  But let&#8217;s tally the score of the moment:<br /><br />It&#8217;s about 10 minutes to midnight and I&#8217;ve been working my way through someone else&#8217;s code. This code is a piece of a separate assembly that does validation of a whole bunch of business rules before a person can process a loan application.  Each rule is fairly simple, along the lines of &#8220;if a person is not older than 18, they must have a cosigner&#8221; but there happen to be a lot of rules.  I designed the rules to be in a separate assembly because the client changes these frequently, so it will be easy to update with a new DLL instead of reinstalling the application.<br /><br />Our application is modeled as an object with a series of other objects and lists attached.  An application has a borrower. A borrower has an employment history. And so it goes - which makes for a fluid, transactional save or validation by simply passing the application object around. <br /><br />But I&#8217;m looking at a lot of validation at this late hour and finding a systemic issue.  The person who wrote the code made an assumption with respect to Lists attached to objects that makes our validation code ineffectual.  Here&#8217;s a sample:<br /><br />   25         if (targetApplication.Coborrowers.Count > 0 &&amp; targetApplication.Coborrowers[0].Citizenship == String.Empty)<br />   26         {<br />   27             result.IsValid = false;<br />   28             result.Message = &#8220;First Cosigner Citizenship is required for Approved Status.&#8221;;<br />   29         }<br />   30     }<br />   31     return result;<br /><br />See the bug?  If there are no coborrowers the rule (citizenship must be set) is never evaluated.<br /><br />But even more so, here&#8217;s the rub: I had the developer write unit tests for each and every validation rule they put out as a method.  I thought a night like tonight: midnight, fatigue, and a crapload of code to fix for a promised build, would be avoided as a result.<br /><br />The large picture here has to do with the way the unit test was designed to verify the functionality of the validation rule.  Because the problem was approached as gingerly, I think the unit tests weren&#8217;t liable to find a more subtle bug like this.  Instead, the unit test probably attempted to validate a coborrower with a citizenship, asserting true, and a coborrower without citizenship, asserting false.  No thought was given as to whether a coborrower may not exist.<br /><br />Perhaps, in programming, we need to focus more on <a href="http://en.wikipedia.org/wiki/Falsifiability">falsification</a> in our unit tests - attempts to break the code or find ways it will assert what&#8217;s expected under the wrong conditions.  But that&#8217;s all theory right now and I&#8217;ve got a decision to make: stay up late and try to keep my word or heading to bed and fixing the code under the right conditions&#8230; the purists will say that a rushed fix is bad, especially since I didn&#8217;t write the first iteration and won&#8217;t have time to update the unit tests (I know, I know: bad).  But I have to live in a world of realisms where the pain of a broken promise is greater than the pain of a rushed, patchworked fix. Time to get the Mt. Dew out of the fridge&#8230;<br /><br /><span style="font-size:180%;color:#3366ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -420,43 +457,6 @@ I spent way more time than I should have tonight trying to find a reason why Fir
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/06/raganwald-responds/">Raganwald Responds</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-06T09:32:00-05:00" pubdate data-updated="true">Oct 6<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I had <a href="http://metadeveloper.blogspot.com/2006/09/people-process.html">posted</a> about Yegge&#8217;s Agile/agile <a href="http://steve-yegge.blogspot.com/2006/09/good-agile-bad-agile_27.html">essay</a>, trying to follow some of the interesting comments that ensued on the web.  I made the following comment about Raganwald&#8217;s response:<br /><br /><blockquote>&#8220;Raganwald has the most interesting <a href="http://weblog.raganwald.com/2006/09/wasabi-cannot-cure-rotten-fish.html">response</a><br />I&#8217;ve seen so far: that it all comes down to people over process and a good team<br />will succeed despite methodological strategy. &#8221;</blockquote><br /><br />He has since posted an elaboration in response on his blog - I was a little off in my reading:<br /><br /><blockquote>&#8220;No. I&#8217;m saying that a &#8220;good&#8221; methodology cannot save a bad team. That does not<br />mean that a good team can survive a bad methodology. There are <a href="http://weblog.raganwald.com/2005/01/what-ive-learned-from-failure.html">four<br />critical parts</a> of a successful software project, and in my experience you<br />cannot succeed if any of them are missing. People are the first of those,<br />management the last. Methodology is a part of management in my view. In some<br />situations, strong management can impose an informal rather than a formal<br />methodology. But it would be stretching a point to claim that such situations<br />lacked process or had a bad process.&#8221;</blockquote><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/25/">&larr; Older</a>
@@ -474,6 +474,10 @@ I spent way more time than I should have tonight trying to find a reason why Fir
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
       </li>
     
@@ -487,10 +491,6 @@ I spent way more time than I should have tonight trying to find a reason why Fir
     
       <li class="post">
         <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ I remember my first conference well: I was 24, it was February of the year 2000 and I was in San Francisco.&nbsp; I&#8217;d bartered my way there &hellip;">
+  <meta name="description" content="{ A few projects ago a control was created (who exactly did it I&#8217;m not sure) for displaying dialog &#8220;popups&#8221; without new browser &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/10/21/leveraging-css-opacity-for-help/">Leveraging CSS Opacity for Help</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-21T17:27:00-05:00" pubdate data-updated="true">Oct 21<span>st</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>A few projects ago a control was created (who exactly did it I&#8217;m not sure) for displaying dialog &#8220;popups&#8221; without new browser windows.&nbsp; The technique was fairly straightforward: an IFRAME with an opacity filter and a div with the popup values.&nbsp; </p> <p>I wasn&#8217;t a huge fan of the infamous &#8220;popup&#8221; which managed to come up in project after project, but the idea of using opacity on an IFRAME for an overlay of helpful information struck me about a week ago.&nbsp; </p> <p>The <a href="http://www.nregex.com/">nRegex</a> interface, which is quite straightforward to me, still seems to pose some confusion to new users and so I thought I&#8217;d use it might be suitable for a virgin implementation of the idea.&nbsp; It&#8217;s a little crude* but the idea should come across: use the &#8216;How to use Nregex&#8217; button to display the overlay and it seeks to explain the various pieces of the interface.</p> <p><img height="110" src="http://www.seruyange.com/metadeveloper/nRegexOverlayLaunch.jpg" width="381"> </p> <p><img height="197" src="http://www.seruyange.com/metadeveloper/nregexoverlay.jpg" width="379"> </p> <p>The implementation is quite simple. There&#8217;s an IFRAME with the following attributes:</p> <p>frameBorder=&#8221;0&#8221; <br>scrolling=&#8221;no&#8221; <br>style=&#8221;z-index:1000;position:absolute;<br>top:0;left:0;width:2000px;height:2000px;<br><font color="#ff0000">FILTER:alpha(opacity=80);-moz-opacity:.80;opacity:.80;</font><br>display:none;&#8221; <br>src=&#8221;infoFrame.htm&#8221;</p> <p>Within the frame, a button hides the IFRAME calling a javascript function from the parent window.&nbsp; </p> <p>The easiest way to implement this is to use the skeleton of the interface in the *original* design.&nbsp; I&#8217;m interested in comments on this approach - would it be feasible as a way to document an interface&#8217;s functionality?</p> <h1><font color="#0000ff">}</font></h1></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -425,56 +462,6 @@ This comment has been removed by the author.</div>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/08/27/graham-on-point/">Graham, on Point</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-08-27T23:10:00-05:00" pubdate data-updated="true">Aug 27<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1>{</h1> <p>I was just missing the old Paul Graham, the one who would write wisdom for the type of programmer that I imagined myself to be. The most recent essay, <a href="http://www.paulgraham.com/head.html">Holding A Program In One&#8217;s Head</a>, is that treat I&#8217;ve been waiting for.</p> <h1>}</h1></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-Sorry, I meant #4 not #5.  &#8220;Test Often&#8221; could be along the lines of &#8220;Keep rewriting&#8230;&#8221;</div>
-</div>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-I would also add &#8220;Test Often&#8221;.  If perhaps you  consider that&#8217;s the same as #5&#8230; then I would still add &#8220;Test Real-Life Examples, not hypothetical use cases&#8221;.  To follow his line of thinking, the more actual cases you run the more those become a part of the whole package/scene running in your head.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/16/">&larr; Older</a>
@@ -492,6 +479,10 @@ I would also add &#8220;Test Often&#8221;.  If perhaps you  consider that&#8217;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
       </li>
     
@@ -505,10 +496,6 @@ I would also add &#8220;Test Often&#8221;.  If perhaps you  consider that&#8217;
     
       <li class="post">
         <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/06/10/getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers With Sql Server</a>
       </li>
     
   </ul>
