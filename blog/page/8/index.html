@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ The Herding Code podcast took up the topic: &quot;Why don&#8217;t startups run on Microsoft?&quot; which I thought was interesting - it crossed &hellip;">
+  <meta name="description" content="{ There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/07/13/predictably-irrational-startups-and/">Predictably Irrational: Startups and Open Source</a></h1>
+      <h1 class="entry-title"><a href="/2009/09/21/exception-hof-pattern-in-c/">Exception HOF Pattern in C#</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2008-07-13T20:05:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2008</time>
+<time datetime="2009-09-21T00:18:00-05:00" pubdate data-updated="true">Sep 21<span>st</span>, 2009</time>
         
       </p>
     
@@ -95,13 +95,18 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>The Herding Code podcast took up the topic: <a href="http://herdingcode.com/?p=20">&quot;Why don&#8217;t startups run on Microsoft?&quot;</a> which I thought was interesting - it crossed paths with comments in a spat I&#8217;ve followed between Atwood (who chose .NET as a platform for Stackoverflow) and Marco Arment (of tumblr fame (side note: I actually <a href="http://da5id.tumblr.com/">have a tumblr</a>)).&#160; Had you asked me before Friday for an opinion I would have probably attributed it to the Byzantine licensing schemes for Microsoft products as well as marketing oriented decisions like making IIS 7 unavailable on XP.&#160; </p>  <p>On Friday, however, I heard a <a href="http://marketplace.publicradio.org/display/web/2008/07/11/ariely_shared_meals/">commentary on Marketplace from Dan Ariely</a> that is a basis for a hypothesis that hadn&#8217;t occurred to me but seems to make perfect sense for software.&#160; <a href="http://web.mit.edu/ariely/www/MIT/">Ariely</a>, a behavioral economist at MIT, starts with suggesting that the next time you eat out with friends, it might be better to have one person pick up the &quot;pain of paying&quot; for dinner rather than distributing it across all the people who were out. According to the commentary (emphasis mine): </p>  <blockquote style="padding-right: 3px; padding-left: 10px; padding-bottom: 3px; border-left: red 1px solid; width: 500px; line-height: 140%; padding-top: 3px">   <p>Findings from behavioral economics tell us that one person should pay the entire bill and that the person paying should alternate over time. <strong>When we pay any amount of money, we feel some psychological pain.</strong> <strong>We call this the pain of paying. This is the unpleasantness that is associated with forking over our hard earned cash. But it also turns out that this pain does not increase linearly with the cost of the meal. This means that when we double the payment, the pain doesn&#8217;t double; it increases just by a bit.</strong> In fact, the biggest increase in the pain of paying comes when we switch from paying nothing to paying something. Now, it&#8217;s easy to see why one person should pay the entire bill. How so? Well, if every person paid their share, they would all experience some pain of paying.</p> </blockquote>  <p>If you&#8217;re curious about how Ariely is able to make that assertion, he elaborates on this and other ideas in his book <a href="http://www.nytimes.com/2008/03/16/books/review/Berreby-t.html?_r=1&amp;oref=slogin">Predictably Irrational</a>.</p>  <p>It makes perfect sense that this could be a credible idea behind why startups don&#8217;t work with Microsoft technology - that the cost is less of a factor than &quot;costing&quot; some dollar amount.&#160; If you attach to that complex licensing and <a href="http://msdn.microsoft.com/en-us/vs2008/products/cc149003.aspx">many flavors of the same product</a> and you get pain that goes beyond the &quot;pain of paying.&quot; </p>  <p>It makes some sense on the Microsoft side of things too; rather than trying to determine which products developers should get matched to, most companies just buy a high end MSDN subscription for developers even though chances are high that not all the products are actually used.&#160; They can count on &quot;enterprise&quot; companies conservatively overpaying and hence getting the most out of them.</p>  <p>A couple of thoughts that come to mind:    <br />1. How could one go about trying to measure the &quot;pain of paying&quot; with software?     <br />2. Does &quot;free&quot; open source translate to more time in managability/expertise?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception handling. I write a ExceptionHelper class that takes a variety of high order function style methods to handle my exceptions in a single spot. Here is a somewhat simple form of what I&#8217;ve been doing:</p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public class ExceptionHelper<br />    {<br /><br />        public static void ExecuteWithSuppress(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                // pass and ignore the exception<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine(&quot;An exception occured! Details: \n&quot; + ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static bool ExecuteWithNotificationButIgnore(Action code)<br />        {<br />            bool ret = true;<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                ret = false;<br />            }<br />            return ret;<br />        }<br /><br />        public static void ExecuteWithLogging&lt;T&gt;(Action code) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (ex is T) {<br />                    Console.WriteLine(&quot;Logging exception &quot; + ex.ToString());<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                handles(ex);<br />            }<br />        }<br /><br />    }</pre><br /><br /><p>At this point I use it in a lot of places, here are a few scenarios: </p><br /><br /><p><strong>ExecuteWithSuppress(Action code)</strong> – code that has a low impact of failure or an expected failure under some conditions. For example, a client of mine once had a legacy database they wanted to me parse a “name” field from. We set up basic heuristics to separate out first and last and so on, but on failure we just returned a blank string. </p><br /><br /><p><strong>ExecuteWithHandler(Action code)</strong> – you have some generalized exception handling to do something: prompt the user, do logging, etc. ExecuteWithHandler(Action code, Action handler) – you get to pass in the exception handling you want<br /><br />  <br /><strong>ExecuteWithHandler(Action code, string errorMessage)</strong> – pass a custom error message<br /><br />  <br /><strong>ExecuteWithNotificationButIngore(Action code)</strong> – try to execute some code but return a boolean to indicate success<br /><br />  <br /><strong>ExecuteWithLogging&lt;T&gt;(Action code)</strong> – run some code, indicate the types of exceptions to differentiate<br /><br />  <br /><strong>ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles)</strong> – pass a method to catch be passed the exception that occurs.<br /><br />  <br /></p><br /><br /><p>The resulting code I write with this pattern, I find pleasant. Here are some examples:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    string userName = String.Empty;<br />    ErrorHelper.ExecuteWithSuppress(() =&gt; userName = doc.Descendants(&quot;Name&quot;).First().Value);<br />    return userName;</pre><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">if (ErrorHelper.ExecuteWithNotificationButIgnore(() =&gt;<br />{<br />	SendEmail();<br />}<br />else<br />{<br />	// message not delivered, etc, etc.<br />}</pre><br /><br /><p>I want it to be absolutely clear that this is not a replacement for try/catch/finally logic where it is warranted. It is simply an alternative that can help to keep code clear and readable. As with many things in software, there is taste involved in when and where something like this is leveraged. But it works well enough for me that I thought I’d share. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Daniel</div>
+<div class='author'>empi</div>
 <div class='content'>
-Having many flavors of product adds to friction, which could be another form of pain, though I don&#8217;t think it&#8217;s necessarily any less than adopting numerous open source alternatives. There&#8217;s likely a pain curve we can draw that involves both friction and cost pain. In a purely .NET world, you could avoid the pain of paying by using a slew of open source (MonoRail, ActiveRecord, Windsor, NAspect, MbUnit, Rhino Mocks, NServiceBus, Castle Windsor, etc.) though your expertise requirements are going to skyrocket (I won&#8217;t say friction increases linearly here since these products tend to work well together since they share a common goal). On the other side of the fence you get free as well but possibly more friction since the market has always been free, so there is less incentive to collaborate and more incidents of &#8220;Not Invented Here&#8221;. A strange idea: choosing Open Source .NET is the best choice because given the constraints of that market, the free alternatives work better together than the free alternatives of another framework. Probably not, but it&#8217;s an idea.</div>
+Hi,<br /><br />I must say that I really don&#39;t like this pattern.<br />First of all, you catch Exception (not a specific one) and then you do nothing. It&#39;s very easy to suppress some important exceptions.<br />If you have code that throws so many exceptions that you need helpers to handle them, then maybe there is something wrong with the code in the first place.<br />Imho, it&#39;s much better to have some global exception handler that logs unhandled exceptions and to catch only specific exceptions when you exactly know what to do with them.<br />Maybe you should look at some aspect oriented frameworks and find better ways to handle exceptions globally.<br /><br />Greetings.<br /><br />http://codepark.blogspot.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Ivan</div>
+<div class='content'>
+Reminds me of a similar pattern that we use from time to time with Python decorators. We create a decorator that uses the given function and arguments to call the function, handling any exceptions that occur as desired. <br /><br />ie. Something similar to your console writing example would be.<br /><br />@print_exception<br />def foo(a, b=None):<br />&#8230;some code..<br /><br />When an exception occurs in foo, the print_exception decorator would handle it and print to std out.</div>
 </div>
 </div>
 </div>
@@ -116,7 +121,7 @@ Having many flavors of product adds to friction, which could be another form of 
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/06/27/change-dispensed/">Change Dispensed</a></h1>
+      <h1 class="entry-title"><a href="/2009/09/19/fizzbuzz-functional/">FizzBuzz Functional</a></h1>
     
     
       <p class="meta">
@@ -132,7 +137,7 @@ Having many flavors of product adds to friction, which could be another form of 
   
 
 
-<time datetime="2008-06-27T12:51:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
+<time datetime="2009-09-19T19:57:00-05:00" pubdate data-updated="true">Sep 19<span>th</span>, 2009</time>
         
       </p>
     
@@ -140,7 +145,7 @@ Having many flavors of product adds to friction, which could be another form of 
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Steve <a href="http://blog.stevenlevithan.com/archives/change-dispenser">posted</a> a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and implemented it with just a small variation on pluralizing coin denominations.     <br />    <br /></p>  <pre style="line-height:120%;padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; padding-top: 10px; font-family: courier">def make_change(amt):<br />    output = &quot;Change is &quot;<br />    coins = (['quarte|r|rs', 25], ['dim|e|es', 10], ['nicke|l|ls', 5], ['penn|y|ies',1])<br />    for i in coins:   <br />        r = amt // i[1]<br />        if(r &gt; 0):<br />            coinout = re.split('\|', i[0])<br />            output += &quot;%d %s%s &quot; % (r, coinout[0], coinout[1:][r &gt; 1])<br />            amt = amt - (r * i[1])<br />    print output<br />    <br />make_change(48)</pre><br /><br /><p><br />  <br />A few things I learned along the way: <br /><br />  <br />* I was reminded that dictionary objects do not guarantee order. <br /><br />  <br />* I was using Python regular expressions to do a match on the string &quot;this |and|or that&quot; and discovered if you use match with simply \|(\w+) it returns nothing since the match must start from the beginning of the string! <br /><br />  <br />* I was going to use a lambda expression for the pluralization but that&#8217;s such a large hammer for what in the end would become a split</p><br /><br /><p>Python&#8217;s behavior with booleans is another point of interest - when I test the following: coinout[1:][r &gt; 1] I&#8217;m taking advantage of anything true being a 1. I wonder if this is &quot;bad&quot; but it&#8217;s a seductive thing to take advantage of&#8230; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ve been reading Tomas Petricek and John Skeet’s <a href="http://www.manning.com/petricek/">Functional Programming for the Real World</a>. I’m hoping I can, as Steve McConnel says, <em>program into</em><sup>1</sup> my C# projects some elements of functional problem solving. As I was working to grok the beginning portions of the book I thought I’d rewrite FizzBuzz since I’ve aleady posted a <a href="http://metadeveloper.blogspot.com/2007/03/fizbuzz-conundrum-ramanujan.html">few</a> <a href="http://metadeveloper.blogspot.com/2007/09/pivot-udf-fizzbuzz.html">versions</a> of a solution. Here is my solution: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br /><br />foreach(var i in Enumerable<br />                    .Range(1, 100)<br />                    .Select(n =&gt;(isMultiple(n, new int[]{3,5}))<br />                                    ?fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                                    :fb(n, n, n.ToString())<br />    )Console.WriteLine(i);</pre><br /><br /><p>Another version, using ForEach on a List&lt;T&gt;: </p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br />Enumerable<br />        .Range(1, 100)<br />        .Select(n =&gt; (isMultiple(n, new int[] { 3, 5 }))<br />                        ? fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                        : fb(n, n, n.ToString()))<br />        .ToList()<br />        .ForEach(num =&gt; Console.WriteLine(num));</pre><br /><br /><p>I&#8217;m just starting to wade into using F# but I&#8217;m hoping to start building my proficiency the further I get into the book</p><br /><br /><p><sup>1</sup>&quot;<em>Don&#8217;t limit your programming thinking only to the concepts that are supported automatically by your language. The best programmers think of what they want to do, and then they assess how to accomplish their objectives with the programming tools at their disposal.</em>&quot; – Steve McConnell, <a href="http://cc2e.com/">Code Complete 2nd Edition</a></p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -153,7 +158,7 @@ Having many flavors of product adds to friction, which could be another form of 
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/06/23/deep-fried-bytes-yegge-interviewing/">Deep Fried Bytes, Yegge, Interviewing</a></h1>
+      <h1 class="entry-title"><a href="/2009/09/19/ui-inspiration-for-silverlights-blank/">UI Inspiration for Silverlight’s Blank Slate</a></h1>
     
     
       <p class="meta">
@@ -169,7 +174,7 @@ Having many flavors of product adds to friction, which could be another form of 
   
 
 
-<time datetime="2008-06-23T23:50:00-05:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2008</time>
+<time datetime="2009-09-19T10:07:00-05:00" pubdate data-updated="true">Sep 19<span>th</span>, 2009</time>
         
       </p>
     
@@ -177,7 +182,7 @@ Having many flavors of product adds to friction, which could be another form of 
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Found a good podcast today, &quot;<a href="http://deepfriedbytes.com/podcast">Deep Fried Bytes</a>.&quot; Skip the first episode but the second on interviewing is a gem. Although it was posted on May 29, it ties in quite well with thoughts delivered (not simply written, but delivered) by Steve Yegge in his recent post on finding good people, <a href="http://steve-yegge.blogspot.com/2008/06/done-and-gets-things-smart.html">Done and Gets Things Smart</a>. Not only is it entertaining to hear <a href="http://www.ayende.com/Blog/">Ayende Rahein</a> take nonusers of using blocks to task, but later Scott Belware seems to be on the same page as Yegge on how you can know if people are &quot;good.&quot;&#160; Here is his approach (listen to the podcast if you want total accuracy): </p>  <p>- I don&#8217;t ask questions I do pair programming for interviews&#8230;   <br />- Interview questions are irrelevent&#8230; most of the people asking interview questions are showing the people who are interviewing what they know    <br />- Ask for a code sample with unit tests that run inside Visual Studio    <br />- If that&#8217;s okay ask them to come in for 4 hours of pair programming    <br />- Most interview related items would come up during the pair programming session</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ll admit that I spent an inordinate amount of time last week thinking about dialog boxes. Silvelright’s canned prompt comes courtesy of a call to MessageBox.Show which displays the browser’s native modal dialog. I think you get the same thing from HtmlPage.Window.Alert too. Needless to say, these <em>should</em> leave you wanting.</p>  <p>A good place to start, rather than wasting the better part of a day playing around like me, is to begin with a really good convention rather than making something “original.” </p>  <p>So without further ado, I’m linking to <a href="http://www.teehanlax.com/blog/?p=1628">a nice PSD</a> courtesy of <a href="http://www.teehanlax.com">teehan+lax</a> that contains visual styles for many of the iPhone’s UI Elements. I’ll have to build a nice workflow to get things like this into XAML.     <br /></p>  <div style="width: 100%; border-top: black 1px dotted">&#160;</div>  <p>One more philosophical note (noted below so that if you just needed the link you won’t be daunted by my long windedness) – almost 100 episodes ago the <a href="http://www.hanselminutes.com/">Hanselminutes podcast</a> featured Scott interviewing <a href="http://www.loudthinking.com">David Heinemeier Hansson</a> and <a href="http://www.martinfowler.com/bliki/">Martin Fowler</a> at RailsConf 2007. When talking about UI design and originality here is what DHH had to say: </p>  <blockquote>   <p>“I think the low level of      <br />expressiveness that we have in HTML and CSS       <br />and JavaScript is actually a huge boon to most       <br />applications that constraints are a good thing,       <br />that<strong> constraints leads to better applications when        <br />we don’t need to reinvent everything</strong>. When you       <br />just have blank canvas where you can paint       <br />whatever you want on it, you pretty much end up       <br />with something “original” every time; and I don’t       <br />think originality in UI design is necessarily a good       <br />thing; I just think actually most of the time it&#8217;s a       <br />bad thing.”</p> </blockquote>  <p>I agree with DHH on this point. It’s worth listening to the entire podcast to put some context to his comments. Where my opinion veers from his or at least my hope for Silverlight is that conventions more powerful than those of HTML/CSS/JavaScript begin to come together for developers and they spend less time thinking about a blank slate and more about how their application works with the benefit of a better experience. <a href="http://silverlight.codeplex.com/Wiki/View.aspx?title=Silverlight%20Toolkit%20Overview%20Part%203">Themes</a> are a good step in this direction but things like dialogs go beyond to interactions as opposed to just colors and gradients.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -190,7 +195,7 @@ Having many flavors of product adds to friction, which could be another form of 
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/06/13/c-multiple-replace-extension-methods/">C# Multiple Replace Extension Methods, Levithan Style</a></h1>
+      <h1 class="entry-title"><a href="/2009/07/16/why-ie6-continues-to-ruin-my-life/">Why IE6 Continues to Ruin My Life</a></h1>
     
     
       <p class="meta">
@@ -206,7 +211,7 @@ Having many flavors of product adds to friction, which could be another form of 
   
 
 
-<time datetime="2008-06-13T00:04:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2008</time>
+<time datetime="2009-07-16T23:08:00-05:00" pubdate data-updated="true">Jul 16<span>th</span>, 2009</time>
         
       </p>
     
@@ -214,18 +219,55 @@ Having many flavors of product adds to friction, which could be another form of 
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>A couple of nights ago I <a href="http://metadeveloper.blogspot.com/2008/06/regex-replace-multiple-strings-in.html">blogged</a> about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan had <a href="http://blog.stevenlevithan.com/archives/multi-replace">an entry</a> on the approach (not mine in specific, just the approach and commenting on a few weaknesses). It inspired a few things out of me: first, making the multiple replace an extension method of the string class, and second to duplicate Steve&#8217;s approach which enables a more robust model because you can use metasequences etc&#8230; </p>  <p>Here is the code (included the using statement since the use of ToArray() from the Dictionary key collection isn&#8217;t available without System.Linq): </p>  <pre>using System;<br />using System.Linq;<br />using System.Collections.Generic;<br />using System.Text.RegularExpressions;<br /><br />static class RegexExtender {<br />    public static string MultiReplace(this string target, Dictionary<string , string> replacementDictionary) {<br />        return Regex.Replace(target,<br />                                &quot;(&quot; + String.Join(&quot;|&quot;, replacementDictionary.Keys.ToArray()) + &quot;)&quot;,<br />                                delegate(Match m) { return replacementDictionary[m.Value]; }<br />                                );<br />    }<br /><br />    public static string LevithansMultiReplace(this string target, Dictionary<string , string> replacementDictionary)<br />    {<br />        foreach (string key in replacementDictionary.Keys) {<br />            Regex r = new Regex(key, RegexOptions.None);<br />            target = r.Replace(target, replacementDictionary[key]);<br />        }<br />        return target;<br />    }<br /><br />}</pre><br /><p><br />Here is some usage:<br /></p><br /><pre><br /><br />// the original approach, as an extension method<br />string x = "Holly was a hunter";<br />Dictionary<string, string> rdict = new Dictionary<string, string>();<br />rdict.Add("Holly", "Hannah");<br />rdict.Add("hunter", "hatter");<br />Console.WriteLine(x.MultiReplace(rdict));<br /><br />// Steve's technique<br />rdict = new Dictionary<string, string>();<br />rdict.Add(@"[A-z]", "x");<br />rdict.Add(@"\d", "y");<br />string test = "David is 33";<br />Console.WriteLine(test.LevithansMultiReplace(rdict));<br /></pre><br /><br><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>Via a good friend, <a href="http://blog.digg.com/?p=878">this post</a> confirms that many of us are in the same situation: corporate IT people force users to stay in IE6 which forces, in turn, all of us developers to suffer by having to support it. The post, written from an inside Digg perspective doesn&#8217;t tell the whole story so I’d like to add one dimension. Many corporate environments are in this unfortunate cycle based on the inability to project abstract costs, that is to say that often (always?) software is rushed through and “finished” in an agile, <a href="http://en.wikipedia.org/wiki/You_Ain%27t_Gonna_Need_It">YAGNI</a> kind of way, and after the fact managers<sup>1</sup> have a hard time capturing the costs it takes to support legacy browsers because of “finished” software. The two development efforts are seen as separate, so the extra time in new development doesn’t factor into the decision to keep what is old.</p>  <p>Cheers for Virtual PC and the ability to test things out without having it installed locally but nevertheless I’d like to force everyone to upgrade and forget that browser ever existed.</p>  <p>Side note, if you are fortunate enough to force an upgrade, <a href="http://code.google.com/p/ie6-upgrade-warning/">here is some help</a>.</p>  <p><sup>1</sup>I’m sure special kinds of managers are able to guess this in and make good decisions but they are a rare breed and the elixir they drink is hard to find.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/05/06/proper-02-inotify-dependencyproperty/">Proper 0.2: INotify, DependencyProperty Support</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-06T07:59:00-05:00" pubdate data-updated="true">May 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Several years ago, in a land of Visual Studio 2005 and no CodeRush, I made a tool called <a href="http://t3rse.com/proper">Proper</a> to automate the monotony of creating properties. You just type something like “int Foo;string Bar;” and you’d get basic property generation. You can use shortcuts to types by typing an undercore “_” character. For example, “i_” will pop up int, “dt_” would pop up DateTime (<a href="http://metadeveloper.blogspot.com/2007_04_01_archive.html">You can also create your own</a>). It’s funny how the stuff that you’re half serious about can last so long – at the time I wanted to write something useful entirely in JavaScript and to experiment a little with JQuery. </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-simple.png" /> </p>  <p>The tool suffered neglect for the next few years until recently when I began working with Silverlight and was amazed at how a similar monotony (and more code!) accompanies using INotifyPropertyChanged and implementing dependency properties. I remembered my old tool and added support for generating them there. Here are some screenshots that should illustrate how it works (you select “advanced options” and then select a few checkboxes, in a nutshell). I’ll update the feature to report bugs – I’m sure there are a few. I also neglected to update it for VB.NET – I’ll do that over the next few weeks.</p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-INotify.png" /> </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-Dependency.png" /> </p>  <p>If you do spot a bug, let me know. There are a few new goals I have with the tool, the first of which is refactoring some of the embarrassing JavaScript I crufted together to make this work. I remember <a href="http://www.blueskyonmars.com/">Kevin Dangoor</a> talking about Embarrassment Driven Development (when your code is so embarrassing that you’re motivated to update it); that’s the one thing about JavaScript – you can’t hide the way things are constructed. :)</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
 <div class='author'>David Seruyange</div>
 <div class='content'>
-I think at the time I wrote this the regular .NET Dictionary defaulted to have a string key/value pair. Now you will need to use a strongly typed Dictionary. <br /><br />That is: Dictionary&lt;string, string&gt; instead of just Dictionary.</div>
+Hey Dave, <br /><br />Thanks for the questions, I&#39;ll try to be brief and avoid &quot;one time at band camp&quot; stories&#8230; :)<br /><br />&gt; Why not use VS Snippets<br /><br />It&#39;s a valid alternative - something tells me a majority of developers prefer to stay in VS. There are a few reasons I went down this alternative path which may or may not resonate with other developers: <br /><br />1. The built in snippets require a &quot;one by one&quot; approach. You&#39;d need to type in prop A, B, C sequentially. This approach is &quot;batched&quot; in that you set everything up and then generate the code. <br />2. Snippets involve more typing. At the time I made this tool you&#39;d need to tab through 3 items on a snippet: type, private member, and property name. This uses a convention to allow you to type less and get more faster.<br />3. Customized snippets tether a person to an installation of Visual Studio (or customizing each one they touch). Because I am constantly developing across several machines and because I don&#39;t like tying myself to an instance of Visual Studio, that&#39;s another reason I do a lot of webby type tools like this.<br /><br />&gt; Why not output a CodeDom object<br />That&#39;s an interesting concept. I think I&#39;d be leaving the world of JavaScript but it could be much more flexible in the end. Perhaps an Ajaxy implementation where the CodeDom stuff lived on the server  would be apropos. <br /><br />&gt; dep props are only necessary for the TARGET of a data binding the the DubPeeEff/&quot;web killer&quot;<br /><br />You&#39;re right in the above although as I&#39;ve been building more UserControls that are templates for displaying data within the context of some larger list bound control (ItemsControl/DataGrid/etc) I see the need cropping up more and more. <br /><br />&gt; What is the answer to life, the<br />&gt; universe, and everything?<br /><br />http://www.youtube.com/watch?v=hkbdP7sq0w8</div>
 </div>
 <div class='comment'>
-<div class='author'>Marc W</div>
+<div class='author'>Dave</div>
 <div class='content'>
-LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</div>
+Nice idea&#8230; few questions though (I promise the fourth one is easy):<br /><br />We could talk for hours why this isn&#8217;t easier to do withe the lang primitives&#8230; but in the meantime people (using VS) could use code snippets for a more integrated experience&#8230; why not do it as snippets?<br /><br />To address the lack of VB support&#8230; why not output a CodeDom object and leave it to a language provider to write the code&#8230; that is, recently I discovered the XsdDataContractImporter class that lets you take a set of XML schema documents and generate a CodeCompileUnit which is then sent to a code provider that does the &#8220;semi-harry&#8221; details of writing code (give me a little room here&#8230; I might have gotten a few class names wrong, I didn&#8217;t verify it all, it&#8217;s &#8220;Memory Driven Development&#8221;). I realize you&#8217;ve got a website here and CodeCompiieUnit probably isn&#8217;t a serializable types&#8230; but you could probably stop the &#8220;strcat&#8221; and move to the CodeDom (assuming you are doing strcat&#8230; &#8220;Assumption Driven Development&#8221;)?<br /><br />As I understand it (mem driven dev again) dep props are only necessary for the TARGET of a data binding the the DubPeeEff/&#8221;web killer&#8221; (aka Silverlight) world so why bother&#8230; just make the source props INotifyPropertyChanged (don&#8217;t &#8220;ultra&#8221;-long interface names make you think something is inherently wrong) instead?<br /><br />What is the answer to life, the universe, and everything?</div>
 </div>
 </div>
 </div>
@@ -240,7 +282,7 @@ LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/06/11/regex-replace-multiple-strings-in/">Regex: Replace Multiple Strings in a Single Pass With C#</a></h1>
+      <h1 class="entry-title"><a href="/2009/04/24/using-ironpython-for-coverters-in/">Using IronPython for Converters in Silverlight</a></h1>
     
     
       <p class="meta">
@@ -256,7 +298,7 @@ LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</
   
 
 
-<time datetime="2008-06-11T00:13:00-05:00" pubdate data-updated="true">Jun 11<span>th</span>, 2008</time>
+<time datetime="2009-04-24T06:22:00-05:00" pubdate data-updated="true">Apr 24<span>th</span>, 2009</time>
         
       </p>
     
@@ -264,18 +306,87 @@ LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I wish I could say I was the clever one to think of this but I ran into it in my copy of the Python Cookbook (the original author is <a href="http://defrang.com/">Xavier Defrang</a>, the Python implementation <a href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/81330">here</a>). It&#8217;s cool enough that I ported it today - I&#8217;ll know I&#8217;ll use the C# implementation of it quite often: </p>  <pre>        static string MultipleReplace(string text, Dictionary<string , string> replacements) {<br />            return Regex.Replace(text, <br />                                    &quot;(&quot; + String.Join(&quot;|&quot;, adict.Keys.ToArray()) + &quot;)&quot;,<br />                                    delegate(Match m) { return replacements[m.Value]; }<br />                                    );<br />        }<br />	// somewhere else in code<br />            string temp = "Jonathan Smith is a developer";<br />            adict.Add("Jonathan", "David");<br />            adict.Add("Smith", "Seruyange");<br />            string rep = MultipleReplace(temp, adict);<br /></pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>&#160;</p>  <p>Tim Heuer has a <a href="http://timheuer.com/blog/archive/2008/07/30/format-data-in-silverlight-databinding-valueconverter.aspx">great intro post</a> on Silverlight data binding and value converters. The concept is a really nice one but I’m not wild about having to write a class that implements the IValueConverter interface every time I need some ad-hoc tweaking of the values I get from being data bound and how I’d like to use them within XAML. What set me off this track was a case where I simply needed to invert a boolean – what should just be “not myvalue” ended up requiring a class, an interface, and so on.</p>  <p>Dynamic languages excel at this sort of thing and since they support the ability to evaluate code on the fly I thought it would make sense to write a single implementation of IValueConverter and host Python inside of it to evaluate binding expressions that are passed in. Here is what that might look like: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class PythonExpConverter : IValueConverter<br />    {<br />        private ScriptEngine _engine;<br /><br />        public PythonExpConverter()<br />        {<br />	   <span style="color: orange"><br />            ScriptRuntimeSetup setup = Python.CreateRuntimeSetup(null);<br />            setup.DebugMode = true;<br />            var runtime = new ScriptRuntime(setup);<br />            _engine = Python.GetEngine(runtime);<br /> 	    </span><br />        }<br /><br />        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            object result;<br />            string python = parameter.ToString()<br />                                .Replace(&quot;value&quot;, value.ToString());<br />            try<br />            {<br />                <span style="color: orange">result = _engine.Execute(python);</span><br />            }<br />            catch (Exception ex)<br />            {<br />                // pass, just use original value<br />                result = value;<br />            }<br />            return result;<br />        }<br /><br />        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            // same concept as above<br />            return value;<br />        }<br />    }</pre><br /><br /><p>No magic, just instantiate the Python runtime and then proceed to leverage it in the Convert phase by taking a string as the parameter for the conversion method. Use value as a keyword in your Python expression to get at the value of the underlying data.&#160; Once this is added as a static resource, you can leverage it in many ways. For example, if I had a class “Person”:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class Person<br />    {<br />        public string FirstName { get; set; }<br />        public string LastName { get; set; }<br />        public bool OnVacation { get; set; }<br />        public double Balance { get; set; }<br />    }</pre><br /><br /><p>Let’s say I’m binding to an instance of Person (yeah, very contrived) with the following template conversions: <br />  <br />1. Uppercase last name. <br /><br />  <br />2. If OnVacation is true, disable a link to their schedule. <br /><br />  <br />3. Format balance using some currency specific format. <br /><br />  <br />Here is the XAML that leverages my single converter for all of the above:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: xml;">&lt;StackPanel Orientation=&quot;Vertical&quot;&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;First Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Last Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Is Active&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Rating&quot; Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;{Binding FirstName}&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding LastName, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'value\'.upper()}&quot;</span> Width=&quot;100&quot; /&gt;<br />                &lt;HyperlinkButton Width=&quot;100&quot; NavigateUri=&quot;http://foo&quot; Content=&quot;View&quot; <br />                        <span style="color: orange">IsEnabled=&quot;{Binding OnVacation, Converter={StaticResource PythonExpConverter}, ConverterParameter=not value}&quot;</span> /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding Balance, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'%2.2f\' % value}&quot;</span> Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />        &lt;/StackPanel&gt;</pre><br /><br /><p>This is a very powerful approach since the limitations you hit will probably be born by a limitation in skill with Python or your dynamic language of choice rather than the approach.&#160; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/23/almost-famous/">Almost Famous</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-23T22:38:00-05:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Yours truly, looking embarrassed in the middle.</p>  <p><img src="http://seruyange.com/metadeveloper/Almost Famous.jpg" /> </p>  <p>&#160;</p>  <p>Here is <a href="http://haacked.com/archive/2008/04/10/upcoming-changes-in-routing.aspx">the link</a> to Phil&#8217;s write up. </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/20/voidspace-on-dot-net-rocks/">Voidspace on Dot Net Rocks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-20T10:44:00-05:00" pubdate data-updated="true">Mar 20<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Michael Foord, aka Voidspace, is on a <a href="http://www.dotnetrocks.com/default.aspx?showNum=429">Dot Net Rocks episode</a> talking about IronPython. </p>  <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Fabian</div>
+<div class='author'>fengfk2008</div>
 <div class='content'>
-Hi! Your code works well with simple replacement but will fail with complex pattern as the dictionnary key will not be the pattern but the matched string in the input.</div>
-</div>
-<div class='comment'>
-<div class='author'>Chris Partridge</div>
-<div class='content'>
-This is great, thank you!</div>
+<A HREF="http://moves.seo-seo.com.tw" REL="nofollow">桃園搬家</A>的搬家流程<BR/><A HREF="http://www.168move.com.tw" REL="nofollow">台北搬家</A>的搬家流程<BR/><A HREF="http://www.168move.com.tw/news_open.php?id=65" REL="nofollow">石門搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=66" REL="nofollow">三芝搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=67" REL="nofollow">八里搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=80" REL="nofollow">林口搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=68" REL="nofollow">五股搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=91" REL="nofollow">蘆洲搬家</A>,,<A HREF="http://www.168move.com.tw/news_open.php?id=69" REL="nofollow">泰山搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=92" REL="nofollow">新莊搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=90" REL="nofollow">鶯歌搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=57" REL="nofollow">樹林搬家</A>,<A HREF="http://www.030.com.tw/news_open.asp?id=51" REL="nofollow">板橋搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=61" REL="nofollow">土城搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=51" REL="nofollow">三峽搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=71" REL="nofollow">烏來搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=63" REL="nofollow">石碇搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=73" REL="nofollow">深坑搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=74" REL="nofollow">汐止搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=75" REL="nofollow">萬里搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=62" REL="nofollow">金山搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=77" REL="nofollow">平溪搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=78" REL="nofollow">雙溪搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=79" REL="nofollow">貢寮搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=53" REL="nofollow">桃園搬家</A>,<A HREF="http://www.168move.com.tw/news_open.php?id=52" REL="nofollow">新屋搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=57" REL="nofollow">淡水搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=53" REL="nofollow">中和搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=54" REL="nofollow">永和搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=55" REL="nofollow">三重搬家</A>,<A HREF="http://www.030.com.tw/news_open.php?id=58" REL="nofollow">新店搬家</A></div>
 </div>
 </div>
 </div>
@@ -290,7 +401,7 @@ This is great, thank you!</div>
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/06/08/languages-and-thinking/">Languages and Thinking</a></h1>
+      <h1 class="entry-title"><a href="/2009/03/04/currying-with-c-and-algotron/">Currying With C# and Algotron</a></h1>
     
     
       <p class="meta">
@@ -306,7 +417,7 @@ This is great, thank you!</div>
   
 
 
-<time datetime="2008-06-08T23:08:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2008</time>
+<time datetime="2009-03-04T10:10:00-06:00" pubdate data-updated="true">Mar 4<span>th</span>, 2009</time>
         
       </p>
     
@@ -314,163 +425,52 @@ This is great, thank you!</div>
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m approaching the end to a rough week and should be coding but the virus scanner on my office machine is slowing development to a point where it&#8217;s not bearable for me.&#160; I&#8217;ll pass the time with a quick thought about how programming languages affect thinking and why it makes me both picky about languages I use and also curious to see how the different languages solve problems.</p>  <p>I will confess that the project I&#8217;ve been working on is written in VB.NET.&#160; The reason for that was very practical since our client was adept at VBA and needed to, on occasion, get to the code level of things.&#160; I&#8217;d spent a lot of time in Visual Basic (the &quot;classical&quot; VB) so I thought nothing of it - perhaps somewhat of a refreshment after so many years away.&#160; As we wrote more and more code, I started noticing a lot of nested &quot;If&quot; statements in the style of: </p>  <p></p>  <pre>If Some Condition Then<br />	If SomeOtherCondition Then<br />		If YetAnotherCondition Then</pre><br /><br /><p>You get the picture.</p><br /><br /><p>I remember working with a different VB programmer and she was also given to writing a lot of nested conditions in the same manner even though we were using C#:</p><br /><br /><pre>if(cond){<br />	if(cond2){<br />		if(cond3){	</pre><br /><br /><p>At the time it really bothered me in a &quot;code smell&quot; sort of way; nesting conditions, I would have argued, invites clutter and entropy. Since I&#8217;ve been attending Hanselman University for a while now I can say with more technical gravitas that they increase cyclomatic complexity and this was why they smelled bad. The alternative I would have wished for would have been:</p><br /><br /><pre>if(cond &amp;&amp; cond2 &amp;&amp; cond3){<br />...<br />}</pre><br /><br /><p>Pretty natural, right?&#160; Actually no, especially if you&#8217;re coming from Visual Basic because the Visual Basic And and Or operators don&#8217;t do short circuit evaluation.&#160; If you combine boolean expressions you have to make a mental note to verify that they both will work at runtime - that there is no dependency between them.&#160; That&#8217;s something a C# progammer completely takes for granted often writing code like this which is a ticking bomb in VB.NET (it won&#8217;t go off until you&#8217;re demonstrating the app to your client, trust me):</p><br /><br /><pre>If Not MyCollection Is Nothing And MyCollection(0) = &quot;Something&quot; Then<br />	...</pre><br /><br /><p>One expects the second expression will be passed if the first fails in a &quot;short circuit&quot; approach. Unfortunately, Visual Basic .NET will attempt to evaluate the second even if the first is not true!</p><br /><br /><p>To clean this all up the VB.NET folks provided the AndAlso and OrElse operators which do traditional short circuit evaluation. I read somewhere that the reason And and Or were left as is was for backward compatibility and people who were &quot;upgrading&quot; their code from Visual Basic to Visual Basic.NET. Using these operators you&#8217;re back to thinking &quot;normally&quot; as a C#, C, Javascript, etc&#8230; developer.</p><br /><br /><p>So back to my original thought - nested If blocks are a simple way around an operator that doesn&#8217;t short circuit and it&#8217;s a way of thinking if you&#8217;ve spent a lot of time writing Visual Basic code. The language is what drives that even though there may be alternatives. Even though it may produce cyclomatic complexity. Some people tell me picking a language is just a simple process of picking a tool, but I think it&#8217;s more than that; it&#8217;s picking a way of thinking. That&#8217;s why it&#8217;s not only important to me, it&#8217;s interesting to see how different languages lead us in different directions. Even if an idiom is available elsewhere, it&#8217;s getting to think that way that is most often&#160; the trick to being better in both languages.</p><br /><br /><p>One more side note, I can chart a few different ways in which new languages have affected me. Take a look at the type of thing I did before a lot: </p><br /><br /><pre>foreach(string s in stuff){	<br />	master += s + &quot;,&quot;;<br />}<br />master = master.Substring(0, master.Length -1);</pre><br /><br /><p>Nowadays:</p><br /><br /><pre>// like a map, I first started thinking this way from perl<br />stuff.ForEach(delegate(string s) { master += s + &quot;,&quot;; });<br />// like a join, very Pythonic<br />String.Join(&quot;,&quot;, stuff.ToArray())</pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>Friend and coworker <a href="http://algotron.blogspot.com/2009/03/function-curry.html">Algotron</a> just posted an intro and sample of currying with C#. I decided to try out currying with the idea of successive regular expressions on a string array - I found it easy to approach first with anonymous delegate syntax and then use lambda expressions. Once this was in place it was easy to understand the use of an extension method to curry any binary function.&#160; </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; fil = <br />delegate(string pattern, string[] lines){<br />    return delegate(string pattern2)<br />    {<br />	return lines<br />		    .Where(p=&gt; Regex.IsMatch(p, pattern))<br />		    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />		    .ToArray();<br />    };<br />};<br /><br /><br />Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; regFil = <br />				(pattern, input) =&gt; <br />				    (pattern2) =&gt; <br />					input<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern))<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />					    .ToArray();<br />					    <br />// assume some address data<br />string[] data = new string[]{&quot;1234 Somewhere&quot;, &quot;this&quot;, &quot;777 dakota&quot;};<br /><br />var filterNumeric = regFil(@&quot;\d&quot;, data); // make sure it has a number<br />var filterUCase = filterNumeric(&quot;[A-Z]&quot;); // make sure it has an uppercase character<br /><br />Console.Write(String.Join(&quot;,&quot;, filterUCase));					    </pre><br /><br /><p>That&#8217;s cool stuff, worth looking at for a while to try to understand.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/03/ironpython-silverlightfx/">IronPython + SilverlightFX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-03T07:36:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p><a href="http://projects.nikhilk.net/SilverlightFX/">SilverlightFX</a> is an interesting library for declaratively attaching behaviors to objects in XAML. People new to the Silverlight world will like how they can use it to get simple animations out of simple code. Here&#8217;s a step by step: </p>  <p>1. If you don&#8217;t have it done already, <a href="http://metadeveloper.blogspot.com/2009/02/dlr-ironpython-silverlight-in-5-steps.html">set up an IronPython / Silverlight project</a>.</p>  <p>2. <a href="http://projects.nikhilk.net/SilverlightFX">Download SilverlightFX</a></p>  <p>3. Copy SilverlightFX binaries into your /app directory.</p>  <p>3. Edit the AppManifest.xaml to include the SilverlightFX binaries. Here is an example: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Deployment xmlns=&quot;http://schemas.microsoft.com/client/2007/deployment&quot; <br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; <br />	RuntimeVersion=&quot;2.0.31005.00&quot; <br />	EntryPointAssembly=&quot;Microsoft.Scripting.Silverlight&quot; <br />	EntryPointType=&quot;Microsoft.Scripting.Silverlight.DynamicApplication&quot;&gt;<br />  &lt;Deployment.Parts&gt;<br />    &lt;!-- Add additional assemblies here --&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.ExtensionAttribute.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Silverlight.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Core.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.Modules.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.Data.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Silverlight.FX.dll&quot; /&gt;<br />  &lt;/Deployment.Parts&gt;<br />&lt;/Deployment&gt;</pre><br /><br /><p>4. Edit your app.xaml file to include references to the SilverlightFX namespaces. Here is an example:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;UserControl<br />	xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;<br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;<br />	x:Class=&quot;System.Windows.Controls.UserControl&quot;<br />	xmlns:fxui=&quot;clr-namespace:Silverlight.FX.UserInterface;assembly=Silverlight.FX&quot;<br />   	xmlns:fxeffects=&quot;clr-namespace:Silverlight.FX.UserInterface.Effects;assembly=Silverlight.FX&quot;	<br />	&gt;</pre><br /><br /><p>5. Party on with some declarative effects. </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Border Grid.Row=&quot;1&quot; x:Name=&quot;redRect&quot; Opacity=&quot;0.2&quot;&gt;<br />	&lt;TextBlock x:Name=&quot;outPut&quot; TextWrapping=&quot;Wrap&quot; <br />		Text=&quot;Lorem ipsum dolor sit amet,...&quot;  /&gt;<br />    &lt;fxui:Interaction.Behaviors&gt;<br />    &lt;fxui:HoverEffect&gt;<br />      &lt;fxeffects:Fade FadeOpacity=&quot;1&quot; /&gt;<br />    &lt;/fxui:HoverEffect&gt;<br />    &lt;/fxui:Interaction.Behaviors&gt;<br />&lt;/Border&gt;</pre><br /><br /><p>6. Read Nikhil&#8217;s related <a href="http://www.nikhilk.net/entry.aspx?id=212">blog entries</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>depola</div>
+<div class='author'>scitesy</div>
 <div class='content'>
-Good post.</div>
+Thanks David!  I was able to get this to work.  One change&#8230;the fxui namespace for Silverlight is &quot;clr-namespace:SilverlightFX.UserInterface;assembly=SilverlightFX&quot;&gt;&quot;.  The same goes for fxeffects.</div>
 </div>
 </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/06/01/galloway-et-al-roundtable-podcast/">Galloway Et. Al. Roundtable Podcast</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-01T19:45:00-05:00" pubdate data-updated="true">Jun 1<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>If you haven&#8217;t and you do Microsoft development, give an ear to <a href="http://weblogs.asp.net/jgalloway/default.aspx">John Galloway</a>, <a href="http://www.odetocode.com/">K. Scott Allen</a>, <a href="http://www.lazycoder.com/weblog/">Scott Koon</a>, and <a href="http://weblogs.asp.net/kdente/">Keven Dente</a> in their &quot;Technology Roundtable&quot; <a href="http://weblogs.asp.net/jgalloway/archive/tags/Podcast/default.aspx">podcast</a>.&#160; There are a lot of podcasts I find entertaining, (like Joel and Jeff&#8217;s <a href="http://blog.stackoverflow.com/">discussions</a>) but these guys seem to do what I do - and to contextualize that since it may sound presumptuous, they deal with Microsoft development tools building &quot;real world&quot; software.&#160;&#160; </p>  <p>I try to have &quot;take aways&quot; from podcasts so from the first more impetus to investigate Ninject and dependency injection as well as more investigation of LINQ to SQL and the ADO.NET Entity framework (opinions flew on these, I&#8217;d like to develop some of my own).&#160; Finally, even though I&#8217;ll probably skip the beta, I will look forward to .NET 3.5 SP1 since ASP.NET Dynamic Data will be packaged therein.</p>  <p>The second podcast had a great discussion on javascript libraries. I&#8217;ve used <a href="http://www.t3rse.com/proper">jQuery</a> and <a href="http://www.nregex.com">YUI</a> and Prototype on different projects and while my fondness for Prototype/Scriptaculous is probably greatest of all I am always eager to hear other people&#8217;s experiences. The framework I have yet to do anything serious with is Dojo - I did some quick prototyping of their flyout menu with ASP.NET server code and I hate to say it but the ASP.NET Menu control was a lot more effective and fast. While it wasn&#8217;t explicitly stated, this podcast has dampened my interest for the ASP.NET Ajax stuff - I looked at it again a few weeks ago and it seemed so&#8230; heavy.&#160; I&#8217;m not sure who mentioned it in the podcast but they said it seemed more oriented for writing controls versus Ajaxy type applications.&#160; I would have to concur with my limited knowledge.</p>  <p>I&#8217;ll stay tuned, it will be interesting to see what they talk about next time.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/05/31/knowing-c/">Knowing C</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-31T18:10:00-05:00" pubdate data-updated="true">May 31<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been having a good time listening to the <a href="http://blog.stackoverflow.com/">StackOverflow podcasts</a>. Joel&#8217;s a great curmudgeon and Atwood is as opinionated as ever.&#160; An ongoing disagreement between the two has been the usefulness of knowing C.&#160; Joel&#8217;s adamant about its importance and Atwood thinks there is much else a developer can spend their time in understanding.&#160; </p>  <p>Eric Sink has since chimed in with a post called <a href="http://www.ericsink.com/entries/c_morse_code.html">C and Morse Code</a> wherein he reveals his cards: like Joel, he thinks it&#8217;s of vital importance if you want to reach past mediocrity:</p>  <blockquote>   <p>I&#8217;m not going to take a black-and-white stance on this.&#160; I won&#8217;t go so far as to say that every developer must learn C.&#160; I&#8217;ve met lots of developers without C experience who are successful and making positive contributions to important software projects.</p>    <p>Furthermore, I&#8217;ll admit that knowing C is not a magic solution to poor skills.&#160; A lousy developer who happens to know C is simply better equipped to hurt himself or somebody nearby.</p>    <p>However, I can say these two things:</p>    <ol>     <li>All of the truly extraordinary developers I know are people who really understand the kind of low-level details that C forces you to know. </li>      <li>Every programmer without C experience has a clear path of personal development:&#160; Learn C.&#160; Get some real experience using C to write a serious piece of software.&#160; Even if you never use it again, you&#8217;ll be a better programmer when you&#8217;re done. </li>   </ol> </blockquote>  <p>My relationship with C is tenuous at best. I spent a few months some years ago delving into it (and C++) seriously - I&#8217;m curious to go back and find some of that code but it was a few machines ago*.&#160; I remember during that time I&#8217;d work on little toy programs (mostly an implementation of some algorithm) in C and then have the need for a utility and write it in something else.&#160; It would be interesting to take Eric up on his second point of writing a &quot;serious piece of software&quot; using the language.&#160; One interesting angle on this is how one would keep said &quot;serious piece of software&quot; strictly in the realm of C, without venturing too much into the world of C++ and object orientation done poorly.</p>  <p>So brainstorm question: what&#8217;s something nice and useful that could be implemented strictly within C? (That one might not yawn and think *gosh* that would take 1 minute to do in Python).</p>  <h1><font color="#0000ff">}</font></h1>  <p>   <br />*Great memories of Me, Markus, and <a href="http://www.codegear.com/downloads/free/cppbuilder">bcc32</a> in a coffee house somewhere in southern California.&#160; Too far gone are those days&#8230; </p>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/05/29/splitting-files-with-python/">Splitting Files With Python</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-29T23:09:00-05:00" pubdate data-updated="true">May 29<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been recently needing to generate sql scripts from large Excel spreadsheets. But once the script is finished I&#8217;ve had issues getting SQL Management Studio to execute as large a script in a single run. The solution? Split up the file with a little Python that takes it&#8217;s arguments like this:</p>  <p>ipy Splitter.py&#160; LargeFile.sql 3</p>  <p></p>  <pre>#import clr<br />#pass arguments like so:<br /># THISSCRIPT.PY FILE NUM_PARTS<br /># ipy Ringil.py LargeFile.sql 4<br /><br />import sys<br /><br />if(len(sys.argv) == 3):<br />    splits = int(sys.argv[2])<br />    f = open(sys.argv[1])<br />    data = f.readlines()<br />    lc = len(data)/splits<br />    print &quot;number of lines&quot;, len(data)<br />    for c in range(0,splits):<br />        outstream = open(&quot;data&quot; + str(c + 1) + &quot;.sql&quot;, 'w')<br />        for line in data[:lc]: <br />            outstream.write(line)<br />        outstream.close()<br />        del data[:lc]<br />    f.close()<br />else:<br />    print &quot;Expected arguments: file and number of splits\n example: ipy Splitter.py LargeFile.sql 4&quot;</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/05/20/it-speed-that-counts/">It&#8217;s Speed That Counts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-20T21:31:00-05:00" pubdate data-updated="true">May 20<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>I usually don&#8217;t talk about hardware because I don&#8217;t pay too much attention to it unless something is bothering me.&nbsp; However I&#8217;ve discovered something interesting about myself in the last week.&nbsp; I&#8217;ve done a lot of my development over the last few years on an enormous <a href="http://www.notebookreview.com/default.asp?newsID=2248&amp;review=ZD8000">HP zd8000</a>.&nbsp; I jokingly called it &#8220;the 747&#8221; because of its size and girth - 10 lbs and a 17&#8221; screen.&nbsp; For a guy like me who&#8217;s usually also carrying a few books in his bag it&#8217;s quite a load as evidenced by my going through at least one laptop bag (my current one is also in poor shape).&nbsp; </p> <p>So because of some changes at work I got to try out a machine I&#8217;d liked the thought of - another HP but this one with a small 13&#8221; screen and weighing perhaps 4 lbs.&nbsp; It&#8217;s a great little machine and has a cool look but after about a week I&#8217;m back to the 747. </p> <p>Why go back to the back pains and encumbrance of this massive machine?&nbsp; One simple reason: speed.&nbsp; It&#8217;s got twice the RAM (2GB) and a much faster processor.&nbsp; I didn&#8217;t think about this much but for a person like me who is usually running an instance of SQL Server, an IDE of some sort, a text editor, web browsing with 10 tabs open, listening to music, chatting up friends (Messenger is no joke when it comes to resources), etc, etc - you get the picture - it&#8217;s frustrating to be on a beautiful, compact machine that you have to wait around for. I&#8217;d rather exchange power with encumbrance for convenience with time penalties.</p> <p>Or, as I like to joke with my South Dakota friends, I&#8217;m like a guy who exchanged his <a href="http://www.chevrolet.com/silverado/">Chevy Silverado</a> for a <a href="http://www.vw.com/touareg/en/us/#">crossover vehicle</a>&#8230; until he realized that he made his living hauling lumber.</p> <p>Footnote: I ordered a Thinkpad T61 which should be a foot in both worlds. I guess my bit of the economic stimulus went to China. </p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -499,19 +499,19 @@ Good post.</div>
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

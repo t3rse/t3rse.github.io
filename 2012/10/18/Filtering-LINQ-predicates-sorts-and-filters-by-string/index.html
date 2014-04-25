@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Filtering LINQ Predicates, Sorts, and Filters by String - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="Those of us in the C# realm have become so used to LINQ it’s difficult to remember the problems of yesteryear and how we used to solve them. The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://t3rse.github.io/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:t3rse.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Filtering LINQ Predicates, Sorts, and Filters by String</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-18T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Those of us in the C# realm have become so used to LINQ it’s difficult to remember the problems of yesteryear and how we used to solve them. The reason is that almost all of the time, LINQ takes that work we used to do and abstracts a lot of the pain into a query syntax. </p>  <p>But there are some problems things that used to be more intuitive. The dinosaurs among us remember writing code like this:</p>  <div class="code">   <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">void SortRecords(DataTable data, string column, string direction) { 
+	data.DefaultView.Sort = String.Join(&quot;{0} {1}&quot;, column, direction); 
+} </pre>
+</div>
+
+<p>
+  <br />In a typical scenario you might have a user click on a column, in some interface and pass that to your SortRecords method to change the way the data is displayed. In the present day, using LINQ to sort is trivial but because LINQ takes expressions as parameters for the typically used OrderBy and OrderByDescending, using a string isn’t as straight forward of a process. What’s a path around this problem? </p>
+
+<p>First, let’s demonstrate the problem. Assume I have a class Person with two properties, FirstName and LastName. Let’s further assume that although an instance of Person is useful, we often have lists of Person that we occasionally find ourselves having to sort. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};</pre>
+</div>
+
+<p>
+  <br />A typical sorting expression in LINQ takes an expression, not a string that could be passed as a parameter. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var result = people.OrderBy(p =&gt; p.LastName); // not a string</pre>
+</div>
+
+<p>
+  <br />This creates a problem if you try to generalize sorting into something more reusable like a method or a function. Sure, you could pass an expression, but passing those expressions from the UI can be a little bit tricky. So what course of action? </p>
+
+<p>My solution is to use a <a href="http://en.wikipedia.org/wiki/Dispatch_table" target="_blank">dispatch table</a>. I first saw the concept back in my days hacking perl but it works in C# with delegates. Here is an example of a dispatch table using strings as keys for our anonymous delegates representing the Linq expression that we would use to sort: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+    {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+    {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+};</pre>
+</div>
+
+<p>
+  <br />Now the task of sorting by string is simple because that can be used as the key to reference the correct delegate that would be used as the sort expression. This anonymous method demonstrates the concept: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">IEnumerable&lt;Person&gt; SortThem(string fieldName, IEnumerable&lt;Person&gt; people) {
+    Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+        {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+        {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+    };
+    // Q.E.D. really
+    return people.OrderBy(sortLookups[fieldName]);
+}</pre>
+</div>
+
+<p>
+  <br />Here is an example of a call to our SortThem method: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">&gt;
+var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};
+var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
+</div>
+
+<p>
+  <br />Dispatch tables make stringifying method parameters and dealing with LINQ much more palatable since LINQ is all about dealing with expressions. This is just the tip of the iceberg. Once you know how to match up anonymous methods into dispatch tables watch out! You’ll start seeing applications of the technique everywhere!</p></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-18T00:00:00-05:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://t3rse.github.io/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string/" data-via="t3rse" data-counturl="http://t3rse.github.io/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/10/10/You-Have-No-Excuse/" title="Previous Post: You Have No Excuse">&laquo; You Have No Excuse</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/10/19/Parting-the-List/" title="Next Post: Parting the List">Parting the List &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

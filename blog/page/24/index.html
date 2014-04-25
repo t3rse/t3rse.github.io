@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Did I ever post that unit testing is hard? It&#8217;s hard. I&#8217;d love to see it in action at other shops since we&#8217;ve got so much to &hellip;">
+  <meta name="description" content="{Imran observed not too long ago that one proof of the difficulty of finding &#8220;quality&#8221; developers was that he (or she) was encountering &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/11/09/falsification-and-unit-testing/">Falsification and Unit Testing</a></h1>
+      <h1 class="entry-title"><a href="/2007/03/02/fizbuzz-conundrum-ramanujan/">The FizBuzz Conundrum, Ramanujan</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2006-11-09T23:53:00-06:00" pubdate data-updated="true">Nov 9<span>th</span>, 2006</time>
+<time datetime="2007-03-02T13:08:00-06:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2007</time>
         
       </p>
     
@@ -95,7 +95,7 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3366ff;">{</span><br /><br />Did I ever post that unit testing is hard? <br /><br />It&#8217;s hard. I&#8217;d love to see it in action at other shops since we&#8217;ve got so much to learn.  But let&#8217;s tally the score of the moment:<br /><br />It&#8217;s about 10 minutes to midnight and I&#8217;ve been working my way through someone else&#8217;s code. This code is a piece of a separate assembly that does validation of a whole bunch of business rules before a person can process a loan application.  Each rule is fairly simple, along the lines of &#8220;if a person is not older than 18, they must have a cosigner&#8221; but there happen to be a lot of rules.  I designed the rules to be in a separate assembly because the client changes these frequently, so it will be easy to update with a new DLL instead of reinstalling the application.<br /><br />Our application is modeled as an object with a series of other objects and lists attached.  An application has a borrower. A borrower has an employment history. And so it goes - which makes for a fluid, transactional save or validation by simply passing the application object around. <br /><br />But I&#8217;m looking at a lot of validation at this late hour and finding a systemic issue.  The person who wrote the code made an assumption with respect to Lists attached to objects that makes our validation code ineffectual.  Here&#8217;s a sample:<br /><br />   25         if (targetApplication.Coborrowers.Count > 0 &&amp; targetApplication.Coborrowers[0].Citizenship == String.Empty)<br />   26         {<br />   27             result.IsValid = false;<br />   28             result.Message = &#8220;First Cosigner Citizenship is required for Approved Status.&#8221;;<br />   29         }<br />   30     }<br />   31     return result;<br /><br />See the bug?  If there are no coborrowers the rule (citizenship must be set) is never evaluated.<br /><br />But even more so, here&#8217;s the rub: I had the developer write unit tests for each and every validation rule they put out as a method.  I thought a night like tonight: midnight, fatigue, and a crapload of code to fix for a promised build, would be avoided as a result.<br /><br />The large picture here has to do with the way the unit test was designed to verify the functionality of the validation rule.  Because the problem was approached as gingerly, I think the unit tests weren&#8217;t liable to find a more subtle bug like this.  Instead, the unit test probably attempted to validate a coborrower with a citizenship, asserting true, and a coborrower without citizenship, asserting false.  No thought was given as to whether a coborrower may not exist.<br /><br />Perhaps, in programming, we need to focus more on <a href="http://en.wikipedia.org/wiki/Falsifiability">falsification</a> in our unit tests - attempts to break the code or find ways it will assert what&#8217;s expected under the wrong conditions.  But that&#8217;s all theory right now and I&#8217;ve got a decision to make: stay up late and try to keep my word or heading to bed and fixing the code under the right conditions&#8230; the purists will say that a rushed fix is bad, especially since I didn&#8217;t write the first iteration and won&#8217;t have time to update the unit tests (I know, I know: bad).  But I have to live in a world of realisms where the pain of a broken promise is greater than the pain of a rushed, patchworked fix. Time to get the Mt. Dew out of the fridge&#8230;<br /><br /><span style="font-size:180%;color:#3366ff;">}</span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://tickletux.wordpress.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/">Imran</a> observed not too long ago that one proof of the difficulty of finding &#8220;quality&#8221; developers was that he (or she) was encountering a shocking amount of failure among applicants to write code that solved even simple problems.  This was picked up for comment by <a href="http://weblog.raganwald.com/2007/01/dont-overthink-fizzbuzz.html">Raganwald</a>, <a href="http://www.codinghorror.com/blog/archives/000781.html">Atwood</a>, and even <a href="http://www.hanselman.com/blog/YouCantTeachHeightMeasuringProgrammerCompetenceViaFizzBuzz.aspx">Hanselman</a>.<br /><br />I resisted the urge to write up a solution but after that much buzz I thought there&#8217;s got to be a catch.  So this morning, before I &#8220;clocked in&#8221; from my basement (we&#8217;re under blizzard conditions here in South Dakota), I wrote up the first thing that came to mind:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">for (int i = 1; i &lt; 101; i++) {</span><br /><span style="font-family:courier new;"> Console.WriteLine((i % 3 == 0 &&amp; i % 5 == 0) ?</span><br /><span style="font-family:courier new;">  &#8220;Fizz-Buzz&#8221;:((i %3==0)?</span><br /><span style="font-family:courier new;">    &#8220;Fizz&#8221;:(i%5==0)?</span><br /><span style="font-family:courier new;">       &#8220;Buzz&#8221;:i.ToString())); </span><br /><span style="font-family:courier new;">}</span></span><br /><br />No catches, it seems.  But after thinking about it, I thought that a lot of people I work with wouldn&#8217;t be happy with my solution to that particular problem.  It could come across as &#8220;convoluted.&#8221;<br /><br />The more I thought about it, the more I knew the more acceptable answer was:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">// iterate given range</span><br /><span style="font-family:courier new;">for (int i = 1; i &lt; 101; i++) </span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">string output;</span><br /><span style="font-family:courier new;">// if the number I&#8217;m on is divisble by 3 or 5</span><br /><span style="font-family:courier new;">if (i % 3 == 0 &&amp; i % 5 == 0)</span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">  output = &#8220;Fizz-Buzz&#8221;;</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if it is divisible by 3 then set output to &#8220;Fizz&#8221;</span><br /><span style="font-family:courier new;">else if (i % 3 == 0)</span><br /><span style="font-family:courier new;">{  </span><br /><span style="font-family:courier new;">  output = &#8220;Fizz&#8221;;</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if it is divisble by 5 then set output to &#8220;Buzz&#8221;</span><br /><span style="font-family:courier new;">else if (i % 5 == 0) {</span><br /><span style="font-family:courier new;">  output = &#8220;Buzz&#8221;;</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if divisible by neither 3 or 5, output the number.</span><br /><span style="font-family:courier new;">else</span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">  output = i.ToString();</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">Console.WriteLine(output);</span><br /><span style="font-family:courier new;">}</span></span><br /><br />And as I think about it, there may be more to this test than just the matter of output - you may be able to get a sense of what type of thinking a person employs in solutions and how their values mesh with them.  Even if the answer is &#8220;right&#8221; it may not be <span style="font-style: italic;">right</span>.<br /><br />A while back I was feeling some angst toward my employer (when I used to live in California) and put my resume on Monster to see what I was &#8220;worth.&#8221;  The first party to express interest went under the guise of an actual company, but really they were just recruiters.  They scheduled me for a &#8220;test&#8221; at 8:30 am in downtown Los Angeles.<br /><br />At 8:30 am in downtown Los Angeles.<br /><br />Traffic and personal discomfort aside, I made it to the office where a person who was obviously non-technical gave me a (photocopied?) sheet of paper and a number two pencil to write some javascript code that manipulated the DOM and XML.<br /><br />I was a little green and was writing stuff like this:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">document.getElementById(&#8220;foo&#8221;).appendChild(root.createTextNode((entry == foo)?&#8221;This&#8221;:&#8221;That&#8221;)&#8230; </span></span><br /><br />You get the picture.  I wasn&#8217;t used to writing things on paper so I was erasing here and there, and because I tended towards multiple steps in one line, my lines were going across the page and I&#8217;d curve them upward so I could get it to fit.  It was pretty messy, and I&#8217;m sure the recruiter picking up the &#8220;test&#8221; wasn&#8217;t impressed with how disjointed it was.<br /><br />And I can imagine the people at the software company, if it ever made it there, looking at smudges and pencil marks and an utter lack of comments on a piece of paper which they&#8217;d never be able to verify unless they entered it by hand.  I doubt it made it that far but if it did, they might have thought the messy code was indicative of a &#8220;messy&#8221; mind that didn&#8217;t write enough comments and consolidated steps too much. It would either go into the &#8220;Not a team player&#8221; or &#8220;Quixotic&#8221; pile before it was dumped to the trash.<br /><br />In defense of myself, or if I may be bold enough to think of my ideals in this light, I keep thinking about <a href="http://en.wikipedia.org/wiki/Srinivasa_Ramanujan">Ramanujan</a>, the brilliant Indian mathematician. As an autodidact, he was not familiar with protocol and convention and the step by step approach other mathematicians used&#8230; he would skip steps by presenting formulas without rigorous proof in order to arrive to his solutions.  Of course this is an unassailable attribute if you&#8217;re as smart as a Ramanujan and a death blow if you&#8217;re not.<br /><br />Now Hanselman has <a href="http://www.hanselminutes.com/default.aspx?showID=69">a podcast</a> on the whole thing. I&#8217;m going to check it out.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 </div>
   
   
@@ -108,7 +108,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/11/04/configuration-api-confession/">Configuration API Confession, Repentance</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/26/what-set-you-claim-server-software/">What Set You Claim? (Server Software)</a></h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2006-11-04T23:33:00-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2006</time>
+<time datetime="2007-02-26T19:10:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2007</time>
         
       </p>
     
@@ -132,7 +132,7 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area.  A few nights ago I thought I&#8217;d update my current development project to have its connection string maintained in a config file so that it could be changed without a recompile in a single location.<br /><br />I knew this was the approach we&#8217;d eventually take having used it like breathing on all of my previous .NET projects (which were ASP.NET).  But Windows Forms applications are slightly different and I ran into the brick wall of not grokking the structure Microsoft uses for configuration.<br /><br />The big problem in my understanding was that I wanted to have my configuration read in a separate library, thinking I&#8217;d reuse the pattern on any future project where I wanted to do something similar.  So I created a library project and knowing a little but not enough created a config file manually to use. Knowing a little but not enough (or not updated?) I named my configuration file ConfigHelper.dll.config because this is a well known convention in .NET. I also manually copied this file to the \bin folder and even considered adding a &#8220;post build event&#8221; to the Visual Studio 2005 project to do this. And when it didn&#8217;t work and my attempts to read the config file weren&#8217;t successful, I became very frustrated and even took the time to write it up.  Luckily no one besides <a href="http://www.cephas.net/blog/">A</a> the jedi master reads this blog so my voice of ignorance got drown in the black hole that is blogger. No matter: this blog is for me, like a &#8220;captains log&#8221; to chart my experiences and thoughts.<br /><br />I realized a while back that I knew just enough from the past few years programming ASP.NET to make ignorant mistakes and convoluted work-around solutions so I&#8217;ve been reading <a href="http://www.softinsight.com/bnoyes/">Brian Noyes&#8217;s</a> <a href="http://www.awprofessional.com/bookstore/product.asp?isbn=032126892X&rl=1">Data Binding with Windows Forms 2.0</a> on <a href="http://safari.oreilly.com">Safari</a> trying to grok the whole picture as Microsoft intends it. <br /><br />So here is the skinny, as embarrasing as it is for me to explain how wrong I had it:<br /><br />1. In your project, create an App.config file.  In Visual Studio 2005 this is the &#8220;Application Configuration File&#8221; option.<br />2. Make entries as you like in the configuration file.<br />3. Compiling your application will produce a MyAssembly.exe.config or MyLibrary.dll.config file in the \bin directory.<br />4. Libraries aren&#8217;t meant to read from their own configuration files. Hence attempting to read an entry even if you&#8217;ve manually copied over your MyLibrary.dll.config file will result in an empty string once retrieved. BUT!<br />5. BUT! BUT! The library is designed to read values from the configuration file of the executable.  So if you place the following line in your library:<br />string foo = ConfigurationManager.AppSettings[&#8220;bar&#8221;];<br />Your library is looking for the &#8220;bar&#8221; value in the configuration file of your application.<br /><br />To my own credit, a lot of the time when I find myself fighting with something I usually know deep down that it&#8217;s a struggle to understand what the framework designer intended and not something that is &#8220;stupid.&#8221;  In this case, what the framework designers intended is quite elegant because when you have, like us, many different libraries that all need to pull something common (connection string is probably most obvious) it can be based on the configuration of the application and managed in a single location.<br /><br />Okay, now that I got the memo, I can move on.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >} </span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Royal Pingdom did <a href="http://royal.pingdom.com/?p=95">an analysis</a> of what &#8220;popular&#8221; sites are running beneath the hood (as easy as a query at <a href="http://news.netcraft.com/">Netcraft</a>). Royal Pingdom reveal themselves as a certain &#8220;persona&#8221; (yeah, I&#8217;ll overgeneralize for now) by their choice of sites: Technorati, Meebo, Feedburner and so on.<br /><br />It probably isn&#8217;t surprising that most of these sites run on Linux with Apache and MySQL involved somewhere on the back end.  I&#8217;m surprised (of course I&#8217;m not in the LAMP game though) to see a bit of a surge in the use of <a href="http://www.lighttpd.net/">Lighttpd</a> - a more lightweight serving engine than Apache.<br /><br />As a developer confined to the realm of Microsoft tools it&#8217;s a bit disappointing albeit unsurprising. What lies beneath the statistics at Royal Pingdom is something bigger and more crushing: the people that seem to be at the forefront of thinking and building the web don&#8217;t use our tools.  Our tools are the favorite of the commoditized environment of your average big company - less thinking and less innovation. <br /><br />In part I can see a chicken and egg scenario: people building startups and experimenting need a cheap platform upon which to do so. One doesn&#8217;t license Windows Server, Visual Studio, SQL Server, and so on with a poor [wo]man&#8217;s budget when comparable free tools exist.  In other words, I would assume that some market economics are behind the choice of platform.<br /><br />But if you&#8217;re a person like me in the Microsoft space, perhaps a big part of the frustration of working within an environment that lacks passion and quirky inventiveness is that the birds of a feather live in a different place and use a different technology.  Of course I work with a lot of people who are excited and innovative - and beyond my coworkers there are quite a few people  pushing the envelope with Microsoft tools.  But I&#8217;d say in general that a corporate developer has a different set of values and goals than the kind of person who would build at a startup.  As time passes I see this less on a &#8220;success&#8221; angle - most types seem to do well enough for themselves - and more of a clustering of similar people.<br /><br />The bright spark on Royal Pingdom&#8217;s list is <a href="http://www.alexaholic.com/">Alexaholic</a> built buy Ron Hornbaker which follows a pattern I&#8217;d like to follow as an ideal - that a person can use Microsoft technology (with which I&#8217;m quite familiar) and implement any good idea.  Beyond that, there is an advantage to a smaller pool of innovators - there is more room for folks like me who may not have the best ideas in the world, but who are good enough to perhaps take something from the startup/open source space and port it. <br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 </div>
   
   
@@ -145,7 +145,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/11/02/configuration-api-convoluted/">Configuration API Convoluted?</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/26/monsterbugs-any-silver-bullets/">Monsterbugs: Any Silver Bullets?</a></h1>
     
     
       <p class="meta">
@@ -161,7 +161,7 @@
   
 
 
-<time datetime="2006-11-02T20:11:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2006</time>
+<time datetime="2007-02-26T12:44:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2007</time>
         
       </p>
     
@@ -169,129 +169,18 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.<br /><br />Our application has had connection strings littered all over the place - okay, 8 to be exact and I know this because of my frequent usage of &#8220;replace in files&#8221; to toggle connection strings. But we&#8217;re at a point when this needs to be centralized and mutable without doing a new build.<br /><br />In my head this is simple: slap a config file into the project and off I go.  Some kind of one liner along the lines of:<br /><br />ConfLib.CONNECTION  = ConfigurationSettings.AppSettings[&#8220;Connect&#8221;];<br /><br />Simple, right?  I do it with web applications all the time.<br /><br />The first issue is that ConfigurationSettings, which the old school .NET folks are used to, is deprecated.  The message tells you to use ConfigurationManager but neglects to mention that a physical reference to System.Configuration.dll (in the GAC) is needed.  This isn&#8217;t a big issue and 2 minutes later I&#8217;ve referenced it, and rewritten my line of code as:<br /><br />ConfLib.CONNECTION  = ConfigurationManager.AppSettings[&#8220;Connect&#8221;];<br /><br />Not quite.  I&#8217;m now in the habit of doing unit tests so I realize that Visual Studio 2005 <span style="font-style: italic;">copies your libraries</span> to a new directory when it does unit tests.  I look at the &#8220;post build event&#8221; options and wonder if it&#8217;s worth the hassle. So instead I ditch the unit test and return to the main solution, manually copy the *.config file into my application&#8217;s directory and try.<br /><br />No dice.<br /><br />Maybe ConfigurationManager is too nebulous?  So I try the following:<br /><br />Configuration conf = ConfigurationManager.OpenExeConfiguration(&#8220;ConfigHelper.dll&#8221;);<br /><br />Which, when I run it in the debugger seems to pull my keys out of the config file but gives me an access violation when I try:<br /><br />ConfLib.CONNECTION  = conf.AppSettings[&#8220;Connect&#8221;];<br /><br />This is quite some time later and I&#8217;m pretty annoyed because I must have absolutely not gotten the memo or configuration is bloated.  Almost to prove to myself how simple this should be, I create a file called Settings.xml and put in a couple of elements and write the following:<br /><br />XmlDocument configDoc = new XmlDocument();<br />configDoc.Load(Path.Combine(Directory.GetCurrentDirectory(), &#8220;Settings.xml&#8221;));<br />ConfLib.CONNECTION = configDoc.SelectSingleNode(&#8220;//Database/text()&#8221;).Value;<br />ConfLib.VERSION = configDoc.SelectSingleNode(&#8220;//Version/text()&#8221;).Value;<br /><br />That simple.<br /><br />Granted I am WELL AWARE that the Configuration API has lots of goodies stuffed into it but should that make the process of pulling it out of a configuration file so convoluted?  Things that are designed well work for the simple things as easily as they solve the complex.<br /><br />My configuration files always have the same pattern: I create a class that is designed to read the xml file with static variables for each configuration value.  I use a static initializer to read these from the file and have a single static variable I reference when the app is loaded.  I&#8217;ve worked on a lot of stuff that benefits from this but almost always configuration stuff seems to boil down to a simple name/value pair you can leverage.<br /><br />I could have made an indexer and had the pulling look like the AppSettings collection on the ConfigurationManager but I dislike the fact that the compiler doesn&#8217;t catch errors related to misspelled key names. <br /><br />Oh well, I&#8217;ll leave it in its current state. Maybe I&#8217;ll get the memo tomorrow but I doubt it.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/31/classpath-struggle-even-jedi/">Classpath Struggle, Even the Jedi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-31T12:49:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Larry O&#8217;Brien, well known Jedi Master of many things development <a href="http://www.knowing.net/PermaLink,guid,f210e53e-d6c8-40d8-85c4-b02f12526e32.aspx">posts</a>:<br /><br /><blockquote>&#8220;I have to wire up a ColdFusion to an Axis Web Service. I&#8217;ve spent the past 3<br />hours trying to figure out freaking classpath issues: something about a<br />ClassCastException from a org.apache.commons.logging.LogFactory. I&#8217;m giving up<br />for the day. Stupid freaking classpaths.&#8221;</blockquote><br />I can remember sitting in my one room apartment above a garage in Whittier fighting with classpaths, trying to wrangle them into my understanding of Java. It is not schadenfreude that makes me post this, it&#8217;s more the comfort of knowing that I&#8217;m not the only one to have struggled with them. <br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/27/friction/">Friction</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-27T23:50:00-05:00" pubdate data-updated="true">Oct 27<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;">{</span><br /><br />Reading Joel Spolsky and others on the hring process is always interesting.  One aspect of their writing that has always intrigued me has been the &#8220;quiz questions&#8221; used to get a feel for the interviewee&#8217;s level of intelligence.<br /><br />Lately I&#8217;ve been interviewing people regularly and am slowly coming up with a format that gets me closest to a person&#8217;s technical level as it pertains to our company.  I usually ask a person to rate themselves on a scale of one to ten in three areas:<br />1. Web Application Development (HTML / CSS / Javascript / ASP.NET (or any other web app framework or perl/scripting env)<br />2. &#8220;Fat&#8221; clients (Windows Forms .NET / COM )<br />3. Database programming and administration (SQL / Database Design)<br /><br />I then follow up their ratings of themselves with some general questions in each area.  For example, most people consider themselves knowledgable with web development because they know some basic html.  Questions I like to pose here may be along the lines of asking what the difference is between DIV and SPAN elements, or what their understanding of why XHTML (versus HTML 4.0) came into existence, or whether they think designing with tables is a bad idea.  On the programming side I like to ask a person about the postback cycle in ASP.NET, or if they come from a non-.NET environment, about something like state management (querystring, session, etc&#8230;) in web applications.  Another favorite area of mine is javascript since many people think they know it but can&#8217;t provide answers for even a simple question like how to register an event for an html element. When I ask questions the point is definitely not about trivia but more to gauge whether the candidate is about aptitude or whether they&#8217;d be capable of jumping right in the fray and making a contribution. <br /><br />But beyond the technical questions, beyond the idea of &#8220;Smart, Gets Stuff Done&#8221; as goals in the ideal candidate, probably the most important thing about working the environments I&#8217;ve been exposed to is learning how they deal with &#8220;Friction.&#8221; I was watching a panel show once on CSPAN where a wizened old military man said: &#8220;The difference between war plans and war is friction.&#8221;  As I understand it, friction has to do with all those little things (and big things) that go wrong.  In our case, friction is almost always involved in trying to hit release dates.  Friction is also a big player when it comes to team dynamics and how people treat each other.<br /><br />For all the talk online about people who are exceptionally smart and productive, I&#8217;m surprised that the question of friction isn&#8217;t more important when choosing programmers since friction is always a part of software development. Everyone&#8217;s got a story about this, but here&#8217;s mine: I worked with a guy who was exceptionally sharp, anal-retentive, and detail oriented.  He&#8217;d forgotten more within his discipline than I probably will know.  I would ask him from time to time for help on the little problems I was dealing with and his answers were always prompt and accurate.  We worked together as peers and that&#8217;s what made me capable of liking him however, for many people, he was nearly impossible to deal with because any change that required flexibility on his part was out of the question.  If I&#8217;d been a team lead on a project, he&#8217;d be a difficult decision because of this attitude, and what would push me from the &#8220;maybe&#8221; into the &#8220;no&#8221; decision would not be my own ability to work with him, it would be his affect on the team as a whole and how he affected the team&#8217;s group culture.<br /><br />One thing to bear in mind is that I&#8217;m a consultant who writes business-ware which may mean that friction comes up for me a lot more than someone working at a shrinkwrap company, or a behemoth powerhouse with zillions of great hackers.  But as my experience accumulates, I begin to see that a person who has the ability to calm a client down while being able to refocus and get a project out the door is more valuable than a person who is a brilliant programmer but unable to deal with the type of rapid change and improvisation necessary for our work.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/10/24/commands-and-abstractions/">Commands and Abstractions</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-24T19:33:00-05:00" pubdate data-updated="true">Oct 24<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="COLOR: rgb(51,102,255);font-size:180%;" >{</span><br /><br />I clash with people occasionally over my approach to SQL Server. My approach to SQL Server is quite simple: Transact SQL. Never one for layers of abstraction and always seduced by speed, I prefer to keep my management activity in Query Analyzer. SQL Management Studio seems a bit slower than its older cousin, so quite often I prefer Query Analyzer even with the brand new SQL Server 2005.<br /><br />Often times for me preferences like this develop after bad experiences but today was a reminder of what kinds of things a layer of abstraction is capable of doing behind your back if you don&#8217;t monitor it. We have a table with 82 columns and something like 50,000 rows. One of these columns needed to be extended from VARCHAR(10) to VARCHAR(50). I was walking through the steps as they may occur in Enterprise Manager so I opened the product (wait a few seconds), selected my database (wait a few seconds), opened the tables node (wait a few seconds), and then right clicked on my table to examine and manipulate the column (another few seconds, plus scrolling up and down to locate the column I wanted). I made my change and then proceeded to make a &#8220;change script&#8221; which, to my horror, creates a temp table, copies data and affects other tables referenced by the table whose column I was changing.<br /><br />My usual approach to something like this is the following: Start->Run (Instantaneous). &#8220;isqlw&#8221; and hit enter (Instantaneous). In the query window I type the following:<br /><br /><br /><br /><div style="BACKGROUND: white;font-family:Courier New;font-size:10pt;color:black;"   ><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    1</span> <span style="color:blue;">USE </span>MyTestDatabase</span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    2</span> GO </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    3</span> </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    4</span> <span style="color:blue;">ALTER TABLE </span>Foo </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    5</span>     <span style="color:blue;">ALTER COLUMN </span>Bar <span style="color:blue;">VARCHAR</span>(50) </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    6</span> GO </span></p><br /></div>This is a simple example, titled away from the GUI but there&#8217;s more to this. Because the GUI represents an abstraction, there are limitations a person who is there encounters and begins to operate with. A simple example is the following: assume a table has 3 stored procedures (select, insert, update) and you&#8217;ve added a few columns that you&#8217;d like to include as parameters in each of the procs. In Enterprise Manager, or SQL Management Studio, a person is inclined to think in terms of a single procedure at once and likely to visit each procedure to make this change. A wise Unix gray beard or someone else who&#8217;s comfortable with a text editor will dump all the procedures they need to modify into a single file, do some search/replace operations as a single step, and do the update.<br /><br />The point for me really veers from SQL Server at this point and gets into the question of the abstractions which I myself rely on unnecessarily - which prevent my thinking to get past a certain point.  Although I have come to rely on the command line more and more over time, there are still things I learn: DOS things! that have really changed how I think about certain types of problems.  A simple example of this is from a few months ago when I learned of the existence of pushd and popd, commands for storing and retrieving working directories on a stack.  These relatively trivial techniques make it easy to do things that never really occured to me before. Like the fact that I could just use fc to check for differences in files. Or piping a request for help to a file so I could have documentation for a command. Here is an example that might be interesting:  wsdl.exe /? >wsdlParameters.txt<br /><br />One last point of clarification: I am not against abstractions. In many instances they work quite well. A while back I wrote a web based tool for viewing objects in SQL Server databases - basically outputting queries to the Information Schema views.  Everything that tool does can be duplicated in query analyzer or in SQL Management Studio.  But in terms of raw speed, flipping back and forth on table definitions in the web based tool beats clicking around in the GUI or retyping the same select statement with a different table name in the where clause.  What I believe is that abstractions are used best when what they are hiding is understood fully.  This is counter intuitive; most people think the abstractions - an easy GUI, a simple command, and so on - are there to make things simpler for people who want to keep details hidden.  That is always dangerous, even when it&#8217;s effective.  I&#8217;d prefer to struggle with what&#8217;s underneath and then live blissfully choosing the abstractions I find useful.<br /><br /><span style="COLOR: rgb(51,102,255);font-size:180%;" >} </span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />A few weeks ago our client began to report errors with our Windows Forms (.NET 2.0) application when she&#8217;d retrieve certain records.  It was a strange bug that would hang the program for about 60 seconds and then crash without reporting errors.  We could reproduce it on the test machine, but in development even while pointing to the same database, everything worked. Perfectly.<br /><br />I looked in the Event Log and noticed the following error:<br /><blockquote>&#8220;Faulting application epicenter.exe, version 1.0.0.0, stamp 45df84bf faulting module kernel32.dll, version 5.2.3790.2756, stamp 44c60f39, debug? 0, fault address 0x00015e02&#8221;</blockquote>Really, really helpful stuff. And especially because this wasn&#8217;t something we could get in development, on any of our boxes, it was confusing.  Google searches weren&#8217;t giving specific answers - the error seemed to general in the realm of .NET 2.0 to make much of -<br /><br />So how do you pin something like this down? <br /><br />My approach was as follows:<br /><br />// code to load data<br />MessageBox.Show(&#8220;Loaded data&#8221;);<br />// code to display data<br />MessageBox.Show(&#8220;Displayed data&#8221;);<br /><br />Our application is not small.  The form that displays data contains 3300 lines of non-wizard generated code.  Data is loaded from a set of methods in a separate library which itself may have upwards of 3000 lines, not to mention that that library references yet more libraries*&#8230; my point here is that it&#8217;s not a small script to throw a dialog up after each line or call.<br /><br />In the end I spent about 4 hours stepping through each of the major calls via dialog messages.  I couldn&#8217;t debug since our test machine doesn&#8217;t have Visual Studio or other debugging tools on it (like all the other machines in their offices).<br /><br />Although I think we&#8217;ve done a good job breaking the logic into pieces (ie. one method for getting data, one for display that is broken into methods for customizations on each object) it was still difficult to  discover.<br /><br />And in the end, of course, it was something small and subtle: calling the <a href="http://forums.microsoft.com/MSDN/ShowPost.aspx?PostID=502255&SiteID=1">AutoColumnsResize </a>method of a DataGridView can sometimes throw exceptions - because of the recursion of the resizing combined with the paint operation of the Windows Forms application. What was probably most annoying was that it wasn&#8217;t even my code that was responsible for the hanging exception, it was the framework&#8217;s inability to recover from an internal exception. <br /><br />When I first started troubleshooting I thought I should have elaborated more on a &#8220;tracing&#8221; level in our application - we trace some exceptions but not all to the database.  But when I finally found the bug, especially because it wasn&#8217;t in the code we were responsible for writing, I doubt it would have done more than just save time.  A stack trace would probably have helped as well, if caught at the point of the exception.  But my big question is whether there are any well trodden techniques for finding and dealing with bugs like this, especially if they are in the framework and not in one&#8217;s own code. How do you deal with stuff like this, or is it always a slog for which there is not silver bullet?<br /><br />*I think the design of the application is okay (duh, I&#8217;m the one responsible) but it may sound more convoluted in that statement than it actually is.  We&#8217;ve got a DataHelper library that is covered by unit tests which does all of our data access at the database level. It runs stored procedures, deals with parameters, and so on.  One level of abstraction higher we&#8217;ve got a set of business layer objects for dealing with the entities related to our application: loans, disbursements, checks and so on.  The Windows Forms application is what we use to let the user display/enter/modify data.  We&#8217;ve got a few additional libraries for tracing, configuration, format, data validation, and Crystal Reports.  Not so bad I hope&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
 <div class='author'>David Seruyange</div>
 <div class='content'>
-Spoken from one who knows.</div>
+I&#8217;m in the hunt for the answer to your question Mike - I&#8217;m trying write something that tries to emulate that paint/autosize clash just for curiosity&#8217;s sake.</div>
 </div>
 <div class='comment'>
-<div class='author'>Aaron Johnson</div>
+<div class='author'>Mike</div>
 <div class='content'>
-Another good thing about using TSQL instead of SQL Enterprise Manager is that you&#8217;ll be able to reproduce and test your modifications programatically.  You can&#8217;t test &#8216;Expand Server &gt; Expand Database &gt; Right click on table n &gt; Add column&#8217;.</div>
+There are no errors like unreproducable errors.  :)  <BR/><BR/>Not sure there is a silver bullet for these situations short of building everything yourself, and that is obviously overkill here considering how productive the MS tools can make you the 99.9% of the time they aren&#8217;t breaking.<BR/><BR/>Coming from the web world, there are lots more options in which libraries you use for things, and very often this decision comes down to who documents their libraries the best.  With a single-vendor system like Windows Forms it is more complicated since you either deal with it or choose a new line of work.  <BR/><BR/>Did you find out why the development systems didn&#8217;t break in the same way when looking at the same database?  That is curious.</div>
 </div>
 </div>
 </div>
@@ -306,7 +195,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/10/23/serious-reading/">Serious Reading</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/23/configuration-ammendment/">Configuration Ammendment</a></h1>
     
     
       <p class="meta">
@@ -322,7 +211,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
   
 
 
-<time datetime="2006-10-23T20:24:00-05:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2006</time>
+<time datetime="2007-02-23T21:20:00-06:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2007</time>
         
       </p>
     
@@ -330,7 +219,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Chris Sells <a href="http://www.sellsbrothers.com/news/showTopic.aspx?ixTopic=2049">answers</a> a few questions in public but one comment got my attention:<br /><br /><p class="MsoPlainText"></p><blockquote><p class="MsoPlainText">How are you able to keep up with the changes? What books do you read?<o:p></o:p></p> [csells] I keep up with changes by a) a broad familiarity with as much technology as possible and then b) committing to using it because it feels like it’ll be the right thing and c) using fear to motivate me (recognize a pattern? : ). I read books on demand given the topic I’m into, and then it’s 3-5 books in a week for immersion. Frankly, after writing a few books, I’m a bit of a snob, so I don’t read a lot of technical books for fun the way I used to.</blockquote>Wow: three to five books in a week for &#8220;immersion.&#8221; It&#8217;s a stark reminder on a personal level of how much more aggressive I need to get with my own reading list (which, incidentally, includes Sells&#8217;s <a href="http://www.sellsbrothers.com/writing/wfbook/"><span style="font-style: italic;">Windows Forms Programming</span></a>) but in a general sense it shows a hallmark of what the information age does to programmers - it might not be intelligence that separates us (though I think Sells is remarkably intelligent), it&#8217;s the ability to absorb information quickly.<br /><br />I don&#8217;t read very quickly so it&#8217;s a matter of discipline and will to work on absorbing what&#8217;s relevant for the job and the future.  But in a word where guys like Sells chew up and spit out technologies before most people are seriously working with them, a person needs a good reminder of staying focused.<br /><br />It reminds me of the brief exchange I had with <a href="http://www.hanselman.com/blog/">Hanselman</a>.  I&#8217;d ask a question, he&#8217;d casually suggest <a href="http://www.amazon.com/Code-Language-Computer-Hardware-Software/dp/0735611319/sr=8-8/qid=1161653265/ref=pd_bbs_sr_8/002-9027210-4235259?ie=UTF8">a book</a>.  It says, to me, that there&#8217;s a bit of mysticism to how smart people like that stay on top of things but really that the information is out there and ready to be consumed if only one is disciplined enough to pursue it.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br /><span style="font-family:courier new;font-size:85%;">// get calling assembly settings classstring </span><br /><span style="font-family:courier new;font-size:85%;">assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;</span><br /><br />I had used the above in my previous code sample to retrieve the assembly name before obtaining settings from the config file. It works only if you are attempting to obtain configuration information from a library that is called by an *.exe. But what if you are in a library (*.dll) and you are using another library to read configuration information as I&#8217;d planned? The Assembly.GetCallingAssembly().FullName returns the name of the library, which as I mentioned before is not where the Configuration class naturally looks for settings. Using the following modification:<br /><br /><span style="font-family:courier new;font-size:85%;">// get calling assembly settings classstring<br />assemblyName = System.Reflection.Assembly.GetEntryAssembly().FullName; </span><br /><br />Ah, much better. A subtlety worth remembering: Assembly.GetCallingAssembly() returns a reference to whatever the caller, whether it&#8217;s a library or executable whereas Assembly.GetEntryAssembly() will give you the name of an executable responsible for making that first call to the framework.<br /><br />Interestingly, in an ASP.NET 2.0 application where the runtime is processing libraries directly, Assembly.GetEntryAssembly() returns a null. <br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
 </div>
   
   
@@ -343,7 +232,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/10/10/windows-forms-for-visual-basic-6-users/">Windows Forms for Visual Basic 6 Users</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/22/settings-configuration-net-20/">Settings, Configuration, .NET 2.0</a></h1>
     
     
       <p class="meta">
@@ -359,7 +248,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
   
 
 
-<time datetime="2006-10-10T13:02:00-05:00" pubdate data-updated="true">Oct 10<span>th</span>, 2006</time>
+<time datetime="2007-02-22T23:21:00-06:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2007</time>
         
       </p>
     
@@ -367,7 +256,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />My current project at work is a Windows Forms application.  Even though I&#8217;ve been programming .NET almost daily since it&#8217;s introduction, just about all of what I&#8217;ve done is web based programming using ASP.NET. The non-web code I&#8217;ve written has been for the most part libraries (DLLs) to use in web apps. <br /><br />Most of what I know about thick clients comes from doing work in Visual Basic 6 so while I usually know where I&#8217;d like to go with something, I find myself hitting a wall with how to do it in VS 2005.<br /><br />An example of this would be this morning, trying to figure out whether the Locked property for controls is ported to .NET Windows Forms.  Unfortunately it&#8217;s not - the Locked property you find has to do with resizing and moving, not making controls editable.<br /><br />Fortunately MSDN has <a href="http://msdn2.microsoft.com/en-us/library/we128ese.aspx">a great resource</a> here for people making the transition that lets you see Visual Basic 6.0 and Windows Forms compared directly.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<span style="font-size:180%;color:#3333ff;">{<br /></span><br />A while back I complained about <a href="http://metadeveloper.blogspot.com/2006/11/configuration-api-convoluted.html">configuration</a> within Windows Forms applications, mostly because I lacked an understanding of the API. I hacked a simple xml file together wherein I could store simple name value pairs that we&#8217;d utilize for the application and surprisingly it&#8217;s been the approach for quite some time.<br /><br />I&#8217;ve been studying for the Microsoft 70-552 exam which would update my &#8220;MCAD&#8221; certification to &#8220;MCPD.&#8221; I know, I know, certification is frown upon by so many people who think I should really be reading <a href="http://www.ccs.neu.edu/home/matthias/BTLS/">The Little Schemer</a> to do <a href="http://dangermouse.brynmawr.edu/cs245/ycomb_jim.html">cool parlor tricks</a>. But this is a case where what I&#8217;d said earlier about certification rings true: it probes for weakness and exposes where you &#8220;fake it&#8221; with hacks without understanding the real structure and purpose of the technology. Case in point, configuration.<br /><br />In my earlier post, I&#8217;d used <span style="font-family:courier new;">Configuration.AppSettings</span> which I now know as deprecated. Instead there&#8217;s a nifty configuration/settings API one can leverage. What I&#8217;ve done here is based very heavily on Chris Sells&#8217;s Windows Forms 2.0 Programming although I took liberty to modify some of the code to make it more reusable and generic (his intent was to show basics).<br /><br />The first stop one needs to make is to add a Settings file to the project along with a reference to System.configuration (not sure why configuration is not Configuration).<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsSetup.jpg" /><br /><br />Underneath the properties node if you &#8220;edit&#8221; the settings file, it&#8217;s really a grid that allows you to enter settings with a key, datatype, scope, and value. The scope in here can be either as a user setting or an application setting - it&#8217;s also possible to write your own section handler and extend the model.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsEntry.jpg" /><br /><br />After compiling this is converted into your app.exe.config file - the physical storage of your settings in the xml format well know to config files.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsAppConfig.jpg" /><br /><br />The code for retrieval is still, in my own view, a little verbose but it&#8217;s easy to develop a simple accessor helper class. Even more slick in the design of the .NET Framework is that class library projects (DLLs) pull configuration settings from their hosted EXE so you the utility code here is from a DLL designed to be referenced and used from any application.<br /><br /><span style="font-family:courier new;font-size:78%;">using System;<br />using System.Collections.Generic;<br />using System.Text;<br />using System.Configuration;<br /><br />namespace SettingsGroperLib<br />{<br />public enum SettingType {<br />userSettings,<br />applicationSettings<br />}<br /><br />public class ConfHelp<br />{<br /><br />public static string GetConfSetting(SettingType settingType, string settingKey) {<br />// obtain current configuration<br />Configuration currentConfig =<br />ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);<br />// obtain section utilizing enumeration<br />ConfigurationSectionGroup group =<br />currentConfig.GetSectionGroup(settingType.ToString());<br />// get calling assembly settings class<br />string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;<br />// yah, it&#8217;s ugly, but it works<br />string friendlyName = assemblyName.Split(&#8216;,&#8217;)[0];<br />// obtain section by combining friendlyname to settings class<br />ClientSettingsSection section =<br />(ClientSettingsSection)group.Sections.Get(<br />String.Format(<br />&#8220;{0}.Properties.Settings&#8221;,<br />friendlyName<br />)<br />);<br />// get setting key<br />SettingElement element =<br />section.Settings.Get(settingKey);<br />// return settings value as<br />return element.Value.ValueXml.FirstChild.Value;<br />}<br /><br />}<br />}<br /></span><br />Sorry about the format; you can download a nice formated version <a href="http://hobbitwerk.brinkster.net/metadeveloper/ConfHelp.cs.txt">here</a>.<br /><br />It all seems so easy once you take the time. I think the unlearning was a big obstacle for me since working with config files was something I did all the time in .NET 1.x and old habits die hard. Oh yeah, the retrieval:<br /><br /><span style="font-family:courier new;font-size:78%;">string test = ConfHelp.GetConfSetting(SettingType.applicationSettings, &#8220;DBUrl&#8221;);</span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
 </div>
   
   
@@ -380,7 +269,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/10/08/rhino-book/">Rhino Book</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/20/language-of-gods/">Language of the Gods</a></h1>
     
     
       <p class="meta">
@@ -396,7 +285,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
   
 
 
-<time datetime="2006-10-08T09:24:00-05:00" pubdate data-updated="true">Oct 8<span>th</span>, 2006</time>
+<time datetime="2007-02-20T19:09:00-06:00" pubdate data-updated="true">Feb 20<span>th</span>, 2007</time>
         
       </p>
     
@@ -404,7 +293,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I got David Flanagan&#8217;s new <a href="http://www.amazon.com/dp/0596101996?tag=davidflanagancom&camp=14573&amp;creative=327641&linkCode=as1&amp;creativeASIN=0596101996&adid=1828J3VMQDZS4GF7QAZY&amp;">Javascript Reference</a> earlier this week.  My fourth edition is nice and worn, but it will be nice to have the updated perspective since so much has happened in internet time since the fourth edition was published. It&#8217;s the third edition of the book that I&#8217;ve owned and while buying the same book more than once has a big psychological drawback, I&#8217;m especially looking forward to reading the sections on the XmlHttp (AJAX) side of javascript.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://xkcd.com/c224.html">Hilarious</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 </div>
   
   
@@ -417,7 +306,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
       
   <header>
     
-      <h1 class="entry-title"><a href="/2006/10/07/firefox-hiding-namespaces-arg/">Firefox Hiding Namespaces! ARG.</a></h1>
+      <h1 class="entry-title"><a href="/2007/02/19/top-ten-mistakes-of-web-design/">Top Ten Mistakes of Web Design</a></h1>
     
     
       <p class="meta">
@@ -433,7 +322,7 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
   
 
 
-<time datetime="2006-10-07T15:49:00-05:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+<time datetime="2007-02-19T22:25:00-06:00" pubdate data-updated="true">Feb 19<span>th</span>, 2007</time>
         
       </p>
     
@@ -441,15 +330,126 @@ Another good thing about using TSQL instead of SQL Enterprise Manager is that yo
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />For a while I&#8217;ve had people ask me how I did my <a href="http://hobbitwerk.brinkster.net/phoDak">photoblog</a> and because I wrote it from scratch it&#8217;s not really useful (and it&#8217;s definitely &#8220;Me-ware&#8221;: unusable to just about anyone but me).  I always direct people towards Flickr but it doesn&#8217;t have the photoblog experience quite like mine and other photoblogs.<br /><br />This weekend I&#8217;ve been writing a tool called Flickr-Fu that grabs the RSS feed from Flickr and attempts to simulate the photoblog experience allowing a user to navigate forward and backward one photograph at a time.  The RSS xml structure is extended by Yahoo with it&#8217;s own namespace: http://search.yahoo.com/mrss - all such tags are given a &#8220;media&#8221; prefix to distinguish them from the structure of RSS 2.0. Using XPaths with .NET is pretty straight forward until you run into the namespace issue, at which point there is a class XmlNamespaceManager that you will need to tame in order to get the job done.<br /><br />But before this point I was hitting my head against a wall: I could see the media:content tag that I needed to get the image URL but I could see no namespace associated with it!  It doesn&#8217;t follow as well-formed XML to have namespaces without some namespace URI but sure enough, Firefox was hiding the namespace URI. I pasted to IE and was able to get a proper reference to use with the XmlNamespaceManager.  What a strange thing to display XML in a stylesheet but leave off the namespace references in the root element!  Just to prove I&#8217;m not hallucinating, here&#8217;s a screen cap:<br /><br /><div><br /><img src="http://hobbitwerk.brinkster.net/images/NamespaceIssues.jpg" style="border: 9px solid white;" /><br /></div><br />Once the namespace issue was cleared up for me, the code was quite simple:<br /><br /><!-- {\rtf1\ansi\ansicpg\lang1024\noproof1252\uc1 \deff0{\fonttbl{\f0\fnil\fcharset0\fprq1 Courier New;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0??;\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;??\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;??\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;??\red192\green192\blue192;}??\fs20 XmlNamespaceManager spaceManager = \cf2 new\cf0  XmlNamespaceManager(doc.NameTable);\par ??spaceManager.AddNamespace(\cf13 "media"\cf0 , \cf13 "http://search.yahoo.com/mrss"\cf0 );\par ??linkToBig = xnItem.SelectSingleNode(\cf13 "media:content/@url"\cf0 , spaceManager).InnerText;} --><br /><div    style="background: white none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;font-family:Courier New;font-size:10pt;color:black;"><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   21</span> XmlNamespaceManager spaceManager = <span style="color:blue;">new</span> XmlNamespaceManager(doc.NameTable);</p><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   22</span> spaceManager.AddNamespace(<span style="color:maroon;">&#8220;media&#8221;</span>, <span style="color:maroon;">&#8220;http://search.yahoo.com/mrss&#8221;</span>);</p><br /><p style="margin: 0px;"><span style="color: rgb(43, 145, 175);">   23</span> linkToBig = xnItem.SelectSingleNode(<span style="color:maroon;">&#8220;media:content/@url&#8221;</span>, spaceManager).InnerText;</p><br /></div><br />Flickr-Fu is a work in progress but you can have a look <a href="http://hobbitwerk.brinkster.net/FlickrFu">here</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Jakob Nielsen just updated his list of <a href="http://www.useit.com/alertbox/9605.html">top ten mistakes</a> a web designer can make.  I&#8217;ve got no clout like he does but my number one annoyance in web design is when people work against the browser. <br /><br />The best example of this in my mind is the <a href="http://www.google.com/search?source=ig&hl=en&amp;q=Prevent+back+button">back button</a>. On so many projects I&#8217;ve had &#8220;issues&#8221; submitted related to the use of the back button and had to write code to try to cheat the browser into not allowing its use.  But the back button is there for a reason and working against the browser is almost always futile: trying to prevent using backspace, alt+arrow, right clicks, programmable mouse buttons, pasting to multiple browser sessions&#8230; at what point do we just allow users to keep their control?<br /><br />I like apps that tolerate issues related to browser control - they let you do it but when they croak, it&#8217;s an edge case that they aren&#8217;t willing to reprogram the entire system for. I wish more people would <a href="http://www.merriam-webster.com/cgi-bin/mwwodarch.pl?Feb.16.2007">grok</a> the fact that browsers simply aren&#8217;t fat clients and they&#8217;ve got to share control.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Aaron Johnson</div>
+<div class='author'>Jimmy Jarred</div>
 <div class='content'>
-I spent way more time than I should have tonight trying to find a reason why Firefox does that to no avail. Anyway, if don&#8217;t want to have to fire up IE, you can see the namespace declarations by using the view-source keyword in front of your URL in Firefox like so:<BR/><BR/>view-source:http://cephas.net/blog/feed/<BR/><BR/>AJ</div>
+Great one ! I am designing up a website for the first time. This article helped me to learn about the things I have to take care of to avoid all these mistakes. Thank you.<br /><a href="http://www.clicktale.com/products/tour" rel="nofollow">customer experience strategy</a></div>
 </div>
 </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/02/19/language-and-thinking/">Language and Thinking</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-19T22:07:00-06:00" pubdate data-updated="true">Feb 19<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I&#8217;m fortunate enough to be sitting in on some training and the ice breaker at the beginning was to say which language one liked the most.  Most in the room went with what they use for work, C#, but of course I had to break the flow and say I prefer Perl and Javascript in terms of raw language more than anything at the moment.<br /><br />Talking about it later I brought up the old <a href="http://en.wikipedia.org/wiki/Sapir-Whorf_and_programming_languages">Sapir Whorf notion</a> of language affecting thinking and problem solving and it&#8217;s funny how you have a thought and seems to start jumping out at you all over the place. Tonight I <a href="http://www.guild.net/~schwern/papers/Why_I_Am_Not_A_Java_Programmer/why.html">ran into</a> (courtesy of <a href="http://raganwald.com/weblog/">Raganwald</a>) the following quotes regarding that idea:<br /><br /><blockquote>&#8220;The connection between the language in which we think/program and theproblems<br />and solutions we can imagine is very close.  For this reasonrestricting<br />language features with the intent of eliminating programmer errors is at best<br />dangerous.&#8221; - Bjarne Stroustrup</blockquote><br /><blockquote>&#8220;The very fact that it&#8217;s possible to write messy programs in Perl isalso what<br />makes it possible to write programs that are cleaner in Perlthan they could ever<br />be in a language that attempts to enforcecleanliness.  The potential for<br />greater good goes right along with thepotential for greater evil.&#8221; - Larry Wall</blockquote><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/02/14/wow/">Wow</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-14T08:57:00-06:00" pubdate data-updated="true">Feb 14<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Microsoft&#8217;s <a href="http://www.youtube.com/watch?v=aL3rfuKwMDI">Vista Ad</a> - quite a contrast to the Apple commercials. To the degree that commercials evoke a sense of a company&#8217;s ideals, it&#8217;s telling of something I&#8217;ve always thought of when comparing Microsoft to others - they are trying to solve harder problems than the home movie or virtual greeting card. <br /><br />Of course, they could just be playing to <em>my</em> ideals and trying to make money out of it&#8230;<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/02/10/vote-hanselminutes/">Vote Hanselminutes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-10T10:29:00-06:00" pubdate data-updated="true">Feb 10<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I&#8217;m just echoing the words of Chris Sells&#8217;s <a href="http://www.sellsbrothers.com/news/showTopic.aspx?ixTopic=2080">post</a> to <a href="http://www.podcastalley.com/podcast_details.php?pod_id=18207#">vote for Hanselminutes</a> on <a href="http://www.podcastalley.com/index.php">Podcast Alley</a>. It&#8217;s my personal favorite among technical podcasts.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
 </div>
   
   
@@ -478,19 +478,19 @@ I spent way more time than I should have tonight trying to find a reason why Fir
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

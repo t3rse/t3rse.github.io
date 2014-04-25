@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="
-{What directory am I in again?string dir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);}
+{Joel Spolsky writes about being reviewed by Bill Gates himself. Self congratulatory, but good nevertheless&#8230;}
 ">
   
 
@@ -73,7 +73,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2005/11/22/get-executable-directory-with-net/">Get Executable Directory With .NET</a></h1>
+      <h1 class="entry-title"><a href="/2006/06/19/billg-review/">BillG Review</a></h1>
     
     
       <p class="meta">
@@ -89,7 +89,7 @@
   
 
 
-<time datetime="2005-11-22T21:35:00-06:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+<time datetime="2006-06-19T22:46:00-05:00" pubdate data-updated="true">Jun 19<span>th</span>, 2006</time>
         
       </p>
     
@@ -97,7 +97,7 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><span style="font-size:180%;color:#000099;"></span><br /><span style="font-size:85%;color:#000000;">What directory am I in again?</span><br /><br /><span style="font-size:85%;"><span style="color:#000099;">string</span> dir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);</span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Joel Spolsky <a href="http://www.joelonsoftware.com/items/2006/06/16.html">writes</a> about being reviewed by Bill Gates himself. Self congratulatory, but good nevertheless&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 </div>
   
   
@@ -110,7 +110,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2005/11/22/strip-time-off-sql-server-date/">Strip Time Off SQL Server Date Variable</a></h1>
+      <h1 class="entry-title"><a href="/2006/06/18/pragmatic-architecture/">Pragmatic Architecture</a></h1>
     
     
       <p class="meta">
@@ -126,7 +126,7 @@
   
 
 
-<time datetime="2005-11-22T15:38:00-06:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+<time datetime="2006-06-18T21:16:00-05:00" pubdate data-updated="true">Jun 18<span>th</span>, 2006</time>
         
       </p>
     
@@ -134,13 +134,235 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="color:#000099;">DECLARE</span> @DOUT <span style="color:#000099;">DATETIME</span><br /><span style="color:#000099;">SET</span> @DOUT = <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">DATETIME</span>, <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">CHAR</span>(10), <span style="color:#cc66cc;">GETDATE</span>(), 101))<br /><span style="color:#000099;">PRINT</span> <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#cc66cc;">DATETIME</span>, @DOUT)<br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://blogs.prenia.com/cathi/">Cathi Gero</a> and <a href="http://www.tedneward.com/default.aspx">Ted Neward</a> had a session on what they call &#8220;pragmatic architecture&#8221; - the fuzzy definition of which was architecture that maintains ideals until the consequences outweigh them.<br /><br />It was interesting to get this high level at TechEd; most of the sessions I went to were very technical where this was a balance between philosophy and a general approach to developing software.<br /><br />One of the first thing they went after was the recent infatuation people on the architectural level have had with &#8221;<a href="http://en.wikipedia.org/wiki/Design_pattern_%28computer_science%29">design patterns</a>.&#8221;  According to them, a cut and paste approach to design patterns is not the path to success - and although I haven&#8217;t immersed myself in the design patterns world, I doubt it&#8217;s proponents probably leave some room for flexibility in implementation. <br /><br />According to Cathi and Ted, the goals of a software architect were twofold:<br />1. Functional Requirements (Business needs, raw functionality)<br />2. Non-functional Requirements (the &#8220;ities&#8221;: scalability, maintainability, extensibility, and so on)<br /><br />Their approach in being pragmatic about architecture was to leverage a vocabulary, not as a means to accomplish the goals of software architecture, but as a lexicon for strategies and tactics in accomplishing those two main goals.  They covered what they called the 6 elements of architecture and examples of approaches (patterns?) that lend themselves to the software of the solution.<br /><br />Here are the 6 architectural &#8220;elements:&#8221;<br /><br />1. Communication<br />2. Presentation (the front end)<br />3. State Management (how the data are stored)<br />4. Processing<br />5. Resource Management<br />6. Tools<br /><br />For each of the 6 they presented examples of what we see with most modern software.  Under Communication, for example, they listed what they call as a &#8220;three part tuple:&#8221;<br /><br />1. Transport<br />TCP, UDP, other network protocols<br />2. Exchange<br />Data can be exchanged using request/response, asynchronous, fire and forget, amongst others<br />3. Format<br />XML, Text, JSON, Binary, and so on.<br /><br />Presentation has to do with the interface for the user.  Some examples given here were Console, Graphical Interface, and Markup.<br /><br />The State Model to apply in the application in pragmatic language is either durable (available always) or transient (available only certain times).  Another consideration for State Management is the &#8220;shape&#8221; of the data: objects, relational, heirarchical, etc&#8230; Finally when considering the State Model there was the notion of where the data was: client, server, elsewhere&#8230;<br /><br />Processing used in the application, some examples of implementation they gave were: Procedural, Imperative, Concurrent, Parallel, and Transactional.  On the processing side, however, some higher level descriptions of approaches included: Divide and Conquer, Recursive, Event based, Shared Queue, amongst others.<br /><br />Resource Management had to do with persistence of data and configuration. Some styles discussed for this was locator / registry, discovery, injected, and a very sophisticated term for &#8220;hard coding&#8221; called <span style="font-style: italic;">a priori</span>.<br /><br />Tools to consider in being pragmatic could be the programming language, development environment, frameworks, code generation, amongst others.<br /><br />I&#8217;m not sure if this stuff originated with Cathi and Ted, but it&#8217;s very useful in coming up with a high level picture of how software will work. Although most of what I&#8217;ve worked with recently fits under the umbrella of &#8220;web application&#8221; it would be very useful to approach new projects with this catalog and the set of approaches beneath each item in mind.<br /><br />This entire session is available as <a href="http://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?EventID=1032297841&EventCategory=5&amp;culture=en-US&CountryCode=US">a webcast</a>, and I&#8217;d recommend it to anyone who is involved in software development, even if they don&#8217;t think of themselves as architects.  There is always a point when I&#8217;m reading or listening to high level stuff like this where I begin to wonder if it really matters but when it is kept concrete like this the distinction between architecture as high level thinking that has to be done anyway, and architecture as romantic &#8220;rah rah&#8221; for the higher ups is very clear.<br /><br /><a href="http://blogs.tedneward.com/">Ted&#8217;s blog</a> seems fairly alive but <a href="http://blogs.prenia.com/cathi/">Cathi&#8217;s blog</a> has not been updated for a while. <br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/18/linq-deeper/">LINQ, Deeper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-18T16:58:00-05:00" pubdate data-updated="true">Jun 18<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><p class="MsoNormal">My Tuesday morning session was with Luca Bolognese, lead program manager on LINQ, covering a slightly different flavor than what Pablo Castro was demonstrating with ADO.NET vNext on Monday morning.<span style="">  </span>Luca’s Italian accent was charming, but it was even more exciting to see what LINQ does on a deeper level.<o:p> </o:p></p>  <p class="MsoNormal">He started by showing a classical problem that LINQ solves. Imagine a collection of integers which you need to filter out based on a certain criteria, something like: </p>      <p class="MsoNormal">int[] nums = {2,3,5,7,11};<br /><o:p> </o:p></p>  <p class="MsoNormal">It’s usually done with some kind of iteration in the form of: </p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:blue;">int</span>[] nums = { 2,3,5,7,11};<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:teal;">List</span><<span style="color:blue;">int</span>> selected = <span style="color:blue;">new</span> <span style="color:teal;">List</span><<span style="color:blue;">int</span>>();<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:blue;">for</span> (<span style="color:blue;">int</span> i = 0; i <></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                </span><span style="color:blue;">if</span> (nums[i] > 4) {<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                    </span>selected.Add(nums[i]);<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                </span>}<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span>}<o:p></o:p></span></p>  <p class="MsoNormal"><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:green;">// selected represents my values</span></span></p>      <p class="MsoNormal"><o:p> </o:p>I write code like that on a daily basis, it seems. In LINQ, queries become a “first class” member of the language and operate on anything that implements the IEnumerable interface.<span style="">  </span>A problem like the above can be solved without line noise and iteration:<o:p> </o:p></p>  <p class="MsoNormal">int[] nums = {2,3,5,7,11};</p>  <p class="MsoNormal">var selected = from i in nums </p>  <p class="MsoNormal"><span style="">                        </span>where i > 4</p>  <p class="MsoNormal"><span style="">                        </span>select i;</p>  <p class="MsoNormal"><o:p> </o:p></p>    <p class="MsoNormal">From the perspective of someone who writes the iteration + selection stuff every day, I think that LINQ is going to have a big impact on my code.<span style="">  </span>But this is just the beginning. Luca then showed how LINQ is split out to target several different forms of data structures:<o:p> </o:p></p>  <ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style="">LINQ      to Objects (Anything implementing IEnumerable, collections etc… )</li><li class="MsoNormal" style="">LINQ      enabled ADO.NET (mapping database structures to objects and then querying      off of them)</li><li class="MsoNormal" style="">LINQ      to XML</li></ol>    <p class="MsoNormal"><o:p></o:p>The first example above is a typical LINQ to Objects scenario where filtering, querying, or manipulation can be applied to a collection that supports IEnumerable.<span style="">  </span>Being able to do this sort of manipulation on HashTables, DictionaryEntries, and so on is the type of power that I demonstrated above.</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">In a LINQ enabled ADO.NET scenario, you can take an object that is mapped to some entity in your database and query off of it. I don’t recall the exact demonstration, but an example would be querying a collection of “customer” objects based on some filter: </p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">var topcustomers = from customer in customers</p>  <p class="MsoNormal"><span style="">                                    </span>where customer.orderCount > 10</p>  <p class="MsoNormal"><span style="">                                    </span>select {customer.id, customer.fullName};</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">I’ve heard a lot about ORM ever since my friend <a href="http://www.cephas.net/blog/">Aaron</a> started talking about Hibernate (some time ago) but what catapults this over the typical ORM scenario is that the functionality is built into language and not abstracted through method calls.<span style="">  </span>I’ve been a bit lukewarm to the notion since it seemed like a lot of work up front and because this type of abstraction where objects can represent data and provide some manipulative capacity is already built in the DataSet/DataTable model.<span style="">  </span>However two things make LINQ enabled ADO.NET a little different: first, the IDE facilitates the mappings that are made through an “EDM” diagram and mapping providers that give a lot of flexibility in connecting to the datastore, secondly the developer wields a lot of control over how the mapping works and how things are updated – the queries, the stored procedures, all data access still belongs to you and not to some “tool.”</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">Finally the LINQ enabled XML is powerful – it exposes XML data to yet another format of “query” besides XQuery and XPath.<span style="">  </span>There is also the ability to work with the hierarchical structure that XML documents sometimes expose as collections within collections.<span style="">  </span>The LINQ processing, with a bit of instruction, can also be instructed how to retrieve content (depth first traversal, and so on).</p>      <p class="MsoNormal"><a href="http://blogs.msdn.com/lucabol/">Luca’s blog</a> seems to have died, but for some interesting tidbits, it’s here.<span style="">  </span>Maybe with a few hits it can start up again?<o:p><br /></o:p></p><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/14/python-and-ruby-with-net/">Python and Ruby With .NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-14T14:10:00-05:00" pubdate data-updated="true">Jun 14<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />An amazing session with Mahesh Prakriya and John Lam came on Monday night. Mahesh was covering the <a href="http://www.ironpython.com/">IronPython</a> efforts for .NET and John came to talk about Ruby.  It was refreshing to see the smaller number of developers practically using .NET but for whom language mattered.<br /><br />Mahesh gave a history of Python support in the CLR and made a case for dynamic languages within .NET.  His examples were pretty cool, especially when he started with a few examples of Python:<br /><br />2 + 2  (room is quiet)<br />22**64 (room is quiet - David is amazed at the response in milliseconds)<br /><br />He also showed a powerful implementation of a Matlab / Mathematica type tool written in Python for .NET. <br /><br />John&#8217;s part of the talk was also very good - he has written a bridge between Ruby and the CLR.  John was fairly funny and expressive and his demos of Ruby and the CLR were fairly good in giving a picture of what he was tring to do.<br /><br />John&#8217;s blog is <a href="http://www.iunknown.com/">here</a>, Mahesh doesn&#8217;t blog but a search on Google <a href="http://www.google.com/search?hl=en&q=Mahesh+Prakriya&amp;btnG=Google+Search">shows him</a> in a few places.  I&#8217;m going to be downloading Iron Python and RubyCLR in the next month or so.  Not completely sure, but it seems that <a href="http://www.iunknown.com/articles/2006/03/16/third-drop-of-rubyclr">here</a> is where one can find RubyCLR.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/14/adonet-vnext-at-teched/">ADO.NET vNext at TechEd</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-14T13:38:00-05:00" pubdate data-updated="true">Jun 14<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One of the best talks of this week was Pablo Castro&#8217;s Monday session covering some of the new features of ADO.NET.  Having used some form of data access library from Microsoft for a while, the changes he showed were fairly dramatic, and they will really impact on a fundamental level how programmers think about data access when it becomes widely available.<br /><br />The general direction from Microsoft seems to be giving more modelling capabilities to developers to manage in an application space.  The original step in this direction was ADO.NET from which we can model on the application level using a DataSet and it&#8217;s associated classes.  But the features in ADO.NET vNext - and I hesitate on superlatives - are an unparalleled shift (in my short life as a developer) in what we do for data access.<br /><br />The rational behind my claim of this being as big a change is that it is no longer limited to the object model or some IDE-fu that Microsoft implements in Visual Studio.  This change is a part of the language with which we express ourselves when talking to the database.  My rational is LINQ.<br /><br />LINQ is simply understood by unpacking the acronym: language integrated query.  From a syntactical point of view in ADO.NET we can obtain a reference to the database and retrieve a collection of objects that represent what&#8217;s inside.<br /><br />I think this is a huge revelation - something that goes well beyond even the Object Relational stuff I hear about from time to time simply because it&#8217;s not just objects, it&#8217;s syntax.<br /><br />Around LINQ as a syntactical approach to getting data from the database is the ability to create what is now called an EDM diagram which is essentially a mapping of the database to the class types that will be used to represent the internals.  The EDM diagram can be manipulated so that you can do trivial things such as changing a column name reference in the object versus what&#8217;s in the database, to complex things such as consolidating content from tables in order to avoid SQL JOIN expressions.<br /><br />On keynote night the topic of Microsoft &#8220;innovation&#8221; came up and based on what was delivered, it didn&#8217;t seem as though there was much in the way of newness to Microsoft&#8217;s portfolio.  But LINQ in all it&#8217;s forms - for xml, for databases, and for that which implements IEnumerable, this is an innovation indeed.<br /><br />I&#8217;m definitely staying tuned to the <a href="http://msdn.microsoft.com/data/ref/linq/">LINQ project</a> and the <a href="http://blogs.msdn.com/dataaccess/default.aspx">Microsoft Data Access blog</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/13/rob-relyea-on-wpf/">Rob Relyea on WPF</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-13T22:35:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><p class="MsoNormal">The timelag on posts is due to several 4 hour nights in succession while partaking in the festivities at TechEd.<span style="">  </span>Here is a quick recap of Monday.</p>    <p class="MsoNormal">First session was WPF presented by <a href="http://rrelyea.spaces.msn.com/PersonalSpace.aspx">Rob Reylea</a>.<span style="">  </span>WPF seems to be coming together more and more; Rob demonstrated new controls and old controls with new features: the listbox is quite a standout – textboxes that support spellchecking, controls having the ability to embed any other controls (button in a button).<span style="">  </span>Another new feature is in the ability to do screen layout: flow layout, grid layout, and others besides the traditional absolute layout most WinForms developers are used to.<span style="">  </span>Databinding in WPF is also quite improved, and learned from the web world: there is a repeater type approach to it now possible as well as functionality in the new listbox control. Vectors, fonts – there was a lot to the presentation.<span style="">  </span>Rob has a blog, so it’s something to watch as the WPF things consolidate more.</p>    <p class="MsoNormal">After the session was finished I asked Rob whether they were watching other projects like Mozilla’s XUL/XPFE stuff since, in my own thinking, they were similar in approach.<span style="">  </span>He was a bit dismissive here in the sense that he didn’t see why WPF and XPFE should be compared.<span style="">  </span>Since we didn’t have the same assumptions, I withdrew the question although here is my own thinking: </p>  <ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style="">XAML      is like XUL, both are a special markup for describing presentation. </li><li class="MsoNormal" style="">XPCOM      provides hooks into the operating system functionality, making the client      thick just the way that Windows Vista is going to have a special      understanding and capability with XAML and the code associated with WPF      applications.<o:p><br /></o:p></li></ol>    <p class="MsoNormal">There are some big differences for sure: XPFE uses javascript and CSS, WPF does not.<span style="">  </span>XPFE relies on RDF, and I’m not sure that they’ll be any configuration involved in WPF applications since the runtime should handle much of that for the developer.<span style="">  </span>I am not sure about this.  Another set of differences are the vectors and rendering of WPF - XPFE does not, to my knowledge, have an equivalent.  However, the basis for my assumption was that they both attempt at solving similar problems - extend the web aware application to the desktop to give it a more &#8220;client app&#8221; functionality and feel.  Leverage better controls and have more flexibility than HTML/DHTML and so on.  And yes, this is from the perspective of WPF/e - the use in web based applications.<br /></p>    <p class="MsoNormal">There is much to learn, and much to be seen of WPF, I’ll stay tuned to Rob’s and other blogs that follow the development.</p>  <span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/13/teched-keynote/">TechEd Keynote</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-13T22:16:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I’d been looking forward to the keynote for a while since I found out that Ray Ozzie was going to be speaking. Unfortunately his piece of things was quite small – I imagine I wasn’t the only person disappointed by this.  The meaning of the keynote was the general direction and strategy of Microsoft and how we “IT people” fit into that.<br /><br />It made me think a lot of Macintosh ads and how differentiated the corporate strategies of  Microsoft and Apple differ.  Microsoft has taken the rather difficult (and not necessarily sexy (in a geek sense)) undertaking of “people-centric” software for business.  The idea is to make people more productive in an organizational setting with software.<br /><br />This reminds me of Paul Graham’s evocation of young people to pick hard problems to work on.  The word “hard” is subject to semantic lashing but in this case, the idea of making people work better together is a very difficult problem, especially because it’s difficult to do without reinventing the wheel and causing new problems with current fixes.<br /><br />Although it’s not explicitly stated, it seems that Microsoft’s approach here is not to “innovate” necessarily, but to commoditize new technologies that are proving themselves and package them for masses at all levels: masses in systems administration, masses in development, and, of course, the “mass” of society.<br /><br />One other thing about Ozzie’s keynote: there is now a conversation about “smart client” applications which represent something that I began to suspect when I first installed Google Earth: the possibility of leveraging a thick client that was intensely web aware.  Of course this notion has been around for a long time – yes, I do play MMOs on occasion – but now a technology like that could possibly be commoditized by Microsoft moving developers away from the traditional web based application to a more controlled, powerful “experience” the developer can produce.  Web applications still have their place but essentially the XAML WPF/e notion. Kind of cool in the sense that fewer “fix the back button” types of issues in an internal web based application are possible but also a bit sinister since this is a big move away from “standards” to the proprietary, Windows choke-hold environment.<br /><br />Lots of other thoughts, and some larger context as TechEd gets underway.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/08/thinking-atlas/">Thinking Atlas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-08T22:52:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One thing I&#8217;m very interested in hearing about at TechEd is going to be the <a href="http://atlas.asp.net/Default.aspx?tabid=47">Microsoft Atlas </a>framework.  Ajax is haute couture and Atlas seems to be at the center of Microsoft&#8217;s strategy.  On my current project I took a look at using Atlas but never really &#8220;got&#8221; the benefits of the technology.  The declarative side of things seems to be designed for the IDE, and without the IDE here it&#8217;s a bit of a non-intuitive hassle to hand code things out.   The second thing that made me leary was the direction Atlas took towards web services.  The tasks I needed to perform were very simple and I shuddered when I thought about how much overhead there would be, say, for a webservice whose only job was to send me a filtered list of things for a dropdown.  In the end I used my own XmlHttp and a bit of POX (I love that acronym, &#8220;Plain Old XML&#8221;) to send things back and forth.  Also courtesy of the O&#8217;Reilly <a href="http://www.oreilly.com/catalog/ajaxhks/index.html"><span style="font-style: italic;">Ajax Hacks</span></a> book I got a handle on <a href="http://www.json.org/">JSON</a> and how awesome it is when it comes to sending things from the server and handling it with client side javascript. <br /><br />Today I listened to <a href="http://dotnetrocks.com/default.aspx?showID=177">Ken Alstad</a> interviewed on <a href="http://www.dotnetrocks.com">.NET Rocks</a> concerning Atlas and it confirmed my suspicions on Atlas leveraging web services and how easy it was to &#8220;bind&#8221; data from the server using javascript.<br /><br />It&#8217;s interesting that there seem to be two directions here - looking on the open source side of things, <a href="http://prototype.conio.net/">Prototype</a> seems to be generating quite a buzz.  I ran into Prototype in December courtesy of <a href="http://www.24ways.org/">24 ways</a> and it took about 35 minutes to really &#8220;get&#8221; it.  Prototype is getting mixed in with a lot of JSON and other javascript libraries and techniques for some pretty cool stuff like script.aculo.us. <br /><br />On the Microsoft side we&#8217;re waiting for Atlas to become standardized, complete, (marketable?).  It&#8217;s declarative, more IDE friendly it seems, and at least for me, less intuitive.<br /><br />Anyway, part of the problem might be my ability to understand it and see where I can leverage it so I&#8217;m going to be in <a href="http://www.wintellect.com/Weblogs/CategoryView,category,Jeff%20Prosise.aspx">Jeff Prosise&#8217;s</a> session on Atlas at TechEd. A few questions I&#8217;m thinking of are as follows:<br /><br />1. How to control when data is bound, doing filtering and other operations using javsacript.<br />2. Will Atlas play well with JSON?  Not JSON being shoehorned into some Atlas app, but more like the ability to return JSON style strings from the server.<br />3. What sort of IDE interface can we expect with Atlas&#8217;s release?  Can we expect any improvements to javascript editing in Visual Studio as a result?<br /><br />&#8230; I&#8217;m sure there are more, and I&#8217;m sure that after the session I&#8217;ll have a much clearer picture of Atlas and it&#8217;s future in web apps for Microsoft developers.  I am pretty sure we made the right choice on the current project, but a year from now I could be singing praises for Atlas.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Kiran</div>
+<div class='author'>James Baker</div>
 <div class='content'>
-Hi Please check this out. It suggested a similar way to strip the time part from date time.<br /><a href="http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html" rel="nofollow">http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html</a><br /><br />Thanks,<br />Kiran<br /><a href="http://cherupally.blogspot.com" rel="nofollow">http://cherupally.blogspot.com</a></div>
+I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling you how impressed I was with <BR/>the information you have posted here.<BR/>If you have a moment, please visit my site: <BR/><A HREF="http://www.job-portal.ws" REL="nofollow">job portal</A><BR/>It covers job portal related contents.<BR/>I send you warm regards and wish you continued success.</div>
 </div>
 </div>
 </div>
@@ -155,7 +377,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
       
   <header>
     
-      <h1 class="entry-title"><a href="/2005/11/09/technology-or-tools-visual-studio-2005/">Technology or Tools, Visual Studio 2005</a></h1>
+      <h1 class="entry-title"><a href="/2006/06/06/code-as-design-implications-for/">Code as Design: Implications for Architects</a></h1>
     
     
       <p class="meta">
@@ -171,7 +393,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
   
 
 
-<time datetime="2005-11-09T20:28:00-06:00" pubdate data-updated="true">Nov 9<span>th</span>, 2005</time>
+<time datetime="2006-06-06T21:30:00-05:00" pubdate data-updated="true">Jun 6<span>th</span>, 2006</time>
         
       </p>
     
@@ -179,7 +401,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">The big release is upon us.  But it begs a question that I think those of us who use commercial development tools have to ask ourselves, something our Open Source brothers and sisters do not to the same degree.  The question is whether we are driven by technology first, or whether we are led by tools.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Microsoft is driven to release products on a cycle that will earn them a consistent amount of revenue; sometimes the &#8220;new&#8221; product is hardly new at all.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Visual Studio 2005 looks good from my very preliminary browsing about, but I&#8217;m still approaching it with some caution.  It&#8217;s really cool to do &#8220;push button&#8221; refactoring, but is refactoring something we need to really think deeply about?  A part of an underlying structure that must be designed carefully?  Something that can&#8217;t fix code that is already structurally defunct?</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">The class designer and snippets are cool too, but when I see the IDE eating up 800MB of memory on &#8220;Hello World&#8221; type projects, it makes me nervous.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">My first stop is going to be new language features.  After that I&#8217;m going to delve a little bit more heavily into the IDE.  The ASP.NET features look good and somewhat different.  But I&#8217;m a skeptic until I see the power for myself.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It&#8217;s such a contrast to other worlds - to return to the idea of Open Source - technology there is more likely to evolve because of a need that must be met or a new idea.  It is independent of the goons in sales & marketing.</span><br /><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;ve just got to Jack W. Reeves thoughts on <a href="http://www.developerdotstar.com/mag/articles/reeves_design_main.html"><span style="font-style: italic;">Code as Design</span></a> in his seminal article originally in the now defunct <span style="font-style: italic;">C++ Journal</span>, and now republished on <a href="http://www.developerdotstar.com/"><span style="font-style: italic;">developer.*</span></a>.  I really liked his thoughts and although I can&#8217;t necessarily say it&#8217;s been something intuitively sitting in the back of my mind, its implications are definitely something I&#8217;ve thought for a very long time.<br /><br />The basic premise of his article is stated early: <span style="font-weight: bold;">final source code is the real software design</span>.  From the source code design specification, a compiler and linker do the manufacturing work to implement the software from what one could term the design document of source code.  He continues to discuss some implications of this that are well thought out and, from my experience, very true.<br /><br />A great thing about the article is the return to the notion of engineering and software development being treated together.  These days I see a lot of writing about how the words software and engineering could never go together, but as Reeves shows, there is a very real relationship between disciplines especially if we think of our code as a design document.<br /><br />But the real implication for me, beyond the ones stated by Reeves, has to do with the title &#8220;Software Architect&#8221; - which I happen to hold (not overly meaningful, by the way - everyone at my company is a &#8220;Software Architect&#8221;).  People with the title, who wield Visio, Use Cases, and management-speak <span style="font-style: italic;">exclusively</span>, aren&#8217;t the real architects of the system.  Of course these tools are very useful, and of course general direction is always necessary for a project, but for the notion of a real &#8220;Software Architect&#8221; one has to stay close to the code - close to the actual design document - to really shape the manufacturing process.  Although staying close doesn&#8217;t mean, to me, writing every line of code oneself, it means understanding and being a part of the process of making it.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
 </div>
   
   
@@ -192,7 +414,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
       
   <header>
     
-      <h1 class="entry-title"><a href="/2005/11/03/aspnet-control-trees/">ASP.NET Control Trees</a></h1>
+      <h1 class="entry-title"><a href="/2006/06/05/teched-2006/">TechEd 2006</a></h1>
     
     
       <p class="meta">
@@ -208,7 +430,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
   
 
 
-<time datetime="2005-11-03T22:30:00-05:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2005</time>
+<time datetime="2006-06-05T23:21:00-05:00" pubdate data-updated="true">Jun 5<span>th</span>, 2006</time>
         
       </p>
     
@@ -216,261 +438,7 @@ Hi Please check this out. It suggested a similar way to strip the time part from
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Debugging a problem today I wrote </span><a href="http://hobbitwerk.brinkster.net/metadeveloper/DisplayControlTree.txt"><span style="font-size:85%;">this</span></a><span style="font-size:85%;">, which may be useful to someone. It displays all the controls on an ASP.NET Page in a tree structure. You can actually call it from any control, it will recursively traverse the heirarchy below it. I tested it on ASP.NET 2.0, and it works fine:<br /><br />Call it with the following:<br /><br />DisplayControlTree(this.Controls, 1, 30);<br /><br />Incidentally, the problem I had (and still have) comes from dynamically loading User Controls. Once they&#8217;ve been loaded using <em>LoadControl(&#8220;&#8230; path&#8221;)</em> they don&#8217;t seem to persist themselves in the ViewState. I think my best hope for now is to save entries made to the User Controls by parsing the Querystring or Form collection manually. </span><span style="font-size:85%;"><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /><br /></span><span style="font-size:85%;"></span><span style="font-size:85%;"></span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Rod</div>
-<div class='content'>
-You have a great blog here! I have a <A HREF="http://www.diabetesconcerns.com/" REL="nofollow">symptoms of diabetes</A> site. It covers everything about symptoms of diabetes as well as diabetes care, complications, treatment and insulin. You&#8217;ll find it very informative. Check it out when you can :)<BR/>Rod</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/11/02/buzz-watch-ruby-on-rails/">Buzz Watch: Ruby on Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-11-02T21:49:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;">{</span><br /><br /><span style="font-size:85%;"><em>Ruby on Rails</em> is getting more and more buzz each time I open my browser.  This time it was Bruce Tate </span><a href="www.zeldman.com/daily/1005i.shtml"><span style="font-size:85%;">claiming</span></a><span style="font-size:85%;"> that <em>Java</em> is dead (&#8220;like <em>COBOL</em>, not Elvis&#8221;) and that he was turning to <em>Ruby on Rails</em> as his framework for application development.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">A few days ago I also noticed a </span><a href="http://www.onlamp.com/pub/a/onlamp/2005/10/13/what_is_rails.html"><span style="font-size:85%;">define/tutorial</span></a><span style="font-size:85%;"> on <em>Ruby on Rails</em> over at <em>O&#8217;Reilly</em>.  More and more of these seem to be popping up of late.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">The most interesting thing about this buzz, however, seems to be the shift in the pendulum swing to a language that is light and airy, one which isn&#8217;t belabored by the stiffness of strong types.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I remember the process of learning <em>Java</em> - there seemed to be a lot of people coming from a <em>C/C++ </em>background who perpetually scowled at the <em>VB/Microsoft/Webby/Scripter</em> types like me.  Now many of this camp are turning away from that rigidity and heading back to the land of &#8220;dynamic&#8221; typing.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Pendulum swing&#8230; a few days ago I met with a prospective client and they showed me an app they were using that was written in <em>PowerBuilder</em>.  I don&#8217;t know much about <em>PowerBuilder</em> but the app seemed quick, flexible, and tightly coupled with the database.  What&#8217;s most ironic is that the reason I was there was to help with stored procedures and triggers that would let them add business logic to the otherwise light and airy environment in which their application came into being.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Deja vu, all over again.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I&#8217;ve got <em>Ruby on Rails</em> on my watch list.  Go to the <a href="http://www.rubyonrails.com/">official website</a> and there&#8217;s even a movie amongst the tutorials.</span><br /><br /><span style="font-size:180%;">}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>BnB</div>
-<div class='content'>
-House rejects bill to exempt Internet from campaign-finance rules<BR/>There&#8217;s broad agreement among Democrats and Republicans that the Internet writings of political bloggers shouldn&#8217;t be tangled in complex federal campaign-finance regulations.<BR/>Hi, I was just blog surfing and found you! If you are interested, go see my <A HREF="http://www.zclassact.blogspot.com" REL="nofollow">shopping mall</A> related site. It isnt anything special but you may still find something of interest. Come in and check it out if you get time :-.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/11/01/remedial-css/">Remedial CSS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-11-01T22:20:00-05:00" pubdate data-updated="true">Nov 1<span>st</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">I&#8217;ve been doing web development for a long time.  Long enough to have developed lots of patterns and habits for how I&#8217;d approach putting together a website.  Because most of my work is done with server side code, I&#8217;ve also yielded most layout thinking to the Panels, Grids, and User Controls I create in ASP.NET.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">So it&#8217;s a bit of a surprise now that I find that my habits are wrong, horrid even when it comes to web development.  My effortlessly thinking in tables goes against the grain of any CSS ideologies out there. Having just redesigned <a href="http://hobbitwerk.brinkster.net">my personal site</a>, this is a bit of a drag.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">As I read up on layouts with CSS, it&#8217;s funny to see things turned back on themselves: </span><br /><ul><li><span style="font-size:85%;">Absolute Positioning - I used to tell everyone to avoid this because of different screen resolutions</span></li><li><span style="font-size:85%;">ul/li tags - Which were so passe, and used as an example of the obscure tags one didn&#8217;t need anymore.</span></li><li><span style="font-size:85%;">Tables - frown upon for anything other than displaying tabular data. Read: no layouts, thank you.</span></li></ul><span style="font-size:85%;">So I&#8217;m beefing up again. I need to learn the particular advantages of these newer layout strategies - after messing around today a bit I don&#8217;t seem to gain anything over my older methods.  I&#8217;m sure this will change.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I did some surfing and checked out various sites&#8230; most of them are using DIVs and CSS for layout, not tables.  Curiously, </span><a href="http://picks.yahoo.com"><span style="font-size:85%;">Yahoo! Picks</span></a><span style="font-size:85%;"> is one site that seems to have kept things the way they were.  </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>trezzure</div>
-<div class='content'>
-Bright spots<BR/>There are bright spots in the horizon. I spoke at the Inquirer series on youth last week, and the &#8230; Blog&#8221; is short for &#8220;web log,&#8221; which is a journal of sorts of individuals, paraded before their world in gory or glory detail.<BR/>Blog anda hebat sekali. Sekalian deh saya bookmark, boleh kan?? heheh<BR/><BR/>Saya punya situs <BR/><A HREF="http://www.rahasia-online-bisnis.com" REL="nofollow"><BR/>internet mlm </A> . Pokoknya segala sesuatu tentang internet mlm  , dijamin anda akan terpuaskan dengan informasi ini.<BR/><BR/>Selamat berjuang, dan sukses selalu..!!! Kapan kapan kunjungi website ku itu yaahh, kalo anda ada waktu maksudnya&#8230;. :)</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/31/hunting-for-elusive-column-table-proc/">Hunting for the Elusive Column, Table, Proc, &#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-31T22:22:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">One of our clients has a Microsoft SQL Server table with 284 fields. So when I&#8217;m given a spec that references the &#8220;OrigLoanAmount&#8221; field, it&#8217;s sometimes difficult to ascertain where that field lives. On some systems, especially if you&#8217;ve got familiarity where data are likely to be stored, you can make an educated guess. But if you&#8217;re interested in some quick digging, try these queries from the Information Schema views:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; find that elusive column</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Columns WHERE Column_Name LIKE &#8216;%MyColumn%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; list out the tables</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Tables</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">For procedures, views, and functions, I&#8217;ve just queried sysobjects. I learned this from a guy who was in my class once; I used to be one of the hapless Enterprise Manager users until I saw him digging effortlessly with queries like:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all stored procedures</span><br /><span style="font-size:85%;">SELECT * FROM syobjects WHERE type = &#8216;p&#8217; AND name NOT LIKE &#8216;dt%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all views </span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;v&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all user defined functions</span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;FN&#8217; </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">&#8230; and so on. </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/31/web-developer-tools/">Web Developer Tools</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-31T11:32:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br /><span style="font-size:85%;">Glad I found about Chris Pederick&#8217;s <a style="font-style: italic;" href="http://chrispederick.com/work/webdeveloper/">Web Developer Extension</a>. It&#8217;s a set of tools that will run inside Firefox or Mozilla revealing the underlying structure of any site you pull up in your browser.<br /><br />Some of my favorite things:<br /></span> <ul>   <li><span style="font-size:85%;">Displaying borders on table structure</span></li>   <li><span style="font-size:85%;">Displaying borders on frame and iframe elements</span></li>   <li><span style="font-size:85%;">Showing dimmensions of images on screen</span></li>   <li><span style="font-size:85%;">Adding your own user stylesheet</span></li><li><span style="font-size:85%;">Displaying stylesheets for a site within your browser<br /></span></li>  </ul> <span style="font-size:85%;"><br />Now to find an IE version&#8230; </span><br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/30/office-interop-with-net/">Office Interop With .NET</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-30T23:35:00-05:00" pubdate data-updated="true">Oct 30<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Are you still doing VBA with Office even though you know you should be doing your coding with the .NET Framework? Probably like many I did things the old way rather than dealing with COM Interop, especially since this was particularly daunting with Office. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It isn&#8217;t as of a while ago, but you, like me, may have been a bit too busy to notice. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">First, you must download the Office Interop Libraries from </span><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C41BD61E-3060-4F71-A6B4-01FEBA508E52&displaylang=en"><span style="font-size:85%;">here</span></a><span style="font-size:85%;">. The instructions are clear; run the <em>register.bat</em> from the VS.NET command prompt. After that you can make a reference to the application interop assembly of your choice, such as Microsoft.Office.Interop.Excel.dll.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Reference the namespace in your app:<br /><span style="color:#ff0000;">using Excel = Microsoft.Office.Interop.Excel;</span></span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Code away:</span><br /><br /><span style="font-size:85%;color:#ff0000;">Excel.Application app = new Excel.Application();<br />Excel.Workbook book = app.Workbooks.Open(@&#8221;c:\data\Daita.xls&#8221;,Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing);<br />Excel.Worksheet sheet = (Excel.Worksheet)book.Worksheets[1];<br />for(int i=1;i<10;i++) j="1;j<7;j++)" rg =" (Excel.Range)sheet.Cells[i,j];"><br /><br /><span style="color:#000000;"><span style="font-size:85%;">A few interesting things:</span><br /></span><ul><li><span style="font-size:85%;color:#000000;">The Type.Missing passed for all those COM-esque optional parameters. Ugh.</span></li><li><span style="font-size:85%;color:#000000;">Casting the cell you are on into a Excel.Range when you need to access its contents.</span></li></ul><span style="font-size:85%;"></span><br /><span style="color:#000000;"><span style="font-size:85%;">Finally:</span><br /><span style="font-size:85%;">Many more articles can be found </span></span><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_wrcore/html/wroriAutomatingOfficeApplications.asp"><span style="font-size:85%;color:#000000;">here</span></a><span style="font-size:85%;color:#000000;">, on MSDN.</span><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /></span><span style="font-size:85%;color:#ff0000;"></span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>[konoimo]   &gt;-</div>
-<div class='content'>
-Interesting post man&#8230; have you tried this with ASP.net? I do mostly web apps and it would be cool if I can use interop with ASP.net&#8230;</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/10/29/try-fail-try-again-fail-better/">Try. Fail. Try Again. Fail Better&#8230;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-10-29T15:48:00-05:00" pubdate data-updated="true">Oct 29<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">After months of neglect, I&#8217;m going to try this again.  No more epics, just short snippets of developer talk.  </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;m very, very excited to be going to <a href="http://www.microsoft.com/events/teched2006/default.mspx">Microsoft&#8217;s TechEd</a> conference this year with my boss.  Now I&#8217;m counting down the days - we leave for Boston on June 10, and the conference runs from June 11 - 16.  The first conference I was able to talk my way into going to was VBITS 2000, and as I think back upon my years training and consulting for my previous employer, that was among the best. <br /><br />I got to rub shoulders with some pretty amazing people, and learned many valuable lessons.  I&#8217;ll never forget sheepishly asking <a href="http://pluralsight.com/blogs/aaron/">Aaron Skonnard</a> what he thought of XML Data Islands in IE 5, or <a href="http://betav.com/BLOG/billva/">Bill Vaughn&#8217;s</a> theatrics (and knowledge) of data access.<br /><br />I think my approach and goals at the conference may be a little different from some people who are looking forward to a week off to fraternize and network.  I&#8217;m hoping to learn as much as possible since I&#8217;m not sure when next I&#8217;ll get the opportunity to go to a conference on my employer&#8217;s expense.<br /><br />The biggest trick is going to be separating the <a href="http://www.joelonsoftware.com/articles/fog0000000339.html">Fire & Motion</a> from the sessions that will give me knowledge and direction for the work I do on a daily basis.  Of course it&#8217;s good to be aware of what&#8217;s upcoming, but I&#8217;ve always been really reluctant to spend much of an investment in something that is subject to change.  Beyond that I usually prefer to wait when adopting something for a little while (let others be the bug testers) so that also pits me against things that are a bit too futuristic.<br /><br />With that said, <a href="http://hobbitwerk.brinkster.net/te06/DavidTechEd.pdf">here is my schedule</a> for the week.  There are a few things I&#8217;d like to see this year (list is totally subject to change, like, on a minute by minute basis):<br /><br />1. More ASP.NET 2.0<br />Deeper on the new features, Personalization API, Web Parts, Internals<br /><br />2. XML / XQuery / LINQ<br />Some ideas on where these are in the pipeline so I can start using them on projects<br /><br />3. Workflow<br />I have DVDs of the last TechEd, and this came up a bit. I&#8217;m interested again on seeing an angle to take on this tool.<br /><br />4. Sharepoint and Biztalk<br />I signed up for a few sessions but this is the part where I get leary; I&#8217;m not sure when the 2007 versions will be out and about.  I know there are many, many opportunities to use the current versions of these products and would probably benefit from seeing that kind of stuff right away.  But I&#8217;m hoping to glean and perhaps get a few tidbits to stay ahead of the curve when the new versions are released.<br /><br />5. Team System<br />We are using it in house, so I need to understand it - I also want to get an accurate picture of how Team System can be leveraged by small teams.  Most descriptions (and the pricing!) seems to put it in the &#8220;enterprise&#8221; category but most of what I&#8217;ve worked on in the past, and probably for the forseeable future will be software projects with less than 20 people involved. <br /><br />6. IIS 7<br />I use IIS every day, and it&#8217;s been like an old friend since the early versions. I&#8217;d like to see where the product is headed, and how its path meets with ASP.NET 2.0 and all the other pieces of web application development.<br /><br />7. Architecture Talks<br />I signed up for a few that will hopefully be interesting and useful.  I&#8217;d also like to get a better handle on SOA, &#8220;contracts,&#8221; and the like.  Distributed architecture makes a lot of sense to me, but I&#8217;m a bit wary of the architecture astronauts when it comes to enterprise application architectures - I try to translate that stuff into what I do on a daily basis (enterprise app for a publicly traded company of 5000+ employees) and still sometimes miss the mark.  Perhaps I&#8217;ll get a chance to meet some people in this environment as well who I can maintain contact with.<br /><br />I&#8217;m hoping that I&#8217;ll be able to change sessions as well during the conference. I&#8217;m fairly pleased with what I have, but the flexibility would be nice.<br /><br />As the week progresses I&#8217;ll hopefully write down some things I&#8217;ll be hoping to answer, as well as some pre-conference reading. <br /><br />TechEd 2006, here I come!<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
 </div>
   
   
@@ -499,19 +467,19 @@ Interesting post man&#8230; have you tried this with ASP.net? I do mostly web ap
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

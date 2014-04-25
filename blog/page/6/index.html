@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan &hellip;">
+  <meta name="description" content="{ Eons ago I&#8217;d posted on how I’d rewritten how I would solve FizzBuzz to have a more functional style (here is an imperative version), &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/12/20/parameterized-in-queries/">Parameterized in Queries</a></h1>
+      <h1 class="entry-title"><a href="/2011/01/19/learning-f-with-fizzbuzz/">Learning F# With FizzBuzz</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2008-12-20T07:50:00-06:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+<time datetime="2011-01-19T07:53:00-06:00" pubdate data-updated="true">Jan 19<span>th</span>, 2011</time>
         
       </p>
     
@@ -95,7 +95,7 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan its lack of premature optimization but I think it&#8217;s novel enough to study because of the approach: using the SQL LIKE operator on your parameter rather than a field, which is what people like me are used to. There&#8217;s code on <a href="http://stackoverflow.com/questions/337704/parameterizing-a-sql-in-clause">the StackOverflow post</a> but I thought I&#8217;d paste some of the poking around I did in Sql Management Studio: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">-- setup<br />CREATE TABLE Person<br />(<br />      PersonID INT IDENTITY(1,1) PRIMARY KEY, <br />      FirstName VARCHAR(50) NULL<br />)<br />GO<br /><br />-- some data <br />INSERT INTO Person VALUES('David')<br />INSERT INTO Person VALUES('Jonathan')<br />INSERT INTO Person VALUES('Zlatan')<br />INSERT INTO Person VALUES('Trilby')<br /><br />-- here's the magic<br />DECLARE @FirstName VARCHAR(50)<br />SET @FirstName = '|David|Trilby|'<br />SELECT * FROM Person WHERE @FirstName like '%|' + FirstName + '|%'<br /><br />-- ported to a proc<br />CREATE PROC uspPersonSelector<br />      @FirstNames VARCHAR(500)<br />AS<br />      SELECT * FROM Person WHERE @FirstNames like '%|' + FirstName + '|%'<br />GO<br /><br />-- showing it works<br />uspPersonSelector '|David|Trilby|'<br /><br />-- somewhere in the netherworld of C#: <br />/* <br />string[] names = {&quot;David&quot;, &quot;Trilby&quot;};<br />SqlCommand cmd = GetACommandFromSomewhere();<br />cmd.Parameters.AddWithValue(&quot;@FirstNames&quot;, &quot;|&quot;.Join(names));<br />*/<br /><br />--teardown<br />Drop Table Person </pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h3><font color="#0000ff">{</font></h3>  <p>Eons ago <a href="http://metadeveloper.blogspot.com/2009/09/fizzbuzz-functional.html">I&#8217;d posted</a> on how I’d rewritten how I would solve FizzBuzz to have a more functional style (<a href="http://metadeveloper.blogspot.com/2007/03/fizbuzz-conundrum-ramanujan.html">here</a> is an imperative version), inspired by Tomas Petricek and John Skeet’s <a href="http://www.manning.com/petricek/">Functional Programming for the Real World</a>. Shortly thereafter I had written a version in F#, I’m not sure what prevented me from posting it but here it is: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px">let numbers = [1..100]<br />let fizz num = <br />    let res = if (num % 3 = 0) then &quot;fizz&quot; else &quot;&quot;<br />    res<br /><br />let buzz num = <br />    let res = if (num % 5 = 0) then &quot;buzz&quot; else &quot;&quot;<br />    res<br /><br />let outform num fizCalc = <br />    let res = if(fizCalc.ToString().Length &gt; 0) then fizCalc.ToString() else num.ToString()<br />    res<br /><br />let rec printer nums =<br />    match nums with<br />    | [] -&gt; printfn &quot;-&quot;<br />    | h::t -&gt;         <br />        printfn &quot;%s&quot; (outform h ((fizz h) + (buzz h)))<br />        printer t<br /><br />printer numbers</pre><br /><br /><p>I can already see now areas that are still influenced by the C# - most notably the use of <strong>if</strong> rather than using match for everything. I will clean it up, hopefully demonstrating an increased facility with F#. If you are looking at the above and know F#, what are some idioms or language constructs that I am neglecting in the above code? Type annotations for one&#8230; what else? </p><br /><br /><h3><font color="#0000ff">}</font></h3>  </div>
 </div>
   
   
@@ -108,7 +108,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/12/19/programmers-as-goalkeepers/">Programmers as Goalkeepers</a></h1>
+      <h1 class="entry-title"><a href="/2011/01/02/information-diet-planning-newsletters/">Information Diet Planning – Newsletters</a></h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2008-12-19T07:20:00-06:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time>
+<time datetime="2011-01-02T13:55:00-06:00" pubdate data-updated="true">Jan 2<span>nd</span>, 2011</time>
         
       </p>
     
@@ -132,13 +132,297 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>The 8th annual New York Times magazine Year in Ideas featured <a href="http://www.nytimes.com/interactive/2008/12/14/magazine/2008_IDEAS.html#g-ideas">a section on Goalkeeper Science</a> profiling this paper by some Israeli scientists called <a href="http://mpra.ub.uni-muenchen.de/4477/">Action bias among elite soccer goalkeepers: The case of penalty kicks</a>. In looking at the approach of keepers in some 286 penalty kicks they found that though 94 percent of the time they dived to the right or left, the chances of stopping the kick were highest when the goalie stayed in the center. The researchers theorized that the reason keepers behaved in this way was that they were afraid of appearing that they were doing nothing. </p>  <p>Immediately I remembered a blurb from an Paul Graham&#8217;s <a href="http://www.paulgraham.com/opensource.html">What Business Can Learn from Open Source</a>&#160; essay where he expressed a similar dynamic for programmers: </p>  <blockquote>   <p>&quot;The other problem with pretend work is that it often looks better than real work. When I&#8217;m writing or hacking I spend as much time just thinking as I do actually typing. Half the time I&#8217;m sitting drinking a cup of tea, or walking around the neighborhood. This is a critical phase&#8211; this is where ideas come from&#8211; and yet I&#8217;d feel guilty doing this in most offices, with everyone else looking busy.&quot; </p> </blockquote>  <p>I wonder what Paul would say about the <a href="http://www.youtube.com/watch?v=ziOG_GHNVq0">IBM commercial on ideating</a> in which concludes that people should &quot;start doing&quot; after showing an image of people laying inert on an office floor, a stark portrayal of how a manager at IBM might see someone like Paul Graham. </p>  <p>As programmers much of what we should do may not appear to be work for the nonprogrammer and as a result many of us end up doing it at home. I spend a lot of time at home exploring different technologies in a kind of tangential approach that wouldn&#8217;t look like &quot;working&quot; at work but often my best ideas and solutions come from here.&#160; I also spend a lot of time reading technical books and blogs. </p>  <p>I&#8217;m wondering what it would look like if we could step back and look in a quantitative way at the performance deficits resulting from the desire to look busy at work. What would the workday look like? I&#8217;m wondering what an hour for reading, a few hours for exploratory/research programming, and the rest as project time would do for my own productivity.</p>  <p>If programming was goalkeeping was programming, <a href="http://en.wikipedia.org/wiki/Van_der_sar">Edwin Van der Sar</a> would be quite the Python hacker.&#160; </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h3><font color="#0000ff">{</font></h3>  <p>Given the amount of information that is out there it’s difficult to throttle back and actually digest it. A quick look at any web page will set that context; hit StackOverflow and you’ve got several dozens of links to follow, each a rabbit hole on its own. The same can be said for Hacker News, Channel 9, and just about every other popular developer site that is out there. </p>  <p>What tools exist to process this more efficiently? Perhaps, I hope, one of the oldest tools out there: <strong>email</strong>.</p>  <p>I came across this solution reading the Washington Post’s email newsletter I subscribe to one morning. I realized I’d get more out of the news by scheduling a more deliberate reading of the newsletter than by going to the site and being bombarded by stories and links that, while no doubt interesting, would result in an overflow of words that would invariably lose their depth. </p>  <p>I decided for the next week not to visit any news site directly but rather to subscribe to several newsletters and schedule the reading from directly from my email inbox. I also turned off the radio so that rather than hearing multiple versions of syndicated stories from the Associated Press, I would be able to dive more deeply and think more at length about what I read. The goal was to buck <a href="http://www.guardian.co.uk/media/2008/jan/27/internet.pressandpublishing">the trends</a> of the modern day information seeker: </p>  <blockquote>   <p><font size="4">“characterised as being &#8216;horizontal, bouncing, checking and viewing in nature. Users are promiscuous, diverse and volatile.&#8217; &#8216;Horizontal&#8217; information-seeking means &#8216;a form of skimming activity, where people view just one or two pages from an academic site then &quot;bounce&quot; out, perhaps never to return.&#8217; The average times users spend on e-book and e-journal sites are very short: typically four and eight minutes respectively.”</font></p> </blockquote>  <p>I wanted to get more vertical with my reading rather than surfing through multiple versions of the same piece of news.</p>  <p>I was so pleased with the results that I decided to use the same strategy with technical news and articles. I have long been a member of <a href="http://www.codeproject.com/">The Code Project</a> and of the software development newsletters I receive (surprisingly few) theirs is probably the best. Each day, and then in a weekly digest, there is an email in my inbox with a decent roundup of technical articles. Although not all of them pertain to my skills set or interests, there are usually one or two good links to follow up with; in <a href="http://www.codeproject.com/script/Mailouts/View.aspx?mlid=8588">this newsletter</a> received on the last day of the year I could easily spend an hour on <a href="http://www.switched.com/2010/12/30/best-technology-writing-of-2010/">The Best Technology Writing of 2010</a> or catch up with Rob Connery giving <a href="http://blog.wekeroad.com/microsoft/hey-kid-come-over-here">his sentiments</a> on <a href="http://www.microsoft.com/bizspark/">BizSpark</a>. </p>  <p>The experiment will continue and although I do admit to “skimming” from time to time, even the tepid commitment that I’ve made seems to make my time online much more efficient. The next steps regarding newsletters is to find some more development related ones that come in a digest form, preferably weekly so that I can spend a full week on the contents. </p>  <h3><font color="#0000ff">}</font></h3>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/23/information-diet-planning-part-1/">Information Diet Planning - Part 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-23T07:23:00-06:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <p><strong>Goal Setting</strong></p>  <p>I’ve let it slip that one personal goal for 2011 is a more regimented information diet. I’m becoming increasingly convinced that the concepts we apply to diets on the body can be applied with some parallel applications in the world of information. </p>  <p><strong>Calorie Counting</strong></p>  <p>The first thing that applies to physical diets is the concept of tracking intake. Our bodies can utilize up to a certain amount of food after which, no matter how good it is, the food is going to be stored up as fat. Is tracking intake something that can be applied to information? The number of sites visited in a day, the number of browser tabs open, the amount of time getting pumped with information via some form of media: podcast, radio, screencast, television or otherwise? Is there a point where that additional reading does no good and takes away from what might have been retained?</p>  <p><strong>Exercise</strong></p>  <p>The second basic thing in the world of physical diets is some concomitant form of exercise. Some of this might be for burning away calories (cardio) but sometimes it’s about gaining mass or turning “fat” into “muscle.” I wonder what exercise looks like in the world of information. Steve Yegge had <a href="http://sites.google.com/site/steveyegge2/practicing-programming">an old article</a> about practice for programmers and I suspect that exercise involves designating time specifically for the mental effort related to processing information efficiently. </p>  <blockquote>   <p style="font-size: 1.5em">“The great engineers I know are as good as they are <em>because</em> they practice all the time. People in great physical shape only get that way by working out regularly, and they need to keep it up, or they get out of shape. The same goes for programming and engineering.”</p> </blockquote>  <p><strong>Media and Delivery</strong></p>  <p>There are different “food groups” associated with a healthy diet. Some types of food, like “fatty carbs” are very difficult to incorporate into any meaningful diet but others, like fruit, are a staple of most sensible dieting efforts drawn up for a healthier lifestyle. I wrote down my main sources of intake and looking at the list I would consider some blog entries analogous to fatty carbs or sugar whereas other forms of intake such as technical books to be a more substantive form of media for input and processing. </p>  <p>Confession: I’m an architecture geek<sup>1</sup>. It started in earnest when I moved to South Dakota – it was the first time I’d lived in a rural area. I missed the built environment I was used to in cities. Along the way I’ve managed to have 14 different architecture blogs in my RSS Reader. Especially since I’m not an architect, this is excessive. I usually enjoy a story here and there but I leave a lot unread. This is a case where it’s not my curiosity that needs to go away, it’s the delivery format. I’d be better served rereading Steen Eiler Rasmussen’s <a href="http://www.amazon.com/Experiencing-Architecture-Steen-Eiler-Rasmussen/dp/0262680025">Experiencing Architecture</a> or Bjarke Ingalls’s <a href="http://www.amazon.com/Yes-More-Archicomic-Architectural-Evolution/dp/3836520109/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1293108284&amp;sr=1-1">Yes Is More</a> than getting distracted by blog entries from the web. </p>  <p><strong>Processing</strong></p>  <p>I’m not sure there is any equivalent in the world of dieting but the last thing I’ve been thinking about related to my information diet is designating time for processing. Earlier this year I finally made some headway in understanding <a href="http://en.wikipedia.org/wiki/Getting_Things_Done">Getting Things Done</a> and though I can’t say I’ve implemented everything David Allen recommends two things have stuck: his recommendation of using a calendar and the idea that you process information rather than letting it idle in an indeterminate state. </p>  <p>It’s occurred to me that in recent years information access for personal and professional development is trivial. Wikipedia is a great resource for documenting general knowledge. For professional work there are websites, link aggregators, and vendors eagerly providing a glut of information to learn from. </p>  <p>In this environment, what does it mean to “process” an information resource? For example, at work this week we watched <a href="http://community.bartdesmet.net/blogs/bart/Default.aspx">Bart De Smet</a> give <a href="http://bit.ly/bfzKCk">a talk</a> on a language feature of C# called LINQ. I’ve used LINQ quite a bit but his talk covered some direction in the technology that is new (<a href="http://msdn.microsoft.com/en-us/devlabs/ee794896.aspx">Rx</a>). In a more general sense, he referenced the Wikipedia entry on <a href="http://en.wikipedia.org/wiki/Monad_(functional_programming)">Monads</a> – another resource which I would like to process. </p>  <p>I’m not sure what processing should look like but it seems like what it means to process an information resource is less of an issue than the discipline it takes to designate time for it. Perhaps that ties this notion back to exercise. </p>  <p><strong>Conclusion</strong></p>  <p>I’ll be using the next couple of weeks to think more about what an Information Diet should look like and a practical structure to use. I’m posting in part because I would love any input on tactics and also because committing this to the permanence of my blog means the commitment is formalized. Four areas of focus will be: </p>  <ul>   <li>Calorie Counting – tracking input</li>    <li>Exercise – deliberate practice </li>    <li>Media and Delivery – determining which formats and timing work best for information</li>    <li>Processing – what steps are involved in making meaning out of information</li> </ul>  <h3><font color="#0000ff">}</font></h3>  <p><sup>1</sup>A running joke with my wife is that I will quit my job, enroll in an architecture program just so I can be a <a href="http://en.wikipedia.org/wiki/Paul_Goldberger">critic</a>. She takes great joy in laughing about this.</p>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/20/language-programming-quirks-conviction/">Language, Programming, Quirks, Conviction; Derek Sivers at RailsConf</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-20T07:42:00-06:00" pubdate data-updated="true">Dec 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <blockquote>   <p><font size="6">“</font></p>    <p>Imagine that you are standing on a street, and you are in America, and a Japanese guy comes up to you and says “Excuse me… what is the name of this block?” </p>    <p>And you say “well, I don’t understand… there’s Oak street and there’s Elm street, this is 27<sup>th</sup> street and that’s 26<sup>th</sup>…”</p>    <p>And he says: “Yes but what is the name of this block?”</p>    <p>You say: “I don’t understand what you mean; blocks don’t have names, streets have names. Blocks are just the unnamed spaces in between the streets.”</p>    <p>He looks a little disappointed and leaves.</p>    <p>… </p>    <p>So now imagine that you are standing in Tokyo one day and you’re a little lost and you turn to somebody next to you and you say “Excuse me, what is the name of this street?”</p>    <p>And they say, “That is block 17 and that is block 16.”</p>    <p>And you say “Yeah, but what is the name of this street?”</p>    <p>And they say, “Streets don’t have names; that’s just the space between blocks 16 and 17.”</p>    <p><font size="6">”</font></p> </blockquote>  <p>A great talk from <a href="http://sivers.org/blog">Derek Sivers</a> given at RailsConf earlier this year <a href="http://itc.conversationsnetwork.org/shows/detail4565.html">available on IT Conversations</a>.</p>  <h3><font color="#0000ff">}</font></h3>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/19/future-is-balkanized/">The Future Is Balkanized</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-19T12:51:00-06:00" pubdate data-updated="true">Dec 19<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <blockquote>   <p><font size="5">“I like HTML5, but I think you&#8217;re duct taping a horn on a horse and hoping it will become a unicorn.”</font></p> </blockquote>  <p>Shawn Wildermuth hit the nail on the head with a recent analysis entitled “<a href="http://wildermuth.com/2010/12/12/The_Next_Application_Platform_All_of_them">The Next Application Platform? All of them&#8230;</a> ” It would be interesting to see how many more hits the article would have gotten with a title like “XYZ is dead” or “The Death of XYZ,” perhaps something along the lines of “The Death of the One Stop platform.” </p>  <p>A basic summary is that he points to a future in which developers tangle themselves with the following development targets:</p>  <ul>   <li>An HTML5 solution for the web</li>    <li>Plugins to extend HTML5 as necessary</li>    <li>Desktop/Browser apps for in house/well known customers</li>    <li>Apps for mobile/tablets in Objective-C, Java, and Silverlight</li> </ul>  <p>The sentiments are corroborated by my own experience, most recently even with a potential customer who wanted to have an iPad friendly application (native) but also wanted to support web based users who had no such device. If I could translate the request, it could simply be that they want things in the best possible experience for each of the disparate platforms for which they had users. Of course the smart phone was no exception. </p>  <p>In a world like this, what could the future portend but that we will have multiple platforms, no singular delivery, and a constantly increasing need to build things quickly, portably? </p>  <p>I’ve cited the article quite a bit but over the years I’ve always gone back to Jonathan Edwards <a href="http://alarmingdevelopment.org/?p=79">article</a> on Beautiful Code: </p>  <blockquote>   <p>“I wish someone had instead warned me that programming is a desperate losing battle against the unconquerable complexity of code, and the treachery of requirements.”</p> </blockquote>  <p>Although Edwards was talking more specifically about code, all of my experience points towards this truth in the realms of the disparate platforms, specifically that getting something to work in a “real world” where people use different operating systems, browsers, displays, and connectivity paradigms. Over the years there have been different tactics in trying to solve the problem: <a href="http://www.webstandards.org/">web standards</a>, ActiveX controls, Java, plugins, and of course the latest new craze, HTML5. It’s not that these tactics (and the technologies related to them) are bad: I still advocate web standards to a point, I still have my day job programming Silverlight. It’s just that the pragmatist in me thinks this is the Arab-Israeli conflict in software: no perfect solution no matter how badly its desired by those in each of the platform camps. </p>  <p>The big insight for me as a developer is this line:</p>  <blockquote>   <p>“<strong>This means as a developer you&#8217;ll need to expand what you know and learn more platforms. Is that bad or good?&#160; Both. It means more work for all of us, but it does mean you&#8217;ll need to less focus on silo&#8217;s of platforms and use your knowledge across these platforms.</strong>”</p> </blockquote>  <h3><font color="#0000ff">}</font></h3>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/13/advent-calendars-for-developers/">Advent Calendars for Developers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-13T22:56:00-06:00" pubdate data-updated="true">Dec 13<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h2>{</h2>  <p>Since my days <strong><em><a href="http://metadeveloper.blogspot.com/2007/02/language-and-thinking.html">trying to hack up some Perl</a></em></strong><sup>1</sup> I was charmed by the idea of a developer’s advent calendar: a day by day lead up to Christmas with articles pertaining to a specific topic. I’m otherwise a scrooge during the holiday time; not given to commercialism, Christmas music, and other seasonal rituals. </p>  <p>But I am up for the both the <a href="http://perladvent.pm.org/2010/">Perl Advent Calendar</a> and the <a href="http://advent.rjbs.manxome.org/2010/">RJBS (Perl) Advent Calendar</a>. On a similar vein, <a href="http://sysadvent.blogspot.com/">Sys Advent</a>, a sys admin advent calendar should be interesting tracking too.</p>  <p>Others have riffed on the idea, most notably web developers. <a href="http://24ways.org/2010">24ways</a> is a seasonal advent project that I’ve tuned into each year – I usually have at least one or two of the posts stick. </p>  <p>Finally, there is an entrepreneurial advent calendar, <a href="http://24waystostart.com/2010/">24waystostart</a>. A lot of good things in there, I feel the onset of holiday good cheer. </p>  <p>I’m disappointed not to find a .NET Advent calendar (or even a Python one!). If you know of a good advent calendar, developer or otherwise, feel free to share. A few good articles can make the season pleasurable, even for a grinch like me. </p>  <h2>}</h2>  <p><sup>1</sup>Could it have been that long ago? Funny to see those old posts, but that&#8217;s part of why I blog</p>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/12/02/serializations-pit-of-success-with-c/">Serialization’s “Pit of Success” With C# and JSON</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-02T07:36:00-06:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <p>Although it’s been mentioned before here, it bears repeating that before you find yourself making a reference to the <a href="http://msdn.microsoft.com/en-us/library/bb410770.aspx">DataContractJsonSerializer</a>, you ought to consider and indeed are more likely better off with the NewtonSoft library <a href="http://json.codeplex.com/">Json.NET</a>. Whereas the DataContractJsonSerializer relies on giving you the flexibility of creating types and using the DataContract and DataMember attributes on them for a lot of granular control, this is burdensome with types that should naturally find themselves serializable and JSON friendly. For example, let’s say I have a Dictionary&lt;int, string&gt;; the intent of the user shouldn’t be too complicated in the serialization process. Or, if I have a class Foo with a couple of properties, and I want to serialize an IEnumerable of said class, again, the intent doesn’t require the extra use of attributes and a complexity overhead. </p>  <p>This is not to say that the DataContractJsonSerializer does not have its place; if you are leveraging WCF and choosing JSON as your serialization format, it is probably the best route to go. That said, however, I have fallen more than once into a “pit of success” with Json.NET after getting burdened with trying to use the DataContractJsonSerializer.</p>  <p>Json.NET is still quite active, the last release during the latter half of this year. <a href="http://json.codeplex.com/releases/view/50552#ReviewsAnchor">Check it out</a>.</p>  <h3><font color="#0000ff">}</font></h3>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/27/design-related-branding-with-debbie/">Design Related: Branding With Debbie Millman</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-27T07:53:00-05:00" pubdate data-updated="true">Aug 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<p><font color="#0000ff" size="4">{</font></p>  <p>I always struggled with a singular identity. Maybe that had something to do with going back and forth from East Africa and the United States, maybe it is because my father had a lot of books and it gave me a curious nature. Whatever it is, I am the kind of person who, when I find myself in a bookstore, picks up a magazine on a topic I know nothing about and enjoys trying to discover the nuances of a not yet explored world of information. I’ve done it with things like pens, model trains, and antiques. </p>  <p>When it comes to design, as much as it may seem by some to be orthogonal to software development, I’ve had the growing understanding that the two go hand in hand. Design, to me, is not picking nice colors for gradients or making icons. Design is planning, it’s understanding a problem and solving it. Although as a software developer my <em>visual design</em> has often been an afterthought (something I’ve fought with increasing intensity over time) and yet when I write a piece of software, put together a user interface, or model data structures, I am planning and problem solving. I am designing, even if I’m making a poor effort of things.</p>  <p>The more aware I’ve become of this, the more I’ve sought to have a baseline understanding of design which is why I found myself at the <a href="http://www.southdakota.aiga.org/">South Dakota AIGA</a> hearing <a href="http://debbiemillman.blogspot.com/">Debbie Millman</a> give a talk on the history of branding, which was originally prompted by her thinking about the phenomenon of MySpace. I’d long been aware of Debbie; I listened to her <em>Design Matters</em> show when it originally became available online and look forward to a <a href="http://observermedia.designobserver.com/show_designmattersarchive.html">new podcast via Design Observer</a>. </p>  <p>In speeding us to the present, the question of why there may be 300 national brands of cereal or 100 different types of bottled water in a store, Millman began 50,000 years ago with the “big brain bang” where scientists believe we developed our <a href="http://en.wikipedia.org/wiki/Triune_brain">Triune brain</a>. The 3 parts of the brain Millman talked about, Reptilllian, Limbic, and Neocortex are a basis for how she believes that branding works today – if I could shortcut to the conclusion, the reason why we put ourselves in groups and find affiliation important is because this need is hardwired. In one humorous aside, Millman said of the part of the brain that fears the unknown: </p>  <p>“You can’t meditate it away. It’s just there.”</p>  <p>The talk bolstered this point along many fronts, some anthropology, some historical/statistics and other scientific studies and anecdotes. She then divided the history of branding, starting from the US Trademark Registration (landmark legislation that is the legal foundation for branding) in 1876, into 5 different “waves:”</p>  <p><strong>Wave 1: 1875 – 1920</strong> </p>  <blockquote>   <p>Brands as a guarantor of consistency (Think Campbells soup, Quaker Oats).</p> </blockquote>  <p><strong>Wave 2: 1920 – 1965</strong></p>  <blockquote>   <p>Brands as a guarantor of quality. (Think Mortin’s Salt, Pepsi).</p> </blockquote>  <p><strong>Wave 3: 1965 – 1985</strong></p>  <blockquote>   <p>Brands as self expressive statements, telegraphing what others should think of us. (Think Nike, Levis, Volskwagen).</p> </blockquote>  <p><strong>Wave 4: 1985 – 2000</strong></p>  <blockquote>   <p>Brands as an experience. (Think Starbucks.)</p> </blockquote>  <p><strong>Wave 5: 2000 – present</strong></p>  <blockquote>   <p>Limbic brands. (Think Social Networking). In reference to the earlier portion of the talk on brain development, this is the part of our brains which serves us emotion and sense of group. In our present, fractured world, where traditional models of group like family are being uprooted by modernity, we turn to brands to fill that portion of our lives, which is hardwired.</p> </blockquote>  <p>I found the talk riveting, in large part because it aimed at a higher level thinking of how branding works. Afterward I had a chance to talk to Debbie and it sounds like there are new <em>Design Matters</em> shows in the making. I’ll look forward to hearing them and learning more.</p>  <p><font color="#0000ff" size="4">}</font></p>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/08/11/failure-in-two-parts-ironruby/">Failure in Two Parts, IronRuby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-11T23:45:00-05:00" pubdate data-updated="true">Aug 11<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<p><font color="#0080ff" size="4">{</font></p>  <p>I recently ran across a <a href="http://scripting.com/stories/2010/08/05/whyDidntGoogleWaveBootUp.html">two</a> <a href="http://scripting.com/stories/2010/08/06/embracingFailureIsAGoodWay.html">part</a> series from Dave Winer related to failure. Essentially Winer asserts the following: </p>  <blockquote>   <p><em>“The only way to succeed in my opinion is if you cannot visualize failure.”</em></p> </blockquote>  <p>In the first post he describes a personal experience where failure was imminent and he pushed on despite it because he realized his back was to the wall.&#160; In the second he keeps the theme by emphasizing the special level of determination necessary for success. Many of the blog posts I find my way to via Hacker News and other outlets have similar exhortations but Winer holds more gravitas for me because of his success as a founder and longevity as one of the alpha dog programmer/internet personalities. </p>  <p>Both pieces were inspired by the recent news that Google was <a href="http://googleblog.blogspot.com/2010/08/update-on-google-wave.html">no longer pursuing Wave</a> – the kind of capitulation that may have inspired Winer’s title: <em>“Embracing failure is a good way to fail.”</em> As an aside, Dare Obasanjo has <a href="http://www.25hoursaday.com/weblog/2010/08/05/GoogleWaveAndNetworkEffects.aspx">some thoughtful points</a> on why Wave couldn’t grow. </p>  <p>Not long after I <a href="http://blog.jimmy.schementi.com/2010/08/start-spreading-news-future-of-jimmy.html">discovered</a> that IronRuby’s future as a Microsoft project was in flux. It seemed to me similar to Wave in the sense that I remember the fanfare when all the Iron* (IronRuby, IronPython, etc… ) projects were beginning and the excitement of people in the programming community only to perk my head up now and find that the project seems no longer to have the good graces of its company. What a contrast. </p>  <p>I speak as an outsider but I suspected that as time passed the level of interest in these projects began to erode: everything from key people leaving teams to diminishing excitement from people on the outside. Most of my interest was directed toward IronPython since it was the most mature dynamic language implementation in the beginning (the whole concept of the Dynamic Language Runtime (DLR) came from Jim Hugunin’s <a href="http://blogs.msdn.com/b/hugunin/archive/2006/09/05/741605.aspx">early port of Python</a>). This was both fortunate and unfortunate; I was eager to learn Ruby but since I can’t learn languages very fast I decided to maintain my focus on Python in exclusion of other DLR language implementations. All I can do is suspect but perhaps there were others like me who decided rather than trying to learn different languages simultaneously it would be better to focus on one. </p>  <p>Now as I think upon my encounters with the DLR, I realize that I’m a part of the “failure,” if one can call it that, of Microsoft in valuing this and other dynamic language implementations. Although I was excited early on, even spending some time <a href="http://www.t3rse.com/twining/">creating projects</a> and <a href="http://metadeveloper.blogspot.com/2009/04/using-ironpython-for-coverters-in.html">coming up with ideas</a> that leveraged the dynamic languages on the DLR, I got bogged down by how hard it was without a lot of documentation and the difficulty of trying to convince people around me that what I was doing was worth it. (Insert the glazed eyes and “why not just use C#? It has intellisense…” conversation). In the interests of a more full disclosure, a personal tragedy from last year took a lot of wind out of my sails and I didn’t do any programming my spare time for a long stretch of time. </p>  <p>But of course I neither think that IronRuby is a “failure” nor do I think my lack of initiative over the last few years is the way things need to remain. Now seems an even better time to become more active in what community IronRuby has since the absence of Microsoft will create space for people like me, on the outside. I will probably return to the drawing board with a few projects and ideas in IronPython but Bruce Tate’s <a href="http://pragprog.com/titles/btlang/seven-languages-in-seven-weeks">latest book</a> has inspired me to think that perhaps trying to tackle multiple languages at the same time isn’t so outlandish a goal after all. The important thing I’m going to try to bring with me is the frame of mind I quoted above from Winer: being unable to imagine that IronRuby can go away or lose value as an idea or a platform.&#160; </p>  <p><font color="#0080ff" size="4">}</font></p>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>depola</div>
+<div class='author'>黃英吳思潔吳思潔邦</div>
 <div class='content'>
-I am shocked to find how many out-of-this-world work conclusions come to me in the 10-12 minutes driving home from work.  The ideas really crystalize when I&#8217;m no where near the keyboard, flourescent lights, or food.</div>
+上班很累，摸個魚輕輕鬆鬆的逛部落<a href="http://1799.nicehi.info" rel="nofollow">.</a><a href="http://176.nicehi.info" rel="nofollow">.</a><a href="http://www.nicehi.info" rel="nofollow">.</a><a href="http://sex.nicehi.info" rel="nofollow">.</a><a href="http://173show.nicehi.info" rel="nofollow">.</a><a href="http://173liveshow.nicehi.info" rel="nofollow">.</a><a href="http://0951.nicehi.info" rel="nofollow">.</a><a href="http://080ut.nicehi.info" rel="nofollow">.</a><a href="http://nicehi.info" rel="nofollow">.</a><a href="http://168.nicehi.info" rel="nofollow">.</a><a href="http://13060.nicehi.info" rel="nofollow">.</a><a href="http://1007.nicehi.info" rel="nofollow">.</a><a href="http://080cc.nicehi.info" rel="nofollow">.</a><a href="http://080.nicehi.info" rel="nofollow">.</a><a href="http://0509.nicehi.info" rel="nofollow">.</a><a href="http://0401a.nicehi.info" rel="nofollow">.</a><a href="http://0401.nicehi.info" rel="nofollow">.</a><a href="http://0204.nicehi.info" rel="nofollow">.</a><a href="http://007sex.nicehi.info" rel="nofollow">.</a><a href="http://mm.nicehi.info" rel="nofollow">.</a><a href="http://1799.free758.info" rel="nofollow">.</a><a href="http://176.free758.info" rel="nofollow">.</a><a href="http://173show.free758.info" rel="nofollow">.</a><a href="http://173liveshow.free758.info" rel="nofollow">.</a><a href="http://168.free758.info" rel="nofollow">.</a><a href="http://13060.free758.info" rel="nofollow">.</a><a href="http://1007.free758.info" rel="nofollow">.</a><a href="http://0951.free758.info" rel="nofollow">.</a><a href="http://080ut.free758.info" rel="nofollow">.</a><a href="http://080cc.free758.info" rel="nofollow">.</a><a href="http://080.free758.info" rel="nofollow">.</a><a href="http://0509.free758.info" rel="nofollow">.</a><a href="http://0401a.free758.info" rel="nofollow">.</a><a href="http://0401.free758.info" rel="nofollow">.</a><a href="http://0204.free758.info" rel="nofollow">.</a><a href="http://007sex.free758.info" rel="nofollow">.</a><a href="http://mm.free758.info" rel="nofollow">.</a><a href="http://sex.free758.info" rel="nofollow">.</a><a href="http://www.free758.info" rel="nofollow">.</a><a href="http://free758.info" rel="nofollow">.</a><a href="http://1799.free520.info" rel="nofollow">.</a><a href="http://176.free520.info" rel="nofollow">.</a><a href="http://173show.free520.info" rel="nofollow">.</a><a href="http://173liveshow.free520.info" rel="nofollow">.</a><a href="http://168.free520.info" rel="nofollow">.</a><a href="http://13060.free520.info" rel="nofollow">.</a><a href="http://1007.free520.info" rel="nofollow">.</a><a href="http://0951.free520.info" rel="nofollow">.</a><a href="http://080ut.free520.info" rel="nofollow">.</a><a href="http://080cc.free520.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>孟湖聿軒</div>
+<div class='content'>
+你怎麼能經過一片海，而忘記它的藍？<a href="http://mpg.173show.info" rel="nofollow">.</a><a href="http://giga.173show.info" rel="nofollow">.</a><a href="http://fc.173show.info" rel="nofollow">.</a><a href="http://meet.173show.info" rel="nofollow">.</a><a href="http://dodo.173show.info" rel="nofollow">.</a><a href="http://18h.173show.info" rel="nofollow">.</a><a href="http://title.173show.info" rel="nofollow">.</a><a href="http://life.173show.info" rel="nofollow">.</a><a href="http://tr.173show.info" rel="nofollow">.</a><a href="http://204.173show.info" rel="nofollow">.</a><a href="http://520.173show.info" rel="nofollow">.</a><a href="http://net.173show.info" rel="nofollow">.</a><a href="http://173show.info" rel="nofollow">.</a><a href="http://www.173show.info" rel="nofollow">.</a><a href="http://80.080sex.info" rel="nofollow">.</a><a href="http://vcd.080sex.info" rel="nofollow">.</a><a href="http://2av.080sex.info" rel="nofollow">.</a><a href="http://ie8.080sex.info" rel="nofollow">.</a><a href="http://firefox.080sex.info" rel="nofollow">.</a><a href="http://coco.080sex.info" rel="nofollow">.</a><a href="http://java.080sex.info" rel="nofollow">.</a><a href="http://x543.080sex.info" rel="nofollow">.</a><a href="http://adult.080sex.info" rel="nofollow">.</a><a href="http://class.080sex.info" rel="nofollow">.</a><a href="http://66k.080sex.info" rel="nofollow">.</a><a href="http://go2.080sex.info" rel="nofollow">.</a><a href="http://work.080sex.info" rel="nofollow">.</a><a href="http://good.080sex.info" rel="nofollow">.</a><a href="http://space.080sex.info" rel="nofollow">.</a><a href="http://msn.080sex.info" rel="nofollow">.</a><a href="http://meta.080sex.info" rel="nofollow">.</a><a href="http://kiss.080sex.info" rel="nofollow">.</a><a href="http://jack.080sex.info" rel="nofollow">.</a><a href="http://view.080sex.info" rel="nofollow">.</a><a href="http://asp.080sex.info" rel="nofollow">.</a><a href="http://h.080sex.info" rel="nofollow">.</a><a href="http://800.080sex.info" rel="nofollow">.</a><a href="http://target.080sex.info" rel="nofollow">.</a><a href="http://job.080sex.info" rel="nofollow">.</a><a href="http://dual.080sex.info" rel="nofollow">.</a><a href="http://op.080sex.info" rel="nofollow">.</a><a href="http://min.080sex.info" rel="nofollow">.</a><a href="http://080sex.info" rel="nofollow">.</a><a href="http://www.080sex.info" rel="nofollow">.</a><a href="http://sexy9.173sexy.info" rel="nofollow">.</a><a href="http://ad8.173sexy.info" rel="nofollow">.</a><a href="http://adult8.173sexy.info" rel="nofollow">.</a><a href="http://sexy8.173sexy.info" rel="nofollow">.</a><a href="http://ad7.173sexy.info" rel="nofollow">.</a><a href="http://adult7.173sexy.info" rel="nofollow">.</a><a href="http://sexy7.173sexy.info" rel="nofollow">.</a><a href="http://ad6.173sexy.info" rel="nofollow">.</a><a href="http://adult6.173sexy.info" rel="nofollow">.</a><a href="http://sexy6.173sexy.info" rel="nofollow">.</a><a href="http://ad5.173sexy.info" rel="nofollow">.</a><a href="http://adult5.173sexy.info" rel="nofollow">.</a><a href="http://sexy5.173sexy.info" rel="nofollow">.</a><a href="http://ad4.173sexy.info" rel="nofollow">.</a><a href="http://adult4.173sexy.info" rel="nofollow">.</a><a href="http://sexy4.173sexy.info" rel="nofollow">.</a><a href="http://173sexy.info" rel="nofollow">.</a><a href="http://www.173sexy.info" rel="nofollow">.</a><a href="http://sexy.173sexy.info" rel="nofollow">.</a><a href="http://adult.173sexy.info" rel="nofollow">.</a><a href="http://ad.173sexy.info" rel="nofollow">.</a><a href="http://sexy1.173sexy.info" rel="nofollow">.</a><a href="http://adult1.173sexy.info" rel="nofollow">.</a><a href="http://ad1.173sexy.info" rel="nofollow">.</a><a href="http://sexy2.173sexy.info" rel="nofollow">.</a><a href="http://adult2.173sexy.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>佳張張張張燕張張張張張</div>
+<div class='content'>
+在莫非定律中有項笨蛋定律：「一個組織中的笨蛋，恆大於等於三分之二。」<a href="http://j858.info" rel="nofollow">.</a> <a href="http://www.j858.info" rel="nofollow">.</a> <a href="http://18xx.j858.info" rel="nofollow">.</a> <a href="http://2010.j858.info" rel="nofollow">.</a> <a href="http://24h.j858.info" rel="nofollow">.</a> <a href="http://34c.j858.info" rel="nofollow">.</a> <a href="http://520show.j858.info" rel="nofollow">.</a> <a href="http://104.j858.info" rel="nofollow">.</a> <a href="http://18.j858.info" rel="nofollow">.</a> <a href="http://45av.j858.info" rel="nofollow">.</a> <a href="http://2009.j858.info" rel="nofollow">.</a> <a href="http://3D.j858.info" rel="nofollow">.</a> <a href="http://666.j858.info" rel="nofollow">.</a> <a href="http://85cc.j858.info" rel="nofollow">.</a> <a href="http://85cc1.j858.info" rel="nofollow">.</a> <a href="http://85cc2.j858.info" rel="nofollow">.</a> <a href="http://85st.j858.info" rel="nofollow">.</a> <a href="http://85.j858.info" rel="nofollow">.</a> <a href="http://90.j858.info" rel="nofollow">.</a> <a href="http://911.j858.info" rel="nofollow">.</a> <a href="http://aaa.j858.info" rel="nofollow">.</a> <a href="http://080av.j858.info" rel="nofollow">.</a> <a href="http://080ut.j858.info" rel="nofollow">.</a> <a href="http://dudu.j858.info" rel="nofollow">.</a> <a href="http://dvd.j858.info" rel="nofollow">.</a> <a href="http://ec.j858.info" rel="nofollow">.</a> <a href="http://et.j858.info" rel="nofollow">.</a> <a href="http://hbo.j858.info" rel="nofollow">.</a> <a href="http://kiss168.j858.info" rel="nofollow">.</a> <a href="http://kyo.j858.info" rel="nofollow">.</a> <a href="http://ol.j858.info" rel="nofollow">.</a> <a href="http://post.j858.info" rel="nofollow">.</a> <a href="http://18gy.j858.info" rel="nofollow">.</a> <a href="http://18jack.j858.info" rel="nofollow">.</a> <a href="http://18tw.j858.info" rel="nofollow">.</a> <a href="http://sex888.j858.info" rel="nofollow">.</a> <a href="http://xx18.j858.info" rel="nofollow">.</a> <a href="http://3y3.j858.info" rel="nofollow">.</a> <a href="http://4h.j858.info" rel="nofollow">.</a> <a href="http://4qk.j858.info" rel="nofollow">.</a> <a href="http://4u.j858.info" rel="nofollow">.</a> <a href="http://520.j858.info" rel="nofollow">.</a> <a href="http://520sex.j858.info" rel="nofollow">.</a> <a href="http://5278.j858.info" rel="nofollow">.</a> <a href="http://5320.j858.info" rel="nofollow">.</a> <a href="http://5403.j858.info" rel="nofollow">.</a> <a href="http://66k.j858.info" rel="nofollow">.</a> <a href="http://69.j858.info" rel="nofollow">.</a> <a href="http://69vip.j858.info" rel="nofollow">.</a> <a href="http://6k.j858.info" rel="nofollow">.</a> <a href="http://777.j858.info" rel="nofollow">.</a> <a href="http://adult.j858.info" rel="nofollow">.</a> <a href="http://aio.j858.info" rel="nofollow">.</a> <a href="http://bb.j858.info" rel="nofollow">.</a> <a href="http://buty.j858.info" rel="nofollow">.</a> <a href="http://chat.j858.info" rel="nofollow">.</a> <a href="http://dudusex.j858.info" rel="nofollow">.</a> <a href="http://face.j858.info" rel="nofollow">.</a> <a href="http://g8.j858.info" rel="nofollow">.</a> <a href="http://g88.j858.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>8468</div>
+<div class='content'>
+你的分享很不錯.. 謝謝 <a href="http://dudusex.b162.info" rel="nofollow">.</a><a href="http://5278.b162.info" rel="nofollow">.</a><a href="http://520show.b162.info" rel="nofollow">.</a><a href="http://520sex.b162.info" rel="nofollow">.</a><a href="http://520.b162.info" rel="nofollow">.</a><a href="http://4u.b162.info" rel="nofollow">.</a><a href="http://4qk.b162.info" rel="nofollow">.</a><a href="http://4h.b162.info" rel="nofollow">.</a><a href="http://45av.b162.info" rel="nofollow">.</a><a href="http://3y3.b162.info" rel="nofollow">.</a><a href="http://3d.b162.info" rel="nofollow">.</a><a href="http://5320.b162.info" rel="nofollow">.</a><a href="http://5403.b162.info" rel="nofollow">.</a><a href="http://666.b162.info" rel="nofollow">.</a><a href="http://chat.b162.info" rel="nofollow">.</a><a href="http://buty.b162.info" rel="nofollow">.</a><a href="http://bb.b162.info" rel="nofollow">.</a><a href="http://aio.b162.info" rel="nofollow">.</a><a href="http://adult.b162.info" rel="nofollow">.</a><a href="http://777.b162.info" rel="nofollow">.</a><a href="http://6k.b162.info" rel="nofollow">.</a><a href="http://69vip.b162.info" rel="nofollow">.</a><a href="http://69.b162.info" rel="nofollow">.</a><a href="http://66k.b162.info" rel="nofollow">.</a><a href="http://34c.b162.info" rel="nofollow">.</a><a href="http://24h.b162.info" rel="nofollow">.</a><a href="http://951.b162.info" rel="nofollow">.</a><a href="http://080ut.b162.info" rel="nofollow">.</a><a href="http://080cc.b162.info" rel="nofollow">.</a><a href="http://80.b162.info" rel="nofollow">.</a><a href="http://509.b162.info" rel="nofollow">.</a><a href="http://0401a.b162.info" rel="nofollow">.</a><a href="http://401.b162.info" rel="nofollow">.</a><a href="http://204.b162.info" rel="nofollow">.</a><a href="http://007sex.b162.info" rel="nofollow">.</a><a href="http://www.b162.info" rel="nofollow">.</a><a href="http://1007.b162.info" rel="nofollow">.</a><a href="http://13060.b162.info" rel="nofollow">.</a><a href="http://168.b162.info" rel="nofollow">.</a><a href="http://2010.b162.info" rel="nofollow">.</a><a href="http://18xx.b162.info" rel="nofollow">.</a><a href="http://18tw.b162.info" rel="nofollow">.</a><a href="http://18jack.b162.info" rel="nofollow">.</a><a href="http://18gy.b162.info" rel="nofollow">.</a><a href="http://18.b162.info" rel="nofollow">.</a><a href="http://1799.b162.info" rel="nofollow">.</a><a href="http://176.b162.info" rel="nofollow">.</a><a href="http://173show.b162.info" rel="nofollow">.</a><a href="http://173liveshow.b162.info" rel="nofollow">.</a><a href="http://b162.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>玉韓韓韓婷韓韓韓韓</div>
+<div class='content'>
+原來這世上能跟你共同領略一個笑話的人竟如此難得<a href="http://cam.173show.info" rel="nofollow">.</a><a href="http://mpg.173show.info" rel="nofollow">.</a><a href="http://giga.173show.info" rel="nofollow">.</a><a href="http://fc.173show.info" rel="nofollow">.</a><a href="http://meet.173show.info" rel="nofollow">.</a><a href="http://dodo.173show.info" rel="nofollow">.</a><a href="http://18h.173show.info" rel="nofollow">.</a><a href="http://title.173show.info" rel="nofollow">.</a><a href="http://life.173show.info" rel="nofollow">.</a><a href="http://tr.173show.info" rel="nofollow">.</a><a href="http://204.173show.info" rel="nofollow">.</a><a href="http://520.173show.info" rel="nofollow">.</a><a href="http://net.173show.info" rel="nofollow">.</a><a href="http://173show.info" rel="nofollow">.</a><a href="http://www.173show.info" rel="nofollow">.</a><a href="http://80.080sex.info" rel="nofollow">.</a><a href="http://vcd.080sex.info" rel="nofollow">.</a><a href="http://2av.080sex.info" rel="nofollow">.</a><a href="http://ie8.080sex.info" rel="nofollow">.</a><a href="http://firefox.080sex.info" rel="nofollow">.</a><a href="http://coco.080sex.info" rel="nofollow">.</a><a href="http://java.080sex.info" rel="nofollow">.</a><a href="http://x543.080sex.info" rel="nofollow">.</a><a href="http://adult.080sex.info" rel="nofollow">.</a><a href="http://class.080sex.info" rel="nofollow">.</a><a href="http://66k.080sex.info" rel="nofollow">.</a><a href="http://go2.080sex.info" rel="nofollow">.</a><a href="http://work.080sex.info" rel="nofollow">.</a><a href="http://good.080sex.info" rel="nofollow">.</a><a href="http://space.080sex.info" rel="nofollow">.</a><a href="http://msn.080sex.info" rel="nofollow">.</a><a href="http://meta.080sex.info" rel="nofollow">.</a><a href="http://kiss.080sex.info" rel="nofollow">.</a><a href="http://jack.080sex.info" rel="nofollow">.</a><a href="http://view.080sex.info" rel="nofollow">.</a><a href="http://asp.080sex.info" rel="nofollow">.</a><a href="http://h.080sex.info" rel="nofollow">.</a><a href="http://800.080sex.info" rel="nofollow">.</a><a href="http://target.080sex.info" rel="nofollow">.</a><a href="http://job.080sex.info" rel="nofollow">.</a><a href="http://dual.080sex.info" rel="nofollow">.</a><a href="http://op.080sex.info" rel="nofollow">.</a><a href="http://min.080sex.info" rel="nofollow">.</a><a href="http://080sex.info" rel="nofollow">.</a><a href="http://www.080sex.info" rel="nofollow">.</a><a href="http://sexy9.173sexy.info" rel="nofollow">.</a><a href="http://ad8.173sexy.info" rel="nofollow">.</a><a href="http://adult8.173sexy.info" rel="nofollow">.</a><a href="http://sexy8.173sexy.info" rel="nofollow">.</a><a href="http://ad7.173sexy.info" rel="nofollow">.</a><a href="http://adult7.173sexy.info" rel="nofollow">.</a><a href="http://sexy7.173sexy.info" rel="nofollow">.</a><a href="http://ad6.173sexy.info" rel="nofollow">.</a><a href="http://adult6.173sexy.info" rel="nofollow">.</a><a href="http://sexy6.173sexy.info" rel="nofollow">.</a><a href="http://ad5.173sexy.info" rel="nofollow">.</a><a href="http://adult5.173sexy.info" rel="nofollow">.</a><a href="http://sexy5.173sexy.info" rel="nofollow">.</a><a href="http://ad4.173sexy.info" rel="nofollow">.</a><a href="http://adult4.173sexy.info" rel="nofollow">.</a><a href="http://sexy4.173sexy.info" rel="nofollow">.</a><a href="http://173sexy.info" rel="nofollow">.</a><a href="http://www.173sexy.info" rel="nofollow">.</a><a href="http://sexy.173sexy.info" rel="nofollow">.</a><a href="http://adult.173sexy.info" rel="nofollow">.</a><a href="http://ad.173sexy.info" rel="nofollow">.</a><a href="http://sexy1.173sexy.info" rel="nofollow">.</a><a href="http://adult1.173sexy.info" rel="nofollow">.</a><a href="http://ad1.173sexy.info" rel="nofollow">.</a><a href="http://sexy2.173sexy.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>8468</div>
+<div class='content'>
+超棒的，給予最大支持。(*￣△￣*)<a href="http://13060.chat1007.info" rel="nofollow">.</a><a href="http://1007.chat1007.info" rel="nofollow">.</a><a href="http://0951.chat1007.info" rel="nofollow">.</a><a href="http://080ut.chat1007.info" rel="nofollow">.</a><a href="http://080cc.chat1007.info" rel="nofollow">.</a><a href="http://080.chat1007.info" rel="nofollow">.</a><a href="http://0509.chat1007.info" rel="nofollow">.</a><a href="http://0401a.chat1007.info" rel="nofollow">.</a><a href="http://0401.chat1007.info" rel="nofollow">.</a><a href="http://0204.chat1007.info" rel="nofollow">.</a><a href="http://007sex.chat1007.info" rel="nofollow">.</a><a href="http://www.twchat1007.info" rel="nofollow">.</a><a href="http://twchat1007.info" rel="nofollow">.</a><a href="http://www.chat1007.info" rel="nofollow">.</a><a href="http://chat1007.info" rel="nofollow">.</a><a href="http://173liveshow.chat1007.me" rel="nofollow">.</a><a href="http://168.chat1007.me" rel="nofollow">.</a><a href="http://13060.chat1007.me" rel="nofollow">.</a><a href="http://1007.chat1007.me" rel="nofollow">.</a><a href="http://0951.chat1007.me" rel="nofollow">.</a><a href="http://080ut.chat1007.me" rel="nofollow">.</a><a href="http://080cc.chat1007.me" rel="nofollow">.</a><a href="http://080.chat1007.me" rel="nofollow">.</a><a href="http://0509.chat1007.me" rel="nofollow">.</a><a href="http://0401a.chat1007.me" rel="nofollow">.</a><a href="http://0401.chat1007.me" rel="nofollow">.</a><a href="http://0204.chat1007.me" rel="nofollow">.</a><a href="http://007sex.chat1007.me" rel="nofollow">.</a><a href="http://www.chat1007.me" rel="nofollow">.</a><a href="http://chat1007.me" rel="nofollow">.</a><a href="http://173liveshow.chat1007.net" rel="nofollow">.</a><a href="http://168.chat1007.net" rel="nofollow">.</a><a href="http://13060.chat1007.net" rel="nofollow">.</a><a href="http://1007.chat1007.net" rel="nofollow">.</a><a href="http://0951.chat1007.net" rel="nofollow">.</a><a href="http://080ut.chat1007.net" rel="nofollow">.</a><a href="http://080cc.chat1007.net" rel="nofollow">.</a><a href="http://080.chat1007.net" rel="nofollow">.</a><a href="http://0509.chat1007.net" rel="nofollow">.</a><a href="http://0401a.chat1007.net" rel="nofollow">.</a><a href="http://0401.chat1007.net" rel="nofollow">.</a><a href="http://0204.chat1007.net" rel="nofollow">.</a><a href="http://007sex.chat1007.net" rel="nofollow">.</a><a href="http://www.chat1007.net" rel="nofollow">.</a><a href="http://chat1007.net" rel="nofollow">.</a><a href="http://173liveshow.chat104.info" rel="nofollow">.</a><a href="http://168.chat104.info" rel="nofollow">.</a><a href="http://13060.chat104.info" rel="nofollow">.</a><a href="http://1007.chat104.info" rel="nofollow">.</a><a href="http://0951.chat104.info" rel="nofollow">.</a><a href="http://080ut.chat104.info" rel="nofollow">.</a><a href="http://080cc.chat104.info" rel="nofollow">.</a><a href="http://080.chat104.info" rel="nofollow">.</a><a href="http://0509.chat104.info" rel="nofollow">.</a><a href="http://0401a.chat104.info" rel="nofollow">.</a><a href="http://0401.chat104.info" rel="nofollow">.</a><a href="http://0204.chat104.info" rel="nofollow">.</a><a href="http://007sex.chat104.info" rel="nofollow">.</a><a href="http://www.chat104.info" rel="nofollow">.</a><a href="http://chat104.info" rel="nofollow">.</a></div>
 </div>
 </div>
 </div>
@@ -153,7 +437,7 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/12/18/windows-forms-web-wib-part-ii/">Windows Forms + Web, WIB Part II</a></h1>
+      <h1 class="entry-title"><a href="/2010/07/29/management-perspectives-from-groundling/">Management Perspectives From a Groundling and Dan Pink</a></h1>
     
     
       <p class="meta">
@@ -169,7 +453,7 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
   
 
 
-<time datetime="2008-12-18T06:38:00-06:00" pubdate data-updated="true">Dec 18<span>th</span>, 2008</time>
+<time datetime="2010-07-29T07:40:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2010</time>
         
       </p>
     
@@ -177,314 +461,33 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>A while back I <a href="http://metadeveloper.blogspot.com/2008/10/mashing-up-jquery-and-windows-forms.html">made the case</a> for applications that put together the strengths of Windows Forms and Web technologies (I thought of the catchy &quot;WIB&quot; as a name for this approach). The example I&#8217;d given then was a Windows Forms hosted Web Browser for local images that one could use for annotation that leveraged Windows for local file storage and a Web technology like jQuery for doing transitions in the user interface. </p>  <p>Today I thought of another use for this approach that wrapped itself nicely into a tool I&#8217;ve been using for some time to download mp3s from a given website<sup>1,2</sup>. I call the tool &quot;Fortinbras&quot; and if you find it useful I&#8217;d be delighted. </p>  <p><img src="http://www.seruyange.com/metadeveloper/Fortinbras.jpg" /> </p>  <p>So how was Fortinbras changed? </p>  <p>Parsing the HTML for mp3 files was a little tricky. My initial approach was to use a regular expression against the text of the document which, truth be told, is a brittle approach. Part of why I never trumpted the tool was because I never completely perfected this tactic (while it worked well enough for me personally). My code looked as follows: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	WebClient wc = new WebClient();<br />	string pageText = wc.DownloadString(browser.Url.ToString());<br />	Regex re = new Regex(&quot;href=\&quot;(?&lt;url&gt;.+?mp3)\&quot;&quot;, RegexOptions.IgnoreCase);<br />	Match mp3Matches = re.Match(text);<br />	while (mp3Matches.Success)<br />	{<br />		string matchUrl = mp3Matches.Groups[&quot;url&quot;].Value.ToString();<br />		AddMp3(browser.Url.ToString(), data, matchUrl);<br />		mp3Matches = mp3Matches.NextMatch();<br />	}</pre><br /><br /><p>Today my epiphany was that I didn&#8217;t need to use a regular expression when I could use the DOM from Windows Forms to pull out the anchors that have mp3 destinations. Here&#8217;s what that looks like: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	while (browser.Document.Body == null)Application.DoEvents();<br />	HtmlElementCollection anchors = browser.Document.Body.GetElementsByTagName(&quot;a&quot;);<br />	foreach (HtmlElement anch in anchors)<br />	{<br />		string linkUrl = anch.GetAttribute(&quot;href&quot;);<br />		if (linkUrl.ToLower().EndsWith(&quot;mp3&quot;))<br />		{<br />		    AddMp3(browser.Url.ToString(), data, linkUrl);<br />		}<br />	}</pre><br /><br /><p>As usual feedback is welcome - you can download a copy of the Fortinbras project <a href="http://www.seruyange.com/metadeveloper/Fortinbras.zip">here</a>.</p><br /><br /><p><sup>1</sup>I am aware of the <a href="http://www.downthemall.net/">Firefox extensions</a> that do this but someday (imagine a pie in the sky look on my face) I was hoping to incorporate a &quot;favorites&quot; list with URLs / locations so that this would be a one stop shop for my downloading and organizing of podcasts. My goal here is embarrasment driven development so I&#8217;ll probably be bummed enough about the code I&#8217;ve just posted to put in some enhancements as time permits. <br /><br />  <br /><sup>2</sup>My friend&#8217;s music blog is a great stop, try a couple of tracks at <a href="http://www.thelookback.com/">The Look Back</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/12/17/growing-open-source-community/">Growing Open Source Community</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-17T07:40:00-06:00" pubdate data-updated="true">Dec 17<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Kevin Dangoor recorded an interesting screencast on some of the essentials of getting an open source project more widely circulated. Essentially Dangoor explains that having a successful open source project is not just about code, it&#8217;s about good product management. I wanted to title this post with Dangoor&#8217;s most quotable quote: &quot;Rails is not where it is because of great code.&quot; But there are a lot of people who would take that as an opener for a religious war without seeing his real intent of highlighting marketing and management of a project.</p>  <p>I won&#8217;t rehash it, it&#8217;s worth <a href="http://dangoor.blip.tv/file/1530233/">watching it</a> for yourself.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/11/26/bruce-eckel-python-book/">Bruce Eckel&#8217;s Python Book</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-26T00:07:00-06:00" pubdate data-updated="true">Nov 26<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>It escaped my notice but Eckel&#8217;s been writing a <a href="http://www.bitbucket.org/BruceEckel/python-3-patterns-idioms/">new Python book</a>. Should be worth digging into sometime in the future.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<p><font color="#0080ff" size="4">{</font></p>  <p>Over the weekend I took the time to watch <a href="http://www.imdb.com/title/tt0314724/">Stan Lee’s Mutants, Monsters and Marvels</a>, a film that consists entirely of an interview between film maker Kevin Smith and Stan Lee. As a kid who grew up loving comics, I loved the unveiling of the world behind the worlds I spent as much time as I could with my imagination: Spiderman, Fantastic Four, Hulk, Iron Man, and the list goes on though I’ll stop before daunting anyone without appreciation for such comic book geekdome. </p>  <p>One of the interesting segments dealt with Stan Lee’s approach as the top editor at Marvel. Although the characters we are familiar with are his creations and he would collaborate with artists on the first few releases of books, subsequently other teams of artists and writers would work on their own releases of the characters he created. When Kevin asked how he managed this he waved his hand and said that he found the best way to manage creatives was to leave them alone: that’s how you would get their <u>best work</u>.</p>  <p>Stan Lee seems to be a man of intuition (in the interview he’s matter of fact and terse, less a man of “Big Ideas” and more of “Common Sense” when it comes to managing) but I think he was getting at the management theory that is being articulating these days by Dan Pink. Pink’s ideas have to do with the connection of motivation and better outcomes that are concomitant with employee autonomy. A summary of his ideas as well as their rational basis is in this entertaining animated video from RSA: </p> <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/u6XAPnuFjJc&amp;hl=en_US&amp;fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/u6XAPnuFjJc&amp;hl=en_US&amp;fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>  <p>Although I do not have any formal disagreements with Pink’s ideas (they are spot on in my book) I think what is telling is his background and where he worked. Some top notch schools and the upper echelons of government imbue a sense of personal worth and require the freedom and tactics he recommends. The same is true with Stan Lee: his management style worked precisely because of the environment he was in and the nature of his work; in comics being creative and motivated as well as finding ways to help your employees in that regard are the name of the game.</p>  <p>What I would add, from the groundling floor, is that in many places it’s not that these theories don’t make sense or aren’t highly empirical (Pink glosses over some behavioral economics although if you really want to dive into the field <a href="http://web.mit.edu/ariely/www/MIT/papers.shtml">Dan Ariely is a better start</a>); it’s that different organizations have different goals. As much of a thought bludgeon as it is, the haunting truth is that some places are perfectly happy trading out creativity, autonomy, and the requisite unpredictability associated with them. </p>  <p><font color="#0080ff" size="4">}</font></p>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>gefilte</div>
+<div class='author'>于庭吳</div>
 <div class='content'>
-His _Thinking in Java_ taught me Java all those years ago. Didn&#8217;t teach me to /like/ it though&#8230; But I did like Eckel&#8217;s style.</div>
+cool blog,期待更新<a href="http://173show.4412.info" rel="nofollow">.</a><a href="http://176.5462.info" rel="nofollow">.</a><a href="http://4qk.5462.info" rel="nofollow">.</a><a href="http://4u.5462.info" rel="nofollow">.</a><a href="http://520.5462.info" rel="nofollow">.</a><a href="http://520sex.5462.info" rel="nofollow">.</a><a href="http://520show.5462.info" rel="nofollow">.</a><a href="http://5278.5462.info" rel="nofollow">.</a><a href="http://5320.5462.info" rel="nofollow">.</a><a href="http://5403.5462.info" rel="nofollow">.</a><a href="http://666.5462.info" rel="nofollow">.</a><a href="http://66k.5462.info" rel="nofollow">.</a><a href="http://4h.5462.info" rel="nofollow">.</a><a href="http://45av.5462.info" rel="nofollow">.</a><a href="http://3y3.5462.info" rel="nofollow">.</a><a href="http://1799.5462.info" rel="nofollow">.</a><a href="http://18.5462.info" rel="nofollow">.</a><a href="http://18gy.5462.info" rel="nofollow">.</a><a href="http://18jack.5462.info" rel="nofollow">.</a><a href="http://18tw.5462.info" rel="nofollow">.</a><a href="http://18xx.5462.info" rel="nofollow">.</a><a href="http://2010.5462.info" rel="nofollow">.</a><a href="http://24h.5462.info" rel="nofollow">.</a><a href="http://34c.5462.info" rel="nofollow">.</a><a href="http://3d.5462.info" rel="nofollow">.</a><a href="http://69.5462.info" rel="nofollow">.</a><a href="http://69vip.5462.info" rel="nofollow">.</a><a href="http://bb.5462.info" rel="nofollow">.</a><a href="http://buty.5462.info" rel="nofollow">.</a><a href="http://chat.5462.info" rel="nofollow">.</a><a href="http://dudusex.5462.info" rel="nofollow">.</a><a href="http://dvd.5462.info" rel="nofollow">.</a><a href="http://face.5462.info" rel="nofollow">.</a><a href="http://g8.5462.info" rel="nofollow">.</a><a href="http://g88.5462.info" rel="nofollow">.</a><a href="http://g8mm.5462.info" rel="nofollow">.</a><a href="http://girl.5462.info" rel="nofollow">.</a><a href="http://aio.5462.info" rel="nofollow">.</a><a href="http://adult.5462.info" rel="nofollow">.</a><a href="http://999.5462.info" rel="nofollow">.</a><a href="http://6k.5462.info" rel="nofollow">.</a><a href="http://66.5462.info" rel="nofollow">.</a><a href="http://77.5462.info" rel="nofollow">.</a><a href="http://88.5462.info" rel="nofollow">.</a><a href="http://99.5462.info" rel="nofollow">.</a><a href="http://78.5462.info" rel="nofollow">.</a><a href="http://758.5462.info" rel="nofollow">.</a><a href="http://578.5462.info" rel="nofollow">.</a><a href="http://777.5462.info" rel="nofollow">.</a><a href="http://888.5462.info" rel="nofollow">.</a><a href="http://gogo.5462.info" rel="nofollow">.</a><a href="http://5462.info" rel="nofollow">.</a><a href="http://shop.5462.info" rel="nofollow">.</a><a href="http://shopping.5462.info" rel="nofollow">.</a><a href="http://show.5462.info" rel="nofollow">.</a><a href="http://showlive.5462.info" rel="nofollow">.</a><a href="http://sogo.5462.info" rel="nofollow">.</a><a href="http://taiwangirl.5462.info" rel="nofollow">.</a><a href="http://talk.5462.info" rel="nofollow">.</a><a href="http://tw.5462.info" rel="nofollow">.</a></div>
 </div>
 <div class='comment'>
-<div class='author'>gefilte</div>
+<div class='author'>蔡曼鄭美玉屏</div>
 <div class='content'>
-This comment has been removed by the author.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/11/23/how-to-steal-time-on-programming-and/">How to Steal Time: On Programming and Being a Father</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-23T22:16:00-06:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>It&#8217;s been alluded to but here it is neither shaken nor stirred: I became a father exactly on month ago.&#160; While it hasn&#8217;t been without challenges the joy of being a father is something I understand now firsthand after being told or observing it in others. Even though I first was quite seduced by a &quot;mystique&quot; in programming - a nocturnal person drinking jolt with binary being reflected from mirror shades - I now realize not only that nearly every programmer and professional person I admire is a parent, but that they find their core of happiness in that well beyond the realm of work.</p>  <p>Nevertheless, I have been trying to keep up my personal work and interests so with that goal in mind I&#8217;ve adjusted my schedule to wake up as early as I can (usually 5am) and get a few hours of solid time while leaving the evenings as a time when I can help out and be a &quot;family man.&quot;&#160; It still doesn&#8217;t feel natural but the payoff is that I can still advance my work with IronPython and other interests. It&#8217;s already been pointed out to me that my productivity here and other places has dropped since my daughter was born.</p>  <p>So question for other programmer/dad people: how do you work the family schedule? Any tips and tricks for a one month father who is still daydreaming about what it was like to sleep all night? </p>  <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Catherine</div>
-<div class='content'>
-Hey, congratulations!  Wow!</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/11/10/loop-reordering-optimizing-face/">Loop Reordering, Optimizing Face Recognition</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-10T23:28:00-06:00" pubdate data-updated="true">Nov 10<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Got <a href="http://lbrandy.com/blog/2008/10/how-we-made-our-face-recognizer-25-times-faster/">this</a> a few weeks ago from a friend but didn&#8217;t have a chance to sit down and digest the entry until tonight. Pretty cool and although premature optimization gets a bad rap, it&#8217;s a reminder that sometimes what seems intuitive and quick could actually be costing a lot - </p>  <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-Unsure when I linked to that article before (perhaps from you?), the methodology is fascinating even though I don&#8217;t understand the code.  Didn&#8217;t read the Comments on that one until just now.  Isn&#8217;t it interesting how a discussion about how to deal with an challenge can get derailed by a discussion of whether we should participate at all?   Lead me to ponder &#8230; &#8220;Render unto Caesar the things which are Caesar&#8217;s, and to God the things that are God&#8217;s&#8217;&#8221;.  -ERD</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/11/05/lake-wobegon-distribution/">Lake Wobegon Distribution</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-05T23:23:00-06:00" pubdate data-updated="true">Nov 5<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Not sure where I saw this one first but it&#8217;s <a href="http://blog.plover.com/math/right-skewed.html">a great article</a>. I wonder if the Lake Wobegon distribution applies as well to programmers&#8230; </p>  <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-Good article but I&#8217;m not sure the thinking is complete (I&#8217;d have to think about it!).  There&#8217;s a big hole, MLB-quality pitchers are mentioned therefore the first baseline graph isn&#8217;t appropriate.  <BR/>Regarding your musing about whether it applies to programmers, don&#8217;t forget the curve depends alot on whether they&#8217;re being &#8220;pitched&#8221; by MLB-quality problems!<BR/>(There are plenty of good coders whose .401 average is because they&#8217;re fiddling with less than intricate business processes).</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/11/01/linq-to-sql-death-rumors/">LINQ to SQL Death Rumors</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-01T00:39:00-05:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>I think it all started with <a href="http://blogs.msdn.com/adonet/archive/2008/10/29/update-on-linq-to-sql-and-linq-to-entities-roadmap.aspx">this post</a> from Tim Mallalieu reporting some directions for LINQ to SQL and the ADO.NET Entity Framework. <a href="http://ayende.com/Blog/archive/2008/10/31/microsoft-kills-linq-to-sql.aspx">Ayende</a> and <a href="http://codebetter.com/blogs/david.hayden/archive/2008/10/31/linq-to-sql-is-dead-read-between-the-lines.aspx">others</a> have had some strong reactions (LINQ to SQL is dead) and there&#8217;s now a <a href="http://stackoverflow.com/questions/252683/is-linq-to-sql-doa">StackOverflow thread</a> you can use to follow the discussion. </p>  <p>It will be interesting to track over the next few days what other responses pop up. A few things that come to my mind: </p>  <p>1. This is an opening for people using Linq to SQL to migrate to SubSonic or NHibernate. I&#8217;ve been using SubSonic lately and enjoying myself quite a bit.</p>  <p>2. A big disappointment for people like <a href="http://blog.benday.com/">Benjamin Day</a> who I saw speak at VSLive and who have incoprorated LINQ to SQL into their development projects. Next time wait for Microsoft to 2.0 something before spending too much time working it into your dev cycle. </p>  <p>3. I wonder if Microsoft hasn&#8217;t thought of spinning off some of the tool makers as different companies. Perhaps there is an MBA out there who could draw some charts and convince management to have ADO.NET Entity Framework and the LINQ to SQL folks compete/copy in the same space. If the team isn&#8217;t fully formed, why not make one? And then how cool would that be: profit centers that encourage developers to use Microsoft tools and competition to get the best ideas out the door. The trade off of Balkanization versus One True Product is that the former will mean that cool new ideas belong to you - the company won&#8217;t have to get the ideas from outside sources.&#160; </p>  <p>4. I wonder if we aren&#8217;t moving towards a tipping point of Microsoft developers &quot;getting&quot; open source and shifting their tool/framework usage outside of Microsoft. I know lots of people who won&#8217;t use __anything__ unless it has a Microsoft logo because it feels safer and more commoditized. Moves like this seem to go against that since open source projects tend to live a longer time and technologies / frameworks from companies become &quot;obsolete&quot; (how many versions of ADO can you count?) because of a product cycle that requires new purchases every 2 years or so. I would argue with my boss on a new project that it&#8217;s safer to use NHibernate than ADO.NET Entity Framework if this indicates a chance that the Entity Framework could be the next LINQ to SQL project.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/10/24/net-survey/">.NET Survey</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-10-24T00:35:00-05:00" pubdate data-updated="true">Oct 24<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Scott Hanselman did a survey of .NET usage and <a href="http://www.hanselman.com/blog/SurveyRESULTSWhatNETFrameworkFeaturesDoYouUse.aspx">posted results</a> on his blog. A few interesting notes:</p>  <p>1. Heavy use of older stuff: ASMX, DataSet, WebForms, Windows Forms   <br />You&#8217;d be hard pressed to find new blog entries on it but it shows that older (tried) technologies don&#8217;t sync up with what&#8217;s popular. The last few projects I&#8217;ve worked on have had development cycles that far exceed the excitement of their underpinning technology. One needs to remember that excitement and hype aren&#8217;t what make something useful, it&#8217;s use. So the people who talk down DataSets do so in the face of what obviously works for a silent majority who are busy getting stuff done.</p>  <p>2. Some new stuff won&#8217;t take, some new stuff takes off   <br />The respondents using CardSpace and WorkFlow are dismal. I can match the &quot;unscientific&quot; survey with a lot of my own experience in the last few years and conclude it&#8217;s within a broader trend. On the other hand, LINQ To SQL has very heavy use for something relatively new, almost on par with ADO DataSets which one could argue are in the same competitive space. That says to me that in some cases adoption is just slow when there&#8217;s a &quot;legacy&quot; counterpart for a technology but in others, when the new technology is compelling, people take to it very quickly.</p>  <p>3. WinForms &gt; WPF   <br />More than twice the respondents but here&#8217;s my conclusion: it&#8217;s all about the toolset, not the technology. WPFs tools are not on par with their WinForms equivalents. The dual Blend + VS strategy doesn&#8217;t make sense for a large majority of us who don&#8217;t have full time designers we work with and the lack of built in controls (such as a DataGridView) mean as cool as rounded edges are, function trumps form when programming.</p>  <p>4. MVC?   <br />Last I checked this was *just* released as a beta. More people claim to use that than WPF which seems to indicate a Hanselman type majority in respondents. Even if I wanted to jump into MVC, until it&#8217;s at a &quot;1.0&quot; release I couldn&#8217;t (and I&#8217;m wondering how others seem to be doing so) justify starting or migrating a major product to a product/framework that isn&#8217;t yet complete.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Justice~!</div>
-<div class='content'>
-Actually, to be fair I&#8217;ve been using MVC on a bunch of projects lately some minor (conference booking application) and some major (massive government application).  Frankly, at around preview 2-3 it was stable enough to build an app around even if I had to build some plumbing.<BR/><BR/>The major govt one is because we were looking to get ahead of the curve.  Part of this is driven by me having control over technical determinations for most/all projs I  am currently working on.</div>
+不要讓挫敗把你擺平,再給自己一個機會,從新再出發<a href="http://av1688sex.f624.info" rel="nofollow">.</a><a href="http://av1688ost989.f624.info" rel="nofollow">.</a><a href="http://av383dvd.f624.info" rel="nofollow">.</a><a href="http://av383.f624.info" rel="nofollow">.</a><a href="http://av730.f624.info" rel="nofollow">.</a><a href="http://av969.f624.info" rel="nofollow">.</a><a href="http://av999.f624.info" rel="nofollow">.</a><a href="http://avdvdgogo.f624.info" rel="nofollow">.</a><a href="http://avdvd.f624.info" rel="nofollow">.</a><a href="http://avdvdAV.f624.info" rel="nofollow">.</a><a href="http://avdvda.f624.info" rel="nofollow">.</a><a href="http://avhello.f624.info" rel="nofollow">.</a><a href="http://aHiLiveTV.f624.info" rel="nofollow">.</a><a href="http://Asex520.f624.info" rel="nofollow">.</a><a href="http://c.f624.info" rel="nofollow">.</a><a href="http://d736.f624.info" rel="nofollow">.</a><a href="http://dcp2p.f624.info" rel="nofollow">.</a><a href="http://discovery.f624.info" rel="nofollow">.</a><a href="http://dodo.f624.info" rel="nofollow">.</a><a href="http://domainhilivetv.f624.info" rel="nofollow">.</a><a href="http://dudusexav.f624.info" rel="nofollow">.</a><a href="http://dudusex.f624.info" rel="nofollow">.</a><a href="http://dudusexaa.f624.info" rel="nofollow">.</a><a href="http://dudu.f624.info" rel="nofollow">.</a><a href="http://dvd.f624.info" rel="nofollow">.</a><a href="http://dvdaa.f624.info" rel="nofollow">.</a><a href="http://dv.f624.info" rel="nofollow">.</a><a href="http://cyca.f624.info" rel="nofollow">.</a><a href="http://cf.f624.info" rel="nofollow">.</a><a href="http://bt3gp.f624.info" rel="nofollow">.</a><a href="http://asexdiy.f624.info" rel="nofollow">.</a><a href="http://as383.f624.info" rel="nofollow">.</a><a href="http://aavdvd.f624.info" rel="nofollow">.</a><a href="http://asexygirlsgetfucked.f624.info" rel="nofollow">.</a><a href="http://a85cc.f624.info" rel="nofollow">.</a><a href="http://asex888.f624.info" rel="nofollow">.</a><a href="http://bbsx693comsex888.f624.info" rel="nofollow">.</a><a href="http://bbs.f624.info" rel="nofollow">.</a><a href="http://bbsa.f624.info" rel="nofollow">.</a><a href="http://ben10.f624.info" rel="nofollow">.</a><a href="http://bt.f624.info" rel="nofollow">.</a><a href="http://btav.f624.info" rel="nofollow">.</a><a href="http://btaa.f624.info" rel="nofollow">.</a><a href="http://ec.f624.info" rel="nofollow">.</a><a href="http://av127.f624.info" rel="nofollow">.</a><a href="http://777dvd.f624.info" rel="nofollow">.</a><a href="http://911.f624.info" rel="nofollow">.</a><a href="http://919sex.f624.info" rel="nofollow">.</a><a href="http://919.f624.info" rel="nofollow">.</a><a href="http://940aa.f624.info" rel="nofollow">.</a><a href="http://99770.f624.info" rel="nofollow">.</a><a href="http://999uu.f624.info" rel="nofollow">.</a><a href="http://a383girl.f624.info" rel="nofollow">.</a><a href="http://a383l.f624.info" rel="nofollow">.</a><a href="http://a383.f624.info" rel="nofollow">.</a><a href="http://aa.f624.info" rel="nofollow">.</a><a href="http://aaav.f624.info" rel="nofollow">.</a><a href="http://aai68.f624.info" rel="nofollow">.</a><a href="http://aaa.f624.info" rel="nofollow">.</a><a href="http://8dgo.f624.info" rel="nofollow">.</a></div>
 </div>
 <div class='comment'>
-<div class='author'>Tim</div>
+<div class='author'>佳呈均慧</div>
 <div class='content'>
-MVC likely is being driven by two things &#8230; the Alt.NET movement and the fact that you have the source and can recompile for bug fixes if you need it.  Makes having a &#8220;baked&#8221; product less important.  Remember, for Open Source projects you get very little more than that in the way of promises and people use those technologies all the time.</div>
+Some people cannot see the wood for the trees.<a href="http://v791.com" rel="nofollow">.</a><a href="http://talk944.com" rel="nofollow">.</a><a href="http://r137.info" rel="nofollow">.</a><a href="http://p675.com" rel="nofollow">.</a><a href="http://p072.com" rel="nofollow">.</a><a href="http://naked6k.com" rel="nofollow">.</a><a href="http://n357.info" rel="nofollow">.</a><a href="http://y900.info" rel="nofollow">.</a><a href="http://sex920.info" rel="nofollow">.</a><a href="http://a393.com" rel="nofollow">.</a><a href="http://n448.com" rel="nofollow">.</a><a href="http://n038.com" rel="nofollow">.</a><a href="http://k846.com" rel="nofollow">.</a><a href="http://k048.com" rel="nofollow">.</a><a href="http://j269.com" rel="nofollow">.</a><a href="http://cute0204.info" rel="nofollow">.</a><a href="http://cute011.info" rel="nofollow">.</a><a href="http://chat957.com" rel="nofollow">.</a><a href="http://chat946.info" rel="nofollow">.</a><a href="http://chat901.info" rel="nofollow">.</a><a href="http://gy.k048.com" rel="nofollow">.</a><a href="http://hcg.k048.com" rel="nofollow">.</a><a href="http://hchat.k048.com" rel="nofollow">.</a><a href="http://honey.k048.com" rel="nofollow">.</a><a href="http://jp.k048.com" rel="nofollow">.</a><a href="http://kiss.k048.com" rel="nofollow">.</a><a href="http://kk.k048.com" rel="nofollow">.</a><a href="http://live.k048.com" rel="nofollow">.</a><a href="http://good.k048.com" rel="nofollow">.</a><a href="http://go2av.k048.com" rel="nofollow">.</a><a href="http://girl.k048.com" rel="nofollow">.</a><a href="http://body.k048.com" rel="nofollow">.</a><a href="http://candy.k048.com" rel="nofollow">.</a><a href="http://ch5.k048.com" rel="nofollow">.</a><a href="http://channel.k048.com" rel="nofollow">.</a><a href="http://cup.k048.com" rel="nofollow">.</a><a href="http://cute.k048.com" rel="nofollow">.</a><a href="http://dolove.k048.com" rel="nofollow">.</a><a href="http://face.k048.com" rel="nofollow">.</a><a href="http://g8mm.k048.com" rel="nofollow">.</a><a href="http://acg.a393.com" rel="nofollow">.</a><a href="http://38mm.a393.com" rel="nofollow">.</a><a href="http://85cc.a393.com" rel="nofollow">.</a><a href="http://18sex.a393.com" rel="nofollow">.</a><a href="http://1by1.a393.com" rel="nofollow">.</a><a href="http://18baby.a393.com" rel="nofollow">.</a><a href="http://18room.a393.com" rel="nofollow">.</a><a href="http://gogo.a393.com" rel="nofollow">.</a><a href="http://chat.a393.com" rel="nofollow">.</a><a href="http://jj.a393.com" rel="nofollow">.</a><a href="http://cam.a393.com" rel="nofollow">.</a><a href="http://h.a393.com" rel="nofollow">.</a><a href="http://hot.a393.com" rel="nofollow">.</a><a href="http://dk.a393.com" rel="nofollow">.</a><a href="http://ez.a393.com" rel="nofollow">.</a><a href="http://69.a393.com" rel="nofollow">.</a><a href="http://dd.a393.com" rel="nofollow">.</a><a href="http://www.a393.com" rel="nofollow">.</a><a href="http://ut.a393.com" rel="nofollow">.</a><a href="http://a393.com" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>萬建彰宇</div>
+<div class='content'>
+真正仁慈的人，會忘記他們做過的善行，他們全心投入現在的工作，過去的事已被遺忘。<a href="http://6k.j543.info" rel="nofollow">.</a><a href="http://777.cute731.info" rel="nofollow">.</a><a href="http://ilove.cute731.info" rel="nofollow">.</a><a href="http://japan.cute731.info" rel="nofollow">.</a><a href="http://jolin.cute731.info" rel="nofollow">.</a><a href="http://jpgirl.cute731.info" rel="nofollow">.</a><a href="http://king.cute731.info" rel="nofollow">.</a><a href="http://kk123.cute731.info" rel="nofollow">.</a><a href="http://ko.cute731.info" rel="nofollow">.</a><a href="http://live.cute731.info" rel="nofollow">.</a><a href="http://livesex.cute731.info" rel="nofollow">.</a><a href="http://honey.cute731.info" rel="nofollow">.</a><a href="http://hot.cute731.info" rel="nofollow">.</a><a href="http://gogo.cute731.info" rel="nofollow">.</a><a href="http://girl.cute731.info" rel="nofollow">.</a><a href="http://adult.cute731.info" rel="nofollow">.</a><a href="http://aio.cute731.info" rel="nofollow">.</a><a href="http://bb.cute731.info" rel="nofollow">.</a><a href="http://buty.cute731.info" rel="nofollow">.</a><a href="http://chat.cute731.info" rel="nofollow">.</a><a href="http://dudusex.cute731.info" rel="nofollow">.</a><a href="http://face.cute731.info" rel="nofollow">.</a><a href="http://g8.cute731.info" rel="nofollow">.</a><a href="http://g88.cute731.info" rel="nofollow">.</a><a href="http://g8mm.cute731.info" rel="nofollow">.</a><a href="http://love.cute731.info" rel="nofollow">.</a><a href="http://love104.cute731.info" rel="nofollow">.</a><a href="http://sexdiy.cute731.info" rel="nofollow">.</a><a href="http://sexy.cute731.info" rel="nofollow">.</a><a href="http://shop.cute731.info" rel="nofollow">.</a><a href="http://shopping.cute731.info" rel="nofollow">.</a><a href="http://show.cute731.info" rel="nofollow">.</a><a href="http://showlive.cute731.info" rel="nofollow">.</a><a href="http://sogo.cute731.info" rel="nofollow">.</a><a href="http://taiwangirl.cute731.info" rel="nofollow">.</a><a href="http://talk.cute731.info" rel="nofollow">.</a><a href="http://tw.cute731.info" rel="nofollow">.</a><a href="http://sex999.cute731.info" rel="nofollow">.</a><a href="http://sex520.cute731.info" rel="nofollow">.</a><a href="http://sex.cute731.info" rel="nofollow">.</a><a href="http://loveu.cute731.info" rel="nofollow">.</a><a href="http://may.cute731.info" rel="nofollow">.</a><a href="http://ponda.cute731.info" rel="nofollow">.</a><a href="http://monkey.cute731.info" rel="nofollow">.</a><a href="http://nice.cute731.info" rel="nofollow">.</a><a href="http://orz.cute731.info" rel="nofollow">.</a><a href="http://play.cute731.info" rel="nofollow">.</a><a href="http://playboy.cute731.info" rel="nofollow">.</a><a href="http://playgirl.cute731.info" rel="nofollow">.</a></div>
+</div>
+<div class='comment'>
+<div class='author'>家唐銘</div>
+<div class='content'>
+百發百中不是一試就成的。<a href="http://6k.cute899.info" rel="nofollow">.</a><a href="http://777.h788.info" rel="nofollow">.</a><a href="http://ilove.h788.info" rel="nofollow">.</a><a href="http://japan.h788.info" rel="nofollow">.</a><a href="http://jolin.h788.info" rel="nofollow">.</a><a href="http://jpgirl.h788.info" rel="nofollow">.</a><a href="http://king.h788.info" rel="nofollow">.</a><a href="http://kk123.h788.info" rel="nofollow">.</a><a href="http://ko.h788.info" rel="nofollow">.</a><a href="http://live.h788.info" rel="nofollow">.</a><a href="http://livesex.h788.info" rel="nofollow">.</a><a href="http://honey.h788.info" rel="nofollow">.</a><a href="http://hot.h788.info" rel="nofollow">.</a><a href="http://gogo.h788.info" rel="nofollow">.</a><a href="http://girl.h788.info" rel="nofollow">.</a><a href="http://adult.h788.info" rel="nofollow">.</a><a href="http://aio.h788.info" rel="nofollow">.</a><a href="http://bb.h788.info" rel="nofollow">.</a><a href="http://buty.h788.info" rel="nofollow">.</a><a href="http://chat.h788.info" rel="nofollow">.</a><a href="http://dudusex.h788.info" rel="nofollow">.</a><a href="http://face.h788.info" rel="nofollow">.</a><a href="http://g8.h788.info" rel="nofollow">.</a><a href="http://g88.h788.info" rel="nofollow">.</a><a href="http://g8mm.h788.info" rel="nofollow">.</a><a href="http://love.h788.info" rel="nofollow">.</a><a href="http://love104.h788.info" rel="nofollow">.</a><a href="http://sexdiy.h788.info" rel="nofollow">.</a><a href="http://sexy.h788.info" rel="nofollow">.</a><a href="http://shop.h788.info" rel="nofollow">.</a><a href="http://shopping.h788.info" rel="nofollow">.</a><a href="http://show.h788.info" rel="nofollow">.</a><a href="http://showlive.h788.info" rel="nofollow">.</a><a href="http://sogo.h788.info" rel="nofollow">.</a><a href="http://taiwangirl.h788.info" rel="nofollow">.</a><a href="http://talk.h788.info" rel="nofollow">.</a><a href="http://tw.h788.info" rel="nofollow">.</a><a href="http://sex999.h788.info" rel="nofollow">.</a><a href="http://sex520.h788.info" rel="nofollow">.</a><a href="http://sex.h788.info" rel="nofollow">.</a><a href="http://loveu.h788.info" rel="nofollow">.</a><a href="http://may.h788.info" rel="nofollow">.</a><a href="http://ponda.h788.info" rel="nofollow">.</a><a href="http://monkey.h788.info" rel="nofollow">.</a><a href="http://nice.h788.info" rel="nofollow">.</a><a href="http://orz.h788.info" rel="nofollow">.</a><a href="http://play.h788.info" rel="nofollow">.</a><a href="http://playboy.h788.info" rel="nofollow">.</a><a href="http://playgirl.h788.info" rel="nofollow">.</a><a href="http://room.h788.info" rel="nofollow">.</a></div>
 </div>
 </div>
 </div>
@@ -515,19 +518,19 @@ MVC likely is being driven by two things &#8230; the Alt.NET movement and the fa
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

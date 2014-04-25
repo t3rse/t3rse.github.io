@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ I was just missing the old Paul Graham, the one who would write wisdom for the type of programmer that I imagined myself to be. The most recent &hellip;">
+  <meta name="description" content="{ Paul Buchheit (who we can thank for Gmail) comments on a post by Marc Andreessen: For web based products at least, there&#8217;s another very &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/08/27/graham-on-point/">Graham, on Point</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/18/release-early-often/">Release Early & Often</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2007-08-27T23:10:00-05:00" pubdate data-updated="true">Aug 27<span>th</span>, 2007</time>
+<time datetime="2008-02-18T20:27:00-06:00" pubdate data-updated="true">Feb 18<span>th</span>, 2008</time>
         
       </p>
     
@@ -95,108 +95,18 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1>{</h1> <p>I was just missing the old Paul Graham, the one who would write wisdom for the type of programmer that I imagined myself to be. The most recent essay, <a href="http://www.paulgraham.com/head.html">Holding A Program In One&#8217;s Head</a>, is that treat I&#8217;ve been waiting for.</p> <h1>}</h1></div>
+<h1><font color="#0000ff">{</font></h1> <p>Paul Buchheit (who we can thank for Gmail) <a href="http://paulbuchheit.blogspot.com/2008/02/most-import-thing-to-understand-about.html">comments</a> on a <a href="http://blog.pmarca.com/2007/06/the-pmarca-gu-2.html">post</a> by Marc Andreessen:</p> <blockquote> <p>For web based products at least, there&#8217;s another very powerful technique: release early and iterate. The sooner you can start testing your ideas, the sooner you can start fixing them.  <p>I wrote the first version of Gmail in one day. It was not very impressive. All I did was stuff my own email into the Google Groups (Usenet) indexing engine. I sent it out to a few people for feedback, and they said that it was somewhat useful, but it would be better if it searched over their email instead of mine. That was version two. After I released that people started wanting the ability to respond to email as well. That was version three. That process went on for a couple of years inside of Google before we released to the world.</p></blockquote> <p>Interesting and it goes along with something Guy Kawasaki was saying in a recent podcast I <a href="http://metadeveloper.blogspot.com/2007/10/podcasts-i-think-big.html">commented on</a> hearing.&nbsp; So the next question comes down to technique - when you&#8217;re working on something by yourself, how do you schedule builds?&nbsp; I&#8217;m thinking I may start to take deliberate &#8220;coding vacations&#8221; - days I take off* from work in order to push through releases on my various little software projects.&nbsp; Hm&#8230; other thoughts?</p> <p>*My employer offers &#8220;comp days&#8221; so it&#8217;s not at the expense of my day job.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>depola</div>
+<div class='author'>David Seruyange</div>
 <div class='content'>
-Sorry, I meant #4 not #5.  &#8220;Test Often&#8221; could be along the lines of &#8220;Keep rewriting&#8230;&#8221;</div>
+Hey AJ, <BR/><BR/>I have the book but it&#8217;s been in my reading queue - I did read a few chapters though, the del.icio.us one and the one on Philip Greenspun.<BR/><BR/>I work a lot so I accumulate a good amount of comp time. But I&#8217;m not militant about taking the time off (feeling swamped with what I need to do) so it hasn&#8217;t been a clearly defined area.  The idea is that you take a day &#8220;when you need it.&#8221;  <BR/><BR/>It feels like I&#8217;m somewhat cheating myself though by not trying to keep track and be more militant about making sure I balance the whole &#8220;comp time&#8221; equation properly for what it was designed.</div>
 </div>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-I would also add &#8220;Test Often&#8221;.  If perhaps you  consider that&#8217;s the same as #5&#8230; then I would still add &#8220;Test Real-Life Examples, not hypothetical use cases&#8221;.  To follow his line of thinking, the more actual cases you run the more those become a part of the whole package/scene running in your head.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/08/27/net-301-redirect/">.NET 301 Redirect</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-08-27T22:54:00-05:00" pubdate data-updated="true">Aug 27<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1>{</h1> <p>Scott Hanselman was noting that many people who&#8217;d updated the locations of their tools on his 2007 Ultimate Developers Tools List had emailed or contacted him asking him to update his reference.</p> <p>He <a href="http://www.hanselminutes.com/default.aspx?showID=96">lamented</a> the fact that they didn&#8217;t simply use HTTP 301 redirects (Moved Permanently)&nbsp;which tools can easily use to update referenced links.</p> <p>I must confess, I was one of those people.&nbsp; I just lazily made a default.asp that had one line: </p> <p>Response.Redirect(&#8220;http://www.nregex.com&#8221;)</p> <p>But 301 redirect are pretty simple whether you use .NET or lazily throw an ASP script somewhere.</p> <p>&#8216;classic ASP<br>Response.Status=&#8221;301 Moved Permanently&#8221; <br>Response.AddHeader &#8220;Location&#8221;, &#8220;http://foo/bar.asp&#8221;  <p>&#8216;.NET</p> <p>Response.Status = &#8220;301 Moved Permanently&#8221;;<br>Response.AddHeader(&#8220;Location&#8221;,&#8221;http://foo/bar.asp&#8221;);  <p>Source: <a href="http://www.seoconsultants.com/tips/asp/301.asp">seoconsultants</a>.</p> <h1>}</h1></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>yogesh.narayanan</div>
-<div class='content'>
-Good one really was very helpful to freshers like me<br /><br />Also i use <a href="http://www.logiclabz.com/tools/http-url-response-redirect-status-code-checker.aspx" rel="nofollow">301 redirect checker</a> to confirm the same.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/08/24/nregex/">NRegex</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-08-24T23:39:00-05:00" pubdate data-updated="true">Aug 24<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1>{</h1> <p><a href="http://www.nregex.com" atomicselection="true"><img src="http://www.nregex.com/nregex/images/nregex.gif"></a> </p> <p>I embarrassed myself today (yelling at the work desk, telling everyone I&#8217;d take them to McDonalds)&nbsp;but with good cause: <a href="http://www.nregex.com/nregex/default.aspx">a tool</a> I wrote some time back made it to Scott Hanselman&#8217;s <a href="http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx">2007 Ultimate Developer/Power User Tools List</a>. The goal of the tool was simple: to do browser based&nbsp;evaluation of regular expressions using the .NET engine.&nbsp; Prior to writing it I would frequent <a href="http://www.rexv.org/">Rexv.org</a> but because the engines supported there were different, I&#8217;d usually have to do some conversion to get things to the .NET world. </p> <p>There are quite a few .NET Regular Expression tools: <a href="http://www.ultrapico.com/Expresso.htm">Expresso</a>, which is my first and favorite since I&#8217;ve used it longest, but also tools like Roy Osherove&#8217;s <a href="http://tools.osherove.com/CoolTools/TheRegulator/tabid/185/Default.aspx">The Regulator</a>. The problem with these tools, however, was that as fat clients I wasn&#8217;t always easily able to use them: I work on different machines (home, work, client sites) and also assist people quite a bit away from my desk.</p> <p>There are also quite a few Regular Expression tools for the web, Rexv, which I mentioned before but also RegexPal. But these tools support either javascript or alternate implementations so patterns like (?&lt;foo&gt;\w+) usually return some kind of error.&nbsp; </p> <p>The way <a href="http://www.nregex.com">Nregex</a> works is pretty straight forward: I&#8217;m using <a href="http://developer.yahoo.com/yui/">YUI</a> for the Ajax library and working with the .NET implementation of the regular expression on the server.&nbsp; A simultaneous goal of mine is to get into more of YUI because I&#8217;m always building little knick-knacks in javascript and I think it&#8217;s the library to beat right now.</p> <p>Of course it&#8217;s a fledgling: I worked on it a few nights when I could and fixed bugs here are there when I had a moment.&nbsp; Please use it and give me <a href="http://www.nregex.com/nregex/Feedback.aspx">feedback</a> since that will be my biggest help in making it better.</p> <p>One more thing: I&#8217;m trying to collect useful regular expressions. I&#8217;d like to build a good library of expressions to help users of the tool. Use the <a href="http://www.nregex.com/nregex/Feedback.aspx">feedback form</a> and let me know if you&#8217;ve got one you&#8217;ve found handy. Don&#8217;t worry if it&#8217;s not .NET specific, I&#8217;ll do the translation.</p> <h1>}</h1></div>
-<h2>Comments</h2>
-<div class='comments'>
 <div class='comment'>
 <div class='author'>AJ</div>
 <div class='content'>
-dude, that&#8217;s really really cool.  There&#8217;s nothing better than having your peers compliment your work. Congrats!</div>
+So I know you said you were looking forward to reading the &#8220;Founders at Work&#8221; book (http://metadeveloper.blogspot.com/2007/02/founders-at-work.html), but did you ever? If not, there&#8217;s a great chapter on / by Paul Buchheit and Gmail. One of my favorite chapters and a really fun book to read.<BR/><BR/>So.. comp days at work. How often do you get them and how much direction are you given?</div>
 </div>
 </div>
 </div>
@@ -211,7 +121,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/08/12/what-comes-first/">What Comes First?</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/16/check-file-existence-javascript/">Check File Existence, Javascript (Prototype)</a></h1>
     
     
       <p class="meta">
@@ -227,7 +137,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
   
 
 
-<time datetime="2007-08-12T13:33:00-05:00" pubdate data-updated="true">Aug 12<span>th</span>, 2007</time>
+<time datetime="2008-02-16T19:17:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
         
       </p>
     
@@ -235,7 +145,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Although it&#8217;s an older essay (November, 2004), <a href="http://osteele.com/archives/2004/11/ides">The IDE Divide</a> made for some good Sunday reading. Not only is the author, <a href="http://osteele.com/blog/">Oliver Steele</a>, engaging but his visualizations are exceptional. I&#8217;d like to think of myself as a &#8220;language maven&#8221; - that is a person who puts the emphasis on language capabilities before tools - but I know that growing up in the Microsoft world as I did, I understand how big of a difference good tools can be.<br /><br />One item I don&#8217;t recall seeing in the essay was how tool mavens are responsible for their own obsolesence.  It makes perfect sense to focus on language first and be flexible with tools - and to have a good text editor you can rely upon.  I started using <a href="http://www.textpad.com">Textpad</a> first with Java and nowadays I usually don&#8217;t pass a day when I don&#8217;t open something with it - either for quick inspection of a file or to write something in perl or python.<br /><br />I know there are other good text editors out there but it seems like having good regex support and the ability to attach shell commands to keyboard shortcuts is most important.  Syntax highlighting is a nicety too although as time passes it&#8217;s not really as important to me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>If you&#8217;re like me, you spend a lot of time using System.IO and can easily check for the existence of a file on the filesystem with a File.Exists(@&#8221;C:\spam\eggs.file&#8221;)</p> <p>It&#8217;s a little surprising that I hadn&#8217;t run into it before but a few weeks ago I needed that same functionality with javascript. I found a few things online and what works best is using AJAX to make a request and check the HTTP status for whether or not the request failed.&nbsp; My approach was to use <a href="http://www.prototypejs.org/">Prototype</a> and something like this:</p><pre style="background-color: #e0e0e0">function checkForFile(imgName, displayHolder){<br />    new Ajax.Request('Repo/' + imgName + '.jpg',   <br />        {<br />        method:'get',<br />        onSuccess: function(transport){   <br />            var response = transport.status || "no response text";   <br />            if(parseInt(response) == 200){<br />                displayHolder.src = 'Repo/' + imgName + '.jpg';<br />                displayHolder.style.display='block';<br />            }<br />        },     <br />        onFailure: function(){ <br />            displayHolder.src = 'Repo/NoImage.gif';<br />            displayHolder.style.display='block';<br />        }   <br />    });     <br />}<br /></pre><br /><p> Works like a charm.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -248,7 +158,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/08/07/normalize/">!Normalize</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/16/mantras/">Mantras</a></h1>
     
     
       <p class="meta">
@@ -264,7 +174,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
   
 
 
-<time datetime="2007-08-07T23:41:00-05:00" pubdate data-updated="true">Aug 7<span>th</span>, 2007</time>
+<time datetime="2008-02-16T19:03:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
         
       </p>
     
@@ -272,7 +182,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Some time ago Jason Kottke posted <a href="http://www.kottke.org/04/10/normalized-data">an entry</a> for which quite a few people bashed him about unnecessary database normalization.  I&#8217;ve thought a lot about it since it represents some of my own internal sentiments and instincts.  The two things I observe on a regular basis that I find annoying are bad naming conventions within databases and unnecessary complexity because of overzealous normalization.<br /><br />It&#8217;s hard to have an <strike>argument</strike> discussion on the topic with people lacking experience because the penalties for bad normalization are usually paid in the long term whereas the &#8220;effeciency&#8221; of storage with normalized data seems to be an ideal to strive for when one&#8217;s perspective is short.<br /><br />I was therefore heartened to see <a href="http://blogs.msdn.com/pathelland/archive/2007/07/23/normalization-is-for-sissies.aspx">some caution from Patt Heland</a> (courtesy of <a href="http://www.25hoursaday.com/weblog/2007/08/03/WhenNotToNormalizeYourSQLDatabase.aspx">Dare Obasanjo</a> who elaborates) on the topic.  It may be a good idea to have a meeting at work and discuss some of the details given&#8230; maybe not to come to some &#8220;conclusion&#8221; or &#8220;database standard&#8221; that can apply to every situation, but more to generate good discussion and ideas.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>Some <a href="http://dormando.livejournal.com/484577.html">good things to repeat to yourself</a> from Dormando. I&#8217;ve a long way to go on so many of these and was geeky enough to give myself a scorecard. </p> <p>I&#8217;ll spare you that (after just deleting a lot of babble that would only be interesting to me) but there are two areas that I can do with some serious improvement:</p> <p>1. Relentless automation<br>It&#8217;s shameful how often I&#8217;m doing things I could easily automate (repeated FTP sessions?)<br>2. Monitoring<br>I wonder how out of line it would be to programmatically enable &#8220;breadcrumbs&#8221; for user&#8217;s activity?&nbsp; Finding out what they really used and what they insisted upon for nothing.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -285,7 +195,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/08/01/upsert-properly/">Upsert Properly</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/09/spitting-code-like-lam/">Spitting Code Like Lam</a></h1>
     
     
       <p class="meta">
@@ -301,7 +211,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
   
 
 
-<time datetime="2007-08-01T23:50:00-05:00" pubdate data-updated="true">Aug 1<span>st</span>, 2007</time>
+<time datetime="2008-02-09T11:44:00-06:00" pubdate data-updated="true">Feb 9<span>th</span>, 2008</time>
         
       </p>
     
@@ -309,7 +219,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />For the longest time, my approach to update/insert logic has been the following:<br /><br />IF EXISTS(SELECT&#8230;) BEGIN<br />   UPDATE&#8230;<br />END<br />ELSE BEGIN<br />   INSERT&#8230;<br />END<br /><br />So courtesy of .NET Kicks <a href="http://weblogs.sqlteam.com/mladenp/archive/2007/07/30/60273.aspx">this gem</a> was very informative which is the same logic but with a cleaner approach.  Instead of selecting records first, you attempt to do an update and check afterwards if the @@rowcount is greater than zero - if not the record doesn&#8217;t exist so you can move logically to an insert.<br /><br />UPDATE &#8230;<br /><br />IF @@rowcount  = 0 BEGIN<br />   INSERT&#8230;<br />END<br /><br />Nifty, very nifty.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>I started changing my Visual Studio settings after seeing Hanselman&#8217;s <a href="http://www.hanselman.com/blog/VisualStudioProgrammerThemesGallery.aspx">post</a> and thought I&#8217;d be able to spit fire like John Lam once I&#8217;d downloaded <a href="http://www.iunknown.com/2007/06/vibrant_ink_vis.html">his settings</a> (<a href="http://www.youtube.com/watch?v=BhHONpmlxPc">it&#8217;s gotta be</a> <a href="http://www.youtube.com/watch?v=qYc3cZOkwPU&amp;feature=related">the shoes</a>!). The contrast was a bit much (though working in low light helped) and after a night&#8217;s worth of being like JLam I wanted to go back to (dare I admit?) VS default settings. That didn&#8217;t work out too well (even using the &#8220;default settings&#8221; option in VS, go figure) so I opted for <a href="http://www.agileprogrammer.com/dotnetguy/archive/2006/09/07/19030.aspx">Brad Wilson&#8217;s settings</a> which I&#8217;ve grown to like.</p> <p>When the IDE &#8220;hot or not&#8221; thing first cropped up I changed settings but what makes me <em>boring</em>, preferring the default, is that I&#8217;m on a lot of machines at different times; my laptop, desktop, remote on a couple of servers, and when I help others.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -322,7 +232,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/31/fast-learning-norvigian-thinking/">Fast Learning, Norvigian Thinking</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/05/grabbing-sql-2005-blobs-with-ironpython/">Grabbing SQL 2005 Blobs With IronPython</a></h1>
     
     
       <p class="meta">
@@ -338,7 +248,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
   
 
 
-<time datetime="2007-07-31T23:44:00-05:00" pubdate data-updated="true">Jul 31<span>st</span>, 2007</time>
+<time datetime="2008-02-05T00:00:00-06:00" pubdate data-updated="true">Feb 5<span>th</span>, 2008</time>
         
       </p>
     
@@ -346,15 +256,7 @@ dude, that&#8217;s really really cool.  There&#8217;s nothing better than having
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I was looking over Justice Gray&#8217;s post on <a href="http://graysmatter.codivation.com/HowIAmBecomingABetterDeveloperPart1OfInfinity.aspx">becoming a better developer in 6 months</a> and noticed that he had listed Freidl&#8217;s <a href="http://www.oreilly.com/catalog/regex/">Mastering Regular Expressions</a> as a one week reading project.  I&#8217;ll preface my comments by admitting I am not the quickest read - unless I&#8217;m reading something I don&#8217;t particularly care about I tend to go it slow no matter what the subject matter.<br /><br />However.<br /><br />Not really thinking of connecting the dots I checked in on Jeff Freidl&#8217;s blog and digging around saw <a href="http://regex.info/blog/jfriedl-links/about/">it took him 2.5 years</a> to complete the first edition of the book.<br /><br />It strikes me as funny that there would be such a disparity in creation and consumption.  Of course I may be slow - a big part of my wanting to learn Perl was the desire to have the capacity to &#8220;think&#8221; in regular expressions - but over the last few years as I&#8217;ve gotten better and better I find it hard to think I could compensate the little projects and tools I&#8217;ve written without the pain and grit of using what I read slowly.<br /><br />But then again we can all rest assured that <a href="http://norvig.com/21-days.html">there&#8217;s no rush</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Justice~!</div>
-<div class='content'>
-I tend to be a little blessed with fast reading.  That being said, I wish I was blessed with faster writing as my list of books sorely needs updating with reviews!!<BR/><BR/>Thanks for reading!</div>
-</div>
-</div>
+<h1><font color="#0000ff">{</font></h1> <p>On Saturday I needed to grab some blob data and create files out of it. The following was some Python I used, inspired very much by this code.</p> <p>The biggest point of interest is the strongly typed array, which in IronPython is simple once you know how: using Array.CreateInstance.</p> <p>&nbsp;</p> <p>&nbsp;</p><pre>#GET IMAGES FROM IMAGE BINARY FIELD<br /># 02/02/2008 - David - @THE COMMAND CENTRE<br /><br />import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.IO import *<br /><br />CONNECT = "Data Source=(local)\sqlexpress;Initial Catalog=DATABASE;Integrated Security=SSPI"<br /><br />sql = "select ID_FIELD, BLOB_FIELD from product_set"<br />cn = SqlConnection(CONNECT)<br />cn.Open()<br />cmd = SqlCommand(sql, cn)<br />reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)<br />buffSize = 100<br />buff = Array.CreateInstance(Byte, buffSize)<br />recCounter = 0<br />while reader.Read():<br />	print "Creating " + str(reader[0])<br />	fs = FileStream(str(reader[0]) + str(recCounter) + "_diagram.png", FileMode.OpenOrCreate, FileAccess.Write)<br />	bw = BinaryWriter(fs)<br />	if(reader[1] != DBNull.Value):<br />		posit = 0<br />		b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		while(b == buffSize):<br />			bw.Write(buff)<br />			bw.Flush()<br />			posit = posit + buffSize<br />			b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		bw.Write(buff, 0, b)<br />		bw.Flush()<br />		bw.Close()<br />		fs.Close()<br />	recCounter = recCounter + 1<br /><br />reader.Close()</pre><pre><br /></pre><br /><p>I&#8217;d like to clean it up a bit, but I&#8217;ve written about <em>5,000,000 things</em> that I &#8220;intend&#8221; to clean up before posting and they&#8217;re never posted.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -367,7 +269,7 @@ I tend to be a little blessed with fast reading.  That being said, I wish I was 
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/29/remove-duplicate-lines-in-python/">Remove Duplicate Lines in Python</a></h1>
+      <h1 class="entry-title"><a href="/2008/02/04/what-comes-first-rocks/">What Comes First; Rocks</a></h1>
     
     
       <p class="meta">
@@ -383,7 +285,7 @@ I tend to be a little blessed with fast reading.  That being said, I wish I was 
   
 
 
-<time datetime="2007-07-29T23:14:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2007</time>
+<time datetime="2008-02-04T23:53:00-06:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
         
       </p>
     
@@ -391,30 +293,7 @@ I tend to be a little blessed with fast reading.  That being said, I wish I was 
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I had posted about the set operator in Python with some questions.  All that changed today when I wrote a little script to remove duplicate lines from a file. The set operator takes a list and automatically gets rid of duplicate items.  Very useful for situations like this:<br /><br /><pre style="margin: 1em 0pt; padding: 10px; background: rgb(0, 0, 0) none repeat scroll 0% 50%; overflow: auto; font-family: courier; font-size: 12pt; color: rgb(238, 238, 238); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; width: 425px;"><br />#!/usr/bin/env python<br /><br />f = open("c:\\temp\\Original.txt")<br />f2 = open("c:\\temp\\Unique.txt", "w")<br />uniquelines = set(f.read().split("\n"))<br />f2.write("".join([line + "\n" for line in uniquelines]))<br />f2.close()<br /></pre><br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Ramen</div>
-<div class='content'>
-But the problem is the set operator automatically sort after removing the duplicate&#8230;What if we don&#39;t want to change the order&#8230;</div>
-</div>
-<div class='comment'>
-<div class='author'>Covert Assassin</div>
-<div class='content'>
-Hi.. I just used this one to eliminate duplicates in my file. I would like to know more about this function set. I&#39;m seriously left wondering how did such few LOC do that perfectly?! Any thoughts?</div>
-</div>
-<div class='comment'>
-<div class='author'>G.T. Rajpurohit</div>
-<div class='content'>
-it is great.<br />but it alter the sequence of file in it</div>
-</div>
-<div class='comment'>
-<div class='author'>Admin</div>
-<div class='content'>
-Superb!<br /><br />I had a database in filemaker with 250000 records and had written a script to delete duplicates. I was looking at around 24 hours to run that in Filemaker.<br /><br />Exported it as a CSV and ran your code in Python. Took less than 3 seconds and spat out a CSV that I imported back to filemaker.<br /><br />Thank you!</div>
-</div>
-</div>
+<h1><font color="#0000ff">{</font></h1> <p>Oliver Steele has a new essay entitled <a href="http://osteele.com/archives/2008/02/project-drag">Adding the Easy Piece; or, The Metaphor of the Rock</a>.&nbsp; Insightful as usual, and I love the visualizations.</p> <p>Personally, I&#8217;m experiencing the effects of pushing a rather large rock around a room.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -427,7 +306,7 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/21/shuffled-arrays/">Shuffled Arrays</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/30/scott-mccloud-four-tribes-developer/">Scott McCloud&#8217;s Four Tribes - Developer Edition</a></h1>
     
     
       <p class="meta">
@@ -443,7 +322,7 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
   
 
 
-<time datetime="2007-07-21T22:47:00-05:00" pubdate data-updated="true">Jul 21<span>st</span>, 2007</time>
+<time datetime="2008-01-30T23:57:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2008</time>
         
       </p>
     
@@ -451,7 +330,7 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One of my weaknesses is that I love puzzles.  And once I&#8217;m puzzle solving, I usually dwell on the problem beyond its worth.  I recently saw a job ad - I&#8217;ll leave this post disconnected - that had a quiz associated with it.  The quiz amounts, basically, to shuffling items in an array (javascript). <br /><br />My first stab was intuitive, but I wonder if it&#8217;s the most optimal because it relies on a lot of discarded data.  In my loop generating a random order, I essentially go through an undetermined amount of times discarding results that already exist in the randomized array.  Additionally the array with random numbers is just for positioning and is probably unnecessary. <br />Here is the code:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />function BuildArray(){<br /> // just builds a random array to work with<br /> var testArray = new Array();<br /> testArray.push('Test 0');<br /> testArray.push('Test 1');<br /> testArray.push('Test 2');<br /> testArray.push('Test 3');<br /> return testArray;<br />}<br /><br />function GetShiftOrder(testObject){<br /> // this is what sorts things out<br /> var upperBound = testObject.length;<br /> var newOrder = new Array();<br /> var shuffledArray = new Array();<br /> builder:<br /> while(newOrder.length < upperBound){<br />  n = parseInt(Math.random() * upperBound);<br />  for(i=0;i&lt;newOrder.length;i++){<br />   if(newOrder[i] == n){<br />    continue builder;<br />   }<br />  }<br />  newOrder.push(n);<br />  shuffledArray.push(testObject[n]);<br /> }<br /> alert(newOrder + '\n' + shuffledArray);<br />}<br /></pre><br /><br />I was thinking about this today and it may be more effecient to make a random number of passes at the array swapping pairs of items.  A shuffling cards approach may be slightly more effecient although to have meaningful swaps there would need to be a minimum number of passes - and additional complexity with making sure pairs were swapped in random pattern.<br /><br />Anyway, it was interesting and I&#8217;m always curious about more elegant solutions.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}<br /></span></div>
+<h1><font color="#0000ff">{</font></h1> <p>Last year I was fortunate to catch <a href="http://www.scottmccloud.com/">Scott McCloud</a> here in Sioux Falls. It&#8217;s doubtful that he&#8217;d ever find his way here under normal circumstances but he was doing a 50 state tour in support of his book, &#8221;<a href="http://www.amazon.com/Making-Comics-Storytelling-Secrets-Graphic/dp/0060780940">Making Comics</a>.&#8221;&nbsp; I believe a dual aim was to provide his two young daughters, who travelled and presented with him, an experience of a lifetime.&nbsp; </p> <p>I was particularly struck with a classification he had for comic (and indeed all types) artists.&nbsp; He placed them into four quadrants:</p> <p><img src="http://seruyange.com/metadeveloper/mccloud02.jpg"> </p> <p>Here is a quote of <a href="http://webcomicsreview.com/?p=151">an explanation</a> of how the classifications work:</p> <blockquote> <p>Those who value draftsmanship the most, and who are the most invested in the idea of mastery, beauty, and craft find themselves on the opposite side of the fence from those whose strongest values are raw honesty, authenticity, and a kind of rebellion against the status quo. That dichotomy comes between what I call the classicists and the iconoclasts. The children of Hal Foster versus the children of R. Crumb.  <p>That’s the truth and beauty diagonal that separates two of the four tribes. The other two corners are the formalists and the animists, who represent the distinction between form and content. The formalists like to experiment and take the medium apart, figure out how it works and put it back together, and try new things; while the animists really just like to tell a compelling story, and want the form to vanish, to become transparent, so that you don’t know you’re reading a comic at all.</p></blockquote> <p>I wonder how well these notions apply to the practice of programming.&nbsp; I can easily see the classicist: mastery, beauty, and craft - the person who uses things like recursion excessively for the computer science elegance they bestow.&nbsp; Opposite them, I see the iconoclast -&nbsp; the hacks that make things work and could care less about the principles or structure of a thing and instead devote themselves to the beauty of experience. </p> <p>I think the animists and formalists can be distinguished as well by the metric of language/tool preference.&nbsp; The obsessives of language would seem to tend toward formalism and understanding every moving part.&nbsp; An animist may be the type of person who excels at making a tool do legwork with no particular interest in exactly what that tool is baking under the covers.&nbsp; </p> <p>Of course we all will have elements of each but I like to think of myself patterned after Scott McCloud. The formalist who might write the same software over and over in different languages just to see how expression and power vary at the lowest levels.</p> <p>Interesting food for thought.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -464,7 +343,7 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/19/codepress/">CodePress</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/29/java-programmers-on-windows-forms-team/">Java Programmers on Windows Forms Team?</a></h1>
     
     
       <p class="meta">
@@ -480,7 +359,7 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
   
 
 
-<time datetime="2007-07-19T22:59:00-05:00" pubdate data-updated="true">Jul 19<span>th</span>, 2007</time>
+<time datetime="2008-01-29T23:02:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2008</time>
         
       </p>
     
@@ -488,7 +367,81 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;m taking a serious look at <a href="http://codepress.org/index.php">CodePress</a>. Very, very, very cool.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>Randomly: worked with the <a href="http://msdn2.microsoft.com/en-us/library/system.windows.forms.checkedlistbox.aspx">CheckedListBox</a> tonight. It&#8217;s interesting to run into &#8220;getter/setter&#8221; type methods in the .NET universe.&nbsp; One would assume a collection that specifically supported setting constituent objects as &#8220;selected&#8221; or &#8220;checked&#8221; but instead there are methods like: GetItemCheckedState and SetItemCheckedState.</p> <p>It would be interesting to have the Windows Forms equivalent to the <a href="http://www.amazon.com/Framework-Standard-Library-Annotated-Reference/dp/0321154894">annotated base class library reference</a>. Perhaps tomorrow I&#8217;ll try to peak at the source code.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/29/disturbing-news/">Disturbing News</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-29T22:52:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <blockquote> <p>&#8220;I am going to tell you something that will disturb you. You might laugh, but it will be a cold uncertain laugh that will haunt you as you read on, because somewhere deep down you&#8217;ll know it to be true. You might brush it off, get on with your day, yet sometime later, a week or a year, it will seep back in and unsettle you to the core. From that moment on you will be changed. You will think different, act different and will fundamentally be different. So take a moment to prepare yourself now, breath deeply, clear your mind and open up to the possibility that <strong>building software is hard</strong>.&#8221;</p></blockquote> <p>Interesting <a href="http://blogs.msdn.com/mattwar/archive/2007/10/17/primal-development-methodology.aspx">thoughts</a> from <strong>The Wayward Weblog</strong>.&nbsp; </p> <p>&nbsp;</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/25/not-engineer/">Not an Engineer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-25T01:13:00-06:00" pubdate data-updated="true">Jan 25<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Ravi Mohan makes the provocative, if not new <a href="http://ravimohan.blogspot.com/2008/01/ratcatchers-and-engineers.html">claim</a> (with <a href="http://ravimohan.blogspot.com/2008/01/so-whats-wrong-if-you-arent-engineer.html">follow up</a>) that programmers are not engineers. I take the majority of his quibble to be the title some flaunt: &#8220;software engineer.&#8221;</p> <p>I&#8217;ve never felt able to use &#8220;engineer&#8221; for myself, but I don&#8217;t perceive this badly. My official title is &#8220;software architect&#8221; though most of my day is not spent on architecture.</p> <p>It&#8217;s a bit postmodern of me but<strong><em> does anyone&#8217;s title mean much?</em></strong>&nbsp; Short of very specialized work, one must have multiple skillsets for the different roles they are cast in on a daily basis. </p> <p>I have to do the following, fairly regularly:<br>1. Write Code<br>2. Write Specs<br>3. Customer Service<br>4. Testing<br>5. Write Proposals<br>6. Mentor<br>7. Marketing</p> <p>I&#8217;m owning up to a lot of stuff, particulary #7, that I would never admit to for the sake of saying that most jobs these days require multiple intelligences.</p> <p>Think <a href="http://www.calatrava.com/main.htm">Santiago Calatrava</a>: engineer, architect, artist. And he deals with clients, too.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -517,19 +470,19 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

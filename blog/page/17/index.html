@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{I pretty much broke down after TechEd. I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to &hellip;">
+  <meta name="description" content="{ I did the switch back for a project that a VBA enlightened client requested but I kept finding myself asking how to syntactically do what I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/15/sieve-of-eratosthenes-python-set/">Sieve of Eratosthenes, Python, Set Operations</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/24/temporary-switch-back-c-to-vbnet/">Temporary Switch Back: C# to VB.NET</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2007-07-15T23:22:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+<time datetime="2008-01-24T22:23:00-06:00" pubdate data-updated="true">Jan 24<span>th</span>, 2008</time>
         
       </p>
     
@@ -95,13 +95,13 @@
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I pretty much broke down after TechEd.  I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to learn it, whitespaces or no.<br /><br />The first thing I did was check out Guido van Rossum&#8217;s tutorial for programmers, which was an excellent first step.  I&#8217;ve followed that up with some random programming - a lot of fun so far.<br /><br />I was wondering about the set operations in python and how that made a difference in programming since there aren&#8217;t syntactical equivalents in .NET.  Incidentally at the time I was reading The Man Who Loved Only Numbers and ran across a short description of the Sieve of Eratosthenes as a way of finding primes.  I thought it would be a good way to check out the set operations of Python.<br /><br />I wrote the following:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />def multiples(num, thresh):<br /> multi = []<br /> for i in range(2,thresh):<br />  m = num * i<br />  if(m < thresh):<br />   multi.append(m)<br />  else:<br />   break<br /> return multi<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> nums = set(nums) - set(multiples(n, primeThresh))<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />Interesting, but slow.  The way I may do something like that in C# (which also works just fine in Python) would be this, which I wrote later:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> for m in range(2,primeThresh):<br />  try:<br />   mult = n * m<br />   if(mult > primeThresh):<br />    break<br />   nums.remove(mult)<br />  except:<br />   pass<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />It&#8217;s a lot faster than the previous approach which makes sense - doing set algebra on large sets should take a long time&#8230; but that begs the question: are those set operations dangerous (ie. so slow as to be costly).<br /><br />I&#8217;m wondering what&#8217;s &#8220;pythonic&#8221; and how a jedi would write this most effeciently.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>I did the switch back for a project that a VBA enlightened client requested but I kept finding myself asking how to syntactically do what I usually do in C# (especially inheritance-wise) in VB.NET.&nbsp; Terry Smith has a handy <a href="http://www.terrysmith.net/software/dotnet_ebook/index.html">online book</a> that has a comparison so that you can easily figure out what the VB.NET syntax is for what you know how to do in C#. I&#8217;m not sure when it was written; no word on Generics but that&#8217;s an easy enough syntax to duplicate with (Of T) rather than angle brackets.&nbsp; What throws me off in addition to the inheritance verbosity are a lot of the array related casting operations that seem intuitive now in C# like:</p> <p><font face="Courier New" size="2">Dim dropRows As Row() = e.Data.GetData(GetType(Row()))</font></p> <p>Of course with the latest developments in VB.NET, I may end up using the language enough to make all of this easy to recall from memory.&nbsp; </p> <p>As much as I want to join the <a href="http://www.hanselman.com/blog/CategoryView.aspx?category=VB">Red Sox fans</a> in cheering for VB, there are still many things that annoy me about the language.&nbsp; Line continuation characters are at the top of the list, and case insensitivity closely following. Yes, I strongly dislike case insensitivity in a programming language.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>marc.gaudette</div>
+<div class='author'>Terry Smith</div>
 <div class='content'>
-I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re interested in the sieve, site www.primestructure.com has an extensive discussion re. adding structure to it.<BR/><BR/>Marc</div>
+Hey David,<BR/><BR/>Thanks for the link to my eBook! <BR/><BR/>It&#8217;s getting a bit dated now I admit. I haven&#8217;t updated it since .NET 1.1. <BR/><BR/>I&#8217;m glad some folks are still finding it useful though!<BR/><BR/>Terry</div>
 </div>
 </div>
 </div>
@@ -116,7 +116,7 @@ I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re inter
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/07/15/being-better/">Being Better</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/22/up-in-ruby-club/">Up in the (Ruby) Club</a></h1>
     
     
       <p class="meta">
@@ -132,7 +132,7 @@ I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re inter
   
 
 
-<time datetime="2007-07-15T00:27:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+<time datetime="2008-01-22T13:50:00-06:00" pubdate data-updated="true">Jan 22<span>nd</span>, 2008</time>
         
       </p>
     
@@ -140,124 +140,18 @@ I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re inter
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I probably won&#8217;t be officially &#8220;tagged&#8221; but a meme is going around about what one would do in the next 6 months to become better.  Hanselman, in his podcast, spoke of a few things and the responses seem to be going up around the blogs. <br /><br />How will I be better? Most of the things people mentioned are things I already try to do: reading technical books, working on my software, looking at open source, training others&#8230; but one thing I want to do is to start posting code. <br /><br />I write a lot of code and much of it doesn&#8217;t make it here because I&#8217;m sheepish about looking foolish.  But getting better is about having courage to show my work because without that, how could it get any better? <br /><br />I&#8217;m going to start with my JAPH, a program that prints &#8220;Just Another Perl Hacker.&#8221;  It&#8217;s meant to be novel and I actually like mine since it leverages some language features that don&#8217;t exist in my mainstay, C#.  The map operation can visit each item on an array performing some opertion - in this case I&#8217;m using a regular expression on each item and grabbing alternating characters! I haven&#8217;t been writing perl for a long time so hopefully over time I can claim a better one but at least this is my own thinking at play, destined for improvement.  I did post it on usenet (a first version which had some foolish mistakes) but this is after a little bit of massage:<br /><br /><span style="font-size:85%;"><span style="font-family: courier new;">#!/usr/bin/perl -w</span><br /><span style="font-family: courier new;"># David&#8217;s JAPH, volume 0.1</span><br /><span style="font-family: courier new;">map(print(/(\w)\w/g,&#8221; &#8220;),</span><br /><span style="font-family: courier new;">qw(Jaubsctd Aenfogthhiejrk Plemrmln Hoapcqkresrt));</span></span><br /><br />The <a href="http://www.ibm.com/developerworks/library/l-japh.html">original JAPHs</a>, from Randall Schwartz, were not really about obfuscation but more about language features.  The use of map, regular expressions, and $_ in the above are what make it interesting to me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/07/14/jlam-on-dnr/">JLam on DNR</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-14T16:48:00-05:00" pubdate data-updated="true">Jul 14<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I never mind a long drive with a podcast.  A few days ago I listened to <a href="http://www.dotnetrocks.com/default.aspx?showNum=254">John Lam on Dot Net Rocks</a>.  I&#8217;ll admit that sometimes the DNR people can be annoying to me (think Richard Campbell saying over and over like it&#8217;s a joke &#8220;Managed JavaScript??&#8221;) but it was all worth it to hear some of the internal goings on with the Iron Ruby project.<br /><br />Gleaning: Iron Ruby is a ways off.  I got somewhat impatient and have been using IronPython in the meantime, but more on that later.  That&#8217;s not a small decision for me because I am of <a href="http://norvig.com/21-days.html">the Norvig perspective</a> on learning a new language - it takes the length of time needed to think in terms of the idioms of that language, as opposed to just writing your code with different syntax and keywords (ala writing C# in Ruby).<br /><br />Gleaning: Ruby is a powerful language for creating domain specific languages.  That meme has been floating in my head for a while - listened to a good <a href="http://www.se-radio.net/index.php?post_id=195834">Software Engineering Radio podcast</a> on the topic sometime back.<br /><br />Gleaning: JLam talks a bit about how the learning curve for new languages these days revolves around the frameworks for languages - I think the idea of Ruby combined with .NET is that the .NET libraries will fill a gap that Ruby has always missed in library support.  Dangerous or brilliant?  In other words, I&#8217;m sure the open source crowd (is/will be) up in arms because this will, in their minds, dilute the community effort behind a language.  Brilliant because the Mort you know (who is probably your boss) will have a better level of confidence about using it.<br /><br />Gleaning: Iron Ruby is implemented in C# but Managed Javascript for Silverlight is a VB.NET implementation!<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/07/02/true-story-cat-ate-my-source/">True Story: The Cat Ate My Source</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-02T22:56:00-05:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />A security issue prompted my ISP to change passwords for all users.  Normally, this wouldn&#8217;t be a problem - I&#8217;d go to my repository of code, divided at present by year in a &#8220;Code05,&#8221; &#8220;Code06,&#8221; &#8220;Code07&#8221; format and update a constant in my Constants class and *presto* the connectivity would be back.<br /><br />Problem is, what if I have to go back more than 3 years? <br /><br />I&#8217;m usually not that irresponsible.  In fact, I&#8217;m fiendish about backing things up.  Yes, I use source control, even on my own little-bitty projects that matter to no one but me.  But my mistake was using an external drive - a flakey one - which died after I&#8217;d had to reformat/reinstall.  I&#8217;d backed everything up to it, and my data was gone.<br /><br />Edge case since I&#8217;d after the reinstall I&#8217;d moved what was important back to the machine.  Edge case because it was in a &#8220;code archive&#8221; that was something like 6 years old - code that was so long forgotten it was like a head bludgeon when I got a phone call from the client saying that their site was down. <br /><br />After panicking and looking for some accidental backup (why do we look for things when we know they&#8217;re gone for good?) I had an epiphany. <br /><br />I downloaded the *.aspx pages and the site dll - I then used <a href="http://www.aisto.com/roeder/dotnet/">Reflector</a> to disassemble and - I kid you not - 15 minutes later the client was up and running. <br /><br />And yes, I kept the source&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/06/25/mac-history/">Mac History</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-06-25T23:06:00-05:00" pubdate data-updated="true">Jun 25<span>th</span>, 2007</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />It&#8217;s strange that I&#8217;ve had a long relationship to Apple&#8217;s products - or perhaps not if you&#8217;re a believer and consider their reach unremarkable&#8230;<br /><br />Growing up in Nairobi, a missionary&#8217;s kid next door had an Apple IIc he&#8217;d occasion to let me use (more often I&#8217;d simply watch him using it).  A few years later, I spent time in my <a href="http://www.rosslynacademy.com/">high school</a> computer classes using Apple IIe computers - for the most part it was typing but I had moments of the extracurricular. <br /><br />My freshman year of <a href="http://www.biola.edu/">college</a> (1993), after many months hovering around the computer store, drooling and daydreaming, a family gifted my sister and I with a Powerbook 160.  The little Powerbook that could took us through the college years although by the end it was on its last legs -<br /><br />&#8230; after which I took a long departure from the Apple universe. I began working with PCs and forgot how much fun it was to pick icons, leverage a trackball, and use the Finder. <br /><br />After talking my boss into it, however, a year ago I got the priviledge of using Macs again with a company owned, David leveraged iBook G4.  It&#8217;s still a foreign environment but it&#8217;s nice to return to - especially last week after my HP laptop needed to be reinstalled after catching a virus.<br /><br />All this to post that there is <a href="http://tofslie.com/work/apple_evolution.jpg">this interesting graphic</a> of Macs in time, with most of my old friends along the way.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>A while back I had a phone call from a woman with an eastern European accent wondering if I would be willing to take a survey.&nbsp; I&#8217;m usually an instant no to queries like this but she knew my Achilles heel: <br><br>&#8220;Participants get $50 Amazon Gift Certificate&#8221;</p> <p>So a few days ago my inbox chimed with an email with the gift certificate in tow. I didn&#8217;t hesitate with my purchase of <a href="http://www.amazon.com/dp/0596516177?tag=davidflanagancom&amp;camp=14573&amp;creative=327641&amp;linkCode=as1&amp;creativeASIN=0596516177&amp;adid=1B3W8X81CQ0JC1RK934N&amp;">David Flanagan&#8217;s Ruby book</a>.&nbsp; </p> <p>As an aside, it seems that Flanagan got some <a href="http://www.davidflanagan.com/blog/2008_01.html#000149">flack</a> from a Gilles Bowkett on not being a bona fide Ruby person. If Flanagan isn&#8217;t <em>cultured enough</em> to do Ruby, I&#8217;m in trouble&#8230; </p> <p>&#8230; but I&#8217;ve been in trouble most of my short puff anyway.</p> <p>On a serious note: the &#8220;up in the club&#8221; attitude of some (okay, mostly Rails) Ruby people is what is driving a <a href="http://reddit.com/r/programming/info/666i4/comments/">backlash</a> against Rails and Ruby in general.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>depola</div>
+<div class='author'>Giles Bowkett</div>
 <div class='content'>
-Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 years (since my stepsister had one) I&#8217;ve been poring through my own Mac for a couple years now.  It&#8217;s renewed my faith in the ability of man to guide a machine, and not vice versa.</div>
+Also, there&#8217;s just one L. Giles, not Gilles. &#8220;Jy-ulz&#8221;, not &#8220;Jeel.&#8221; Giles is British, Gilles would be French.</div>
+</div>
+<div class='comment'>
+<div class='author'>Giles Bowkett</div>
+<div class='content'>
+On the one hand, David F. sent me a really angry e-mail which, and this is unusual for angry e-mails, was full of logical argument, and which really delivered more fairness than my anti-Flanagan screed had earned. So I have to give him full credit. I felt like I&#8217;d been a total dick.<BR/><BR/>On the other hand, there is a kind of locusts effect going on in the Ruby/Rails community. As long as I can buy groceries and such, I&#8217;m totally willing to risk a backlash, because I think the forward-lash was really overkill. Ruby doesn&#8217;t need to be such a big deal. It&#8217;s not supposed to be the next big thing. It&#8217;s supposed to be an enjoyable language to code in.<BR/><BR/>People who only notice a community once it becomes a profitable market, and who come to a community looking for ways to exploit it, are going to create remarkably different books from people who love a community and became part of it long ago when no money was at stake.<BR/><BR/>Since I discovered Ruby via Rails, I came in with the first wave of locusts, but I have to say the old-schoolers who do it because it makes them happy appeal to me very much more than someone who&#8217;s written a bunch of stuff for a dominant publisher based at least partly on what the market seems to want at any particular time.<BR/><BR/>I would very emphatically recommend picking up Hal Fulton&#8217;s book before even giving Flanagan&#8217;s a chance at all.<BR/><BR/>It&#8217;s true there&#8217;s snobbery in the Rails world and it&#8217;s true that for the most part it&#8217;s nothing to be proud of. If it&#8217;s any consolation, I antagonized David Hansson, who created Rails and is therefore the absolute definition of Rails &#8220;cool,&#8221; at least as badly as I antagonized Flanagan. Don&#8217;t go misjudging an entire community just because I have this incredible way of pissing people off. I&#8217;m kind of thinking that that&#8217;s just me.</div>
 </div>
 </div>
 </div>
@@ -272,7 +166,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/06/25/yegge-nbl/">Yegge, NBL</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/18/nutrition/">Nutrition</a></h1>
     
     
       <p class="meta">
@@ -288,7 +182,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
   
 
 
-<time datetime="2007-06-25T12:39:00-05:00" pubdate data-updated="true">Jun 25<span>th</span>, 2007</time>
+<time datetime="2008-01-18T08:16:00-06:00" pubdate data-updated="true">Jan 18<span>th</span>, 2008</time>
         
       </p>
     
@@ -296,7 +190,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />John Lam <a href="http://www.iunknown.com/2007/06/steve-yegge-por.html">reports</a> that <a href="http://steve-yegge.blogspot.com/">Steve Yegge</a> revealed a Javascript implementation of the Rails framework at this weekend&#8217;s &#8220;Foocamp.&#8221;  Having just finished   Yegge&#8217;s most recent post <a href="http://steve-yegge.blogspot.com/2007/06/rich-programmer-food.html">Rich Programmer Food</a> this weekend, and following his <a href="http://steve-yegge.blogspot.com/2007/02/next-big-language.html">NBL (Next Big Language) post</a> from a while back, the dots seem to be connected.  It seems early even among technical blogs but I suspect information will start to seep out in the short future.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>I just looked at Oliver Steele&#8217;s <a href="http://osteele.com/archives/2008/01/programmers-pyramid">programmer&#8217;s food pyramid</a> and did a self evaluation of sorts. I know that I err too much on the reading of &#8220;blogs&#8221; versus reading long prose about programming.&nbsp; That&#8217;s something to change this year.</p> <p>As well I use libraries a lot without digging into anything once my problem solving is done.&nbsp; I think there&#8217;s a form of mental stamina in digging deeper into a problem once you&#8217;ve apparently solved it - my instinct is to simply move on and try to tackle what&#8217;s next.&nbsp; Now that the .NET Framework code is <a href="http://weblogs.asp.net/scottgu/archive/2008/01/16/net-framework-library-source-code-now-available.aspx">available</a>, that and <a href="http://www.dojotoolkit.org/">other</a> <a href="http://script.aculo.us/">libraries</a> should occupy my reading time.</p> <p>While I don&#8217;t struggle with the inclination to write code, I&#8217;ve long since thought it&#8217;s better to try to write different types of applications and build some breadth.&nbsp; Especially after my umpteenth web based CRUD app, I&#8217;m now interested in blending Windows Forms and Web stuff in the small variety of utilities that I compulsively write.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -309,7 +203,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/06/22/ndepend-vs-me/">NDepend vs Me</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/16/what-it-worth/">What&#8217;s It Worth?</a></h1>
     
     
       <p class="meta">
@@ -325,7 +219,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
   
 
 
-<time datetime="2007-06-22T00:02:00-05:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2007</time>
+<time datetime="2008-01-16T23:14:00-06:00" pubdate data-updated="true">Jan 16<span>th</span>, 2008</time>
         
       </p>
     
@@ -333,7 +227,20 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I didn&#8217;t manage a blog post during TechEd but I&#8217;ll take a stab at a few things that have swilled in my mind since then.  The first thing I&#8217;ve been working on is understanding <a href="http://www.ndepend.com/">NDepend</a>, the tool for static analysis.  I went to a &#8220;Birds of a Feather&#8221; spearheaded by <a href="http://www.cauldwell.net/patrick/blog/">some</a> <a href="http://ferncrk.com/blog/">folks</a> from Corillian and had to keep my mouth shut tight so as not to look a fool. Luckily many of the folks there were like me: they knew about static analysis as a concept but were trying to figure out how they could make good use of it.<br /><br />It will be quite some time before we have static analysis as a part of our build process but I&#8217;m most interested in using a tool like NDepend to take the emotion out of code reviews.  That is to say that while I do love a vigorous discussion on style and preference, there are concrete measures one can look at objectively to evaluate the well being of software design.<br /><br />While I&#8217;m shaky on the exact meaning of all the metrics (it was suggested to run repeatedly looking for trends) I ran it against a project that has pretty much taken my thirty first year on this earth.  For a while that&#8217;s been on my &#8220;to do&#8221; list but I think there&#8217;s always a bit of hesitancy on my part when I&#8217;m about to be brutally honest with myself; I designed this software and wrote quite a bit of the code. <br /><br />The results weren&#8217;t great, but they weren&#8217;t horrible.  When I used it on the libraries by themselves, the visualizations of the dependencies seemed clean and tidy, and many of the metrics weren&#8217;t too badly outside of some of the pointers in <a href="http://www.hanselman.com/blog/EducatingProgrammersWithPlacematsNDependStaticAnalysisPoster.aspx">the cheat sheet</a> we got.<br /><br />However.<br /><br />There are some obvious weaknesses that came to light.  First and foremost, we were solidly in the zone of instability for most of our assemblies.  There are two things that were suspicions now confirmed: first, we didn&#8217;t have a very formal design process.  I need to get better at perceiving my job at an architect level versus as a coder.  The second is that we rushed.  The rush was not just a schedule thing, it can also be attributed to our short release cycles.  The agile folks recommend these, but it should be balanced with a period of silence at the beginning when overall design decisions are being made.  The final item, which NDepend would have helped us with in a continuous integration cycle, was showing unused code.  After a year&#8217;s worth of work it&#8217;s hard to look at so much and except oneself to clean it up, but as a weekly task it would be an easy way to keep things healthy and tight.<br /><br />Final note: running NDepend is ridiculously easy.  The hardest thing besides looking at metrics and trying to understand them is having the courage to look objectively at what you&#8217;ve done.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>In the wake of all the plastic surgery and body augmentation going on around, a developer like myself can feel a little out of place - out of century to be more exact.&nbsp; </p> <p>And yet, whether he&#8217;s joking or not, I&#8217;m half tempted by Wesner&#8217;s <a href="http://wesnerm.blogs.com/net_undocumented/2008/01/performance-enh.html">admission</a> to &#8220;performance enhancers.&#8221; </p> <p>But the thing I know with certainty is that being productive will only beget the desire to be more productive. Instead of learning and implementing 4 technologies, it will be 8.&nbsp; I&#8217;ll pile more home projects and &#8220;meware&#8221; until I&#8217;m aching for another 5 or 6 hours a day.</p> <p>In a world that has the audacity to produce ridiculously smart people who are subject to <a href="http://wesnerm.blogs.com/net_undocumented/2004/09/if_i_were_smart.html">feeling</a> that yet others are &#8220;smarter&#8221; I may as well hold.</p> <p>But it&#8217;s tempting&#8230; maybe until I know F# and then I&#8217;ll hold&#8230; </p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Catherine</div>
+<div class='content'>
+&#8220;Just one more language&#8230; one more and then I&#8217;ll be fine&#8230;&#8221;<BR/><BR/>I&#8217;ve been thinking about this the last couple weeks.  (1) I&#8217;m in danger of letting work take over my life.  (2). OTOH, isn&#8217;t it great to have a job that so fun that you kind of *want* it to take over your life?</div>
+</div>
+<div class='comment'>
+<div class='author'>jrepp</div>
+<div class='content'>
+I drink a good amount of coffee at work but not nearly as much as I used to. I assume that would be considered the default performance enhancer for many programmers. I also find that if I stay up late I get a nice boost of energy around 10pm, midnight and 2am. I personally think finding your own personal biorhythm and combining with a small amount of coffee if you need to boost your lows is the best policy to sustained productivity and a healthy body and brain.</div>
+</div>
+</div>
 </div>
   
   
@@ -346,7 +253,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/06/21/slowly-back/">Slowly Back</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/12/1375-hours-codemash/">13.75 Hours, CodeMash</a></h1>
     
     
       <p class="meta">
@@ -362,7 +269,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
   
 
 
-<time datetime="2007-06-21T21:14:00-05:00" pubdate data-updated="true">Jun 21<span>st</span>, 2007</time>
+<time datetime="2008-01-12T23:09:00-06:00" pubdate data-updated="true">Jan 12<span>th</span>, 2008</time>
         
       </p>
     
@@ -370,7 +277,20 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
 
 
   <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />After a weekend with a virus, and a horrible waste of time, I&#8217;ve got a clean installation of XP. The upside was that it forced me back to the iBook G4 that&#8217;s been a little lonely without me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>I earned the reputation as &#8220;the guy from South Dakota&#8221; at CodeMash; many people were amazed that I took it upon myself to drive just under 14 hours both there and back for the conference.</p> <p>What would they have done if I told them I also:<br>a) took time off from work<br>b) paid for it out of pocket<br>c) drove my own car</p> <p>But I think it&#8217;s not *that* strange. Staying at work would have meant the same old stuff I do every day all year and instead I got to see some of the best Einstein&#8217;s presenting on Python, DSLs, Dojo, REST, and IIS7. I made some friends as well and on top of that got to kick it with Scott Hanselman.&nbsp; All for the cost of a long drive with an audio book.</p> <p>I had <a href="http://metadeveloper.blogspot.com/2007/12/codemash-i-be-there.html">posted</a> on sessions I wanted to see, here&#8217;s a little rundown of memorable sessions I actually attended:</p> <p>1. <a href="http://www.nealford.com/">Neal Ford&#8217;s</a> keynote &#8221;<em>Software Engineering &amp; Polyglot Programming</em>&#8221;</p> <p>Neal&#8217;s one of those sedate cognoscenti who don&#8217;t appear to have an emotional angle on platforms, just a sense of design and engineering that they wish to communicate.&nbsp; In his talk he urged developers towards the notion of language as a tool, and that dynamic languages take us places that our old friends in the static realm cannot.&nbsp; He made a reference to <a href="http://www.developerdotstar.com/mag/articles/reeves_design_main.html">Jack Reeve&#8217;s essay</a> which I&#8217;ve <a href="http://metadeveloper.blogspot.com/2006/06/code-as-design-implications-for.html">written about</a> before, and said a few times the following phrase which I thought was apt: <br>&#8220;Testing is the engineering rigor of software development.&#8221; </p> <p>If I could have asked Neal, I&#8217;d have wanted some comment on something I posted some time back - Oliver Steele&#8217;s blog post on <a href="http://osteele.com/archives/2004/11/ides">The IDE Divide</a> in which he divides developers into the Language Mavens and Tool Mavens.&nbsp; I think Neal&#8217;s perspective was very much that of a language versus tool maven.</p> <p>2. <a href="http://catherinedevlin.blogspot.com/">Catherine Devlin&#8217;s</a> &#8221;<em>Crash, Smash, Kaboom Course in Python</em>&#8221; <br>Great talk on Python fundamentals while illustrating a universe simulator library (forget the name).&nbsp; I&#8217;ve been trying to pick up Python for some time and much of what I got was from watching Catherine&#8217;s use of the language in her demos.&nbsp; The one bummer: I was using a Python distribution from my iBook (Mac OSX) that didn&#8217;t include the Python modules she was demonstrating with. Even more of a bummer: in my hotel room a different laptop was running Ubuntu with just the modules needed to follow along with her in code.</p> <p>3. <a href="http://www.blueskyonmars.com/">Kevin Dangoor</a> on Dojo<br>I may have made Kevin feel uncomfortable with how happy I was to see this talk (he did a great job) but I&#8217;ve felt quite alone over the last two-ish years working with javascript libraries.&nbsp; I used jQuery heavily for my tool &#8221;<a href="http://www.t3rse.com/proper/">proper</a>&#8221; after which I used Prototype/Scriptaculous for a few other projects.&nbsp; I then switched to YUI for <a href="http://www.nregex.com">nRegex</a> so I&#8217;d been around the block with my frameworks with only Dojo missing.&nbsp; Dojo seems to go beyond these other frameworks just on its ambition alone and I&#8217;m wondering if that can translate into a happy mix with the heavyweight stuff I have to do at work with ASP.NET.&nbsp; </p> <p>4. <a href="http://www.diditwith.net/">Dustin Campbell</a> on F#<br>Dustin gave a deft introduction to the F# language which had to be the biggest thoughtbludgeon I got during the conference.&nbsp; I&#8217;ve listed F# as <a href="http://metadeveloper.blogspot.com/2007/12/someday-language-f.html">my &#8220;someday language&#8221;</a> and it will remain so since Ruby will occupy my time along with Python in learning mode over the next year or so. Nevertheless, it was good to see a demonstration of the language and some of the implications thereof.</p> <p>5. Kevin Dangoor on Gears and Dojo (DojoX Offline)<br>The second session I sat in on with Kevin, this dealing with Dojo&#8217;s offline capabilities in large part courtesy of Google Gears.&nbsp; It was as good as the first Dojo session and left my mind popping with ideas for leveraging that functionality.&nbsp; <br>Soon - I&#8217;d say around the release of Silverlight 2.0 - people like me are going to face a fork in the road of using browser plugins and thick (they use the word &#8220;rich&#8221;) vendor technologies, or using javascript and existing web technologies like CSS on a new level.&nbsp; All the Dojo stuff represents, to me, what Microsoft and Adobe (no need to even mention JavaFX, oops I just did) are not tuning to as they ramp up Silverlight and Flex.&nbsp; Not that it&#8217;s in their interests: the stuff of web standards isn&#8217;t really the profit center that proprietary technologies are.</p> <p>6. Neal Ford on DSLs with Dynamic Languages<br>Neal was impressive this second time with some practical talk and examples of DSLs.&nbsp; He started first with Groovy, which left me disappointed since I don&#8217;t anticipate using it, but to show the &#8220;best&#8221; world he switched to Ruby.&nbsp; I am really looking forward to IronRuby&#8217;s release, but at present I think much of what he discussed can be implemented in Python.&nbsp; </p> <p>7. <a href="http://www.arcware.net/">Dave Donaldson</a> on RESTful Web Services<br>I&#8217;ve been familiar with the REST buzzword for some time but as a term thrown out in competition with standard web services (the WS-* stuff).&nbsp; Dave did a good job of unpacking the essence of REST and showing demonstrations of usage.&nbsp; It&#8217;s interesting to see just how much backlash there is against WS-* and the manufactured complexity therein.&nbsp; <strike>The only thing I disagreed with was Dave belittling</strike> Dave expressed reservations about the <a href="http://astoria.mslivelabs.com/">Astoria</a> project teetering into the over-engineered realm of WS-* but I am hopeful it will retain its original intent - I really, really like the idea of Astoria (born of the same backlash to WS-*? I&#8217;m just talking here&#8230;).<br></p> <p>8. <a href="http://www.hanselminutes.com/blog">Scott Hanselman</a> on Mashups with IIS7<br>He has the gift and he knows it: first with a humorous prologue and then with a good presentation on IIS7 and using its underpinnings with a mix of PHP. Inspired by Bill Staples <a href="http://blogs.iis.net/bills/archive/2006/10/31/PHP-on-IIS.aspx">article</a> on IIS7 and PHP, but with the detail and demonstrations with which Scott&#8217;s earned his following.</p> <p>I went to a few other sessions too, but these were the ones which, as the Brits say, &#8220;tickled my fancy.&#8221;&nbsp; I was disappointed to miss out on <a href="http://jrwren.wrenfam.com/blog/">Jay Wren&#8217;s</a> intro to Castle as well as <a href="http://www.artima.com/weblogs/index.jsp?blogger=beckel">Bruce Eckel&#8217;s</a> thoughts on Python. I guess there&#8217;s next year&#8230; </p> <p>&#8230; and I do anticipate returning to CodeMash although I&#8217;m quite sure I&#8217;ll fly rather than driving. :^)<br></p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Modified accordingly, I hope I am more accurate with the edit. <BR/><BR/>I&#8217;ve got you subbed in my aggregator, so consider me a lurker now.</div>
+</div>
+<div class='comment'>
+<div class='author'>dave</div>
+<div class='content'>
+Belittling Astoria was not my intent, as I have high hopes for that project as well. I just hope it can deliver and not be over-engineered like so many other things.<BR/><BR/>Anyway, glad you could make it to the show and maybe we can chat more next year.<BR/><BR/>&#8211;Dave Donaldson</div>
+</div>
+</div>
 </div>
   
   
@@ -383,7 +303,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/06/06/programming-personality/">Programming Personality</a></h1>
+      <h1 class="entry-title"><a href="/2008/01/02/enemies-and-organization/">Enemies and Organization</a></h1>
     
     
       <p class="meta">
@@ -399,7 +319,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
   
 
 
-<time datetime="2007-06-06T06:06:00-05:00" pubdate data-updated="true">Jun 6<span>th</span>, 2007</time>
+<time datetime="2008-01-02T22:59:00-06:00" pubdate data-updated="true">Jan 2<span>nd</span>, 2008</time>
         
       </p>
     
@@ -407,7 +327,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />This <a href="http://www.doolwind.com/index.php?page=11">programming personality test</a> was interesting. <br /><br />Your programmer personality type is:   PLSC<br /><br /><blockquote>You&#8217;re a Planner.You may be slow, but you&#8217;ll usually find the best<br />solution. If something&#8217;s worth doing, it&#8217;s worth doing right.<br /><br />You like coding at a Low level.You&#8217;re from the old school of programming<br />and believe that you should have an intimate relationship with the computer.<br /><br />You don&#8217;t mind juggling registers around and spending hours getting a 5%<br />performance increase in an algorithm.<br /><br />You work best in a Solo situation.The best way to program is by yourself.<br />There&#8217;s no communication problems, you know every part of the code allowing you<br />to write the best programs possible.<br /><br />You are a Conservative programmer.The less code you write, the less chance<br />there is of it containing a bug. You write short and to the point code that gets<br />the job done efficiently.<br /></blockquote><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p>I usually try not to be an echo chamber, especially when posts show up on Coding Horror or Steve Yegge&#8217;s blog. But what&#8217;s interesting is a rebuttle to a notion that Yegge <a href="http://steve-yegge.blogspot.com/2007/12/codes-worst-enemy.html">started</a>, namely that <a href="http://www.codinghorror.com/blog/archives/001025.html">size is an enemy</a> in code base.</p> <p>Franz Bouma has an <a href="http://weblogs.asp.net/fbouma/archive/2007/12/24/codebase-size-isn-t-the-enemy.aspx">interesting post</a> to follow up that is worth a counter balance of views.</p> <p><strong>Conventions:</strong></p> <p>I <a href="http://metadeveloper.blogspot.com/2007/04/how-much-code-do-you-write.html">commented once</a> about LoC in one of our projects, not so much with an interest in maintainability, but as a comparison with how much code was being &#8220;generated&#8221; on my behalf by the IDE.&nbsp; The project has grown since that post which had the codebase at around 30,000 lines of code.&nbsp; This is nowhere near the 500,000 line mark but one design decision made early on that has always helped in navigating around was the heavy use of conventions.&nbsp; Because we followed a pattern for where we put things, it&#8217;s easy to find which project a piece of code is in as well as which part of the code one needs to dive into to make a modification.&nbsp; </p> <p><strong>Abstraction: </strong></p> <p>One thing I&#8217;m noticing about the open source projects I look at is how layers of abstraction can lead to the kind of indirection that&#8217;s hard to follow.&nbsp; I speak only of ideals but it seems like too much abstraction can lead to the kind of confusing codebases that people online are reacting to. That logic may be the Mort in me going against the grain; it seems like many think that indirection and abstraction may add flexibility, but that flexibility will be a trade off for how easily a person, especially not the original author, finds their way.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -420,7 +340,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       
   <header>
     
-      <h1 class="entry-title"><a href="/2007/06/05/free-powershell-book/">Free Powershell Book</a></h1>
+      <h1 class="entry-title"><a href="/2007/12/30/xpathfinder/">xPathFinder</a></h1>
     
     
       <p class="meta">
@@ -436,7 +356,7 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
   
 
 
-<time datetime="2007-06-05T23:26:00-05:00" pubdate data-updated="true">Jun 5<span>th</span>, 2007</time>
+<time datetime="2007-12-30T16:28:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2007</time>
         
       </p>
     
@@ -444,7 +364,118 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
 
 
   <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />All I can say is that I&#8217;m loving powershell right now. Hopefully some more goodies will ensue upon this blog but if you&#8217;re learning like me you can get a free book by leveraging the full length help that is offered on objects. You can print in the following steps:<br /><br />Get the cmdlets and send the documentation of each to its own file:<br /><span style="font-family:courier new;">get-command % {man $_ -full &gt;&#8221;C:/Power/$_.txt&#8221;} </span><br /><br />Now make an index page so you can navigate to the individuals:<br /><span style="font-family:courier new;">$cmd = get-command % {write-output &#8220;&lt;a href=&#8217;$_.txt&#8217;&gt;$_&lt;/a&gt;&lt;br&gt;&#8221;}<br />&#8220;&lt;html&gt;$cmd&lt;/html&gt;&#8221; &gt;C:/Power/index.html </span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h1><font color="#0000ff">{</font></h1> <p><em>The short version:</em> <br>I&#8217;m releasing xPathFinder, a tool I wrote for doing XPATH expressions against xml files on the file system. You can get information about it as a tool by going to the <a href="http://www.t3rse.com/xPathFinder">website</a>. Here are some screenshots:</p> <p><img src="http://www.t3rse.com/xPathFinder/Screen1_small.jpg"> </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen2_small.jpg">&nbsp; </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen3_small.jpg"> </p> <p><em>The long version:</em><br>Not too long ago I ran into a problem that I thought would be common but didn&#8217;t seem to have a canned solution. We use a webservice to store some data in a database but we also store the xml files transmitted on the file system as a defensive maneuver in case the database is unavailable or the xml is invalid. After a while I was dealing with a lot of xml files - far too many to search one at a time and needing more structured lookup than a desktop search tool offered. This is the raison d&#8217;etre of this tool. Of course it could have been a quick script in -insert language of choice- but this was something I needed to do repeatedly and have more facility with than console output. I&#8217;m also planning to make it simple enough for our client to use. It was a goal of mine to get it up before the end of the year so I&#8217;m happily posting this a day early. </p> <p>One more footnote to this tool - stylistically I&#8217;ve done quite a bit of blending between Windows Forms and Web by leveraging the WebBrowser control heavily for things I thought would be easier to quickly generate html for as well as the feedback mechanism which allows users to report bugs or request features. It&#8217;s so tightly coupled that while it will work without an internet connection, it&#8217;s a much more limited experience. I really like this model and will probably start doing more blending like this for new work.</p> <p>You can get more detail from <a href="http://www.t3rse.com/xPathFinder/">the website</a> or just ask directly by <a href="http://www.t3rse.com/xPathFinder/SubmitFeedback.html">submitting feedback</a>.</p> <p>Future plans?</p> <p>1. XPATH functionality works for most xml documents, but namespace heavy documents with prefixes seem to throw a curve ball. <br>2. What I&#8217;m posting was actually a fast prototype I intended to use to make this tool in WPF from - I&#8217;m not sure that the WPF step is still necessary but I may release an updated version since this is a fairly straight forward utility.<br>3. I&#8217;d like to make it open source. Not sure of what steps to follow, but CodePlex is probably the best starting point. I always promise myself I&#8217;ll clean up my code before doing something like that but maybe I should just bite the bullet since I think the idea is sound enough.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/12/11/installing-aspnet-35-mvc-preview/">Installing ASP.NET 3.5 MVC Preview</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-11T22:39:00-06:00" pubdate data-updated="true">Dec 11<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Code Climber has this <a href="http://codeclimber.net.nz/archive/2007/12/10/How-to-install-ASP.NET-3.5-Extensions-Preview.aspx">great list</a> of what you need to download and the order in which you must install it. I just completed my installation and have begun to poke around.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/12/06/someday-language-f/">Someday Language: F#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-06T23:14:00-06:00" pubdate data-updated="true">Dec 6<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>There&#8217;s a lot to learn these days (whenever isn&#8217;t there a lot?) and one thing I will do for 2008 is make a list of technologies I&#8217;d like to dive into with some sense of priorities.&nbsp; </p> <p>Among the ASP.NET MVC, Powershell 2.0, and Iron Python (for starters) I&#8217;ve been interested in F#. First as a topic on Hanselminutes but I lurk on Harry Pierson&#8217;s blog and he&#8217;s been posting about it quite a bit.&nbsp; Here are some links:</p> <p>1. <a href="http://cs.hubfs.net/blogs/tomasp/archive/2007/11/03/fsharp_introduction.aspx">F# Overview on hubFS</a><br>2. From DevHawk:</p> <ul> <li><a href="http://devhawk.net/2007/11/28/F+As+A+Second+NET+Language.aspx">F# as a Second .NET Language</a></li> <li><a href="http://devhawk.net/2007/11/28/F+Hawkeye+Functional+Programming.aspx">Functional Programming</a></li> <li><a href="http://devhawk.net/2007/11/29/F+Hawkeye+Pattern+Matching.aspx">Pattern Matching</a> </li> <li><a href="http://devhawk.net/2007/11/29/F+Hawkeye+Type+Inference.aspx">Type Inference</a></li> <li><a href="http://devhawk.net/2007/11/30/F+Hawkeye+Assorted+Goodness.aspx">Assorted Goodness</a></li> <li><a href="http://devhawk.net/2007/11/30/F+Hawkeye+Assorted+NotSoGoodness.aspx">Assorted Not-So-Goodness</a></li></ul> <p>Someday it is.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/12/06/mads-samples/">Mads Samples</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-06T23:04:00-06:00" pubdate data-updated="true">Dec 6<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Mads Kristensen has a listing of <a href="http://blog.madskristensen.dk/page/C-and-ASPNET-code-samples.aspx">his code samples</a>. One thing I like about Mads&#8217; samples is that they are all very straightforward without unnecessary layers of abstraction.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -473,19 +504,19 @@ Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 y
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

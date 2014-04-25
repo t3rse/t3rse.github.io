@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; Unplanned illness slowed me down over the weekend, but the &hellip;">
+  <meta name="description" content="{ A couple of nights ago I blogged about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/02/26/twining-iron-python-dsl-for-db-update/">Twining: Iron Python DSL for DB Update III</a></h1>
+      <h1 class="entry-title"><a href="/2008/06/13/c-multiple-replace-extension-methods/">C# Multiple Replace Extension Methods, Levithan Style</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2008-02-26T13:45:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
+<time datetime="2008-06-13T00:04:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2008</time>
         
       </p>
     
@@ -95,404 +95,390 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; </p> <p>Unplanned illness slowed me down over the weekend, but the beauty of lambda expressions make transformations a breeze. I&#8217;ll let the code document what I added.</p> <p><pre>cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />mytrans = {"Field1":"upper","Field1": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br />database(cn).table("Photos").transform(mytrans).copyto.csv("c:\\foo.csv")<br /></pre><br /><p>As you can see, &#8220;mytrans&#8221; is a dictionary containing a matching of column names to both a keyword string, &#8220;upper&#8221;, and also lambda expressions that model functions to operate on the constituent data (the [::-1] idiom reverses a string).&nbsp; I&#8217;d add a few keywords for simple things people often do to data but the beauty of lambda expressions is that it keeps my code lazy and empowers whoever is using the script to make their own judgement about what to do with data.</p><br /><p>Here&#8217;s what goes on behind the scenes - the <font face="Courier New" size="2">copyto</font> class has a <font face="Courier New" size="2">checkAndTransform</font> method that matches up a field value with it&#8217;s &#8220;transform&#8221;:</p><br /><p><pre>	def checkAndTransform(self, field, value):<br />		if registrar.transforms.has_key(field):<br />			if repr(type(registrar.transforms[field])) == "&lt;type  'function'&gt;":<br />				value = registrar.transforms[field](value)<br />			if registrar.transforms[field] == "upper":<br />				value = value.upper()<br />		return value	<br /></pre><br /><p></p><br /><p>I&#8217;m not <em>Pythonic</em> enough yet to know if I need to call repr and do a string comparison when testing if a type is a function, but it works just fine.</p><br /><p>So a few thoughts:</p><br /><p>1. What are the usual changes we make to data when exporting or importing?<br>2. Is it stupid to have shortcut strings or should I just fall back on writing lambdas?<br>3. Is there a better way of testing for a function than <br><font face="Courier New" size="2">repr(type(registrar.transforms[field])) == &#8220;&lt;type &#8216;function&#8217;&gt;&#8221;</font></p><br /><p>The to-do list from my previous post is still intact, I&#8217;ll be working through it in the near future.&nbsp; Have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the complete script</a> and if you have thoughts or opinions, please let me know. A big goal here is not only to make something useful, but to learn Python (and be Pythonic, the two don&#8217;t necessarily coincide).</p><br /><p>Here&#8217;s a full list of what can be done at this point:</p><br /><p><pre>mytrans = {"Field1":"upper","Field2": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br /><br />database(cn).table("MyTable").transform(mytrans).copyto.csv("c:\\foo.csv") #with transform<br />database(cn).table("MyTable").copyto.csv("c:\\foo.csv") #without transform<br />database(cn).table("MyTable").copyto.database(cn2)<br />database(cn).table("MyTable").copyto.xmlFieldsAsAttributes("c:\\here.xml")<br />database(cn).table("MyTable").copyto.xmlFieldsAsElements("c:\\there.xml")<br />database(cn).backupto("C:\\temp\\my_backup.bak")<br /><br /></pre><br /><p></p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>A couple of nights ago I <a href="http://metadeveloper.blogspot.com/2008/06/regex-replace-multiple-strings-in.html">blogged</a> about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan had <a href="http://blog.stevenlevithan.com/archives/multi-replace">an entry</a> on the approach (not mine in specific, just the approach and commenting on a few weaknesses). It inspired a few things out of me: first, making the multiple replace an extension method of the string class, and second to duplicate Steve&#8217;s approach which enables a more robust model because you can use metasequences etc&#8230; </p>  <p>Here is the code (included the using statement since the use of ToArray() from the Dictionary key collection isn&#8217;t available without System.Linq): </p>  <pre>using System;<br />using System.Linq;<br />using System.Collections.Generic;<br />using System.Text.RegularExpressions;<br /><br />static class RegexExtender {<br />    public static string MultiReplace(this string target, Dictionary<string , string> replacementDictionary) {<br />        return Regex.Replace(target,<br />                                &quot;(&quot; + String.Join(&quot;|&quot;, replacementDictionary.Keys.ToArray()) + &quot;)&quot;,<br />                                delegate(Match m) { return replacementDictionary[m.Value]; }<br />                                );<br />    }<br /><br />    public static string LevithansMultiReplace(this string target, Dictionary<string , string> replacementDictionary)<br />    {<br />        foreach (string key in replacementDictionary.Keys) {<br />            Regex r = new Regex(key, RegexOptions.None);<br />            target = r.Replace(target, replacementDictionary[key]);<br />        }<br />        return target;<br />    }<br /><br />}</pre><br /><p><br />Here is some usage:<br /></p><br /><pre><br /><br />// the original approach, as an extension method<br />string x = "Holly was a hunter";<br />Dictionary<string, string> rdict = new Dictionary<string, string>();<br />rdict.Add("Holly", "Hannah");<br />rdict.Add("hunter", "hatter");<br />Console.WriteLine(x.MultiReplace(rdict));<br /><br />// Steve's technique<br />rdict = new Dictionary<string, string>();<br />rdict.Add(@"[A-z]", "x");<br />rdict.Add(@"\d", "y");<br />string test = "David is 33";<br />Console.WriteLine(test.LevithansMultiReplace(rdict));<br /></pre><br /><br><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
 <div class='author'>David Seruyange</div>
 <div class='content'>
-Great feedback!  <BR/><BR/>I changed my function checking &#8216;cuteness&#8217; for callable - what you say makes total sense and I ran into it while studying Mark Pilgrim&#8217;s <A HREF="http://www.diveintopython.org/" REL="nofollow">Dive Into Python</A>.<BR/><BR/>@fuzzyman - I started with the idea of built in types but the thing that I&#8217;m loving about the lambda is that it&#8217;s a generic, lazy approach that defers exactly which types of &#8220;transforms&#8221; are needed until the time of use if that makes sense.<BR/><BR/>@fuzzyman/catherine - I tried to merge both of your comments into the following compromise: I use the try/except from your comment but rather than let it pass I put a list in registrar (which is a goofy way of having a &#8220;global&#8221; space for things) called &#8220;warnings&#8221; in which I store the exceptional occurance. After something occurs I&#8217;ll check the length of warnings and display anything I find in there. Something like: <BR/>except TypeError:<BR/> registrar.warnings.append(&#8220;Your transform failed on field %s&#8221; % field)<BR/><BR/>I&#8217;ll post the updates I&#8217;ve made within the next day or so.</div>
+I think at the time I wrote this the regular .NET Dictionary defaulted to have a string key/value pair. Now you will need to use a strongly typed Dictionary. <br /><br />That is: Dictionary&lt;string, string&gt; instead of just Dictionary.</div>
 </div>
 <div class='comment'>
-<div class='author'>Fuzzyman</div>
+<div class='author'>Marc W</div>
 <div class='content'>
-Regarding this approach:<BR/><BR/><BR/>try:<BR/>value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>pass<BR/><BR/>It has a minor problem that TypeErrors raised inside the transform will then be swallowed. *Personally* I think using callable is slightly better for this situation.</div>
+LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</div>
 </div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/11/regex-replace-multiple-strings-in/">Regex: Replace Multiple Strings in a Single Pass With C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-11T00:13:00-05:00" pubdate data-updated="true">Jun 11<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I wish I could say I was the clever one to think of this but I ran into it in my copy of the Python Cookbook (the original author is <a href="http://defrang.com/">Xavier Defrang</a>, the Python implementation <a href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/81330">here</a>). It&#8217;s cool enough that I ported it today - I&#8217;ll know I&#8217;ll use the C# implementation of it quite often: </p>  <pre>        static string MultipleReplace(string text, Dictionary<string , string> replacements) {<br />            return Regex.Replace(text, <br />                                    &quot;(&quot; + String.Join(&quot;|&quot;, adict.Keys.ToArray()) + &quot;)&quot;,<br />                                    delegate(Match m) { return replacements[m.Value]; }<br />                                    );<br />        }<br />	// somewhere else in code<br />            string temp = "Jonathan Smith is a developer";<br />            adict.Add("Jonathan", "David");<br />            adict.Add("Smith", "Seruyange");<br />            string rep = MultipleReplace(temp, adict);<br /></pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fabian</div>
+<div class='content'>
+Hi! Your code works well with simple replacement but will fail with complex pattern as the dictionnary key will not be the pattern but the matched string in the input.</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Partridge</div>
+<div class='content'>
+This is great, thank you!</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/08/languages-and-thinking/">Languages and Thinking</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-08T23:08:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m approaching the end to a rough week and should be coding but the virus scanner on my office machine is slowing development to a point where it&#8217;s not bearable for me.&#160; I&#8217;ll pass the time with a quick thought about how programming languages affect thinking and why it makes me both picky about languages I use and also curious to see how the different languages solve problems.</p>  <p>I will confess that the project I&#8217;ve been working on is written in VB.NET.&#160; The reason for that was very practical since our client was adept at VBA and needed to, on occasion, get to the code level of things.&#160; I&#8217;d spent a lot of time in Visual Basic (the &quot;classical&quot; VB) so I thought nothing of it - perhaps somewhat of a refreshment after so many years away.&#160; As we wrote more and more code, I started noticing a lot of nested &quot;If&quot; statements in the style of: </p>  <p></p>  <pre>If Some Condition Then<br />	If SomeOtherCondition Then<br />		If YetAnotherCondition Then</pre><br /><br /><p>You get the picture.</p><br /><br /><p>I remember working with a different VB programmer and she was also given to writing a lot of nested conditions in the same manner even though we were using C#:</p><br /><br /><pre>if(cond){<br />	if(cond2){<br />		if(cond3){	</pre><br /><br /><p>At the time it really bothered me in a &quot;code smell&quot; sort of way; nesting conditions, I would have argued, invites clutter and entropy. Since I&#8217;ve been attending Hanselman University for a while now I can say with more technical gravitas that they increase cyclomatic complexity and this was why they smelled bad. The alternative I would have wished for would have been:</p><br /><br /><pre>if(cond &amp;&amp; cond2 &amp;&amp; cond3){<br />...<br />}</pre><br /><br /><p>Pretty natural, right?&#160; Actually no, especially if you&#8217;re coming from Visual Basic because the Visual Basic And and Or operators don&#8217;t do short circuit evaluation.&#160; If you combine boolean expressions you have to make a mental note to verify that they both will work at runtime - that there is no dependency between them.&#160; That&#8217;s something a C# progammer completely takes for granted often writing code like this which is a ticking bomb in VB.NET (it won&#8217;t go off until you&#8217;re demonstrating the app to your client, trust me):</p><br /><br /><pre>If Not MyCollection Is Nothing And MyCollection(0) = &quot;Something&quot; Then<br />	...</pre><br /><br /><p>One expects the second expression will be passed if the first fails in a &quot;short circuit&quot; approach. Unfortunately, Visual Basic .NET will attempt to evaluate the second even if the first is not true!</p><br /><br /><p>To clean this all up the VB.NET folks provided the AndAlso and OrElse operators which do traditional short circuit evaluation. I read somewhere that the reason And and Or were left as is was for backward compatibility and people who were &quot;upgrading&quot; their code from Visual Basic to Visual Basic.NET. Using these operators you&#8217;re back to thinking &quot;normally&quot; as a C#, C, Javascript, etc&#8230; developer.</p><br /><br /><p>So back to my original thought - nested If blocks are a simple way around an operator that doesn&#8217;t short circuit and it&#8217;s a way of thinking if you&#8217;ve spent a lot of time writing Visual Basic code. The language is what drives that even though there may be alternatives. Even though it may produce cyclomatic complexity. Some people tell me picking a language is just a simple process of picking a tool, but I think it&#8217;s more than that; it&#8217;s picking a way of thinking. That&#8217;s why it&#8217;s not only important to me, it&#8217;s interesting to see how different languages lead us in different directions. Even if an idiom is available elsewhere, it&#8217;s getting to think that way that is most often&#160; the trick to being better in both languages.</p><br /><br /><p>One more side note, I can chart a few different ways in which new languages have affected me. Take a look at the type of thing I did before a lot: </p><br /><br /><pre>foreach(string s in stuff){	<br />	master += s + &quot;,&quot;;<br />}<br />master = master.Substring(0, master.Length -1);</pre><br /><br /><p>Nowadays:</p><br /><br /><pre>// like a map, I first started thinking this way from perl<br />stuff.ForEach(delegate(string s) { master += s + &quot;,&quot;; });<br />// like a join, very Pythonic<br />String.Join(&quot;,&quot;, stuff.ToArray())</pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Good post.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/01/galloway-et-al-roundtable-podcast/">Galloway Et. Al. Roundtable Podcast</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-01T19:45:00-05:00" pubdate data-updated="true">Jun 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>If you haven&#8217;t and you do Microsoft development, give an ear to <a href="http://weblogs.asp.net/jgalloway/default.aspx">John Galloway</a>, <a href="http://www.odetocode.com/">K. Scott Allen</a>, <a href="http://www.lazycoder.com/weblog/">Scott Koon</a>, and <a href="http://weblogs.asp.net/kdente/">Keven Dente</a> in their &quot;Technology Roundtable&quot; <a href="http://weblogs.asp.net/jgalloway/archive/tags/Podcast/default.aspx">podcast</a>.&#160; There are a lot of podcasts I find entertaining, (like Joel and Jeff&#8217;s <a href="http://blog.stackoverflow.com/">discussions</a>) but these guys seem to do what I do - and to contextualize that since it may sound presumptuous, they deal with Microsoft development tools building &quot;real world&quot; software.&#160;&#160; </p>  <p>I try to have &quot;take aways&quot; from podcasts so from the first more impetus to investigate Ninject and dependency injection as well as more investigation of LINQ to SQL and the ADO.NET Entity framework (opinions flew on these, I&#8217;d like to develop some of my own).&#160; Finally, even though I&#8217;ll probably skip the beta, I will look forward to .NET 3.5 SP1 since ASP.NET Dynamic Data will be packaged therein.</p>  <p>The second podcast had a great discussion on javascript libraries. I&#8217;ve used <a href="http://www.t3rse.com/proper">jQuery</a> and <a href="http://www.nregex.com">YUI</a> and Prototype on different projects and while my fondness for Prototype/Scriptaculous is probably greatest of all I am always eager to hear other people&#8217;s experiences. The framework I have yet to do anything serious with is Dojo - I did some quick prototyping of their flyout menu with ASP.NET server code and I hate to say it but the ASP.NET Menu control was a lot more effective and fast. While it wasn&#8217;t explicitly stated, this podcast has dampened my interest for the ASP.NET Ajax stuff - I looked at it again a few weeks ago and it seemed so&#8230; heavy.&#160; I&#8217;m not sure who mentioned it in the podcast but they said it seemed more oriented for writing controls versus Ajaxy type applications.&#160; I would have to concur with my limited knowledge.</p>  <p>I&#8217;ll stay tuned, it will be interesting to see what they talk about next time.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/31/knowing-c/">Knowing C</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-31T18:10:00-05:00" pubdate data-updated="true">May 31<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been having a good time listening to the <a href="http://blog.stackoverflow.com/">StackOverflow podcasts</a>. Joel&#8217;s a great curmudgeon and Atwood is as opinionated as ever.&#160; An ongoing disagreement between the two has been the usefulness of knowing C.&#160; Joel&#8217;s adamant about its importance and Atwood thinks there is much else a developer can spend their time in understanding.&#160; </p>  <p>Eric Sink has since chimed in with a post called <a href="http://www.ericsink.com/entries/c_morse_code.html">C and Morse Code</a> wherein he reveals his cards: like Joel, he thinks it&#8217;s of vital importance if you want to reach past mediocrity:</p>  <blockquote>   <p>I&#8217;m not going to take a black-and-white stance on this.&#160; I won&#8217;t go so far as to say that every developer must learn C.&#160; I&#8217;ve met lots of developers without C experience who are successful and making positive contributions to important software projects.</p>    <p>Furthermore, I&#8217;ll admit that knowing C is not a magic solution to poor skills.&#160; A lousy developer who happens to know C is simply better equipped to hurt himself or somebody nearby.</p>    <p>However, I can say these two things:</p>    <ol>     <li>All of the truly extraordinary developers I know are people who really understand the kind of low-level details that C forces you to know. </li>      <li>Every programmer without C experience has a clear path of personal development:&#160; Learn C.&#160; Get some real experience using C to write a serious piece of software.&#160; Even if you never use it again, you&#8217;ll be a better programmer when you&#8217;re done. </li>   </ol> </blockquote>  <p>My relationship with C is tenuous at best. I spent a few months some years ago delving into it (and C++) seriously - I&#8217;m curious to go back and find some of that code but it was a few machines ago*.&#160; I remember during that time I&#8217;d work on little toy programs (mostly an implementation of some algorithm) in C and then have the need for a utility and write it in something else.&#160; It would be interesting to take Eric up on his second point of writing a &quot;serious piece of software&quot; using the language.&#160; One interesting angle on this is how one would keep said &quot;serious piece of software&quot; strictly in the realm of C, without venturing too much into the world of C++ and object orientation done poorly.</p>  <p>So brainstorm question: what&#8217;s something nice and useful that could be implemented strictly within C? (That one might not yawn and think *gosh* that would take 1 minute to do in Python).</p>  <h1><font color="#0000ff">}</font></h1>  <p>   <br />*Great memories of Me, Markus, and <a href="http://www.codegear.com/downloads/free/cppbuilder">bcc32</a> in a coffee house somewhere in southern California.&#160; Too far gone are those days&#8230; </p>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/29/splitting-files-with-python/">Splitting Files With Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-29T23:09:00-05:00" pubdate data-updated="true">May 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;ve been recently needing to generate sql scripts from large Excel spreadsheets. But once the script is finished I&#8217;ve had issues getting SQL Management Studio to execute as large a script in a single run. The solution? Split up the file with a little Python that takes it&#8217;s arguments like this:</p>  <p>ipy Splitter.py&#160; LargeFile.sql 3</p>  <p></p>  <pre>#import clr<br />#pass arguments like so:<br /># THISSCRIPT.PY FILE NUM_PARTS<br /># ipy Ringil.py LargeFile.sql 4<br /><br />import sys<br /><br />if(len(sys.argv) == 3):<br />    splits = int(sys.argv[2])<br />    f = open(sys.argv[1])<br />    data = f.readlines()<br />    lc = len(data)/splits<br />    print &quot;number of lines&quot;, len(data)<br />    for c in range(0,splits):<br />        outstream = open(&quot;data&quot; + str(c + 1) + &quot;.sql&quot;, 'w')<br />        for line in data[:lc]: <br />            outstream.write(line)<br />        outstream.close()<br />        del data[:lc]<br />    f.close()<br />else:<br />    print &quot;Expected arguments: file and number of splits\n example: ipy Splitter.py LargeFile.sql 4&quot;</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/20/it-speed-that-counts/">It&#8217;s Speed That Counts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-20T21:31:00-05:00" pubdate data-updated="true">May 20<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I usually don&#8217;t talk about hardware because I don&#8217;t pay too much attention to it unless something is bothering me.&nbsp; However I&#8217;ve discovered something interesting about myself in the last week.&nbsp; I&#8217;ve done a lot of my development over the last few years on an enormous <a href="http://www.notebookreview.com/default.asp?newsID=2248&amp;review=ZD8000">HP zd8000</a>.&nbsp; I jokingly called it &#8220;the 747&#8221; because of its size and girth - 10 lbs and a 17&#8221; screen.&nbsp; For a guy like me who&#8217;s usually also carrying a few books in his bag it&#8217;s quite a load as evidenced by my going through at least one laptop bag (my current one is also in poor shape).&nbsp; </p> <p>So because of some changes at work I got to try out a machine I&#8217;d liked the thought of - another HP but this one with a small 13&#8221; screen and weighing perhaps 4 lbs.&nbsp; It&#8217;s a great little machine and has a cool look but after about a week I&#8217;m back to the 747. </p> <p>Why go back to the back pains and encumbrance of this massive machine?&nbsp; One simple reason: speed.&nbsp; It&#8217;s got twice the RAM (2GB) and a much faster processor.&nbsp; I didn&#8217;t think about this much but for a person like me who is usually running an instance of SQL Server, an IDE of some sort, a text editor, web browsing with 10 tabs open, listening to music, chatting up friends (Messenger is no joke when it comes to resources), etc, etc - you get the picture - it&#8217;s frustrating to be on a beautiful, compact machine that you have to wait around for. I&#8217;d rather exchange power with encumbrance for convenience with time penalties.</p> <p>Or, as I like to joke with my South Dakota friends, I&#8217;m like a guy who exchanged his <a href="http://www.chevrolet.com/silverado/">Chevy Silverado</a> for a <a href="http://www.vw.com/touareg/en/us/#">crossover vehicle</a>&#8230; until he realized that he made his living hauling lumber.</p> <p>Footnote: I ordered a Thinkpad T61 which should be a foot in both worlds. I guess my bit of the economic stimulus went to China. </p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/19/nregex-mention/">Nregex Mention</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-19T23:54:00-05:00" pubdate data-updated="true">May 19<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Steven mentions <a href="http://www.nregex.com/nregex/default.aspx">Nregex</a> in a <a href="http://blog.stevenlevithan.com/archives/jrx-xregexp">list of regular expression testers</a> online. Nregex is still up and still useful especially if you need to work with .NET&#8217;s implementation of regular expressions. A coworker of mine just used it to build a parser for Sql Reporting Services RDL files.&#160; Steven&#8217;s own <a href="http://www.regexpal.com">RegexPal</a> is a fairly intense implementation of regular expressions in javascript, complete with syntax highlighting.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Steve</div>
+<div class='content'>
+&#8220;Nregex is still up and still useful especially if you need to work with .NET&#8217;s implementation of regular expressions.&#8221;<BR/><BR/>Yes, I think it&#8217;s easily the best online .NET regex tester. You are planning to keep it up, right? I&#8217;m hoping to recommend it for testing .NET regexes in an upcoming book, but if you&#8217;re thinking of taking it down, I&#8217;d appreciate a heads up so that I can look elsewhere. (I only mention this because of the &#8220;still up&#8221; notice in your post.)<BR/><BR/>Once again, great work!</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/12/workaholism/">Workaholism</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-12T23:54:00-05:00" pubdate data-updated="true">May 12<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<p></p>  <h1><font color="#0000ff">{</font></h1>  <p>Matt from 37Signals <a href="http://www.37signals.com/svn/posts/1017-workaholics-fixate-on-inconsequential-details">blogs</a> about workaholics with the following assertions: they don&#8217;t get as much done (most of the time) and they focus on inconsequential details.</p>  <p>Many leapt to the defense of workaholics - people who, it seems, are workaholics themselves. Because I&#8217;m often labeled a workaholic I&#8217;m trying to see past my emotions and yet it still doesn&#8217;t smell like the truth to me.</p>  <p>And even more so because this weekend I watched <a href="http://www.pbs.org/nerds/">Triumph of the Nerds</a>, Cringley&#8217;s chronicling of the personal computer industry from it&#8217;s humble roots in what would become Silicon Valley.&#160; As he interviewed people, I couldn&#8217;t help but think that software development is experiencing a culture change.&#160; The people who got the boat off the ground were almost entirely obsessed with their work, even down to the details.&#160; I have a hard time imagining an Andy Hertzfeld, Woz, or young Bill Gates as a 501 developer.</p>  <p>Even if you go forward a few years, guys like John Carmack don&#8217;t fit the mould of &quot;balanced life/time to go pick up my kids and watch TV!&quot;</p>  <p>These days though, I think what used to be hobbyism is now simply work and fair game for any person who wants a way to earn their keep and &quot;clock out&quot; for life afterwards.&#160; This is not to say that it wasn&#8217;t that way before, it just seems like much more commitment was involved.&#160; Or maybe the moral is that no one with a 501 development attitude did anything noteworthy. </p>  <p>But even as I write that and play my hand as a kid who grew up on the folklore of the early computer industry I have to do a gut check because me staying at work late building yet another website for someone is not the same as writing the first GUI.&#160; Not even close&#8230; </p>  <p>I take away the notion that there isn&#8217;t necessarily a direct relationship between time spent at work and productivity but I also know that if I had the 9-5 attitude with no tendency to &quot;get into&quot; my profession, I might as well be an accountant. And as grandiose as it may seem, I&#8217;d love to have one idea that really matters versus a lifetime of mediocrity so I could rush home to have a &quot;life.&quot;</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/05/10/old-computer-books/">Old Computer Books</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-10T22:26:00-05:00" pubdate data-updated="true">May 10<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<p>&nbsp;<img style="margin: 0px 5px 0px 0px" src="http://www.seruyange.com/metadeveloper/ComputerBooks.jpg" align="right"></p> <h1><font color="#0000ff">{</font></h1> <p>I was recently feeling ashamed of myself after reading Atwood&#8217;s <a href="http://www.codinghorror.com/blog/archives/001108.html">Programmers Don&#8217;t Read Books&#8230;</a>&nbsp; post for what he called Programming book pornography: &#8220;The idea that having a pile of thick, important-looking programming books sitting on your shelf, largely unread, will somehow make you a better programmer.&#8221;&nbsp; To clarify, <strong>I actually do read the books</strong> I have bought but I&#8217;m guilty of keeping a full shelf for the sake of showing off my long and continuing struggle to be a good programmer.&nbsp; </p> <p>One way I can soften this sort of conceit is by thinking of how I&#8217;m really proud and boastful of my friends in real life who do <a href="http://www.gunplaythecomic.com/">things</a> that amaze me. I&#8217;m not shy to boast on their behalf.&nbsp; In the same way a lot of these old books are like old friends that have seen me through some pretty turbulent times.&nbsp; I carried Francesco Balena&#8217;s <em>Programming Visual Basic 6.0</em> around for years when I was training people on VB6, COM, and ASP.&nbsp; Another set of heavy books I spent many a quality night in a hotel room with were Gary Cornell&#8217;s <em>Core Java</em> and <em>Core Java Advanced Features</em>. I don&#8217;t have a formal computer science education but I consider a large part of my education the 7 or so years I spent on the road, in various hotel rooms, reading and practicing what I needed to know.</p> <p>If truth be told there are a few there that I didn&#8217;t get much out of.&nbsp; I never did run <a href="http://www.slashcode.com/">Slashcode</a> and I never did more than tinker with Bryce.&nbsp; But I&#8217;m not ashamed to say that I had hopes of doing so that time supplanted with other things.</p> <p>I packed them away and made room for some of the books I have piled on top of the shelves.&nbsp; Since I don&#8217;t travel much and remain in project mode I&#8217;m not as efficient about reading what I have but a smaller shelf is more tidy and palatable.&nbsp; I won&#8217;t wait so long before my next big cleanup.</p> <p>So the big question: what to do with these books?</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
 <div class='comment'>
 <div class='author'>Catherine</div>
 <div class='content'>
-David, you&#8217;re writing code faster than I can read it and comment.  :)<BR/><BR/>What fuzzyman said about using callable - good advice.  Writing Pythonically, you try not to think about what an object <EM>is</EM>, but <EM>what you can do with it</EM>, because then you don&#8217;t break polymorphism - if I write some funky object that doesn&#8217;t look like a function to your test, but can be called, then you still want to accept it.<BR/><BR/>You can go a step further - not test at all and apply EAFP - Easier to Ask Forgiveness than Permission -<BR/><BR/>try:<BR/>    value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>    pass<BR/><BR/>Also, &#8220;if registrar.transforms.has_key(field):&#8221; is 100% legitimate, but I like &#8220;if field in registrar.transforms&#8221; better, because it looks prettier.<BR/><BR/>Anyway, I like your approach!  I&#8217;m looking at some ETL code I wrote years ago and thinking that it would be better using your dict-of-transforms idea.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Third and final thought (I promise&#8230;) - even better than checking for objects that are functions you can simply check if the object is callable:<BR/><BR/>if callable(something):<BR/><BR/>This is more Pythonic as it doesn&#8217;t restrict you to using functions, but allows any callable object.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-You can also replace your lambdas with builtin functions:<BR/><BR/>str.upper<BR/>reversed</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<BR/><BR/>The best way is to use the types module from the Python standard library.<BR/><BR/>from types import FunctionType<BR/><BR/>isinstance(something, FunctionType)<BR/><BR/>If you want to avoid the import you can do:<BR/><BR/>def nothing: pass<BR/>FunctionType = type(nothing)<BR/><BR/>Hope that helps.</div>
+I&#8217;ve sent off some with BookMooch.  I don&#8217;t feel bad about accumulating them, though, b/c I read them too.</div>
 </div>
 </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/21/iron-python-dsl-for-db-update-ii/">Iron Python DSL for DB Update II</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-21T13:28:00-06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Attepting releasing early &amp; often - here are a few new features to the ideas I&#8217;m putting together for the Database specific DSL.&nbsp; I&#8217;ll summarize all that&#8217;s possible with it now with the new stuff highlighted in red.</p> <blockquote> <p><font face="Courier New" size="2"><font color="#008000">#some connection strings</font><br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;&#8221;</font></p> <p><font face="Courier New" size="2"><font color="#008000">#some things to do</font><br>database(cn).table(&#8220;MyTable&#8221;).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.database(cn2)<br><font color="#ff0000">database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;spam&#92;eggs.bak&#8221;)</font></font></p></blockquote> <p>The overall idea is to build a <em>language centric, developer oriented implementation</em> of what is done in a tool like SSIS or its predecessor DTS - I&#8217;m using SQL Server for a start but there&#8217;s no reason this can&#8217;t include other database platforms. It&#8217;s quite exciting that even without knowing much Python I can get that much done in the language.&nbsp; I&#8217;ll spend time refactoring and reorganizing the script I&#8217;ve started with, but please <a href="http://www.seruyange.com/metadeveloper/database.py.txt">feel free to download and modify it</a>. Please post any improvements or ideas for how I can improve the Python and added any other features to the dsl. (Point on using __getattr__ well taken).</p> <p>My todo list?<br>1. Aforementioned &#8220;transforms&#8221; for data in migration<br>2. Exception handling :^)<br>3. Copying tables is a rough sketch but needs a lot of work<br>4. Export formats besides CSV and XML: arbitrary delimiters and fixed field length<br>5. __getattr__ :^)</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/19/iron-python-dsl-for-etl/">Iron Python DSL for ETL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-19T23:33:00-06:00" pubdate data-updated="true">Feb 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Hanselman wrote about <a href="http://www.hanselman.com/blog/TheWeeklySourceCode14FluentInterfaceEdition.aspx">&#8220;fluent&#8221; interfaces</a> recently which confirmed something I&#8217;d been thinking for a while. What if rather than massive tools we just had a language to express ourselves when we wanted to move data around?&nbsp; What if we could say something like:</p> <p><font face="Courier New" color="#ff0000"><strong>database(&#8220;connection string&#8221;).table(&#8220;table&#8221;).copyto.csv(&#8220;C:&#92;spam&#92;eggs.csv&#8221;)</strong></font><br>or<br><font face="Courier New" color="#ff0000"><strong>database(&#8220;connetion string&#8221;).table(&#8220;table&#8221;).copyto.database(&#8220;connection string 2&#8221;)</strong></font></p> <p>In the spirit of releasing early and often, here&#8217;s an implementation of the above language for sql server with Python. I&#8217;ll be extending the flexibility quite a bit, and my Python skills are still those of a learner, but here it is for comment.&nbsp; Before I post the whole script, here are a few goals:<br>1. XML data: <br><font face="Courier New">database(&#8220;connection string&#8221;).table(&#8220;table&#8221;).copyto.xml(&#8220;C:&#92;spam&#92;eggs.xml&#8221;) </font><br>2. Transforms:<br><font face="Courier New">transformDictionary = {&#8216;column1&#8217;:&#8217;upper&#8217;, &#8216;column2&#8217;:&#8217;some regex&#8217;} #these could become a fluent interface of their own.<br>database(&#8220;connection string&#8217;).table(&#8220;table&#8221;).withTransform(transformDictionary).copyto.csv(&#8220;C:&#92;spam&#92;eggs.csv&#8221;)</font></p> <p>So <strike>here&#8217;s that rather unrefined code</strike> <a href="http://www.seruyange.com/metadeveloper/database.py.txt">download the latest implementation</a>.&nbsp; </p> <p>Below was just some scratchwork from a Friday afternoon when I started sketching: </p><pre style="background-color: #e0e0e0"># BORRE DATABASE OBJECT<br /># 02/08/2008 - David Seruyange - @FRIDAY BURNOUT<br />import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.IO import *<br /><br />class registrar:<br />	tableRegister = ""<br />	databaseRegister = ""<br /><br />class database:<br />	"Model of a database somewhere"<br />	def __init__(self, connectString):<br />		"Initialize the rectangle"<br />		self.connect = connectString<br />		registrar.databaseRegister = connectString<br />		self.copyto = copyto()		<br />	<br />	def table(self, t):<br />		registrar.tableRegister = t<br />		return self<br />		<br />class copyto:<br />	"Model of a copy of some object"<br />	def csv(self, path):<br />		""" Save the result to a CSV file """<br />		cn = SqlConnection(registrar.databaseRegister)<br />		cn.Open()<br />		cmd = SqlCommand("select * from " + registrar.tableRegister, cn)<br />		r = cmd.ExecuteReader()<br />		fileOut = open(path, 'w')<br />		while r.Read():<br />			sOut = ""<br />			for i in range(r.FieldCount):<br />				sOut += str(r[i]) + ","<br />			sOut += "\n"<br />			fileOut.write(sOut)<br />		cn.Close()<br />		fileOut.close()<br />	<br />	def database(self, connect):<br />		(ddl, colInfo) = buildDDL(registrar.tableRegister)<br />		cnTarget = SqlConnection(connect)<br />		cnTarget.Open()<br />		cmdBuildTargetTable = SqlCommand(ddl, cnTarget)<br />		cmdBuildTargetTable.ExecuteNonQuery() #builds the target table<br />		cnSource = SqlConnection(registrar.databaseRegister)<br />		cnSource.Open()<br />		cmdSourceIter = SqlCommand("select * from " + registrar.tableRegister, cnSource)<br />		sourceReader = cmdSourceIter.ExecuteReader()<br />		insertCode = ""<br />		while(sourceReader.Read()):<br />			insertTemplate = "INSERT INTO " + registrar.tableRegister + " VALUES("			<br />			for i in range(sourceReader.FieldCount):<br />				insertTemplate += "'" + str(sourceReader[i]) + "',"<br />			insertCode += insertTemplate[:-1] + ")\n"<br />		cmdExecuteInsert = SqlCommand(insertCode, cnTarget)<br />		cmdExecuteInsert.ExecuteNonQuery()<br />		# "save: %s\n table: %s\n to path: %s" % (registrar.databaseRegister, registrar.tableRegister, connect)		<br /><br />def buildDDL(tName):<br />	query = """<br />		select <br />				c.[name], c.max_length, c.[precision], c.scale, <br />				ty.[name] as typename <br />		from <br />			sys.columns c <br />				join sys.tables t on c.object_id = t.object_id<br />				join sys.types ty on c.system_type_id = ty.system_type_id<br />		 where <br />			t.[name] = '__table__'<br />	"""<br />	query = query.replace('__table__', tName)<br />	cn = SqlConnection(registrar.databaseRegister)<br />	cn.Open()<br />	cmd = SqlCommand(query, cn)<br />	r = cmd.ExecuteReader()<br /><br />	ddl = """<br />	CREATE TABLE __xyz__(<br />			__columns__)<br />	"""<br />	<br />	columnsDefinition = ""<br />	colTypeInfo = []<br />	while r.Read():<br />		#todo: support for other column types such as numeric or decimal<br />		columnTemplate = "	COLUMN_NAME	DATATYPE LENGTH NULL,"<br />		columnTemplate = columnTemplate.replace('COLUMN_NAME', str(r[0]))<br />		columnTemplate = columnTemplate.replace('DATATYPE', str(r[4]))<br />		colTypeInfo.append(str(r[4]))<br />		if str(r[4]) == "varchar":<br />			columnTemplate = columnTemplate.replace('LENGTH', "(" + str(r[1]) + ")")<br />		elif str(r[4]) == "char":<br />			columnTemplate = columnTemplate.replace('LENGTH', "(" + str(r[1]) + ")")			<br />		else:<br />			columnTemplate = columnTemplate.replace('LENGTH', "")<br />		columnsDefinition += columnTemplate + "\n"<br /><br />	r.Close()<br />	cn.Close()<br />	ddl = ddl.replace('__xyz__', tName).replace('__columns__', columnsDefinition).replace(",\n)", "\n\t)")<br />	return [ddl, colTypeInfo]<br /><br />	<br />cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />cn2 = "Data Source=.\\sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;"<br /># jepp<br />#database(cn).table("Photos").copyto.csv("c:\\foo.csv")<br />#print "---"<br />database(cn).table("Photos").copyto.database(cn2)<br /></pre><br /><h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>David Seruyange</div>
-<div class='content'>
-@fuzzyman - that must be the &#8220;method missing&#8221; type functionality in Python? I&#8217;ll have to dig into that for sure.<BR/><BR/>@aj - that is cool stuff, i wonder if the java compiler is smarter when it comes to chaining methods over the C# one?</div>
-</div>
-<div class='comment'>
-<div class='author'>AJ</div>
-<div class='content'>
-Nice David! I thought the fluent stuff was pretty interesting too, I wrote about my experiments with it <A HREF="http://cephas.net/blog/2006/07/20/fluentinterface/" REL="nofollow">here</A>.</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-You could get a lot of mileage with judicious use of &#8216;__getattr__&#8217; for some of these methods&#8230;</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/18/release-early-often/">Release Early & Often</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-18T20:27:00-06:00" pubdate data-updated="true">Feb 18<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Paul Buchheit (who we can thank for Gmail) <a href="http://paulbuchheit.blogspot.com/2008/02/most-import-thing-to-understand-about.html">comments</a> on a <a href="http://blog.pmarca.com/2007/06/the-pmarca-gu-2.html">post</a> by Marc Andreessen:</p> <blockquote> <p>For web based products at least, there&#8217;s another very powerful technique: release early and iterate. The sooner you can start testing your ideas, the sooner you can start fixing them.  <p>I wrote the first version of Gmail in one day. It was not very impressive. All I did was stuff my own email into the Google Groups (Usenet) indexing engine. I sent it out to a few people for feedback, and they said that it was somewhat useful, but it would be better if it searched over their email instead of mine. That was version two. After I released that people started wanting the ability to respond to email as well. That was version three. That process went on for a couple of years inside of Google before we released to the world.</p></blockquote> <p>Interesting and it goes along with something Guy Kawasaki was saying in a recent podcast I <a href="http://metadeveloper.blogspot.com/2007/10/podcasts-i-think-big.html">commented on</a> hearing.&nbsp; So the next question comes down to technique - when you&#8217;re working on something by yourself, how do you schedule builds?&nbsp; I&#8217;m thinking I may start to take deliberate &#8220;coding vacations&#8221; - days I take off* from work in order to push through releases on my various little software projects.&nbsp; Hm&#8230; other thoughts?</p> <p>*My employer offers &#8220;comp days&#8221; so it&#8217;s not at the expense of my day job.</p> <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>David Seruyange</div>
-<div class='content'>
-Hey AJ, <BR/><BR/>I have the book but it&#8217;s been in my reading queue - I did read a few chapters though, the del.icio.us one and the one on Philip Greenspun.<BR/><BR/>I work a lot so I accumulate a good amount of comp time. But I&#8217;m not militant about taking the time off (feeling swamped with what I need to do) so it hasn&#8217;t been a clearly defined area.  The idea is that you take a day &#8220;when you need it.&#8221;  <BR/><BR/>It feels like I&#8217;m somewhat cheating myself though by not trying to keep track and be more militant about making sure I balance the whole &#8220;comp time&#8221; equation properly for what it was designed.</div>
-</div>
-<div class='comment'>
-<div class='author'>AJ</div>
-<div class='content'>
-So I know you said you were looking forward to reading the &#8220;Founders at Work&#8221; book (http://metadeveloper.blogspot.com/2007/02/founders-at-work.html), but did you ever? If not, there&#8217;s a great chapter on / by Paul Buchheit and Gmail. One of my favorite chapters and a really fun book to read.<BR/><BR/>So.. comp days at work. How often do you get them and how much direction are you given?</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/16/check-file-existence-javascript/">Check File Existence, Javascript (Prototype)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-16T19:17:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>If you&#8217;re like me, you spend a lot of time using System.IO and can easily check for the existence of a file on the filesystem with a File.Exists(@&#8221;C:\spam\eggs.file&#8221;)</p> <p>It&#8217;s a little surprising that I hadn&#8217;t run into it before but a few weeks ago I needed that same functionality with javascript. I found a few things online and what works best is using AJAX to make a request and check the HTTP status for whether or not the request failed.&nbsp; My approach was to use <a href="http://www.prototypejs.org/">Prototype</a> and something like this:</p><pre style="background-color: #e0e0e0">function checkForFile(imgName, displayHolder){<br />    new Ajax.Request('Repo/' + imgName + '.jpg',   <br />        {<br />        method:'get',<br />        onSuccess: function(transport){   <br />            var response = transport.status || "no response text";   <br />            if(parseInt(response) == 200){<br />                displayHolder.src = 'Repo/' + imgName + '.jpg';<br />                displayHolder.style.display='block';<br />            }<br />        },     <br />        onFailure: function(){ <br />            displayHolder.src = 'Repo/NoImage.gif';<br />            displayHolder.style.display='block';<br />        }   <br />    });     <br />}<br /></pre><br /><p> Works like a charm.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/16/mantras/">Mantras</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-16T19:03:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Some <a href="http://dormando.livejournal.com/484577.html">good things to repeat to yourself</a> from Dormando. I&#8217;ve a long way to go on so many of these and was geeky enough to give myself a scorecard. </p> <p>I&#8217;ll spare you that (after just deleting a lot of babble that would only be interesting to me) but there are two areas that I can do with some serious improvement:</p> <p>1. Relentless automation<br>It&#8217;s shameful how often I&#8217;m doing things I could easily automate (repeated FTP sessions?)<br>2. Monitoring<br>I wonder how out of line it would be to programmatically enable &#8220;breadcrumbs&#8221; for user&#8217;s activity?&nbsp; Finding out what they really used and what they insisted upon for nothing.</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/09/spitting-code-like-lam/">Spitting Code Like Lam</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-09T11:44:00-06:00" pubdate data-updated="true">Feb 9<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>I started changing my Visual Studio settings after seeing Hanselman&#8217;s <a href="http://www.hanselman.com/blog/VisualStudioProgrammerThemesGallery.aspx">post</a> and thought I&#8217;d be able to spit fire like John Lam once I&#8217;d downloaded <a href="http://www.iunknown.com/2007/06/vibrant_ink_vis.html">his settings</a> (<a href="http://www.youtube.com/watch?v=BhHONpmlxPc">it&#8217;s gotta be</a> <a href="http://www.youtube.com/watch?v=qYc3cZOkwPU&amp;feature=related">the shoes</a>!). The contrast was a bit much (though working in low light helped) and after a night&#8217;s worth of being like JLam I wanted to go back to (dare I admit?) VS default settings. That didn&#8217;t work out too well (even using the &#8220;default settings&#8221; option in VS, go figure) so I opted for <a href="http://www.agileprogrammer.com/dotnetguy/archive/2006/09/07/19030.aspx">Brad Wilson&#8217;s settings</a> which I&#8217;ve grown to like.</p> <p>When the IDE &#8220;hot or not&#8221; thing first cropped up I changed settings but what makes me <em>boring</em>, preferring the default, is that I&#8217;m on a lot of machines at different times; my laptop, desktop, remote on a couple of servers, and when I help others.</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/05/grabbing-sql-2005-blobs-with-ironpython/">Grabbing SQL 2005 Blobs With IronPython</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-05T00:00:00-06:00" pubdate data-updated="true">Feb 5<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>On Saturday I needed to grab some blob data and create files out of it. The following was some Python I used, inspired very much by this code.</p> <p>The biggest point of interest is the strongly typed array, which in IronPython is simple once you know how: using Array.CreateInstance.</p> <p>&nbsp;</p> <p>&nbsp;</p><pre>#GET IMAGES FROM IMAGE BINARY FIELD<br /># 02/02/2008 - David - @THE COMMAND CENTRE<br /><br />import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.IO import *<br /><br />CONNECT = "Data Source=(local)\sqlexpress;Initial Catalog=DATABASE;Integrated Security=SSPI"<br /><br />sql = "select ID_FIELD, BLOB_FIELD from product_set"<br />cn = SqlConnection(CONNECT)<br />cn.Open()<br />cmd = SqlCommand(sql, cn)<br />reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)<br />buffSize = 100<br />buff = Array.CreateInstance(Byte, buffSize)<br />recCounter = 0<br />while reader.Read():<br />	print "Creating " + str(reader[0])<br />	fs = FileStream(str(reader[0]) + str(recCounter) + "_diagram.png", FileMode.OpenOrCreate, FileAccess.Write)<br />	bw = BinaryWriter(fs)<br />	if(reader[1] != DBNull.Value):<br />		posit = 0<br />		b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		while(b == buffSize):<br />			bw.Write(buff)<br />			bw.Flush()<br />			posit = posit + buffSize<br />			b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		bw.Write(buff, 0, b)<br />		bw.Flush()<br />		bw.Close()<br />		fs.Close()<br />	recCounter = recCounter + 1<br /><br />reader.Close()</pre><pre><br /></pre><br /><p>I&#8217;d like to clean it up a bit, but I&#8217;ve written about <em>5,000,000 things</em> that I &#8220;intend&#8221; to clean up before posting and they&#8217;re never posted.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/04/what-comes-first-rocks/">What Comes First; Rocks</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-04T23:53:00-06:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Oliver Steele has a new essay entitled <a href="http://osteele.com/archives/2008/02/project-drag">Adding the Easy Piece; or, The Metaphor of the Rock</a>.&nbsp; Insightful as usual, and I love the visualizations.</p> <p>Personally, I&#8217;m experiencing the effects of pushing a rather large rock around a room.</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/30/scott-mccloud-four-tribes-developer/">Scott McCloud&#8217;s Four Tribes - Developer Edition</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-30T23:57:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Last year I was fortunate to catch <a href="http://www.scottmccloud.com/">Scott McCloud</a> here in Sioux Falls. It&#8217;s doubtful that he&#8217;d ever find his way here under normal circumstances but he was doing a 50 state tour in support of his book, &#8221;<a href="http://www.amazon.com/Making-Comics-Storytelling-Secrets-Graphic/dp/0060780940">Making Comics</a>.&#8221;&nbsp; I believe a dual aim was to provide his two young daughters, who travelled and presented with him, an experience of a lifetime.&nbsp; </p> <p>I was particularly struck with a classification he had for comic (and indeed all types) artists.&nbsp; He placed them into four quadrants:</p> <p><img src="http://seruyange.com/metadeveloper/mccloud02.jpg"> </p> <p>Here is a quote of <a href="http://webcomicsreview.com/?p=151">an explanation</a> of how the classifications work:</p> <blockquote> <p>Those who value draftsmanship the most, and who are the most invested in the idea of mastery, beauty, and craft find themselves on the opposite side of the fence from those whose strongest values are raw honesty, authenticity, and a kind of rebellion against the status quo. That dichotomy comes between what I call the classicists and the iconoclasts. The children of Hal Foster versus the children of R. Crumb.  <p>That’s the truth and beauty diagonal that separates two of the four tribes. The other two corners are the formalists and the animists, who represent the distinction between form and content. The formalists like to experiment and take the medium apart, figure out how it works and put it back together, and try new things; while the animists really just like to tell a compelling story, and want the form to vanish, to become transparent, so that you don’t know you’re reading a comic at all.</p></blockquote> <p>I wonder how well these notions apply to the practice of programming.&nbsp; I can easily see the classicist: mastery, beauty, and craft - the person who uses things like recursion excessively for the computer science elegance they bestow.&nbsp; Opposite them, I see the iconoclast -&nbsp; the hacks that make things work and could care less about the principles or structure of a thing and instead devote themselves to the beauty of experience. </p> <p>I think the animists and formalists can be distinguished as well by the metric of language/tool preference.&nbsp; The obsessives of language would seem to tend toward formalism and understanding every moving part.&nbsp; An animist may be the type of person who excels at making a tool do legwork with no particular interest in exactly what that tool is baking under the covers.&nbsp; </p> <p>Of course we all will have elements of each but I like to think of myself patterned after Scott McCloud. The formalist who might write the same software over and over in different languages just to see how expression and power vary at the lowest levels.</p> <p>Interesting food for thought.</p> <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -521,19 +507,19 @@ So I know you said you were looking forward to reading the &#8220;Founders at Wo
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

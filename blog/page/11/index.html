@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ Joel&#8217;s got a big enough voice that I&#8217;m sure most people didn&#8217;t miss his Martian Headphones essay which explained the futility of &hellip;">
+  <meta name="description" content="{ I got a little help yesterday from Dav Glass and Eric Miraglia for my issue on selection of YUI javascript files. What I&#8217;d had distributed &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/26/jeff-zeldman-pixel8-interview/">Jeff Zeldman, Pixel8 Interview</a></h1>
+      <h1 class="entry-title"><a href="/2008/10/01/yui-file-disjoin-complexity-help/">YUI File Disjoin Complexity HELP</a></h1>
     
     
       <p class="meta">
@@ -87,7 +87,7 @@
   
 
 
-<time datetime="2008-03-26T00:39:00-05:00" pubdate data-updated="true">Mar 26<span>th</span>, 2008</time>
+<time datetime="2008-10-01T19:27:00-05:00" pubdate data-updated="true">Oct 1<span>st</span>, 2008</time>
         
       </p>
     
@@ -95,7 +95,7 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Joel&#8217;s got a big enough voice that I&#8217;m sure most people didn&#8217;t miss his Martian Headphones essay which explained the futility of standards.&nbsp; Jeff Zeldman, who I&#8217;ve always been aware of in my time lurking on the web <a href="http://pixel8.infragistics.com/Default.aspx#Episode:8691">chimes in</a> on web standards on Craig Shoemaker&#8217;s new gig, &#8221;<a href="http://pixel8.infragistics.com/Default.aspx">Pixel 8</a>.&#8221;&nbsp; The podcast sound is very rough but it&#8217;s a good context builder for the notion of standards and what they mean.&nbsp; If you&#8217;ve ever had to wrangle with a different look in different browsers, you appreciate standards even if they are complicated and never achieve perfection.</p> <p>Just noticed that Pixel8 has a podcast with Chris Wilson. That will have to wait until tomorrow - </p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>I got a little help yesterday from <a href="http://blog.davglass.com/">Dav Glass</a> and <a href="http://360.yahoo.com/profile-JG9noGk0aa9kLMDBru_y9a2uxmo-">Eric Miraglia</a> for my issue on selection of YUI javascript files. What I&#8217;d had distributed over a bunch of files is now: </p>  <p></p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; width: 699px; color: #eee; padding-top: 10px; font-family: courier; height: 263px">&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <p></p></pre><br /><br /><p>Hm&#8230; a bit better. Both Dav and Eric confirm that the canonical solution to this problem is to spend some quality time at the <a href="http://developer.yahoo.com/yui/articles/hosting/">YUI Configuration Site</a> which will allow you to pick the widgets and utilities you&#8217;ve leveraged in order to combine it into a more simplified call. </p><br /><br /><p>A someday project: the following style of implementation to make the reference a bit more crisp (I didn&#8217;t add everything from above, but the pattern should be easy to observe):</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; width: 679px; color: #eee; padding-top: 10px; font-family: courier; height: 97px">&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo/2.5.2/dom-event&amp;animation-min&amp;element-beta-min&amp;container_core-min&quot;&gt;&lt;/script&gt; </pre><br /><br /><p></p><br /><br /><p>&#160;</p><br /><br /><p>Anyhow, thanks for the help. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -108,7 +108,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/26/unit-tests-with-iron-python/">Unit Tests With Iron Python</a></h1>
+      <h1 class="entry-title"><a href="/2008/09/30/yui-file-disjoint-complexity-fail/">YUI File Disjoint Complexity FAIL</a></h1>
     
     
       <p class="meta">
@@ -124,7 +124,7 @@
   
 
 
-<time datetime="2008-03-26T00:31:00-05:00" pubdate data-updated="true">Mar 26<span>th</span>, 2008</time>
+<time datetime="2008-09-30T17:39:00-05:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
         
       </p>
     
@@ -132,118 +132,28 @@
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>&#8220;Testing is the engineering rigor of software development&#8221; - <a href="http://www.nealford.com/">Neal Ford</a></p> <p>Got a little tip from <a href="http://www.voidspace.org.uk/ironpython/index.shtml">fuzzyman</a> on using <a href="http://docs.python.org/lib/module-unittest.html">unittest</a> for Unit Testing with Iron Python. Because I&#8217;m a slouch I had an old IronPython 1.1 release and kept getting a BaseException error when my tests failed.&nbsp; The class has since been implemented and should work with the latest version of IronPython that you can download (I&#8217;m using a beta release of 2.0).</p> <p>Here is the code from my unit tests, of course it&#8217;s destined to change but I was in the mode of getting it to work with IronPython: </p> <p><pre>from Twining import *<br />import exceptions<br />import random<br />import unittest<br />import os<br /><br />class TestSequenceFunctions(unittest.TestCase):<br />    <br />    def setUp(self):<br />        self.cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br /><br />    def test_exportcsv(self):<br />        """ Export a CSV style data """<br />        outPath = "c:\\foo.csv"<br />        database(self.cn).table("Photos").copyto.csv(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def test_exportxmlattribstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_attrib.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />        <br />    def test_exportxmlelementstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_elem.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def tearDown(self):<br />        if os.path.exists("c:\\foo.csv"): os.remove("c:\\foo.csv")<br />        if os.path.exists("c:\\xml_as_attrib.xml"): os.remove("c:\\xml_as_attrib.xml")<br />        if os.path.exists("c:\\xml_as_elem.xml"): os.remove("c:\\xml_as_elem.xml")        <br />        <br />if __name__ == '__main__':<br />    unittest.main()<br /></pre><br /><p></p><br /><p>You can download this and the latest version of things from the new <a href="http://www.t3rse.com/twining/">Twining page</a>.&nbsp; </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>So here&#8217;s what has been getting my goat for a while with YUI and a very smple application I&#8217;ve been using it to build.</p>  <p><img src="http://www.t3rse.com/t3rse/images/yahooCSS.jpg" />     <br /><img src="http://www.t3rse.com/t3rse/images/yahoojslib.jpg" /> </p>  <p>So for said application, I have to reference 12 separate Javascript files along with 5 separate CSS files.&#160; All for this simple interface (datatable, tabs, button, ajax (connection), events and maybe a few more things I am not remembering):   <br />     <br /><img height="272" src="http://www.t3rse.com/t3rse/images/keep.jpg" width="514" /> </p>  <p>This type of complexity is what makes YUI daunting for many developers and difficult to maintain; over at <a href="http://www.nregex.com">nRegex</a> I&#8217;m referencing a bunch of older versions of YUI and if/when I do decide to update there will be quite a few places in which compatibility and errors have the potential in manifesting themselves.</p>  <p>YUI controls are nice once working but I&#8217;m at the point of wondering if this kind of disjointedness should lead me towards <a href="http://jquery.com/">jQuery</a> or <a href="http://dojotoolkit.org/">Dojo</a>. Especially with Microsoft&#8217;s <a href="http://weblogs.asp.net/scottgu/archive/2008/09/28/jquery-and-microsoft.aspx">recent adoption</a> of jQuery, I&#8217;m leaning in that direction. But I don&#8217;t want to be rash so I&#8217;ll ask:     <br />1. What is the canonical solution e.g. blessed by Yahoo! (I see a YUI loader of some kind)?    <br />2. What does that look like with the 5 CSS and 12 *.JS files I&#8217;ve got above?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>Fuzzyman</div>
+<div class='author'>Eric Miraglia</div>
 <div class='content'>
-Introspecting .NET objects from IronPython is really easy.<BR/><BR/>dir(someObject)<BR/><BR/>returns a list of strings of member names (public and protected) of that object. <BR/><BR/>help(someObject.someMethod)<BR/><BR/>can also be useful sometimes.<BR/><BR/>Lots of other easy reflection techniques (hasattr, getattr and setattr for example).<BR/><BR/>Experimenting from the interactive interpreter will give you a feel for what is possible.</div>
+You should be able to do all of this in just three requests as of YUI 2.5.2:<BR/><BR/>&lt;!&#8211; css &#8211;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/fonts/fonts-min.css&quot;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css&quot;&gt; <BR><BR/>&lt;!&#8211; js &#8211;&gt; <BR><BR/>&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <BR/><BR/>As Dav says, head over to the YUI dependency configurator to explore your options.</div>
 </div>
 <div class='comment'>
-<div class='author'>sevenseeker</div>
+<div class='author'>Dav Glass</div>
 <div class='content'>
-Do you have any experience with testing existing .NET code and assemblies with IronPython?<BR/><BR/>How would I go about reflecting and introspecting elements to see what I can do if I don&#8217;t have access to all of the code?</div>
+Try the Dependency Configurator: <A HREF="http://developer.yahoo.com/yui/articles/hosting/" REL="nofollow">http://developer.yahoo.com/yui/articles/hosting/</A><BR/><BR/>Also an FYI, the <STRONG>yahoo-dom-event.js</STRONG> file is a roll up of the <STRONG>yahoo-min.js</STRONG>, <STRONG>dom-min.js</STRONG> &amp; the <STRONG>event-min.js</STRONG>. So there is no reason to include them over again.</div>
 </div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Hmmm&#8230; we use unittest with IronPython 1.1.1 and don&#8217;t have any &#8216;BaseException&#8217; problems.<BR/><BR/>You&#8217;re better off with IronPython 2 for a host of other reasons though.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/25/twining-updates/">Twining Updates</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-25T00:42:00-05:00" pubdate data-updated="true">Mar 25<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>What&#8217;s the big picture and why are you doing it?</p> <p>A comment from my last post got me thinking I need to get back to the big picture. Robert wrote: </p> <blockquote> <p>Wow. That looks like a hard way to solve your problem. <br>If you absolutely have to mangle Excel data through Python and into a database&#8230; can I recommend Resolver? It won&#8217;t cost you anything and it might just solve your problem.</p></blockquote> <p>I&#8217;ll post about Resolver in a second but I want to go back to my original thoughts on developing Twining. I spend a lot of time doing quick and dirty types of data import and export.&nbsp; Sometimes it&#8217;s grabbing stuff off a production system so that I can develop off of it. Other times we get a simple file from someone and we need to pull it into the database.&nbsp; Still other times we move data from one location to the next because we&#8217;ve done staging or cleanup.&nbsp; <p>Traditionally the Microsoft tools for this are quite heavy.&nbsp; DTS, which I used a lot, and SSIS which I haven&#8217;t used much but have heard and read about are both GUI/IDE approaches towards the problem.&nbsp; SSIS in particular isn&#8217;t an out of the box solution for a developer like myself who doesn&#8217;t always install every iota of SQL Server tool there is to install.&nbsp; Usually I can express my problems in a simple sentence:  <p>&#8220;Copy the data from this table to that table.&#8221;<br>&#8220;Build an insert script for this table&#8217;s data&#8221;<br>&#8220;Import this CSV file to this database&#8221; <p>I wondered why language couldn&#8217;t be used as a tool for this type of work rather than launching a big GUI tool or writing throwaway C# console applications for the job.&nbsp; That&#8217;s the origin of the thought, cultivated when I heard Neal Ford give a talk at CodeMash on DSLs.&nbsp; A single &#8220;sentence&#8221; lodged itself in my head and I thought, wow, that would be a nice solution: <p>database(&#8220;foo&#8221;).tables(&#8220;bar&#8221;).copyto.database(&#8220;biff&#8221;) <p>I have to admit to being more of a gardener than an architect when it comes to these things so I started a notepad file with some &#8220;forms&#8221; I thought would work and one friday afternoon, after being burned out on regular work I started what I call &#8220;sketching&#8221;; seeing how things might work. Since then I&#8217;ve been gnawing on it in a public way since learning Python and thinking in a Pythonic way are probably even more important than my little module which may end up just being fabulous meware. <p>I had posted that I had a little database import project of about 110,000 records distributed over two excel files.&nbsp; The story I got was exactly the one I envisioned:  <p><font face="Courier New" size="2">cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB;Integrated Security=SSPI;&#8221;<br>colmap = {&#8220;Field1&#8221;:0, &#8220;Field2&#8221;:5, &#8220;Field3&#8221;:7} #destination:source - you may want to use the same source multiple times&#8230;<br>database(cn).table(&#8220;DestinationTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;temp&#92;widgetCo&#92;update1.csv&#8221;)<br>database(cn).table(&#8220;DestinationTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;temp&#92;widgetCo&#92;update2.csv&#8221;)</font> <p>I will admit it wasn&#8217;t perfect the first time - my lazy use of string concatenation rather than the .NET StringBuilder was a huge penalty (~10 minutes). I rewrote those pieces and the whole process took less than 30 seconds. Cheers for ADO.NET on that one - the updates were _massive. <p>So, back to Resolver; I read <a href="http://www.sdtimes.com/content/article.aspx?ArticleID=31818">a glowing review</a> from Larry O&#8217;Brien (his column is the first thing I read in SD Times when it crosses my desk) and the comment propelled me to watch <a href="http://www.resolversystems.com/screencasts/resolver-one-in-one/">a few</a> <a href="http://www.resolversystems.com/screencasts/web-app-in-10-mins/">screencasts</a> and <a href="http://www.resolversystems.com/documentation/index.php/Writing_to_a_database">dig around</a> but the goal of the product wasn&#8217;t quite in line with the story I recount above.&nbsp; Perhaps it&#8217;s possible but it seems more like an interface in which one dwells on providing complex functionality in the spreadsheet rather than just quick and dirty import/export business. <p>More updates forthcoming but a short note: I spent a good part of the weekend trying to read through the code of <a href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj 4</a> courtesy of Michael Foord (aka &#8220;Fuzzyman&#8221; aka &#8220;Voidspace&#8221;).&nbsp; I&#8217;ll dwell on it further soon but one thing I realized I&#8217;d done that was a big mistake is to break the project into lots of files. I put them back together again and am in the process of figuring out how and where to host them. CodePlex/Google Code? Not sure if it&#8217;s ready for that yet.&nbsp; My own abode <a href="http://www.t3rse.com">t3rse</a> might work but I&#8217;d like to figure out how to generate documentation before I do that&#8230; <p>Enough said, <a href="http://www.t3rse.com/twining/Twining.py.txt">here is what&#8217;s latest</a>, details and unit tests tomorrow. <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-&#8220;trying to read through the code of ConfigObj 4&#8221; - what are you mad! That code wasn&#8217;t meant to be read. :-)<BR/><BR/>The parser at the heart of ConfigObj is pretty nasty, but the rest of the code should be ok. A lot of the methods are too long though, the code should definitely be more modular.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/19/twining-iron-python-dsl-for-db-update-v/">Twining: Iron Python DSL for DB Update V</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-19T13:22:00-05:00" pubdate data-updated="true">Mar 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>I&#8217;m still at it with Twining. A few projects and events have distracted me temporarily but I had a few moments last night to do a few things that I&#8217;ve intended to for some time.&nbsp; First a summary of functionality with what&#8217;s new in red.</p> <p><font face="Courier New" size="2">cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB1;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MyDB2;Integrated Security=SSPI;&#8221; </font> <p><font size="2"><font face="Courier New"><font color="#ff0000"># dest, source (you can use the same source column over and over)<br># dest, source can be field names, example below uses ordinal position<br>colmap = {&#8220;DestinationField1&#8221;:1, &#8220;DestinationField2&#8221;:2, &#8220;DestinationField3&#8221;:1}<br>database(cn).table(&#8220;MyTable&#8221;).mapcolumns(colmap).importfrom.csv(&#8220;C:&#92;foo.csv&#8221;)</font> </font></font> <p><font face="Courier New" size="2">#old stuff<br>mytrans = {&#8220;Field1&#8221;:&#8221;upper&#8221;,&#8221;Field2&#8221;: lambda x: x.upper(),&#8221;Field3&#8221;: lambda x: x[::-1]}<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.database(cn2)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;here.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.xmlFieldsAsElements(&#8220;c:&#92;there.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;foaf.tsv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;foaf_no_trans.tsv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).transform(mytrans).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;here.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;there.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;temp&#92;loungin.bak&#8221;)</font>  <p>Footnotes: I&#8217;m working on changing my implementation of all things CSV/delimiter to using ADO.NET providers - the manually concatenated strings were just proof of concept. Back in 2004 in <a href="http://discuss.techinterview.org/default.asp?joel.3.1282.11">a thread</a> that none other than Joel Spolsky responded to I learned not to try to reinvent a very hard CSV wheel. <p>The other bigger change I made was breaking the project apart. What was originally in multiple files as a &#8220;sketch&#8221; was becoming a nuisance besides poorly structured. I&#8217;ve deconstructed into the following files:  <p>registrar.py - holds global, static data.<br>sqlhelper.py - runs dynamic sql statements<br>errorhandle.py - exception handling<br>database.py - reference to databases, constituent tables, and holds the copyto and importfrom objects<br>copyto.py - object for exporting as CSV, XML, and database to database<br>importfrom.py - object for importing data (currently on rough sketch for CSV import)  <p>Most remains unchanged from the last upload but here is the code for the importfrom functionality: <pre>import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.Data.OleDb import *<br />from System.IO import *<br /><br />from registrar import *<br />from sqlhelper import *<br /><br /><br />class importfrom:<br />	"""Model data import process"""<br />	<br />	def __init__(self):<br />		self.columnmap = {}<br />	<br />	def build_destination(self):<br />		""" If destination does not exist, construct table"""<br />		pass<br />	<br />	def csv(self, path):<br />		""" Import data from a csv file """<br />		fileName = path.split("\\")[-1]<br />		fileDir = path.replace(fileName, "")<br />		connect = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='text;HDR=No;FMT=Delimited'"<br />		csvConnection = OleDbConnection(String.Format(connect, fileDir))<br />		csvConnection.Open()<br />		csvCommand = OleDbCommand("select * from " + fileName, csvConnection)<br />		sourceReader = csvCommand.ExecuteReader(CommandBehavior.CloseConnection)<br />		masterInsert = ""<br /><br />		while sourceReader.Read():<br />			cols, vals = "", ""<br />			for k in self.column_map.keys():<br />				cols, vals = cols + "[" + k + "],", vals + "'" + str(sourceReader[self.column_map[k]]) + "',"<br />			masterInsert += "insert into " + registrar.tableRegister + "(" + cols[:-1] + ")VALUES(" + vals[:-1] + ")\n"<br />		sourceReader.Close()<br /><br />		try:<br />			sqlhelper().run_sql(registrar.databaseRegister, masterInsert)<br />		except Exception, inst:<br />			errorhandle().print_error("Error occured during import", inst)<br /></pre><br /><p><a href="http://www.seruyange.com/metadeveloper/Twining.zip">Download everything here</a> as a zip file. I&#8217;ve hopefully carved a little space in the schedule amongst various projects to spend more time going back and polishing things. I&#8217;ve just been tasked with migrating about 120,000 records out of Excel so this should provide a good opportunity to add functionality and test it&#8217;s breakability for the type of thing I often have to do.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
 <div class='comment'>
 <div class='author'>David Seruyange</div>
 <div class='content'>
-Hey Robert, <BR/><BR/>The story I&#8217;m hoping for this will be: <BR/><BR/>database(&#8216;excel&#8217;).tables(&#8216;sheet1&#8217;).copyto.database(&#8216;mydb&#8217;)<BR/><BR/>Since I find myself having to do this often, I&#8217;m willing to deal with some pain and nuances for an easy one liner in the future. I&#8217;ve seen a lot of &#8220;copy/paste&#8221; approaches to importing data from excel and because it&#8217;s something one can&#8217;t automate I tend to avoid it.<BR/><BR/>Hopefully no mangling will take place but I do need to check out Resolver.</div>
+I thought I should leak why I&#8217;ve been such a bad blogger of late.</div>
 </div>
 <div class='comment'>
-<div class='author'>robert</div>
+<div class='author'>AJ</div>
 <div class='content'>
-Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolutely have to mangle Excel data through Python and into a database&#8230; can I recommend Resolver? It won&#8217;t cost you anything and it might just solve your problem.<BR/><BR/>Cheers, Robert</div>
+Sooo&#8230; what&#8217;s a picture of an ultrasound doing on your blog post? Subtle hint or random choice?</div>
 </div>
 </div>
 </div>
@@ -258,7 +168,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/12/brash-boys/">Brash Boys</a></h1>
+      <h1 class="entry-title"><a href="/2008/07/29/reading-source-minima-iii/">Reading Source, Minima III</a></h1>
     
     
       <p class="meta">
@@ -274,7 +184,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
   
 
 
-<time datetime="2008-03-12T16:54:00-05:00" pubdate data-updated="true">Mar 12<span>th</span>, 2008</time>
+<time datetime="2008-07-29T00:05:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2008</time>
         
       </p>
     
@@ -282,7 +192,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>When I read <a href="http://www.wired.com/techbiz/media/magazine/16-03/mf_signals">the article on 37 Signals</a> in Wired, I admit I alternated between shaking my head, laughing, and sighing. </p> <p>When Hanson commented upon the term arrogance, I laughed: </p> <blockquote> <p>&#8220;Arrogant is usually something you hurl at somebody as an insult,&#8221; Hansson said. &#8220;But when I actually looked it up — having an aggravated sense of one&#8217;s own importance or abilities&#8217; — I thought, sure.&#8221;</p></blockquote> <p>When the article describes him as a &#8220;philosopher king&#8221; I shook my head.&nbsp; And his response to naysayers, &#8220;F&#8212; you&#8221; made me sigh; not a convincing piece of rhetoric at all.&nbsp; </p> <p>Despite all this, despite Atwood&#8217;s <a href="http://www.codinghorror.com/blog/archives/001065.html">recent swipe</a> at what he calls &#8220;douchebaggery,&#8221; despite the <a href="http://www.jnd.org/dn.mss/why_is_37signals_so_1.html">disagreement</a> of Don Norman, there is something there.&nbsp; </p> <p>It&#8217;s not that I&#8217;m one of the fanboys of the Ruby or Apple world, or that I agree with Hansson&#8217;s attitude towards windows developers - it&#8217;s that I think it&#8217;s a trait of people I call successful to be able to concentrate and get things done without regard for outside opinions.&nbsp; It&#8217;s less of a &#8220;stay the course&#8221; mentality than an understanding of self and drawing clear lines with work rather than spending a lot of time second guessing and self doubting. </p> <p>One area in which I can look at hard data and side with 37signals is in the realm of additional or complex features; I really do question whether they are worth it.&nbsp; I just recently quantified this with an application we wrote for a customer that they are using successfully.&nbsp; I compared the baseline functionality of a particular feature to some exceptional scenarios I had to write code for - it was easy because one can tell the usage by counting records in the database.&nbsp; Anyhow, for the baseline functionality I counted some 6,100 instances of its use.&nbsp; For the exceptional scenarios, I counted 9 entries.&nbsp; Here&#8217;s the clincher: it took about 3 or 4 times as long to implement support for the exceptional scenarios (and it added a lot of complexity to the code for the baseline feature).&nbsp; So the ability to handle about one tenth of a percent of scenarios, cost and complexity was inflated significantly.</p> <p>Here&#8217;s where I disagree with them: it&#8217;s not my decision, it&#8217;s the customer&#8217;s. My goal should be to communicate that trade off as well as I can.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>As my reading of <a href="http://www.codeplex.com/Minima">Minima source code</a> continues I wanted next to comment upon the database interaction which is novel (to me at least) in that it is exclusively a LINQ implementation with no stored procedure or ADO.NET implementation.&#160; I&#8217;ve seen LINQ quite a bit, but many using it seem to stick to using the query syntax rather than using raw lambda expressions.&#160; All the LINQ in Minima that I&#8217;ve seen uses lambda expressions and I&#8217;ve&#160; come to appreciate it as a clean, sparse syntax.&#160; To illustrate a more trivial example, assuming I have a table Users with Username / Password columns I wanted to verify for access. The first step with all things LINQ is to make your data model, which amounts to a DBML file that you map database objects to with drag and drop. Next you can write query expressions to pull data out of the database - notice that the db variable here points to the data model as embodied in a &quot;data context&quot; object: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            var authUserQuery = from u in db.Users <br />                    where u.Email == Login1.UserName &amp;&amp; u.Passphrase == Login1.Password<br />                        select u;</pre><br /><br /><p>Unfortunately the query expressions return an IEnumerable&lt;T&gt; that doesn&#8217;t support a Count or Length property. It&#8217;s a somewhat inflexible thing that in my *very* limited experience is useful mainly for iterating with a ForEach - and I suspect it&#8217;s reasons like this that led Betz to using a lambda syntax that is much cleaner and gets more bang with less code: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;Data.User, Boolean&gt; checkUser = x =&gt; x.Email == Login1.UserName &amp;&amp; x.Passphrase = Login1.Password;<br />            Data.User u = db.Users.SingleOrDefault(checkUser);</pre><br /><br /><p>You can use nullability to test for the presence of a record based on the LINQ query. Some source from Minima that demonstrates this is verification of the existence of a blog author: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;AuthorLINQ, Boolean&gt; authorExists = x =&gt; x.AuthorEmail == authorEmail;<br />            authorLinq = db.Authors.SingleOrDefault(authorExists);<br />            if (authorLinq == null)<br />            {<br />                throw new ArgumentException(message);<br />            }</pre><br /><br /><p>It&#8217;s truly novel and I don&#8217;t mean to make that sound like a trivial or ornamental type &quot;novel&quot; I write; after spending so much time building a data access layer with stored procedures and ADO.NET (Connection, Command, Reader, DataSet, ad nauseum) it seems like our collective destiny is to walk away from that and let something like a DBML data context do black magic for us.</p><br /><br /><p>Even though the ADO.NET Entity Framework is getting a <a href="http://efvote.wufoo.com/forms/ado-net-entity-framework-vote-of-no-confidence/">FAIL</a> vote from some people, I&#8217;m interested to see how this overlaps with LINQ. Even after listening to Hanselman&#8217;s <a href="http://www.hanselminutes.com/default.aspx?showID=120">interview</a> of Mike Pizzo I&#8217;m still a little unclear. My plan of action is to get serious about NHibernate to try to understand, as Scott would say, &quot;the gestalt&quot; of an ORM and then make the call on ADO.NET Entity Framework when it&#8217;s released.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -295,7 +205,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/09/vbnet-design/">VB.NET Design</a></h1>
+      <h1 class="entry-title"><a href="/2008/07/24/twining-twydl/">Twining, TwyDL</a></h1>
     
     
       <p class="meta">
@@ -311,7 +221,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
   
 
 
-<time datetime="2008-03-09T14:12:00-05:00" pubdate data-updated="true">Mar 9<span>th</span>, 2008</time>
+<time datetime="2008-07-24T23:35:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2008</time>
         
       </p>
     
@@ -319,7 +229,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Paul Vick <a href="http://www.panopticoncentral.net/archive/2008/02/27/22910.aspx">posts</a> on some design considerations for future versions of VB.NET and hits upon something I was complaining about just this week - the fact that one has to speckle their code with line continuation characters in places where they should be implicit.&nbsp; This seems to happen for me in two spots, assigning parameters and string concatenation.&nbsp; </p> <p>It&#8217;s reassuring that not only does the VB.NET team listen, but they are looking for solutions as well.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>A quick note that <a href="http://www.t3rse.com/twining">Twining</a> isn&#8217;t dead and that I actually have been working on it. Some work I&#8217;ve done in the past few months has involved a lot of databases I don&#8217;t have more than an ISPs user/password level of access to so it&#8217;s been quite handy to copy data in and out with brief pieces of code. Here&#8217;s one feature I&#8217;ve used, exporting a table definition and all of its contents to a scripted insert statement in a file: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).table(&quot;MY_TABLE&quot;).copyto.script(&quot;c:\\temp\\MY_SCRIPT.sql&quot;)</pre><br /><br /><p>&#160;</p><br /><br /><p>Another piece that I&#8217;ve been working on is the ability to generate schema objects in a more fluid, compact way. I like SQL just fine but after seeing how easy it is to make data structures with the Google App Engine I sought to shoot for something similar. Also within the flow of writing a Twining script it&#8217;s easy to keep this type of syntax Pythonic for certain scenarios (you want to create a temp table and dump data into it from somewhere; you want to create a table and generate sample data, etc, etc). I call it TwyDL as a play on <a href="http://en.wikipedia.org/wiki/Drop_(SQL)">DDL</a>: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).create.table(&quot;Employees&quot;, <br />                               [<br />                                   col.ident(&quot;EmployeeID&quot;), <br />                                   col.string(&quot;FirstName&quot;), <br />                                   col.string(&quot;LastName&quot;), <br />                                   col.numeric(&quot;Salary&quot;)<br />                               ]<br />                          )</pre><br /><br /><p>&#160;</p><br /><br /><p>The methods you see for defining column types take optional parameters so you can pass additional specifications when you feel the need. For example, the string columns default to varchar(50) but if you wanted to have a specific length all you&#8217;d need to do is: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.string(&quot;FirstName&quot;, 25)</pre><br /><br /><p>The same is true for numeric types: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.numeric(&quot;Salary&quot;, 18, 4)</pre><br /><br /><p>I&#8217;ve got one more thing I&#8217;m interested in implementing (time! time!) which is generating sample data given some table definition. I&#8217;m hoping to get up a rough cut of it all in the next day or two, after I&#8217;ve updated unit tests and organized things.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -332,7 +242,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/06/mix-08-keynote/">Mix 08 Keynote</a></h1>
+      <h1 class="entry-title"><a href="/2008/07/22/reading-source-minima-ii/">Reading Source, Minima II</a></h1>
     
     
       <p class="meta">
@@ -348,7 +258,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
   
 
 
-<time datetime="2008-03-06T00:15:00-06:00" pubdate data-updated="true">Mar 6<span>th</span>, 2008</time>
+<time datetime="2008-07-22T00:19:00-05:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2008</time>
         
       </p>
     
@@ -356,7 +266,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Just <a href="http://www.visitmix.com/blogs/Joshua/Day-1-Keynote/">watched it</a> while working on some stuff tonight.&nbsp; Good things seem to be happening although much of it is in CTP or Beta form right now.&nbsp; I&#8217;ll need to resurrect my VPC images to install and play when I have the time. What&#8217;s baking that&#8217;s cool?</p> <p>IE 8 - the integrated Firebug like debugging is what&#8217;s got me excited for now.<br>Silverlight 2.0 - Dino Esposito joked about how Silverlight 1.0 was a declarative way to produce an animated gif (unless you just want a video player).&nbsp; Now that a real control library is being developed, people like me will be able to seriously think of ways to use it.&nbsp; I don&#8217;t stream video but I do write a lot of code :)<br>Expression 2.0 / WPF - Ditto on Silverlight 2.0, WPF needs controls - and not just the kind you have to pay $$$ for.&nbsp; In my best Steve Balmer voice I&#8217;d say &#8220;controls! controls! controls!&#8221; The blank canvas thing is cool but limited when you need to build something on a real world timeline with real world resources.</p> <p>I didn&#8217;t see ASP.NET MVC stuff in the keynote under demonstration but it was mentioned. Via Hanselman, <a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=38CC4CF1-773A-47E1-8125-BA3369BF54A3&amp;displaylang=en">Preview 2</a> is released today.</p> <p>John Lam seems to be writing <a href="http://www.iunknown.com/2008/03/dynamic-silverl.html">a multi-part article on DLR + IronRuby</a> - a cool way to experiment with Silverlight although now I&#8217;m officially in love with Python and may not have room for a while.&nbsp; </p> <p>I&#8217;m excited to see what happens but I&#8217;m skeptical to put too much effort into this stuff until it&#8217;s properly released.&nbsp; Since I&#8217;m no longer a trainer and the apps I write have to be installable on client machines, I have less flexibility and time to get full fledged into beta stuff. It will also be interesting to see who wins the Silverlight / Flash war (and a war it will be). Microsoft is building its installed base pretty fast and with a better developer toolkit I will be interested to see what Adobe does with Flash.</p> <p>Lots more lurking to do - even though <strike>all the</strike> cool people are at MIX, so much is online and so many people are twittering (I now have a &#8220;Twit&#8221; folder in my reader), one can almost imagine themselves there.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>Yesterday I wrote that my next stop was the use of Generics with WCF. Sometimes, it seems, a lot of experience is a handicap to learning new things - such was definitely the case when it comes to the full use of Generics with C#.&#160; Most of my usage, I admit, has been limited to Generic Collections such as List&lt;T&gt; or Dictionary&lt;T, K&gt;.&#160; But there is a beautiful leveraging of Generics I see with WCF that can be applied all over the place.&#160; As a trivial example, consider the code that is used to safely read values from a database field.&#160; I will admit to writing a lot of code like: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />	public static void GetSafeString(object field);<br />	public static void GetSafeDecimal(object fiel);<br />	// and so on.<br />	<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.GetSafeString(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.GetSafeDecimal(rs[&quot;Salary&quot;]);</pre><br /><br /><p>A lot of redundancy and little extensibility. Here&#8217;s how a WCF infected mind might write that: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />        static T SafeField&lt;T&gt;(object field, T defaultValue){<br />            return (field == DBNull.Value) ? defaultValue : (T)field;<br />        }<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.SafeField&lt;string&gt;(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.SafeField&lt;decimal&gt;(rs[&quot;Salary&quot;]);</pre><br /><br /><p>If you coupled the above with some <em>inversion of control</em> you&#8217;d have a pretty powerful and extensible code for dealing with any potentially null field type coming from your database.&#160; It&#8217;s not that such use is an innovation exclusive to WCF, I see it used a lot more there.&#160; Back to Minima, one can see a good example of this in the project responsible for exposing configuration values:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">namespace Themelia.Configuration<br />{<br />    public static class ConfigAccessor<br />    {<br />        public static T ApplicationSettings&lt;T&gt;(string key);<br />        public static string ApplicationSettings(string key);<br />        public static T ApplicationSettings&lt;T&gt;(string key, bool isRequired);<br />        public static string ApplicationSettings(string key, bool isRequired);<br />        public static string ConnectionString(string key);<br />    }<br />}</pre><br /><br /><p>&#160;</p><br /><br /><p>More on Minima later (hopefully tomorrow), taking a look at database access.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -369,7 +279,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/05/gem-in-morning-coffee/">A Gem in the Morning Coffee</a></h1>
+      <h1 class="entry-title"><a href="/2008/07/20/reading-source-minima-i/">Reading Source, Minima I</a></h1>
     
     
       <p class="meta">
@@ -385,7 +295,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
   
 
 
-<time datetime="2008-03-05T12:58:00-06:00" pubdate data-updated="true">Mar 5<span>th</span>, 2008</time>
+<time datetime="2008-07-20T23:05:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2008</time>
         
       </p>
     
@@ -393,7 +303,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Harry &#8220;DevHawk&#8221; Pierson <a href="http://devhawk.net/2008/02/27/Morning+Coffee+150.aspx">comments</a> (emphasis mine): </p> <blockquote style="padding-left: 3px; border-left: tomato 1px solid"> <p>My opinion, since you asked Nick, is that EA (Enterprise Architecture) fails to deliver value because it tries to control the uncontrollable. <strong>Trying to gain efficiency thru establishing standards and eliminating overlap via reuse are pipe dreams</strong>, though literally millions of $$$ have been poured into those sink-holes. There are a few areas where centrally funded infrastructure projects can solve big problems that individual projects can&#8217;t effectively tackle on their own. EA should focus their time there, they can actually make a difference. Otherwise, they should stay out of project&#8217;s way.</p></blockquote> <p>I concur and there&#8217;s follow up if you read on in his blog, but this was quite succinct.</p> <p>A funny little aside: I was called for a marketing survey and agreed to it after I found the reward was a $50 coupon for Amazon. The woman caller asked my title and I said &#8220;Software Architect&#8221; (my given title, though I really fit the mould of a lead developer and plan to have it changed).&nbsp; She paused on &#8220;architect&#8221; and asked: &#8220;But do you write code?&#8221;&nbsp; I answered in the affirmative and had to do so to variants of the question (e.g. &#8220;But do you implement specifications in code? But do you really know C#?&#8221;) about 4 or 5 times.&nbsp; Moral of the story, don&#8217;t use architect in your title, use developer. Unless you&#8217;re Don Box.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m interested in the notion of deliberate practice as it relates to software developers.&#160; How do we &quot;practice&quot; effectively?&#160; One of the things I&#8217;ve been wanting to be more serious and deliberate about was reading source code.&#160; Hanselman has inspired me with his &quot;weekly source code&quot; posts and since good ideas are worth copying I&#8217;ll start to document some of the projects I download and look into for examples of good code.</p>  <p>The project I&#8217;m currently working on involves a lot of WCF. I&#8217;ve got mixed feelings (as well as a lot to learn) about it so I thought I&#8217;d start off by running <a href="http://www.netfxharmonics.com/2008/05/Minima-30-Released">Minima</a>, Dave Betz&#8217;s WCF/.NET 3.5 blog engine as a sample of an end-to-end application I can model my own WCF architectures after.&#160; </p>  <p>Minima was not easy to get going. While I&#8217;m perhaps not the brightest kid on the block, the biggest item I struggled with would probably be a challenge to anyone: the certificates used in the WCF security model. While Betz has <a href="http://notgartner.wordpress.com/2007/09/06/using-certificate-based-authentication-and-protection-with-windows-communication-foundation-wcf/">a blog entry</a> documenting the basic usage of certificates with WCF, it is predicated on the WCF host not being IIS. For the blog I assumed everything should be deployed to IIS and ran into the a lesser known fact that one must use the <a href="http://www.microsoft.com/downloads/thankyou.aspx?familyId=c42e27ac-3409-40e9-8667-c748e422833f&amp;displayLang=en#">Windows HTTP Services Certification Configuration Tool</a> to enable the ASPNET account access to the certificates for their usage. There were also a couple of post build events in the project that I removed after getting my references set up.</p>  <p>But before I get into particulars, I wanted to go over the broader structure of the project.&#160; The Minima solution has the following projects:   <br />* Minima.Service    <br />This has the service and data contracts with no implementation    <br />* Minima.ServiceImpl    <br />This has the implementation of the service    <br />* Minima.Configuration    <br />A configuration helper which makes use of a library called Themelia (Betz is, apparently, a Biblical Greek scholar on the side)    <br />* Minima.Web    <br />Library for the blog website&#8217;s features    <br />* Website    <br />A website project    <br />* Website Service project (exposes services for posting content to the database via WCF)</p>  <p>I&#8217;ll write about more particulars in my next post but for this overview my biggest takeaway in the project structure is decoupling.&#160; Separating the service from the service implementation, separating the website from it&#8217;s functionality by a project with the only purpose of implementing that backend logic, and separating general purpose frameworks like Themelia (for reading the config file etc).</p>  <p>When I start my own projects I usually think too much about doing a proof of concept and less about decoupling the overall structure. As a result most projects start off as a &quot;sketch&quot; in a single Visual Studio project and by the first release end up staying that way on a permanent basis. But perhaps what we should focus on as programmers is less the cleverest algorithms and more the most elegant structure for building solid applications.</p>  <p>Next stop: WCF and Generics.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -406,7 +316,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/05/just-do-it-yourself/">Just Do It Yourself</a></h1>
+      <h1 class="entry-title"><a href="/2008/07/16/tragically-well-known/">Tragically Well Known</a></h1>
     
     
       <p class="meta">
@@ -422,7 +332,7 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
   
 
 
-<time datetime="2008-03-05T12:45:00-06:00" pubdate data-updated="true">Mar 5<span>th</span>, 2008</time>
+<time datetime="2008-07-16T23:01:00-05:00" pubdate data-updated="true">Jul 16<span>th</span>, 2008</time>
         
       </p>
     
@@ -430,18 +340,50 @@ Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolute
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>I go back and forth on the very thing Larry calls &#8221;<a href="http://www.knowing.net/PermaLink,guid,ac8904ef-2b02-4cea-85f0-c8beef7c5259.aspx#disqus_thread&amp;with_comments=true">Lead-Developer Compression Ratios</a>.&#8221; Two things happen over the long haul that affect my thinking: first, even though it&#8217;s time consuming communicating needs to a junior developer, it seems to pay off when it comes to fine tuning and bug fixing - it&#8217;s not something you have to worry about since it&#8217;s delegated. &#8220;Finished&#8221; in my world means it&#8217;s been through a few cycles of testing, cycles that take a lot of time.&nbsp; The second thing though is when something is delegated and I think is done fairly well only to find at the aforementioned testing/bug fix cycle is horribly broken and either has to be hacked into a <a href="http://www.sdtimes.com/content/article.aspx?ArticleID=31611">technical debt</a> ridden working order or needs to be done again - from scratch.&nbsp; It seems to come down to the complexity of the tasks - if it&#8217;s simple you can take the time, if it&#8217;s complex just do it yourself.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h1><font color="#0000ff">{</font></h1>  <p>Of late there seem to be a lot of the well knowns of blogging bowing out (at least in volume) because of how much work it takes to qualify and disclaim the topics they take upon themselves. I find it sad because even the essays I find myself disagreeing with usually provide the same thought provoking effect as the ones I enjoy in agreement. It&#8217;s strange to think that people like Paul Graham and Joel Spolsky would be exasperated by the barbs people toss their way and yet, it seems, they are.&#160; Paul&#8217;s <a href="http://www.paulgraham.com/disagree.html">essay on disagreement</a> seems evidence of this and the <a href="http://itc.conversationsnetwork.org/shows/detail3741.html">most recent Stackoverflow podcast</a> dwells considerably on the topic from Joel&#8217;s perspective.</p>  <p>I would like to make the following proposal both in encouragement of people like this writing and for people like myself enjoying it: rather than quick barbs and/or &quot;jumped the shark&quot; posts, return to the previous material of the author and enjoy an old post. It&#8217;s not that disagreement is bad or unwelcome; I think a lot of the well knowns enjoy a spirited discourse.&#160; It has more to do with people either misunderstanding or disagreeing in the wrong way - DH0 to DH4 as Paul would have it.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/13/predictably-irrational-startups-and/">Predictably Irrational: Startups and Open Source</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-13T20:05:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>The Herding Code podcast took up the topic: <a href="http://herdingcode.com/?p=20">&quot;Why don&#8217;t startups run on Microsoft?&quot;</a> which I thought was interesting - it crossed paths with comments in a spat I&#8217;ve followed between Atwood (who chose .NET as a platform for Stackoverflow) and Marco Arment (of tumblr fame (side note: I actually <a href="http://da5id.tumblr.com/">have a tumblr</a>)).&#160; Had you asked me before Friday for an opinion I would have probably attributed it to the Byzantine licensing schemes for Microsoft products as well as marketing oriented decisions like making IIS 7 unavailable on XP.&#160; </p>  <p>On Friday, however, I heard a <a href="http://marketplace.publicradio.org/display/web/2008/07/11/ariely_shared_meals/">commentary on Marketplace from Dan Ariely</a> that is a basis for a hypothesis that hadn&#8217;t occurred to me but seems to make perfect sense for software.&#160; <a href="http://web.mit.edu/ariely/www/MIT/">Ariely</a>, a behavioral economist at MIT, starts with suggesting that the next time you eat out with friends, it might be better to have one person pick up the &quot;pain of paying&quot; for dinner rather than distributing it across all the people who were out. According to the commentary (emphasis mine): </p>  <blockquote style="padding-right: 3px; padding-left: 10px; padding-bottom: 3px; border-left: red 1px solid; width: 500px; line-height: 140%; padding-top: 3px">   <p>Findings from behavioral economics tell us that one person should pay the entire bill and that the person paying should alternate over time. <strong>When we pay any amount of money, we feel some psychological pain.</strong> <strong>We call this the pain of paying. This is the unpleasantness that is associated with forking over our hard earned cash. But it also turns out that this pain does not increase linearly with the cost of the meal. This means that when we double the payment, the pain doesn&#8217;t double; it increases just by a bit.</strong> In fact, the biggest increase in the pain of paying comes when we switch from paying nothing to paying something. Now, it&#8217;s easy to see why one person should pay the entire bill. How so? Well, if every person paid their share, they would all experience some pain of paying.</p> </blockquote>  <p>If you&#8217;re curious about how Ariely is able to make that assertion, he elaborates on this and other ideas in his book <a href="http://www.nytimes.com/2008/03/16/books/review/Berreby-t.html?_r=1&amp;oref=slogin">Predictably Irrational</a>.</p>  <p>It makes perfect sense that this could be a credible idea behind why startups don&#8217;t work with Microsoft technology - that the cost is less of a factor than &quot;costing&quot; some dollar amount.&#160; If you attach to that complex licensing and <a href="http://msdn.microsoft.com/en-us/vs2008/products/cc149003.aspx">many flavors of the same product</a> and you get pain that goes beyond the &quot;pain of paying.&quot; </p>  <p>It makes some sense on the Microsoft side of things too; rather than trying to determine which products developers should get matched to, most companies just buy a high end MSDN subscription for developers even though chances are high that not all the products are actually used.&#160; They can count on &quot;enterprise&quot; companies conservatively overpaying and hence getting the most out of them.</p>  <p>A couple of thoughts that come to mind:    <br />1. How could one go about trying to measure the &quot;pain of paying&quot; with software?     <br />2. Does &quot;free&quot; open source translate to more time in managability/expertise?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 <h2>Comments</h2>
 <div class='comments'>
 <div class='comment'>
-<div class='author'>David Seruyange</div>
+<div class='author'>Daniel</div>
 <div class='content'>
-hehe - it&#8217;s so strange how job titles these days have the opposite effects of disambiguity.  <BR/><BR/>Maybe I should borrow Hanselman&#8217;s &#8220;Debugger in Chief&#8221; title&#8230;</div>
-</div>
-<div class='comment'>
-<div class='author'>Catherine</div>
-<div class='content'>
-Hee&#8230; I call myself a &#8220;database engineer&#8221;  (since I&#8217;m not just a database administrator or a database programmer), but I always wonder if I&#8217;m being silly.  Then again, I do have an engineering degree&#8230;  &#8220;Get me 800 kg of Portland cement, this schema needs reinforcement!&#8221;</div>
+Having many flavors of product adds to friction, which could be another form of pain, though I don&#8217;t think it&#8217;s necessarily any less than adopting numerous open source alternatives. There&#8217;s likely a pain curve we can draw that involves both friction and cost pain. In a purely .NET world, you could avoid the pain of paying by using a slew of open source (MonoRail, ActiveRecord, Windsor, NAspect, MbUnit, Rhino Mocks, NServiceBus, Castle Windsor, etc.) though your expertise requirements are going to skyrocket (I won&#8217;t say friction increases linearly here since these products tend to work well together since they share a common goal). On the other side of the fence you get free as well but possibly more friction since the market has always been free, so there is less incentive to collaborate and more incidents of &#8220;Not Invented Here&#8221;. A strange idea: choosing Open Source .NET is the best choice because given the constraints of that market, the free alternatives work better together than the free alternatives of another framework. Probably not, but it&#8217;s an idea.</div>
 </div>
 </div>
 </div>
@@ -456,7 +398,7 @@ Hee&#8230; I call myself a &#8220;database engineer&#8221;  (since I&#8217;m not
       
   <header>
     
-      <h1 class="entry-title"><a href="/2008/03/03/twining-iron-python-dsl-for-db-update/">Twining: Iron Python DSL for DB Update IV</a></h1>
+      <h1 class="entry-title"><a href="/2008/06/27/change-dispensed/">Change Dispensed</a></h1>
     
     
       <p class="meta">
@@ -472,7 +414,7 @@ Hee&#8230; I call myself a &#8220;database engineer&#8221;  (since I&#8217;m not
   
 
 
-<time datetime="2008-03-03T23:57:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2008</time>
+<time datetime="2008-06-27T12:51:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
         
       </p>
     
@@ -480,20 +422,44 @@ Hee&#8230; I call myself a &#8220;database engineer&#8221;  (since I&#8217;m not
 
 
   <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p><em>long entry because it was written at an airport, just back from celebrating 3 years with my beautiful wife in Monterey, CA&#8230; </em><br></p> <p>A few interesting things, but first just a summary of what can be done with what&#8217;s new in red:</p> <p><font face="courier new " size="2">#connection strings<br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=DB_SOURCE;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=DB_DESTINATION;Integrated Security=SSPI;&#8221;<br><br>#back up the database to a file<br>database(cn).backupto(&#8220;C:&#92;temp&#92;loungin.bak&#8221;)<br><br>#copy/export basic<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.csv(&#8220;c:&#92;spam.csv&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam.xml&#8221;) </font> <p><font face="courier new " color="#ff0000" size="2">#pick your delimiter<br>database(cn).table(&#8220;Photos&#8221;).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;spam.tsv&#8221;) </font></p> <p><font face="courier new " size="2">#copy to database<br>database(cn).table(&#8220;MY_TABLE&#8221;).copyto.database(cn2)<br><br>#all copy operations can leverage transform dictionary<br>mytrans = {&#8220;FIELD1&#8221;:&#8221;upper&#8221;,&#8221;FIELD2&#8221;: lambda x: x.upper(),&#8221;FIELD3&#8221;: lambda x: x[::-1]}<br><br><font color="#ff0000">database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam.xml&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.delimited(&#8220;\t&#8221;, &#8220;c:&#92;spam.tsv&#8221;)<br>database(cn).table(&#8220;MY_TABLE&#8221;).transform(mytrans).copyto.database(cn2)</font></font><br>&#8230; and so on, see above</p> <p>Some internal changes:<br>1. Error Handling, quite lazy for now simply stores a combination of a friendly message along with full text of the exception thrown:<br></p> <p><font face="Courier New" size="2">class errorhandle:<br>&nbsp;&nbsp;&nbsp; def print_error(self, text, error):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221; Handle an exception by just printing a friendly message and then the error&#8217;s guts&#8221;&#8220;&#8221;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print text<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print error </font> <p><font face="Courier New" size="2">try:<br>&nbsp;&nbsp;&nbsp; sqlhelper().run_sql(registrar.databaseRegister, sqlBackup)<br>except Exception, inst:<br>&nbsp;&nbsp;&nbsp; errorhandle().print_error(&#8220;Error occured during backup&#8221;, inst)</font></p> <p>2. Some Pythonic prettiness (via Catherine):  <p><font face="Courier New" size="2">#if registrar.transforms.has_key(field): &#8211; es muy fao!<br>if field in registrar.transforms:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font> <p>I do like the more idiomatic form myself.&nbsp; This a perfect example of where, as a .NET developer I look around for methods and miss a beautiful idiom. <p>3. Right under my nose, back to idiom, were a few simple pythonic forms that took away a lot of the line noise and clutter I was producing during my initial rabid sketches of the idea. Doing multiple assignment out of a SqlDataReader is something I only thought of now, though it makes such perfect sense: <p><font face="Courier New" size="2">column_name, column_type, column_length, column_identity = \<br>&nbsp;&nbsp;&nbsp; r[&#8220;name&#8221;], r[&#8220;typename&#8221;], str(r[&#8220;max_length&#8221;]), r[&#8220;is_identity&#8221;] </font> <p>4. Returning tuples rather than lists.&nbsp; Tuples are more effecient and as effective.&nbsp; A question that&#8217;s begun burgeoning now is whether excessive use of tuples is lazy when a specific type is more clear.&nbsp; For example, when I read column data from a table, I need to know two things: the column name and whether it&#8217;s an identity (autonumbering). Right now I&#8217;m doing the following lazy gesture: <p><font face="Courier New" size="2">colTypeInfo.append((column_name, column_identity)) #(column_name, column_identity) is the tuple added to the list.</font> <p>But if I start to add other useful bits of info, like the datatype of the underlying column, I wonder if a class would be better since you could have something like: <p><font face="Courier New" size="2">colTypeInfo.append(ColumnData(column_name, column_identity, column_type)) #Where ColumnData is a type somewhere</font> <p>Right now the tuple approach works fine and a class feels like overkill. For now, I&#8217;m just afraid of it bloating as needs present themselves&#8230;  <p>5. Speaking of identity columns, I added better support for them in tables being copied.&nbsp; I also now use brackets for column names since certain people like to use reserved words for columns (or don&#8217;t have a choice). <p>6. I mentioned in a comment that I tried to reconcile feedback from both <a href="http://catherinedevlin.blogspot.com/">Catherine</a> and <a href="http://www.voidspace.org.uk/python/weblog/index.shtml">Michael &#8220;Fuzzyman&#8221; Foord</a>.&nbsp; When I match columns for transformations I allow any TypeError to be suppressed, but also store it in a &#8220;warnings&#8221; list that I&#8217;ll incorporate into the completed process. <p><font face="Courier New" size="2">def checkAndTransform(self, field, value):<br>&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221; Perform transformation on fields based on either:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a) keyword entries (&#8220;upper&#8221;, &#8220;lower&#8221;, etc&#8230; )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b) lambda expressions<br>&nbsp;&nbsp;&nbsp; &#8220;&#8221;&#8221;<br>&nbsp;&nbsp;&nbsp; if field in registrar.transforms:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if callable(registrar.transforms[field]):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value = registrar.transforms[field](value)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except TypeError:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; registrar.warnings.append(&#8220;Your transform failed on field %s&#8221; % field)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; elif registrar.transforms[field] == &#8220;upper&#8221;: #more of this kind of stuff _maybe later.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value = value.upper()<br>&nbsp;&nbsp;&nbsp; return value&nbsp;&nbsp;&nbsp; </font> <p>As always you can have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the entire thing here</a>.&nbsp; It&#8217;s been great getting guidance, any comment is welcome and will be studied. <p>What is on the list?<br>1. I&#8217;ve been using a cheap, unstudied approach to delimited files. I&#8217;ll need to look at the &#8220;official&#8221; way of escaping entries.<br>2. Importing data<br>3. A few more variants of operating on databases, like &#8220;create.&#8221; <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>milf</div>
-<div class='content'>
-<A HREF="http://black-mold-exposure-symptoms.blogspot.com/2008/03/health-problems-from-mold.html" REL="nofollow">black mold exposure</A><A HREF="http://black-exposuremold-symptom.blogspot.com/2008/03/black-exposure-mold-symptom.html" REL="nofollow">black mold symptoms of exposure</A><A HREF="http://iron-garden-gates.blogspot.com/2008/03/hand-crafted-by-renown-metal-artists.html" REL="nofollow">wrought iron garden gates</A><A HREF="http://wrought-iron-gates.blogspot.com/2008/03/wrought-iron-doors-are-one-of-many.html" REL="nofollow">iron garden gates find them here</A><A HREF="http://hairstyles-for-fine-thinhair.blogspot.com/2008/03/hair-styles-for-fine-thin-hair.html" REL="nofollow">fine thin hair hairstyles</A><A HREF="http://hairstyles-forfine-thinhair.blogspot.com/2008/03/hair-styles-fine-thin-hair.html" REL="nofollow">search hair styles for fine thin hair</A><A HREF="http://purchase-nightvision-vinoculars.blogspot.com/2008/03/purchase-night-vision-binoculars.html" REL="nofollow">night vision binoculars</A><A HREF="http://purchasenightvisionbinoculars.blogspot.com/2008/03/purchase-night-vision-binoculars.html" REL="nofollow">buy night vision binoculars</A><A HREF="http://allergicreaction-tolipitor.blogspot.com/2008/03/allergic-reaction-to-lipitor.html" REL="nofollow">lipitor reactions</A><A HREF="http://lipitoralcohol.blogspot.com/2008/03/lipitor-and-alcohol.html" REL="nofollow">lipitor allergic reactions</A><A HREF="http://beach-resort-philippines.blogspot.com/2008/03/beach-resort-philippines.html" REL="nofollow">luxury beach resort in the philippines</A><BR/><BR/><A HREF="http://beachresort-inthe-philippines.blogspot.com/2008/03/beach-resort-in-philippines.html" REL="nofollow">afordable beach resorts in the philippines</A><A HREF="http://homeopathycures-foreczema.blogspot.com/2008/03/homeopathy-cures-for-eczema.html" REL="nofollow">homeopathy for eczema.</A><A HREF="http://homeopathycures-forbabyeczema.blogspot.com/2008/03/homeopathy-cures-for-baby-eczema.html" REL="nofollow">baby eczema.</A><A HREF="http://mineral-makeup-bargains.blogspot.com/2008/03/mineral-makeup-bargains.html" REL="nofollow">save big with great mineral makeup bargains</A><A HREF="http://bargain-minera-makeup.blogspot.com/2008/03/bargain-mineral-makeup.html" REL="nofollow">mineral makeup wholesalers</A><A HREF="http://prodamiphone-praha.blogspot.com/2008/03/now-iphone-owners-can-unlock-iphone.html" REL="nofollow">prodam iphone </A><A HREF="http://prodam-iphone-praha.blogspot.com/2008/03/prodam-iphone-praha.html" REL="nofollow">Apple prodam iphone praha</A><A HREF="http://iphone-clonecect-manual.blogspot.com/2008/03/iphone-clone-cect-manual.html" REL="nofollow">cect iphone manual</A><A HREF="http://manual-iphoneclone-cect.blogspot.com/2008/03/iphone-clone-cect.html" REL="nofollow">manual for P 168 iphone</A><A HREF="http://fero52-binoculars-nightvision.blogspot.com/2008/03/fero-52-binoculars-night-vision.html" REL="nofollow">fero 52 binoculars</A><A HREF="http://fero52-nightvisionbinoculars.blogspot.com/2008/03/good-binocular-dealer.html" REL="nofollow">night vision Fero 52 binoculars</A><A HREF="http://night-vision-binocularshtm.blogspot.com/2008/03/night-vision-binoculars-htm.html" REL="nofollow">The best night vision binoculars here</A><BR/><BR/><A HREF="http://nightvision-binocularshtm.blogspot.com/2008/03/night-vision-binoculars.html" REL="nofollow">night vision binoculars bargains</A><A HREF="http://computerprograms-tomake-photoalbum.blogspot.com/2008/03/computer-programs-to-make-photo-albums.html" REL="nofollow">free photo albums computer programs</A><A HREF="http://computerprograms-make-photoalbums.blogspot.com/2008/03/photo-albums-programs.html" REL="nofollow">free software to make photo albums</A><A HREF="http://freeprintabletaxforms.blogspot.com/2008/03/free-printable-tax-forms.html" REL="nofollow">free tax forms</A><A HREF="http://free-printable-taxforms.blogspot.com/2008/03/free-printable-tax-forms.html" REL="nofollow">printable tax forms for free </A><A HREF="http://craftmatic-adjustable-airbed.blogspot.com/2008/03/craftmatic-adjustable-air-bed.html" REL="nofollow">craftmatic air bed</A><A HREF="http://craftmaticadjustableairbed.blogspot.com/2008/03/craftmatic-adjustable-air-bed.html" REL="nofollow">craftmatic air bed adjustable info here</A><A HREF="http://boyd-night-airbed.blogspot.com/2008/03/boyd-night-air-bed.html" REL="nofollow">boyd air bed</A><A HREF="http://boydnightairbed.blogspot.com/2008/03/boyd-night-air-bed.html" REL="nofollow">boyd night air bed lowest price</A><A HREF="http://airbedinwisconsin.blogspot.com/2008/03/air-bed-in-wisconsin.html" REL="nofollow">find air beds in wisconsin</A><A HREF="http://airbeds-wisconsin.blogspot.com/2008/03/air-bed-in-wisconsin.html" REL="nofollow">best air beds in wisconsin</A><A HREF="http://cloudair-inflatablebed.blogspot.com/2008/03/cloud-air-inflatable-bed.html" REL="nofollow">cloud air beds</A><BR/><BR/><A HREF="http://cloudairinflatablebed.blogspot.com/2008/03/cloud-air-inflatable-bed.html" REL="nofollow">best cloud inflatable air beds</A><A HREF="http://portable-sealy-airbed.blogspot.com/2008/03/portable-sealy-air-bed.html" REL="nofollow">sealy air beds portable</A><A HREF="http://portablesealyairbed.blogspot.com/2008/03/portable-sealy-air-bed.html" REL="nofollow">portables air beds</A><A HREF="http://aluminum-rvluggage-racks.blogspot.com/2008/03/aluminum-rv-luggage-racks.html" REL="nofollow">rv luggage racks</A><A HREF="http://aluminumrvluggageracks.blogspot.com/2008/03/aluminum-rv-luggage-racks.html" REL="nofollow">aluminum made rv luggage racks</A><A HREF="http://airbed-formraised.blogspot.com/2008/03/air-bed-form-raised.html" REL="nofollow">air bed raised</A><A HREF="http://airbedformraised.blogspot.com/2008/03/air-bed-form-raised.html" REL="nofollow">best form raised air beds</A><A HREF="http://support-equipments-aircraft.blogspot.com/2008/03/support-equipments-aircraft.html" REL="nofollow">aircraft support equipments</A><A HREF="http://support-equipmentsaircraft.blogspot.com/2008/03/support-equipments-aircraft.html" REL="nofollow">best support equipments for aircrafts</A><A HREF="http://informercialsbedair.blogspot.com/2008/03/informercials-bed-air.html" REL="nofollow">bed air informercials</A><A HREF="http://informercials-bedair.blogspot.com/2008/03/informercials-bed-air.html" REL="nofollow">best informercials bed air</A><A HREF="http://mattress-sized-airbeds.blogspot.com/2008/03/mattress-sized-air-beds.html" REL="nofollow">mattress sized air beds</A><BR/><BR/><A HREF="http://mattresssized-airbeds.blogspot.com/2008/03/mattress-sized-air-beds.html" REL="nofollow">bestair bed mattress </A><A HREF="http://antiquedoorknob-identification.blogspot.com/2008/03/antique-doorknob-identification.html" REL="nofollow">antique doorknobs</A><A HREF="http://antique-doorknob-identification.blogspot.com/2008/03/antique-doorknob-identification.html" REL="nofollow">antique doorknob identification tips</A><A HREF="http://troubleshootingdvdplayer.blogspot.com/2008/03/troubleshooting-dvd-player.html" REL="nofollow">dvd player troubleshooting</A><A HREF="http://troubleshooting-dvd-player.blogspot.com/2008/03/troubleshooting-dvd-player.html" REL="nofollow">troubleshooting with the dvd player</A><A HREF="http://flatpaneltelevisionlcd-versusplasma.blogspot.com/2008/03/flat-panel-television-lcd-versus-plasma.html" REL="nofollow">flat panel television lcd vs plasma</A><A HREF="http://flatpaneltvlcd-versusplasma.blogspot.com/2008/03/flat-panel-television-lcd-versus-plasma.html" REL="nofollow">flat panel lcd television  versus plasma pic the best</A><A HREF="http://causesof-economicrecession.blogspot.com/2008/03/causes-of-economic-recession.html" REL="nofollow">The causes of economic recession</A><A HREF="http://causesofeconomicrecession.blogspot.com/2008/03/causes-of-economic-recession.html" REL="nofollow">what are the causes of economic recession</A><A HREF="http://bed-airfoam-adjustable.blogspot.com/2008/03/bed-air-foam-adjustable.html" REL="nofollow">adjustable bed air foam </A><A HREF="http://bedairfoamadjustable.blogspot.com/2008/03/bed-air-foam-adjustable.html" REL="nofollow">The best bed air foam </A><BR/><BR/><A HREF="http://hoofprintsantiqueequestrian.blogspot.com/2008/03/hoof-prints-antique-and-unusual.html" REL="nofollow">hoof prints antique equestrian prints</A><A HREF="http://hoofprints-antique-equestrianprints.blogspot.com/2008/03/hoof-prints-antique-and-unusual.html" REL="nofollow">antique hoof prints  equestrian prints</A><A HREF="http://buy-adjustable-airbed.blogspot.com/2008/03/buy-adjustable-air-bed.html" REL="nofollow">Buy air bedadjustable</A><A HREF="http://buyadjustableairbed.blogspot.com/2008/03/buy-adjustable-air-bed.html" REL="nofollow">buy the best adjustable air beds</A><A HREF="http://air-bedscanadian-stores.blogspot.com/2008/03/air-bedscanadian-stores.html" REL="nofollow">air beds canadian stores</A><A HREF="http://airbedscanadianstores.blogspot.com/2008/03/air-bedscanadian-stores.html" REL="nofollow">Canadian stores for air beds</A><BR/><BR/><A HREF="http://floridamigraineheadacheclinic.blogspot.com/2008/04/florida-migraine-headache-clinic.html" REL="nofollow">migraine cause</A><A HREF="http://migraineheadacheclinicflorida.blogspot.com/2008/04/florida-migraine-headache-clinic.html" REL="nofollow">migraine treatments florida</A><A HREF="http://florida-migraineheadache-clinic.blogspot.com/2008/04/miss-brown-told-me-i-am-constantly.html" REL="nofollow">florida headache clinic</A><A HREF="http://airdryerdessicantbed.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">drying dessicant</A><A HREF="http://air-dryer-dessicant-bed.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">air drying dessicant</A><A HREF="http://airbed-dryerdessicant.blogspot.com/2008/04/air-dryer-dessicant-bed.html" REL="nofollow">dessicant air dryer</A><A HREF="http://asthmaspecialistinvirginia.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">pediatric asthma</A><A HREF="http://asthma-specialist-virginia.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">asthma specialist</A><A HREF="http://virginia-asthma-specialists.blogspot.com/2008/04/asthma-specialist-in-virginia.html" REL="nofollow">asthma children specialist</A><A HREF="http://dallasbestprofessionalcarpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaning dallas tx</A><A HREF="http://dallas-professional-carpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaners dallas</A><A HREF="http://dallas-professionalcarpetcleaning.blogspot.com/2008/04/dallas-best-professional-carpet.html" REL="nofollow">carpet cleaning dallas</A><BR/><BR/><A HREF="http://beachhomevacationvero.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">vero beach vacation</A><A HREF="http://beach-homevacation-vero.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">vero beach vacations</A><A HREF="http://verobeach-homevacation.blogspot.com/2008/05/beach-home-vacation-vero.html" REL="nofollow">beach vacation homes vero</A><A HREF="http://vacationcondosmsbeach.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach vacations</A><A HREF="http://msbeach-vacationcondos.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach vacation</A><A HREF="http://msbeach-vacation-condos.blogspot.com/2008/05/ms-beach-vacation-condos.html" REL="nofollow">ms beach condos</A><A HREF="http://mauibeach-vacationclub.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach vacation</A><A HREF="http://mauibeachvacationclub.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach vacations</A><A HREF="http://maui-beachvacation-club.blogspot.com/2008/05/maui-beach-vacation-club.html" REL="nofollow">maui beach club</A><A HREF="http://bestbeach-vacations.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">beach vacations</A><A HREF="http://thebestbeachvacations.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">your beach vacations</A><A HREF="http://vacationsinthebestbeach.blogspot.com/2008/05/best-beach-vacations.html" REL="nofollow">cheap beach vacations</A><BR/><BR/><A HREF="http://layered-bob-haircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob hairstyle</A><A HREF="http://boblayeredhaircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob haircuts</A><A HREF="http://bob-layered-haircuts.blogspot.com/2008/07/bob-layered-haircuts.html" REL="nofollow">bob layered</A><A HREF="http://best-classic-bob-haircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">pob hairstyle</A><A HREF="http://classicbobhaircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">bobbed</A><A HREF="http://classic-bob-haircuts.blogspot.com/2008/06/classic-bob-haircuts.html" REL="nofollow">classic bob</A><A HREF="http://haircareandcurlyhair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">Care for Curly Hair</A><A HREF="http://haircare-curlyhair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">Tips for Curly Hair</A><A HREF="http://hair-care-for-curly-hair.blogspot.com/2008/07/hair-care-for-curly-hair.html" REL="nofollow">curly hair</A><A HREF="http://truck-bus-tires12r22-5bestprices.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">12r 22.5 best price</A><A HREF="http://tires-truckbus-12r22-5-bestprices.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">tires truck bus</A><A HREF="http://tirestruckbus12r22-5bestprice.blogspot.com/2008/07/tires-truck-bus-tires12r-225-best-price.html" REL="nofollow">tires 12r 22.5</A></div>
+<h1><font color="#0000ff">{</font></h1>  <p>Steve <a href="http://blog.stevenlevithan.com/archives/change-dispenser">posted</a> a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and implemented it with just a small variation on pluralizing coin denominations.     <br />    <br /></p>  <pre style="line-height:120%;padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; padding-top: 10px; font-family: courier">def make_change(amt):<br />    output = &quot;Change is &quot;<br />    coins = (['quarte|r|rs', 25], ['dim|e|es', 10], ['nicke|l|ls', 5], ['penn|y|ies',1])<br />    for i in coins:   <br />        r = amt // i[1]<br />        if(r &gt; 0):<br />            coinout = re.split('\|', i[0])<br />            output += &quot;%d %s%s &quot; % (r, coinout[0], coinout[1:][r &gt; 1])<br />            amt = amt - (r * i[1])<br />    print output<br />    <br />make_change(48)</pre><br /><br /><p><br />  <br />A few things I learned along the way: <br /><br />  <br />* I was reminded that dictionary objects do not guarantee order. <br /><br />  <br />* I was using Python regular expressions to do a match on the string &quot;this |and|or that&quot; and discovered if you use match with simply \|(\w+) it returns nothing since the match must start from the beginning of the string! <br /><br />  <br />* I was going to use a lambda expression for the pluralization but that&#8217;s such a large hammer for what in the end would become a split</p><br /><br /><p>Python&#8217;s behavior with booleans is another point of interest - when I test the following: coinout[1:][r &gt; 1] I&#8217;m taking advantage of anything true being a 1. I wonder if this is &quot;bad&quot; but it&#8217;s a seductive thing to take advantage of&#8230; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
 </div>
-<div class='comment'>
-<div class='author'>MuthuSelvan</div>
-<div class='content'>
-Hi,<BR/>Nice Blog!<BR/>We provides exclusive and highly accurate Data, <A HREF="http://e-datapro.net/" REL="nofollow">data coding</A> at least of 99.995% accuracy. With complete confidentiality and high level of accuracy the customers prefer to outsource their jobs to us. We Offer services for all kinds of textual data capturing from printed matter, manuscripts, scanned images, web research etc. with high accuracy levels.</div>
-</div>
-</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/23/deep-fried-bytes-yegge-interviewing/">Deep Fried Bytes, Yegge, Interviewing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-23T23:50:00-05:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Found a good podcast today, &quot;<a href="http://deepfriedbytes.com/podcast">Deep Fried Bytes</a>.&quot; Skip the first episode but the second on interviewing is a gem. Although it was posted on May 29, it ties in quite well with thoughts delivered (not simply written, but delivered) by Steve Yegge in his recent post on finding good people, <a href="http://steve-yegge.blogspot.com/2008/06/done-and-gets-things-smart.html">Done and Gets Things Smart</a>. Not only is it entertaining to hear <a href="http://www.ayende.com/Blog/">Ayende Rahein</a> take nonusers of using blocks to task, but later Scott Belware seems to be on the same page as Yegge on how you can know if people are &quot;good.&quot;&#160; Here is his approach (listen to the podcast if you want total accuracy): </p>  <p>- I don&#8217;t ask questions I do pair programming for interviews&#8230;   <br />- Interview questions are irrelevent&#8230; most of the people asking interview questions are showing the people who are interviewing what they know    <br />- Ask for a code sample with unit tests that run inside Visual Studio    <br />- If that&#8217;s okay ask them to come in for 4 hours of pair programming    <br />- Most interview related items would come up during the pair programming session</p>  <h1><font color="#0000ff">}</font></h1>  </div>
 </div>
   
   
@@ -522,19 +488,19 @@ Hi,<BR/>Nice Blog!<BR/>We provides exclusive and highly accurate Data, <A HREF="
       </li>
     
       <li class="post">
-        <a href="/2011/06/20/ndc-2011/">NDC 2011</a>
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a>
+        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/15/on-features/">On Features</a>
+        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
       <li class="post">
-        <a href="/2011/06/13/closures-anonymous-javascript/">Closures, Anonymous: JavaScript Influenced C#</a>
+        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>
