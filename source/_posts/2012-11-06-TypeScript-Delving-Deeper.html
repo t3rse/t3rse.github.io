@@ -1,0 +1,281 @@
+---
+layout: post
+title: "TypeScript: Delving Deeper"
+comments: true
+---
+
+<p>In <a href="http://www.t3rse.com/post/2012/10/31/TypeScript-Up-and-Running.aspx" target="_blank">my previous post</a> I gave an overview of TypeScript from my perspective and my premise for kicking the tires: to avoid emotion and quick judgement in order to see what the language is really about. I walked through my setup in Visual Studio and how I use a post build event to have the TypeScript compiler generate my JavaScript. </p>  <p>I had originally wanted to do it in a single post but thought it would be better to separate more of the TypeScript code I wrote to get a feel for the language. The mini-project I worked on was inspired by <a href="http://weblog.raganwald.com/2007/01/please-design-deck-of-cards-in-java.html" target="_blank">an old Raganwald interview question</a> on modeling a deck of playing cards within an object oriented language. As I got into this more and more I realized just how much fun and tweaking I could do with my approach so I just drew a line in the sand once I’d gotten the concept of a playable deck with players completed. </p>  <p><strong><font size="3">Interfaces</font></strong></p>  <p>Let’s start with the basic notion of a card. TypeScript supports interfaces which allow us to define a contract for what things we expect to find on a card: </p>  <div class="code">   <pre class="brush: csharp">interface ICard{
+    isFace():bool;
+    getValue():number;
+    getSuite():string;    
+}</pre>
+</div>
+
+<p>
+  <br />The definitions fall into a method():type syntactical format. Our card will tell us if it’s a “face card,” return a numeric value representing how much it is worth and can tell us what suite it is in. </p>
+
+<p><strong><font size="3">Enumerations</font></strong></p>
+
+<p>TypeScript supports enumerations but even better than that we can use idioms that exist in JavaScript to get a lot of mileage out of classes that contain definitions of constants. I wish this was a result of my own brilliant thinking but there’s <a href="http://stackoverflow.com/questions/12687793/how-to-create-enum-like-type-in-typescript" target="_blank">a StackOverflow question</a> from which I took inspiration.&#160; I’ll get to that later but first here are my constants for face cards and suites, wrapped in respective class definitions: </p>
+
+<div class="code">
+  <pre class="brush: csharp">class FaceCardTypes { 
+    JACK: number = 11;
+    QUEEN: number = 12;
+    KING: number = 13;
+    ACE: number = 1;
+}
+
+class Suites { 
+    SPADES: number = 1; 
+    HEARTS: number = 2;
+    DIAMONDS: number = 3;
+    CLUBS: number = 4;
+}</pre>
+</div>
+
+<p>
+  <br />The members are defined with the NAME:type = value syntax. Again, this is static typing. It’s a raison d'être of TypeScript and it won’t take us long to see just how useful it is. </p>
+
+<p><strong><font size="3">Class Definitions: Constructors and Inheritance</font></strong></p>
+
+<p>If you know C# then TypeScript is for the most part a breeze. There is slight variation of syntax but once you get used to it, it fits well into the your comfort zone. Here I define a Card class, implementing my previously defined interface </p>
+
+<div class="code">
+  <pre class="brush: csharp">// implement the ICard Interface
+class Card implements ICard{
+    private _value: number;
+    private _suite: string;
+    private _isFace: bool;
+
+    // constructor with suffixes specifying type
+    constructor(suite: string, value: number, isFace: bool){
+        this._suite = suite;
+        this._value = value;    
+        this._isFace = isFace;
+    }
+
+    // must implement via interface
+    public getValue(){
+        return this._value;
+    }
+
+    // must implement via interface
+    public getSuite(){
+        return this._suite;
+    }
+
+    // must implement via interface
+    public isFace(){ return this._isFace; }
+
+    public asString() { 
+        return this.getValue() + &quot; of &quot; + this.getSuite();
+    }
+}
+
+// Inheriting the Card definition with extends 
+class FaceCard extends Card{  
+    private _faceType: string;
+    constructor(faceType: string, suite: string, value: number){
+        super(suite, value, true);
+        this._faceType = faceType;
+    }
+
+    // override 
+    public isFace() { return true; }
+
+    // override
+    public asString() { 
+        return this._faceType + &quot; &quot; + super.getValue();
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">JavaScript Idioms</font></strong></p>
+
+<p>Even though TypeScript is it’s own beast you still have access to many of the idioms you might use with plain JavaScript. Earlier I defined the FaceType and Suite data structures in classes rather than in an enumeration. Here is why: I can use the for… in idiom of JavaScript to iterate over the properties of my types and take advantage of how JavaScript objects can be treated as property bags. To demonstrate this, look at my Deck class – in the constructor I am iterating through the different card suites using a for.. in, pushing the string definition of the suite into my card definitions. I’m doing something similar with the face cards. </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Deck { 
+    public Cards: Card[];
+
+    constructor () { 
+        this.Cards = [];
+        // for in, lets me get the string &quot;SPADES&quot;, &quot;CLUBS&quot; etc
+        for (var suite in new Suites()) {
+            for (var i = 1; i &lt; 11; i++) {
+                this.Cards.push(new Card(suite, i, false));
+            }
+            var faceCardLookup = new FaceCardTypes();
+            // for.. in, lets me get each facecard type &quot;JACK&quot;, &quot;QUEEN&quot; but also look up 
+            // it's numerical value like a property bag with faceCardLookup[face]
+            for (var face in new FaceCardTypes()) { 
+                this.Cards.push(new FaceCard(face, suite, faceCardLookup[face]));
+            }
+        }    
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Ambient Declarations</font></strong></p>
+
+<p>JavaScript is rife with libraries. The king of all libraries is jQuery but there are many other useful ones. In our model of card games we are going to define a class for players, giving a player the ability to have cards, shuffle the deck, pluck cards from the deck and deal to other players. </p>
+
+<p>Writing a shuffle algorithm is not hard. Writing a good shuffle algorithm… well that is a bit more tricky. Rather than implementing the shuffle ourselves, let’s take advantage of a library called <a href="http://underscorejs.org/" target="_blank">underscore.js</a> since beyond having shuffling built in it incorporates many other utility methods for collections that we will find useful. Using underscore.js with TypeScript is trivial. First download and reference underscore.js in your project. After that you simply need to download the ambient declarations (courtesy of a kind soul named alvivi on Github) and reference them in your TypeScript file with the following syntax: </p>
+
+<div class="code">
+  <pre class="brush: csharp">/// &lt;reference path=&quot;underscore.browser.d.ts&quot; /&gt;</pre>
+</div>
+
+<p>
+  <br />Now that there is a reference to underscore, you can take advantage of it in your TypeScript code. In my Player class I use _.shuffle, _.take, _.any, _.each, and _.reject. You can look up the definition of those methods on the underscore.js page which does a good job of documenting each one with some example code. </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Player { 
+    public name: string;
+    public hand: Card[];
+
+    constructor (n:string) { 
+        this.hand = [];
+        this.name = n;
+        
+    }
+
+    Shuffle(deck: Deck) { 
+        return _.shuffle(deck);
+    }
+
+    PluckCards(deck: Deck, count: number) { 
+        // just deal yourself some cards
+        this.Deal(this, count, deck);
+    }
+
+    Deal(player: Player, cardCount: number, deck: Deck) { 
+        // take out some cards
+        var hand = _.take(deck.Cards, cardCount);
+
+        // filter them out of the deck
+        deck.Cards = _.reject(deck.Cards, function (card) { 
+            return _.any(hand, function (handCard) { 
+                return card == handCard;
+            });
+        });
+
+        // push them into a player's hand
+        _.each(hand, function (card) { player.hand.push(card); });
+    }
+
+    ShowHand() { 
+        console.log(&quot;*****&quot; + this.name + &quot;*********&quot;);
+        _.each(this.hand, function (card) { 
+            console.log(card.asString());
+        });
+        console.log(&quot;**************&quot;);
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Functions First Class, Static Members</font></strong></p>
+
+<p>I really like functional programming – there are certain types of problems that lend themselves so well to this paradigm over others, like standard imperative object oriented techniques. One of the big strengths of JavaScript is that it embraces the functional paradigm and lets you use functions as first class citizens. In the card game, I try to show the kind of power inherent in this style by making a Game class that is adaptable to different types of games that may have different rules, strategies, and methodologies of picking winners. Rather than defining a class for every possible game that can be played, our Game class has two methods: PlayRound, and HasWinner, that use a function parameter to delay the approach to each so that it can vary by game. For example, you may use the first round of a game to allow each player to pick up a certain number of cards. After that you may have different game mechanics for each turn. Similarly games may calculate winners in different ways: a game where you try to have the fewest cards or a game where the value of your cards is most important. </p>
+
+<p>One final piece of TypeScript that is used is the static member. In our Game class the Start method is static factory method that returns a new instance of Game based on the players. But enough overview, here is the code: </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Game { 
+    public players: Player[]; 
+    public drawPile: Deck;
+    public dealer: Player;
+
+    constructor (players: Player[], deck: Deck) { 
+        this.players = players;
+        this.drawPile = deck;
+    }
+    // PlayRound takes a function that defines the strategy 
+    // for each player on their turn
+    PlayRound(turnStrategy: (player: Player, deck: Deck) =&gt;{ }) {
+        var deck = this.drawPile;
+        _.each(this.players, function (player) { 
+            // for each player, call the passed in function 
+            // to invoke the strategy for them
+            turnStrategy(player, deck);
+        });
+    }
+
+    // HasWinner takes a function that will be called with all the players 
+    // of the game
+    HasWinner(winRule: (players: Player[]) =&gt; { }) { 
+        return winRule(this.players);        
+    }
+
+    // We can have static members 
+    static Start(players: Player[], assignDealer: bool) { 
+        return new Game(players, new Deck());
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Playing Games</font></strong></p>
+
+<p>So now that all the types are defined, we can simulate a game. The game code is simple but it shows the kind of flexibility that you could use to simulate a lot of different card games. Here is a summary of what happens: </p>
+
+<ul>
+  <li>Define the players </li>
+
+  <li>Start the game </li>
+
+  <li>Simulate a round where players pluck cards from the deck </li>
+
+  <li>Calculate a winner with the following algorithm: total up the value of each player’s cards and whoever has the most wins. </li>
+</ul>
+
+<p>Here is the code: </p>
+
+<div class="code">
+  <pre class="brush: csharp">// define the players
+var gamers = [new Player(&quot;Stan&quot;), new Player(&quot;Jack&quot;), new Player(&quot;Adi&quot;)];
+
+// start the game
+var game = Game.Start(gamers, false);
+
+// play a round
+game.PlayRound(
+    // pass a function where each player plucks cards 
+    (p: Player, d: Deck) =&gt;{ p.PluckCards(d, 3);}
+);
+
+// figure out the winner by taking each player's cards
+// and totaling up their value
+var winner = &lt;player&gt;game.HasWinner(
+    (players: Player[]) =&gt; {
+        var rankings = _.sortBy(players, function (player: Player) {
+            return _.reduce(player.hand, function (memo, card: Card) {
+                return memo + card.getValue()
+                    * -1; // reverse order
+            }, 0);
+        });
+
+        _.each(rankings, function (p: Player) {
+            p.ShowHand();
+        });
+
+        return _.take(rankings, 1);
+    }
+);
+
+// this prints out the winning hand 
+winner.ShowHand();</pre>
+</div>
+
+<p>
+  <br /><font size="3"><strong>Conclusion</strong></font></p>
+
+<p>Could I have written this in JavaScript? Sure. TypeScript by no means defines anything so radically new that I would have to use it over my own object oriented JavaScript modeling. However, I think the above demonstrates the advantage – all the while I wrote my code not only could I structure things within the statically typed paradigm that I’m used to, for example with inheritance, I also had compiler checking. This isn’t as big of a deal with small JavaScript driven pages but as your programs get bigger, the more useful something like that can become. </p>
+
+<p>The one area of TypeScript that I found awkward was runtime debugging. It was easy enough to use the Chrome Developer Tools to set a break point and step through code but it almost felt like my mind had to compile the TypeScript into the JavaScript I was debugging… fairly trivial in my utterly contrived card games but something that could be problematic as a web application gets bigger and bigger. </p>
+
+<p>Charles Petzold wrote an essay sometime back with the completely valid title/assertion “<a href="http://www.charlespetzold.com/etc/doesvisualstudiorotthemind.html" target="_blank">Does Visual Studio Rot The Mind?</a>” Many people who use TypeScript will like it because it will make their lives easier, giving them auto completion and some other things that they are used to with languages like C#. For them TypeScript might erode their ability to think in terms of JavaScript on its own terms and it will limit them from any library or platform that doesn’t snap in to the TypeScript universe as easily as something like underscore.js. It’s valid to be apprehensive about people like that for their own sakes. But for me and what I do, I like the concept and I see the opportunity for productivity increases with it especially as the tooling gets better. </p>

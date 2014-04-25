@@ -1,0 +1,52 @@
+---
+layout: post
+title: "CSVs as aspects of IEnumerable<T> in C#"
+comments: true
+---
+
+<p><a href="http://www.t3rse.com/post/2012/11/10/Generate-CSV-from-IEnumerablelt;Tgt;-in-C.aspx" target="_blank">My last post</a> dealt with emitting CSV files from an IEnumerable&lt;T&gt;. I thought I’d extend the idea a bit by using an extension method on IEnumerable&lt;T&gt; as a means of making the functionality portable without the use of a “helper method.” </p>  <p>Here is the extension method: </p>  <div class="code">   <pre class="brush: csharp">public static byte[] GenerateCSVDownload&lt;T&gt;(this IEnumerable&lt;T&gt; data, 
+				string[] headers, Dictionary&lt;int, Func&lt;T, object&gt;&gt; columnData)
+{
+	Func&lt;object, string&gt; csvFormatter = (field) =&gt; String.Format(&quot;\&quot;{0}\&quot;&quot;, field);
+	Action&lt;IEnumerable&lt;object&gt;, StringBuilder&gt; rowBuilder = (rowData, fileStringBuilder) =&gt;
+	{
+		fileStringBuilder.AppendFormat(&quot;{0}\n&quot;, String.Join(&quot;,&quot;, rowData.Select(r =&gt; csvFormatter(r.ToString())).ToArray()));
+	};
+
+	StringBuilder builder = new StringBuilder();
+	rowBuilder(headers, builder);
+
+	foreach (T entityObject in data)
+	{
+		List&lt;object&gt; row = new List&lt;object&gt;();
+		for (int i = 0; i &lt; columnData.Keys.Count; i++)
+		{
+			row.Add(columnData[i](entityObject));
+		}
+		rowBuilder(row, builder);
+	}
+
+	return System.Text.Encoding.UTF8.GetBytes(builder.ToString());
+}</pre>
+</div>
+
+<p>And usage: </p>
+
+<div class="code">
+  <pre class="brush: csharp">var people = new List&lt;Person&gt;() { 
+                new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+                new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+                new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+                new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+        };
+
+var bytes = people.GenerateCSVDownload(
+			new string[] { &quot;First Name&quot;, &quot;Last Name&quot; },
+                        new Dictionary&lt;int, Func&lt;Person, object&gt;&gt;() { 
+                            {0, per =&gt; per.FirstName},
+                            {1, per =&gt; per.LastName}
+                        });</pre>
+</div>
+
+<p>
+  <br />I will reiterate from my previous post: this sketch is just about the technique. For large amounts of data you'd be better off chunking the data out. You could also abstract the method a bit to deal with different kinds of output (string, file, etc) by just accepting or returning a stream. </p>
