@@ -31,6 +31,18 @@
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -149,7 +161,8 @@ var fileBytes = GenerateCSVDownload&lt;Person&gt;(
   <li>There are a lot of tools for this sort of thing, use them if you’re not addressing things programmatically. </li>
 
   <li>If you have a really big dataset, I’d recommend building the file in chunks rather than loading it all up in memory as I’ve done above. </li>
-</ul></div>
+</ul>
+</div>
 
 
   <footer>
