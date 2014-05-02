@@ -15,9 +15,14 @@ I am a software developer based in Sioux Falls, South Dakota. I arrived here via
 
 My approach to work is inspired by 3 things I believe must exist in worthwhile software: 
 
-- Commodity: To serve some given purpose
-- Firmament: Durability under use
-- Delight: Aesthetic and functional beauty
+#### Commodity 
+> To serve some given purpose
+
+##### Firmament 
+> Durability under use
+
+##### Delight 
+> Aesthetic and functional beauty
 
 I have always been interested in many things. As a programmer I like syntactical constructs and language. As an aesthete I am an architecture and design enthusiast. Both my background and education give me a penchant for literature, economics, history, and public policy. As a thinker I can't evade brushes with the philosophical.
 
