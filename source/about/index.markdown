@@ -13,7 +13,7 @@ footer: true
 
 I am a software developer based in Sioux Falls, South Dakota. I arrived here via Southern California and before that, East Africa. I have spent more than a decade working at my craft in all kinds of environments: publicly traded companies, small businesses, and startups amongst others. 
 
-My approach to work is inspired by 3 things I believe must exist in worthwhile software: 
+My approach to work is inspired by 3 things<sup>1</sup> I believe must exist in good software: 
 
 #### Commodity 
 > To serve some given purpose
@@ -39,5 +39,6 @@ The quote that subtitles this blog comes from [Samuel Beckett](http://en.wikiped
 - [Twitter](http://twitter.com/t3rse) (@t3rse)
 - [Google+](https://plus.google.com/+DavidSeruyange)
 
+<sup>1</sup>This idea was originally purposed for architecture by [Vitrivius](http://en.wikipedia.org/wiki/Vitruvius). I encountered them in the excellent book [The Look of Architecture](http://www.amazon.com/gp/product/0195156331/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0195156331&linkCode=as2&tag=t3rse-20&linkId=4SOINZQNQENXUAJY) by Witold Rybczynski.
 
 
