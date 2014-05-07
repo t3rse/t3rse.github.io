@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Larry O&#8217;Brien, well known Jedi Master of many things development posts:&#8220;I have to wire up a ColdFusion to an Axis Web Service. I&#8217; &hellip;">
+  <meta name="description" content="{I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.Our &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/11/02/configuration-api-convoluted/">Configuration API Convoluted?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-02T20:11:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.<br /><br />Our application has had connection strings littered all over the place - okay, 8 to be exact and I know this because of my frequent usage of &#8220;replace in files&#8221; to toggle connection strings. But we&#8217;re at a point when this needs to be centralized and mutable without doing a new build.<br /><br />In my head this is simple: slap a config file into the project and off I go.  Some kind of one liner along the lines of:<br /><br />ConfLib.CONNECTION  = ConfigurationSettings.AppSettings[&#8220;Connect&#8221;];<br /><br />Simple, right?  I do it with web applications all the time.<br /><br />The first issue is that ConfigurationSettings, which the old school .NET folks are used to, is deprecated.  The message tells you to use ConfigurationManager but neglects to mention that a physical reference to System.Configuration.dll (in the GAC) is needed.  This isn&#8217;t a big issue and 2 minutes later I&#8217;ve referenced it, and rewritten my line of code as:<br /><br />ConfLib.CONNECTION  = ConfigurationManager.AppSettings[&#8220;Connect&#8221;];<br /><br />Not quite.  I&#8217;m now in the habit of doing unit tests so I realize that Visual Studio 2005 <span style="font-style: italic;">copies your libraries</span> to a new directory when it does unit tests.  I look at the &#8220;post build event&#8221; options and wonder if it&#8217;s worth the hassle. So instead I ditch the unit test and return to the main solution, manually copy the *.config file into my application&#8217;s directory and try.<br /><br />No dice.<br /><br />Maybe ConfigurationManager is too nebulous?  So I try the following:<br /><br />Configuration conf = ConfigurationManager.OpenExeConfiguration(&#8220;ConfigHelper.dll&#8221;);<br /><br />Which, when I run it in the debugger seems to pull my keys out of the config file but gives me an access violation when I try:<br /><br />ConfLib.CONNECTION  = conf.AppSettings[&#8220;Connect&#8221;];<br /><br />This is quite some time later and I&#8217;m pretty annoyed because I must have absolutely not gotten the memo or configuration is bloated.  Almost to prove to myself how simple this should be, I create a file called Settings.xml and put in a couple of elements and write the following:<br /><br />XmlDocument configDoc = new XmlDocument();<br />configDoc.Load(Path.Combine(Directory.GetCurrentDirectory(), &#8220;Settings.xml&#8221;));<br />ConfLib.CONNECTION = configDoc.SelectSingleNode(&#8220;//Database/text()&#8221;).Value;<br />ConfLib.VERSION = configDoc.SelectSingleNode(&#8220;//Version/text()&#8221;).Value;<br /><br />That simple.<br /><br />Granted I am WELL AWARE that the Configuration API has lots of goodies stuffed into it but should that make the process of pulling it out of a configuration file so convoluted?  Things that are designed well work for the simple things as easily as they solve the complex.<br /><br />My configuration files always have the same pattern: I create a class that is designed to read the xml file with static variables for each configuration value.  I use a static initializer to read these from the file and have a single static variable I reference when the app is loaded.  I&#8217;ve worked on a lot of stuff that benefits from this but almost always configuration stuff seems to boil down to a simple name/value pair you can leverage.<br /><br />I could have made an indexer and had the pulling look like the AppSettings collection on the ConfigurationManager but I dislike the fact that the compiler doesn&#8217;t catch errors related to misspelled key names. <br /><br />Oh well, I&#8217;ll leave it in its current state. Maybe I&#8217;ll get the memo tomorrow but I doubt it.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -433,51 +470,6 @@ I spent way more time than I should have tonight trying to find a reason why Fir
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/09/30/people-process/">People, Process</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-30T19:58:00-05:00" pubdate data-updated="true">Sep 30<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Steve Yegge has a <a href="http://steve-yegge.blogspot.com/2006/09/good-agile-bad-agile_27.html">post</a> about the agile software development process.  Gifted in wit and sarcasm, Yegge doesn&#8217;t spare many punches in basically saying that &#8220;Agile&#8221; as is known as a process is basically about marketing and making money for consultants.  He contrasts this with a lower cased &#8220;agile&#8221; which is what he believes Google (his employer) practices and others should.<br /><br />A lot of comments seem to be coming back - <a href="http://blog.qualityaspect.com/2006/09/29/agilism-out-googlism-in/">resistance</a> to Yegge&#8217;s comments over at The Mindset because (and I agree with this) some of the things that are true for Google (working without deadlines) just can&#8217;t be true for the rest of us.  The Mindset also doesn&#8217;t believe that the glossy, non-substantive Agile flies with most businesses. I&#8217;m not as optimistic as The Mindset since I have seen many an organization fleeced, but I do agree that most people aren&#8217;t fools. Especially developers, the majority of which I&#8217;ve worked with are big skeptics.<br /><br />Raganwald has the most interesting <a href="http://weblog.raganwald.com/2006/09/wasabi-cannot-cure-rotten-fish.html">response</a> I&#8217;ve seen so far: that it all comes down to people over process and a good team will succeed despite methodological strategy.  Interesting because especially when it comes to Google, it seems like they take the cream of the crop so it would follow that they can be so lax with all the rock stars they have working there. Raganwald seems to fit into Spolsky&#8217;s camp (maybe it was Raganwald&#8217;s camp to begin with) where the equation is: Good programmers + working conditions == Great Software<br /><br />Dare Obasanjo is pretty <a href="http://www.25hoursaday.com/weblog/PermaLink.aspx?guid=2f33ca2b-56ae-4328-936b-22d0913f8d5c">straight forward</a> with how he sees Google:<br />&#8220;&#8216;smart people dicking around&#8217; type projects&#8221; versus &#8220;shipping code.&#8221; <br />It doesn&#8217;t get more plain than that now, does it?<br /><br />Quite interesting especially since it wasn&#8217;t long ago that I listened to <a href="http://www.se-radio.net/index.php?post_id=116460">Jutta Eckstein talking</a> about Agility on Software Engineering Radio.  The first thing out of her mouth was:<br />&#8220;People over process.&#8221;<br /><br />I think there&#8217;s a lot of frustration in the marketing and money making of Agile but the finer details seem to have a lot of things that are great tactics in software development. &#8220;People over process&#8221; is a great way for the Agile methodology to begin itself since it allows for the Raganwald/Spolsky perspective but many of the communication things are good as well.  What Yegge points out as &#8220;agile&#8221; in the sense of big rewards and incentives seem to have to do with compensation, not necessarily development methodology.  Pair programming, as far as I know isn&#8217;t a part of Agile but this is something I&#8217;ve never really seen as a full time approach.  One thing I&#8217;ve been struggling with in my current project is the weight given to doing frequent releases in Agile.  Because we started from scratch it doesn&#8217;t make much sense and in this case we are departing from conventional Agile. However as the framework for the software begins to take form I&#8217;ll push the team for more frequent builds that the client can look at.  For now, scaffolding and putting things together for others takes far too much time and all the client would see is unfinished stuff that we are well aware is unfinished.  Doing &#8220;SCRUM&#8221; meetings is another departure for us - we meet when necessary but there&#8217;s enough on various plates to make meeting and percentages too much overhead. <br /><br />In the end I find myself seeing truth in each person&#8217;s perspective: Yegge is right about some of the dogma (whether it was intended or not is another question) some apply to Agile programming.  The Mindset is right that those of us who don&#8217;t work at Google don&#8217;t have the luxury of working without a deadline.   Raganwald is absolutely right on the importance of hiring.  I did two interviews this week and that was&#8230; interesting. People, especially the caliber of whom work at Google, just aren&#8217;t a reality for where I work. I include myself in that category since I&#8217;m not certain I&#8217;d fare too well in their hiring process.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Reginald Braithwaite</div>
-<div class='content'>
-<A HREF="http://weblog.raganwald.com/2006/10/three-questions-and-three-answers.html" REL="nofollow">Three questions and three answers about Wasabi and Rotten Fish</A></div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/29/">&larr; Older</a>
@@ -495,6 +487,10 @@ I spent way more time than I should have tonight trying to find a reason why Fir
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -508,10 +504,6 @@ I spent way more time than I should have tonight trying to find a reason why Fir
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

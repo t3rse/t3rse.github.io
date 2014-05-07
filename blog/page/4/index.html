@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="There was a time in my life when I daydreamed about being at a startup, eating pizza, and writing code while I worked the kind of hours that would be &hellip;">
+  <meta name="description" content="Hanselman has been on a tear of late with his podcasts but one series in particular I’ve enjoyed is a series of folks who in some way are connected &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/27/Hanselmans-NASA-Podcast-Series/">Hanselman’s NASA Podcast Series</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-27T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.hanselman.com/blog" target="_blank">Hanselman</a> has been on a tear of late with his podcasts but one series in particular I’ve enjoyed is a series of folks who in some way are connected with NASA or the space program. Even though I was a kid who was geek enough to want to become an astronomer, often fondling worn out pages of a <a href="http://www.amazon.com/gp/product/1426209711/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1426209711&amp;linkCode=as2&amp;tag=t3rse-20">Space Atlas</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=1426209711" width="1" height="1" /> , I think just about anyone will enjoy these conversations. </p>  <p><a href="http://www.hanselminutes.com/317/it-is-rocket-science-holly-griffith-former-space-shuttle-and-current-space-station-worker" target="_blank">Holly Griffith</a> – former space shuttle and current space station worker (<a href="http://www.spacetweepsociety.org/" target="_blank">Space Tweep Society</a>).</p>  <p><a href="http://www.hanselminutes.com/337/robots-on-mars-with-mark-powell" target="_blank">Mark Powell</a> – senior software engineer at Jet Propulsion Laboratories</p>  <p><a href="http://www.hanselminutes.com/342/an-interview-with-paul-lutus" target="_blank">Paul Lutus</a> – there are dudes and there are <em>dudes</em>. Paul Lutus is a <em><a href="http://en.wikipedia.org/wiki/Paul_Lutus" target="_blank">dude</a></em>. </p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -498,43 +534,6 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/06/15/search-match-replace-generate/">Search, Match, Replace, Generate</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-15T23:56:00-05:00" pubdate data-updated="true">Jun 15<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h2><font color="#0000ff">{</font></h2>  <p>Many moons ago I got about <a href="http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx">0.25 seconds of fame</a> when <a href="http://www.nregex.com">nRegex</a>, a tool I wrote for evaluating regular expressions of the .NET flavor,&#160; got a bit of acclaim. It was one of the better days of my life, an encouragement that sometimes struggling alone in a South Dakota basement can lead to a little bit of notice. </p>  <p>One of the tricks that keeps me going back to nRegex is being able to generate code by using a regular expressions. Regular Expressions, though often reviled, turn out to be quite handy in a lot of situations. </p>  <p>Let’s say you have a table that looks like this:</p>  <pre class="brush:sql">	CREATE TABLE PackingList(<br />		PackingListId	INT IDENTITY PRIMARY KEY, <br />		PackingItem		VARCHAR(50), <br />		Destination		VARCHAR(50)<br />	)<br />	GO</pre><br /><br /><p>&#160;</p><br /><br /><p>Let’s say you have a list of values:</p><br /><br /><pre class="brush:sql">Shoes<br />Camera<br />Laptop<br />Wallet</pre><br /><br /><p>The list is short for brevity but let&#8217;s say you want to insert them all into your table for a destination called //Build/. You know the syntax for an INSERT but it&#8217;s a bit of a nuisance to type over and over again. One thing you can do is to use a regular expression to match and then reference the results of your match in a replace. Over on nRegex, we&#8217;d paste in our list of items into the main text area and then use the regular expression (.+) to match each item, line by line. Because the items are matched into a group with your parenthesis, you can now write something like the following for your replace: </p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('$1', '//Build/')</pre><br /><br /><p>And voila! You now just have to copy the results: </p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('Shoes', '//Build/')<br />INSERT INTO PackingList VALUES('Camera', '//Build/')<br />INSERT INTO PackingList VALUES('Laptop', '//Build/')<br />INSERT INTO PackingList VALUES('Wallet', '//Build/')</pre><br /><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://www.t3rse.com/meta_images/GeneratingCode1.jpg" /> <br /><br /><p>But that&#8217;s just a tip of the iceberg. There&#8217;s a lot more nifty regular expressions tricks for working with code. Here&#8217;s another one I run into quite often. Let&#8217;s say I have some code that looks like this:</p><br /><br /><pre class="brush:csharp">  rs[&quot;foo&quot;] = myFoo;<br />  rs[&quot;bar&quot;] = myBar;</pre><br /><br /><p>I want to swap what&#8217;s on either side of the equals sign to do the opposite type of assignment. Here&#8217;s my regular expression: </p><br /><br /><pre class="brush:pl">(.+)\s=\s(.+);</pre><br /><br /><p>And my replacement expression</p><br /><br /><pre class="brush:pl">$2 = $1;</pre><br /><br /><p>Et voila aussi! You can now copy the swapped values to wherever they need to go. </p><br /><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://www.t3rse.com/meta_images/GeneratingCode2.jpg" /> <br /><br /><p>One final thing: any place that offers you regular expressions you can use these techniques. There are some subtle differences but as long as you have a conceptual understanding of what your goal is it&#8217;s quite easy to bend to the flavor of regular expressions presented. For example, if you are using Notepad++ and want to accomplish the same thing, you reference your groups with a leading backslash rather than the &quot;$&quot; character - in our first example you would use the following:</p><br /><br /><pre class="brush:sql">INSERT INTO PackingList VALUES('\1', '//Build/')</pre><br /><br /><p>This is, of course, just scratching the surface. It’s not that hard though! Once you learn the meaning of things like ^ or $ then you can manipulate strings in all sorts of ways that may have once not seemed possible. The best way to learn regular expressions hasn’t changed for many years. The two canonical books I always refer to are <a href="http://oreilly.com/catalog/9780596528126/index.html">Mastering Regular Expressions</a> by <a href="http://regex.info/blog/">Jeffrey Friedl</a> and the <a href="http://oreilly.com/catalog/9780596520694">Regular Expressions Cookbook</a> by Goyvaerts and Levithan. </p><br /><br /><table><tbody><br />    <tr><br />      <td><a href="http://oreilly.com/catalog/9780596528126/index.html"><img src="http://www.t3rse.com/meta_images/Mastering Regular Expressions.gif" /></a></td><br /><br />      <td><a href="http://oreilly.com/catalog/9780596520694"><img src="http://www.t3rse.com/meta_images/Regular Expressions Cookbook.gif" /></a></td><br />    </tr><br />  </tbody></table><br /><br /><p>&#160;</p><br /><br /><p>Although nRegex will allow you to hobble by I also recommend <a href="http://www.regexbuddy.com/">RegexBuddy</a>. <a href="http://www.rexv.org">Rexv</a> (which inspired nRegex) is a good tool though the Regular Expression engine is not .NET.</p><br /><br /><p>Last thing: do you have any nifty regex to code generation tricks you use on a regular basis? The audience of one you have in this space would love to learn them. </p><br /><br /><h2><font color="#0000ff">}</font></h2>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -552,6 +551,10 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -565,10 +568,6 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

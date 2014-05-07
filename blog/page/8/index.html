@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception &hellip;">
+  <meta name="description" content="{ In the Christian Bible there’s a story of 10 lepers miraculously healed by Jesus. Even if you don’t believe in Christianity, imagine a leper &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/27/library-of-week-jsonnet/">Library of the Week: Json.NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-27T23:35:00-05:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>In the Christian Bible there’s <a href="http://www.biblegateway.com/passage/index.php?search=luke+17:11-19">a story</a> of 10 lepers miraculously healed by Jesus. Even if you don’t believe in Christianity, imagine a leper living in the dregs of society, totally dejected until one day a man shows up and heals him and nine other fellow outcasts. Imagine how happy they should be. </p>  <p>They’d say thank you, right? </p>  <p>In the Bible story, only one of the men returns to say thank you and the other nine are so busy getting back to the lives they wished they had that they forget about the reason they were healed in the first place.</p>  <p>There’s evidence of this kind of lack of gratitude in the ecosystem of free libraries and projects available for .NET developers on the web. I’m a part of that club and not proud of it. I use open source .NET libraries on a regular basis and don’t say thank you. But more than just me, I look at the community participation on CodePlex projects and find it amazing how few people say a simple “thank you.”</p>  <p>With that in mind, I’m going to start profiling libraries that I’ve used with success to build up awareness of their existence and hopefully inspire the people who write them to do more good work since what they do is so tremendously helpful. </p>  <p>The first library I want to profile is the <a href="http://json.codeplex.com/">Json.NET</a> library available from CodePlex. It contains a great, intuitive Json serialization/deserialization library. You can point to most serializable objects and convert them to a JSON format with such simple sleight of hand as: </p>  <p></p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	List&lt;Foo&gt; data = new List&lt;Foo&gt;();<br />	// adds to data<br />	string json = <span style="color: orange">JsonConvert.Serialize(data)</span>;</pre><br /><br /><p></p><br /><br /><p>As if that wasn’t simple, retrieving values from their serialized format is also made trivial: </p><br /><br /><p></p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	string jsonItems = GetYourJSON();<br />	List&lt;Foo&gt; data = <span style="color: orange">JsonConvert.DeserializeObject&lt;List&lt;Foo&gt;&gt;(jsonItems)</span>;	</pre><br /><br /><p></p><br /><br /><p>One great differentiator of Silverlight versus existing web technologies is the ability to have a virtual file system on a client computer. While HTML 5 seems to include facilities for this it is not yet built into existing browsers and even when it is, previous track records on “standards” are a precedent for how balkanized the implementation of them can be. In many areas of web development, you can push the envelope of existing technologies to get what you do out of Silverlight, but the existence of Isolated Storage is a killer feature.</p><br /><br /><p>Give Json.NET a try whether you’re doing Silverlight or using a different .NET related paradigm. It’s a great library.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -446,51 +483,6 @@ Nice idea&#8230; few questions though (I promise the fourth one is easy):<br /><
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/03/03/ironpython-silverlightfx/">IronPython + SilverlightFX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-03-03T07:36:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p><a href="http://projects.nikhilk.net/SilverlightFX/">SilverlightFX</a> is an interesting library for declaratively attaching behaviors to objects in XAML. People new to the Silverlight world will like how they can use it to get simple animations out of simple code. Here&#8217;s a step by step: </p>  <p>1. If you don&#8217;t have it done already, <a href="http://metadeveloper.blogspot.com/2009/02/dlr-ironpython-silverlight-in-5-steps.html">set up an IronPython / Silverlight project</a>.</p>  <p>2. <a href="http://projects.nikhilk.net/SilverlightFX">Download SilverlightFX</a></p>  <p>3. Copy SilverlightFX binaries into your /app directory.</p>  <p>3. Edit the AppManifest.xaml to include the SilverlightFX binaries. Here is an example: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Deployment xmlns=&quot;http://schemas.microsoft.com/client/2007/deployment&quot; <br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; <br />	RuntimeVersion=&quot;2.0.31005.00&quot; <br />	EntryPointAssembly=&quot;Microsoft.Scripting.Silverlight&quot; <br />	EntryPointType=&quot;Microsoft.Scripting.Silverlight.DynamicApplication&quot;&gt;<br />  &lt;Deployment.Parts&gt;<br />    &lt;!-- Add additional assemblies here --&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.ExtensionAttribute.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Silverlight.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Core.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.Modules.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.Data.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Silverlight.FX.dll&quot; /&gt;<br />  &lt;/Deployment.Parts&gt;<br />&lt;/Deployment&gt;</pre><br /><br /><p>4. Edit your app.xaml file to include references to the SilverlightFX namespaces. Here is an example:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;UserControl<br />	xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;<br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;<br />	x:Class=&quot;System.Windows.Controls.UserControl&quot;<br />	xmlns:fxui=&quot;clr-namespace:Silverlight.FX.UserInterface;assembly=Silverlight.FX&quot;<br />   	xmlns:fxeffects=&quot;clr-namespace:Silverlight.FX.UserInterface.Effects;assembly=Silverlight.FX&quot;	<br />	&gt;</pre><br /><br /><p>5. Party on with some declarative effects. </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Border Grid.Row=&quot;1&quot; x:Name=&quot;redRect&quot; Opacity=&quot;0.2&quot;&gt;<br />	&lt;TextBlock x:Name=&quot;outPut&quot; TextWrapping=&quot;Wrap&quot; <br />		Text=&quot;Lorem ipsum dolor sit amet,...&quot;  /&gt;<br />    &lt;fxui:Interaction.Behaviors&gt;<br />    &lt;fxui:HoverEffect&gt;<br />      &lt;fxeffects:Fade FadeOpacity=&quot;1&quot; /&gt;<br />    &lt;/fxui:HoverEffect&gt;<br />    &lt;/fxui:Interaction.Behaviors&gt;<br />&lt;/Border&gt;</pre><br /><br /><p>6. Read Nikhil&#8217;s related <a href="http://www.nikhilk.net/entry.aspx?id=212">blog entries</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>scitesy</div>
-<div class='content'>
-Thanks David!  I was able to get this to work.  One change&#8230;the fxui namespace for Silverlight is &quot;clr-namespace:SilverlightFX.UserInterface;assembly=SilverlightFX&quot;&gt;&quot;.  The same goes for fxeffects.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -508,6 +500,10 @@ Thanks David!  I was able to get this to work.  One change&#8230;the fxui namesp
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -521,10 +517,6 @@ Thanks David!  I was able to get this to work.  One change&#8230;the fxui namesp
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

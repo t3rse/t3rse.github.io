@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Joel is at it again. In his most recent essay, The Development Abstraction Layer, he asserts that management at a software company should build an &hellip;">
+  <meta name="description" content="{In our case it was a control that needed to be placed in a GridView column, but this could be used anywhere: System.Type t = AnyControl.GetType &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/04/27/c-dynamic-instantiation-with/">C# Dynamic Instantiation With Reflection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-04-27T10:34:00-05:00" pubdate data-updated="true">Apr 27<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />In our case it was a control that needed to be placed in a GridView column, but this could be used anywhere:<br /><br />            System.Type t = AnyControl.GetType(); // the control or class of your choice<br />            object o = System.Activator.CreateInstance(t);<br />            System.Web.UI.Control newControlOfType = o as System.Web.UI.Control;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>megandenton38921805</div>
+<div class='content'>
+Get  any Desired College Degree, In less then 2 weeks.<BR/><BR/>Call this number now 24 hours a day 7 days a week (413) 208-3069<BR/><BR/>Get these Degrees NOW!!!<BR/><BR/>&#8220;BA&#8221;, &#8220;BSc&#8221;, &#8220;MA&#8221;, &#8220;MSc&#8221;, &#8220;MBA&#8221;, &#8220;PHD&#8221;, <BR/><BR/>Get everything within 2 weeks.<BR/>100% verifiable, this is a real deal<BR/><BR/>Act now you owe it to your future.<BR/><BR/>(413) 208-3069 call now 24 hours a day, 7 days a week.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -543,43 +588,6 @@ Bmw audi used or new auto are the best.<BR/>http://carautoinfo.blogspot.com</div
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/01/29/good-design-is-hard/">Good Design Is Hard</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-01-29T19:09:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#000099;">{</span><br /><br /><a href="http://www.joelonsoftware.com">Joel Spolsky</a> has begun a new series on design. I&#8217;m looking forward to it because I find myself having to refocus on the discipline of good design quite often.<br /><br />The one thing I have begun to understand about design is that in order to do a good job you&#8217;ve got to be absolutely tenacious.  If it means *exactly* 172 pixels, you use every means necessary to use 172 pixels. Not 171, nor 175, exactly 172.<br /><br />His first article, &#8221;<a href="http://www.joelonsoftware.com/design/1stDraft/01.html">What is Design?</a>&#8221;, does a good job of dispelling the myth that design is something mystically done by &#8220;artsy&#8221; people.  It will be interesting to see where he goes from there.<br /><br />I managed to get the company where I did my last project to use <a href="http://www.fogcreek.com/FogBugz/index.html">Fogbugz</a>, Joel&#8217;s bug tracking software.  At the time it seemed like simplistic software - I had a hard time believing that this &#8220;guru&#8221; of software development only had Fogbugz to show for himself.  However, I&#8217;ve been able to understand more of the design behind Fogbugz now; we use <a href="http://www.serena.com/Products/teamtrack/Home.asp">Serena Teamtrack</a> and although it *seems* like it has more functionality, it&#8217;s missing a lot of the ease, flexibility, and philosophy of Fogbugz.  The best designs are like the best special effects in a film; they are so good you don&#8217;t realize they are there.<br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/37/">&larr; Older</a>
@@ -597,6 +605,10 @@ Bmw audi used or new auto are the best.<BR/>http://carautoinfo.blogspot.com</div
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -610,10 +622,6 @@ Bmw audi used or new auto are the best.<BR/>http://carautoinfo.blogspot.com</div
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

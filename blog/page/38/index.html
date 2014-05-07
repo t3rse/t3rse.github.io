@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Debugging a problem today I wrote this, which may be useful to someone. It displays all the controls on an ASP.NET Page in a tree structure. You &hellip;">
+  <meta name="description" content="{The big release is upon us. But it begs a question that I think those of us who use commercial development tools have to ask ourselves, something &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/09/technology-or-tools-visual-studio-2005/">Technology or Tools, Visual Studio 2005</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-09T20:28:00-06:00" pubdate data-updated="true">Nov 9<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">The big release is upon us.  But it begs a question that I think those of us who use commercial development tools have to ask ourselves, something our Open Source brothers and sisters do not to the same degree.  The question is whether we are driven by technology first, or whether we are led by tools.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Microsoft is driven to release products on a cycle that will earn them a consistent amount of revenue; sometimes the &#8220;new&#8221; product is hardly new at all.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Visual Studio 2005 looks good from my very preliminary browsing about, but I&#8217;m still approaching it with some caution.  It&#8217;s really cool to do &#8220;push button&#8221; refactoring, but is refactoring something we need to really think deeply about?  A part of an underlying structure that must be designed carefully?  Something that can&#8217;t fix code that is already structurally defunct?</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">The class designer and snippets are cool too, but when I see the IDE eating up 800MB of memory on &#8220;Hello World&#8221; type projects, it makes me nervous.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">My first stop is going to be new language features.  After that I&#8217;m going to delve a little bit more heavily into the IDE.  The ASP.NET features look good and somewhat different.  But I&#8217;m a skeptic until I see the power for myself.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It&#8217;s such a contrast to other worlds - to return to the idea of Open Source - technology there is more likely to evolve because of a need that must be met or a new idea.  It is independent of the goons in sales & marketing.</span><br /><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -452,51 +489,6 @@ Interesting post man&#8230; have you tried this with ASP.net? I do mostly web ap
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/05/13/itunes-hacking/">iTunes Hacking</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-05-13T15:26:00-05:00" pubdate data-updated="true">May 13<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br />So I am still coming to terms with how <a href="http://www.apple.com/itunes/">iTunes</a> works, and trying to get the &#8220;philosophy&#8221; behind its organization system. My understanding is this: iTunes can scour the hard drive, if you allow it, and maintain a nice library of tracks, no matter where on your physical disk they are located. You can then sift through by artist, etc&#8230;<br /><br />In my case I have ~30 GB of music and much of it isn&#8217;t in mp3 files with ID3 tags - I&#8217;ve got a pot pourri of mixes and a ton of podcasts I&#8217;ve been listening to while I work. It&#8217;s too much of a pain to manually create a playlist for all the folders or try to find unlabeled music in the library. Maybe it&#8217;s because of winamp but I&#8217;m used to organizing my music physically, and then grabbing tracks out of a directory that I want to play, rather than by &#8220;artist&#8221; or &#8220;genre.&#8221; For example, I&#8217;ve got the following:<br /><br />-/Mp3<br />&#8212;-/PodCast<br />  &#8212;&#8212;&#8211;/ITConversations<br />&#8212;&#8212;&#8211;/KCRW<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /> &#8212;-/Albums<br />  &#8212;&#8212;&#8211;/Interpol<br />&#8212;&#8212;&#8211;    /Massive Attack<br />&#8212;&#8212;&#8211;    &#8230; and so on<br />&#8212;-/Mixes<br />&#8212;&#8212;&#8211;    /Jan2005<br />  &#8212;&#8212;&#8211;/Feb2005<br />&#8212;&#8212;&#8211;    /Mar2005<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /><br />This scheme works well, but it doesn&#8217;t seem to mesh with iTunes. So I wrote a little program using the <a href="http://developer.apple.com/sdk/itunescomsdk.html">iTunes COM SDK</a> that takes a directory as a parameter and automatically creates a playlist for each folder that contains mp3 or other music files. In my case it worked perfectly (took seconds!) in creating playlists for all my folders and the files they contained. I put in a &#8220;Sync&#8221; button too, so it can synchronize with changes you make to file structure.<br /><br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.gif" /><br /><br />I&#8217;ve uploaded a <a href="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.zip">*.zip</a> along with source (it&#8217;s written in VB6). I tested it with iTunes 4.7 and it works fine. I&#8217;m not sure whether this was unnecessary; perhaps iTunes has an option for doing just this, I don&#8217;t know. But more deeply, I think, is an attitude, an approach of giving the user an interaction with a piece of software.  In the PC world, one spends a lot more time &#8220;organizing&#8221; things than does on one on a Mac.  I&#8217;ve heard and read often that systems should be able to manage themselves but find myself balking at the notion that the system can do as good of a job as I can.  I download faster than I listen, so things must be organized, but the content of the audio is the archival attribute, not the date, artist, or genre.  How this can be known outside of the user, I&#8217;m not sure.<br /><br />If you do make a modification, or an improvement (many probably could be made), let me know. I&#8217;m also unaware of any <span style="font-style: italic;">plug-in</span> architecture for iTunes, otherwise I&#8217;d try to just make it a couple of buttons or menu items in the program itself.<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Phil</div>
-<div class='content'>
-I have the exact same problem. I always order my music by directories and such instead of proprietary metadata. Instead of creating playlists (which will limit the solution to iTunes) my idea is to fix the id3 tags so that they include track-numbering. (That way it will work with Muine, Rhythmbox, etc.) Unfortunately WinAmp and XMMS are the only players I know that can sort by filename.<BR/><BR/>I&#8217;m working on a Ruby solution. Check http://philisha.net in a few weeks.<BR/><BR/>As for which way of organization is superior, I think there is something to be said for the iTunes way. Organizing a 30GB collection of music is a rather mundane task; you shouldn&#8217;t HAVE to do it manually.<BR/><BR/>Unfortunately, the iTunes way really only works if you&#8217;ve been using iTunes from the start and if you don&#8217;t use your music library on other players. So it&#8217;s nice in theory, but I think I&#8217;ll still spend an unfortunate amount of time managing stuff myself.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/39/">&larr; Older</a>
@@ -514,6 +506,10 @@ I have the exact same problem. I always order my music by directories and such i
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -527,10 +523,6 @@ I have the exact same problem. I always order my music by directories and such i
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

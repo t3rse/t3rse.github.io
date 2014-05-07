@@ -9,9 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="
-{Joel Spolsky writes about being reviewed by Bill Gates himself. Self congratulatory, but good nevertheless&#8230;}
-">
+  <meta name="description" content="{I&#8217;m not sure what day I&#8217;m on as far as TechEd coverage (a lot to swallow!) but the next session I see notes for was called &#8220; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/21/virtual-earth/">Virtual Earth</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-21T23:44:00-05:00" pubdate data-updated="true">Jun 21<span>st</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;m not sure what day I&#8217;m on as far as TechEd coverage (a lot to swallow!) but the next session I see notes for was called &#8220;Location Solutions with Virtual Earth.&#8221;  It was a tour of <a href="http://local.live.com/">Virtual Earth</a> and how to write applications using the javascript library they expose in the <a href="http://dev.live.com/virtualearth/sdk/">Virtual Earth SDK</a>.<br /><br />You can get an idea of what Virtual Earth looks like by going to the site: <a href="http://local.live.com/">http://local.live.com</a><br /><br />The SDK is also quite simple; it consists of referencing some javascript libraries and using a DIV to position the mapped content.  For example, to get the basics, just view source on <a href="http://hobbitwerk.brinkster.net/virtualearth/">this page</a>.<br /><br />The Virtual Earth API has the following features, per the presentation:<br /><br /><ul><li>User Navigation</li><li>Mapping Imagery</li><li>&#8220;Bird&#8217;s Eye&#8221; views</li><li>Pushpins</li><li>Find Places/Addresses</li><li>Directions/Routing</li><li>Polylines</li><li>Collections of GeoRSS</li></ul><br />For each of these features there is an interactive SDK that generates example code so that you can follow along for your own application.  *Very cool*. <br /><br />I did have a few issues with timing and synchronous processing; in other words sometimes the wait time for processing one command seemed to cancel out a command that directly followed it.  In my case I was trying to do a search for &#8220;Sioux Falls, SD&#8221; and then follow it with a ZoomIn method like so:<br /><br />            map.FindLocation(&#8216;Sioux Falls, SD&#8217;);<br />            map.SetMapStyle(VEMapStyle.Hybrid);<br />            map.ZoomIn();<br /><br />I&#8217;ll dig around a bit - my idea for a helpful little location solution is a map of Sioux Falls and all the coffee shops along with their attributes: how good the coffee is, whether WiFi is free, and the general atmosphere.<br /><br />I&#8217;m also planning to dink around with the <a href="http://www.google.com/apis/maps/">Google Maps API</a> to see how it stacks up.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -422,43 +457,6 @@ I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/06/05/teched-2006/">TechEd 2006</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-06-05T23:21:00-05:00" pubdate data-updated="true">Jun 5<span>th</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;m very, very excited to be going to <a href="http://www.microsoft.com/events/teched2006/default.mspx">Microsoft&#8217;s TechEd</a> conference this year with my boss.  Now I&#8217;m counting down the days - we leave for Boston on June 10, and the conference runs from June 11 - 16.  The first conference I was able to talk my way into going to was VBITS 2000, and as I think back upon my years training and consulting for my previous employer, that was among the best. <br /><br />I got to rub shoulders with some pretty amazing people, and learned many valuable lessons.  I&#8217;ll never forget sheepishly asking <a href="http://pluralsight.com/blogs/aaron/">Aaron Skonnard</a> what he thought of XML Data Islands in IE 5, or <a href="http://betav.com/BLOG/billva/">Bill Vaughn&#8217;s</a> theatrics (and knowledge) of data access.<br /><br />I think my approach and goals at the conference may be a little different from some people who are looking forward to a week off to fraternize and network.  I&#8217;m hoping to learn as much as possible since I&#8217;m not sure when next I&#8217;ll get the opportunity to go to a conference on my employer&#8217;s expense.<br /><br />The biggest trick is going to be separating the <a href="http://www.joelonsoftware.com/articles/fog0000000339.html">Fire & Motion</a> from the sessions that will give me knowledge and direction for the work I do on a daily basis.  Of course it&#8217;s good to be aware of what&#8217;s upcoming, but I&#8217;ve always been really reluctant to spend much of an investment in something that is subject to change.  Beyond that I usually prefer to wait when adopting something for a little while (let others be the bug testers) so that also pits me against things that are a bit too futuristic.<br /><br />With that said, <a href="http://hobbitwerk.brinkster.net/te06/DavidTechEd.pdf">here is my schedule</a> for the week.  There are a few things I&#8217;d like to see this year (list is totally subject to change, like, on a minute by minute basis):<br /><br />1. More ASP.NET 2.0<br />Deeper on the new features, Personalization API, Web Parts, Internals<br /><br />2. XML / XQuery / LINQ<br />Some ideas on where these are in the pipeline so I can start using them on projects<br /><br />3. Workflow<br />I have DVDs of the last TechEd, and this came up a bit. I&#8217;m interested again on seeing an angle to take on this tool.<br /><br />4. Sharepoint and Biztalk<br />I signed up for a few sessions but this is the part where I get leary; I&#8217;m not sure when the 2007 versions will be out and about.  I know there are many, many opportunities to use the current versions of these products and would probably benefit from seeing that kind of stuff right away.  But I&#8217;m hoping to glean and perhaps get a few tidbits to stay ahead of the curve when the new versions are released.<br /><br />5. Team System<br />We are using it in house, so I need to understand it - I also want to get an accurate picture of how Team System can be leveraged by small teams.  Most descriptions (and the pricing!) seems to put it in the &#8220;enterprise&#8221; category but most of what I&#8217;ve worked on in the past, and probably for the forseeable future will be software projects with less than 20 people involved. <br /><br />6. IIS 7<br />I use IIS every day, and it&#8217;s been like an old friend since the early versions. I&#8217;d like to see where the product is headed, and how its path meets with ASP.NET 2.0 and all the other pieces of web application development.<br /><br />7. Architecture Talks<br />I signed up for a few that will hopefully be interesting and useful.  I&#8217;d also like to get a better handle on SOA, &#8220;contracts,&#8221; and the like.  Distributed architecture makes a lot of sense to me, but I&#8217;m a bit wary of the architecture astronauts when it comes to enterprise application architectures - I try to translate that stuff into what I do on a daily basis (enterprise app for a publicly traded company of 5000+ employees) and still sometimes miss the mark.  Perhaps I&#8217;ll get a chance to meet some people in this environment as well who I can maintain contact with.<br /><br />I&#8217;m hoping that I&#8217;ll be able to change sessions as well during the conference. I&#8217;m fairly pleased with what I have, but the flexibility would be nice.<br /><br />As the week progresses I&#8217;ll hopefully write down some things I&#8217;ll be hoping to answer, as well as some pre-conference reading. <br /><br />TechEd 2006, here I come!<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/35/">&larr; Older</a>
@@ -476,6 +474,10 @@ I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -489,10 +491,6 @@ I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

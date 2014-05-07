@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{I&#8217;m quite fond of the different calendars with tutorials this season. From my first glances at this year&#8217;s 24ways I should learn as &hellip;">
+  <meta name="description" content="{I am feeling my way around with CGI using perl so I took Alan Perlis&#8217;s epigrams on programming and randomized them.I think it will be my new &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/12/12/epigrams-on-programming/">Epigrams on Programming</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-12T21:00:00-06:00" pubdate data-updated="true">Dec 12<span>th</span>, 2006</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I am feeling my way around with CGI using perl so I took Alan Perlis&#8217;s epigrams on programming and randomized them.<br /><br />I think it will be <a href="http://www.t3rse.com/wisdom/">my new homepage</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -420,43 +457,6 @@ Hi I would like to mention another search engine for dot net developers which co
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/11/02/configuration-api-convoluted/">Configuration API Convoluted?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-11-02T20:11:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2006</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I&#8217;m having an evening when I can&#8217;t believe what is wrong with me because something that should be trivial is giving me hell.<br /><br />Our application has had connection strings littered all over the place - okay, 8 to be exact and I know this because of my frequent usage of &#8220;replace in files&#8221; to toggle connection strings. But we&#8217;re at a point when this needs to be centralized and mutable without doing a new build.<br /><br />In my head this is simple: slap a config file into the project and off I go.  Some kind of one liner along the lines of:<br /><br />ConfLib.CONNECTION  = ConfigurationSettings.AppSettings[&#8220;Connect&#8221;];<br /><br />Simple, right?  I do it with web applications all the time.<br /><br />The first issue is that ConfigurationSettings, which the old school .NET folks are used to, is deprecated.  The message tells you to use ConfigurationManager but neglects to mention that a physical reference to System.Configuration.dll (in the GAC) is needed.  This isn&#8217;t a big issue and 2 minutes later I&#8217;ve referenced it, and rewritten my line of code as:<br /><br />ConfLib.CONNECTION  = ConfigurationManager.AppSettings[&#8220;Connect&#8221;];<br /><br />Not quite.  I&#8217;m now in the habit of doing unit tests so I realize that Visual Studio 2005 <span style="font-style: italic;">copies your libraries</span> to a new directory when it does unit tests.  I look at the &#8220;post build event&#8221; options and wonder if it&#8217;s worth the hassle. So instead I ditch the unit test and return to the main solution, manually copy the *.config file into my application&#8217;s directory and try.<br /><br />No dice.<br /><br />Maybe ConfigurationManager is too nebulous?  So I try the following:<br /><br />Configuration conf = ConfigurationManager.OpenExeConfiguration(&#8220;ConfigHelper.dll&#8221;);<br /><br />Which, when I run it in the debugger seems to pull my keys out of the config file but gives me an access violation when I try:<br /><br />ConfLib.CONNECTION  = conf.AppSettings[&#8220;Connect&#8221;];<br /><br />This is quite some time later and I&#8217;m pretty annoyed because I must have absolutely not gotten the memo or configuration is bloated.  Almost to prove to myself how simple this should be, I create a file called Settings.xml and put in a couple of elements and write the following:<br /><br />XmlDocument configDoc = new XmlDocument();<br />configDoc.Load(Path.Combine(Directory.GetCurrentDirectory(), &#8220;Settings.xml&#8221;));<br />ConfLib.CONNECTION = configDoc.SelectSingleNode(&#8220;//Database/text()&#8221;).Value;<br />ConfLib.VERSION = configDoc.SelectSingleNode(&#8220;//Version/text()&#8221;).Value;<br /><br />That simple.<br /><br />Granted I am WELL AWARE that the Configuration API has lots of goodies stuffed into it but should that make the process of pulling it out of a configuration file so convoluted?  Things that are designed well work for the simple things as easily as they solve the complex.<br /><br />My configuration files always have the same pattern: I create a class that is designed to read the xml file with static variables for each configuration value.  I use a static initializer to read these from the file and have a single static variable I reference when the app is loaded.  I&#8217;ve worked on a lot of stuff that benefits from this but almost always configuration stuff seems to boil down to a simple name/value pair you can leverage.<br /><br />I could have made an indexer and had the pulling look like the AppSettings collection on the ConfigurationManager but I dislike the fact that the compiler doesn&#8217;t catch errors related to misspelled key names. <br /><br />Oh well, I&#8217;ll leave it in its current state. Maybe I&#8217;ll get the memo tomorrow but I doubt it.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/28/">&larr; Older</a>
@@ -474,6 +474,10 @@ Hi I would like to mention another search engine for dot net developers which co
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -487,10 +491,6 @@ Hi I would like to mention another search engine for dot net developers which co
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

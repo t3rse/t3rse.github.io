@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{I posted a bit ago about Microsoft&#8217;s MVP revolt with regards to supporting VB6. They&#8217;ve responded in kind with VBrun, &#8220;Visual &hellip;">
+  <meta name="description" content="{So I am still coming to terms with how iTunes works, and trying to get the &#8220;philosophy&#8221; behind its organization system. My &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/05/13/itunes-hacking/">iTunes Hacking</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-13T15:26:00-05:00" pubdate data-updated="true">May 13<span>th</span>, 2005</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br />So I am still coming to terms with how <a href="http://www.apple.com/itunes/">iTunes</a> works, and trying to get the &#8220;philosophy&#8221; behind its organization system. My understanding is this: iTunes can scour the hard drive, if you allow it, and maintain a nice library of tracks, no matter where on your physical disk they are located. You can then sift through by artist, etc&#8230;<br /><br />In my case I have ~30 GB of music and much of it isn&#8217;t in mp3 files with ID3 tags - I&#8217;ve got a pot pourri of mixes and a ton of podcasts I&#8217;ve been listening to while I work. It&#8217;s too much of a pain to manually create a playlist for all the folders or try to find unlabeled music in the library. Maybe it&#8217;s because of winamp but I&#8217;m used to organizing my music physically, and then grabbing tracks out of a directory that I want to play, rather than by &#8220;artist&#8221; or &#8220;genre.&#8221; For example, I&#8217;ve got the following:<br /><br />-/Mp3<br />&#8212;-/PodCast<br />  &#8212;&#8212;&#8211;/ITConversations<br />&#8212;&#8212;&#8211;/KCRW<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /> &#8212;-/Albums<br />  &#8212;&#8212;&#8211;/Interpol<br />&#8212;&#8212;&#8211;    /Massive Attack<br />&#8212;&#8212;&#8211;    &#8230; and so on<br />&#8212;-/Mixes<br />&#8212;&#8212;&#8211;    /Jan2005<br />  &#8212;&#8212;&#8211;/Feb2005<br />&#8212;&#8212;&#8211;    /Mar2005<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /><br />This scheme works well, but it doesn&#8217;t seem to mesh with iTunes. So I wrote a little program using the <a href="http://developer.apple.com/sdk/itunescomsdk.html">iTunes COM SDK</a> that takes a directory as a parameter and automatically creates a playlist for each folder that contains mp3 or other music files. In my case it worked perfectly (took seconds!) in creating playlists for all my folders and the files they contained. I put in a &#8220;Sync&#8221; button too, so it can synchronize with changes you make to file structure.<br /><br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.gif" /><br /><br />I&#8217;ve uploaded a <a href="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.zip">*.zip</a> along with source (it&#8217;s written in VB6). I tested it with iTunes 4.7 and it works fine. I&#8217;m not sure whether this was unnecessary; perhaps iTunes has an option for doing just this, I don&#8217;t know. But more deeply, I think, is an attitude, an approach of giving the user an interaction with a piece of software.  In the PC world, one spends a lot more time &#8220;organizing&#8221; things than does on one on a Mac.  I&#8217;ve heard and read often that systems should be able to manage themselves but find myself balking at the notion that the system can do as good of a job as I can.  I download faster than I listen, so things must be organized, but the content of the audio is the archival attribute, not the date, artist, or genre.  How this can be known outside of the user, I&#8217;m not sure.<br /><br />If you do make a modification, or an improvement (many probably could be made), let me know. I&#8217;m also unaware of any <span style="font-style: italic;">plug-in</span> architecture for iTunes, otherwise I&#8217;d try to just make it a couple of buttons or menu items in the program itself.<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Phil</div>
+<div class='content'>
+I have the exact same problem. I always order my music by directories and such instead of proprietary metadata. Instead of creating playlists (which will limit the solution to iTunes) my idea is to fix the id3 tags so that they include track-numbering. (That way it will work with Muine, Rhythmbox, etc.) Unfortunately WinAmp and XMMS are the only players I know that can sort by filename.<BR/><BR/>I&#8217;m working on a Ruby solution. Check http://philisha.net in a few weeks.<BR/><BR/>As for which way of organization is superior, I think there is something to be said for the iTunes way. Organizing a 30GB collection of music is a rather mundane task; you shouldn&#8217;t HAVE to do it manually.<BR/><BR/>Unfortunately, the iTunes way really only works if you&#8217;ve been using iTunes from the start and if you don&#8217;t use your music library on other players. So it&#8217;s nice in theory, but I think I&#8217;ll still spend an unfortunate amount of time managing stuff myself.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -441,43 +486,6 @@ Nice writeup.  How do you provide a default selected item using just strings in 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/02/19/sun-killed-java-again/">Sun Killed Java (Again)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-02-19T20:37:00-06:00" pubdate data-updated="true">Feb 19<span>th</span>, 2005</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(0, 0, 102);font-size:180%;" >{</span><br /><br /><span style="font-size:85%;">I was flipping through magazines at </span><span style="font-style: italic;font-size:85%;" >Barnes and Nobles</span><span style="font-size:85%;"> and found a reference to <a href="http://www.ftponline.com/weblogger/forum.aspx?ID=1&DATE=10/28/2004&amp;blog=">an old blog post</a><br /><br />He basically says that </span> that Jim Fawcette wrote about Sun and their blunders with Java.<span style="font-style: italic;font-size:85%;" >Sun</span><span style="font-size:85%;"> created the initiative for C# and the .NET Framework when they sued </span><span style="font-style: italic;font-size:85%;" >Microsoft </span><span style="font-size:85%;">for trying to put extensions in their Java implementation, J++. Otherwise </span><span style="font-style: italic;font-size:85%;" >Microsoft </span><span style="font-size:85%;">was on the path to making Java the de facto standard for development on Windows.</span><br /><blockquote><br /><span style="font-size:78%;">&#8220;The Microsoft language team—then under Dennis Gilbert, who negotiated the contract with Sun—was prepared to fully commit to Java as Microsoft&#8217;s language for development on what was later named .NET. Microsoft would have made Java its main language and competed with IBM and Sun on its framework implementation, according to contacts at Microsoft then and now. Visual Basic would likely have continued, given its installed base, but it would&#8217;ve been marginalized and C# never would&#8217;ve appeared.&#8221;</span><br /></blockquote><br /><span style="font-size:85%;">Interesting.<br /><br />I always thought that Sun&#8217;s major blunder was that they didn&#8217;t put a full effort behind the development tools/platforms in Java. By doing so they essentially opened the door for Sun, BEA, and all the other companies that produce duplicate facilities for Java, hence fragmenting the market. My thought isn&#8217;t really original; Cringely <a href="http://www.pbs.org/cringely/pulpit/pulpit20011101.html">alluded to it</a> back in 2001:</span><br /><blockquote><br /><span style="font-size:78%;">&#8220;Sun should have maintained its technological lead, but didn&#8217;t. Why not? Don&#8217;t they understand that Microsoft is like the Terminator (as depicted in the original film, the really scary one) and will never give up? .NET, whatever that is, is perceived in Redmond as the future of Microsoft, and C# is the heart of .NET. Microsoft will spend whatever it takes, take as many revs as the market requires, for C# to become the dominant programming language in the world. What other high tech company can be described as being willing to behave that way right now? Would Apple, Sun, Oracle, even IBM spend WHATEVER IT TAKES to accomplish ANYTHING?<br /> <br />No, they wouldn&#8217;t, and that&#8217;s why they are going to lose, dang it. Microsoft will lie, cheat, steal, or maybe just work very, very hard—whatever it takes. That&#8217;s the most intimidating realization of all for competitors.&#8221;</span><br /></blockquote><br /><span style="font-size:85%;">Well, enough beating up on Java. I still think that it was <span style="font-style: italic;">better </span>technology for its time frame. But it wasn&#8217;t automated, augmented, and unified.<br /><br />Oh, and if anyone hires me for a J2EE project, who knows, I may change my mind&#8230;</span><br /><br /><span style="color: rgb(0, 0, 102);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/40/">&larr; Older</a>
@@ -495,6 +503,10 @@ Nice writeup.  How do you provide a default selected item using just strings in 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -508,10 +520,6 @@ Nice writeup.  How do you provide a default selected item using just strings in 
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

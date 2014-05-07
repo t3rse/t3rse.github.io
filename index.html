@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="I&rsquo;ve been through a lot of blogging engines. My first blog was built on the Radio Userland platform, created by Dave Winer who technorati know &hellip;">
+  <meta name="description" content="Although I switched to Octopress via inspiration from Staxmanade&rsquo;s blog series on exporting content from Blogger, my current blogging has been &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,99 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-06T22:42:36-05:00" pubdate data-updated="true">May 6<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Although I switched to Octopress via inspiration from Staxmanade&rsquo;s blog series on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.</p>
+
+<p><strong><strong>Export to BlogML</strong></strong></p>
+
+<p>The first task was to export my current blog entries. You can generate a BlogML file with all of your posts with the following steps:</p>
+
+<ol>
+<li>Log into the administration portal then choose Settings.</li>
+<li>On the subnavigation select the &ldquo;Import &amp; Export&rdquo; option.</li>
+<li>Click the <em>Export</em> button.</li>
+</ol>
+
+
+<p><strong><strong>Importing to Octopress</strong></strong></p>
+
+<p>You need to generate files for each of your posts. I found <a href="https://github.com/philippkueng/philippkueng.github.com/blob/30ef1570f06d33938b18d5eee7767d6641b9a779/source/_import/blogml.rb">a lengthy Ruby script</a> to do this but I just hacked up what I needed in a few lines of powershell:</p>
+
+<pre><code>$file_name = "{0}-{1}.html"
+$post_template = 
+@"
+---
+layout: post
+title: `"{0}`"
+comments: true
+---
+
+{1}
+"@
+$xml = [xml](get-content BlogML.xml)
+$xml.blog.posts.post | % { 
+  $name = $file_name -f [DateTime]::Parse($_."date-created").ToString("yyyy-MM-dd"), ($_."post-url" -replace ".aspx", "")
+  $name = $name -replace "/post/\d{4}/\d{2}/\d{2}/", ""
+  $value = $post_template -f $_.title.InnerText, $_.content.InnerText
+
+  New-Item -Path . -Name $name -Value $value -ItemType file
+}
+</code></pre>
+
+<p>I ran it in the same directory as my BlogML.xml file and it iterates over each post generating a file and using the post name and created date for a unique file name.</p>
+
+<p><strong><strong>Fixing Images and Links</strong></strong></p>
+
+<p>You may need to clean up links to images and other posts. I&rsquo;ve done it for images and something similar could be done for posts (I don&rsquo;t link to myself very often though I may update this script when there is time). First, I copied all my images out of the /App_Data/files directory and into /public/images in my octopress folder structure. Next, here is an powershell one liner (where my BlogEngine was &ldquo;<a href="http://www.t3rse.com">http://www.t3rse.com</a>&rdquo; you will need to make sure you replace with whatever domain name you were using):</p>
+
+<pre><code>ls *.html -rec | %{ $f=$_; (gc $f.PSPath) | %{ $_ -replace "http://www.t3rse.com/image.axd\?picture=", "/images/" } | sc $f.PSPath }
+</code></pre>
+
+<p>This script, run in the same directory as the generated posts visits each (the .html extension) and does simple replace.</p>
+
+<hr />
+
+<p>There may be some additional details migrating (for example, I ignored comments, I also didn&rsquo;t pull in the categories for each post) that I add tweaks for in the future. If you have a bright idea comment or modify my gists on github &ndash; I&rsquo;d love to improve them for anyone else to use.</p>
+
+<ul>
+<li><a href="https://gist.github.com/t3rse/11241697">Blog Engine Import Gist</a></li>
+<li><a href="https://gist.github.com/t3rse/11401972">Blog Engine Image Fix</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -411,42 +504,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2013/03/03/Lego-and-Clay-States-of-Mind/">Lego and Clay: States of Mind</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-03T00:00:00-06:00" pubdate data-updated="true"></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><font size="3"><strong>There’s An App For That</strong></font></p>  <p style="line-height: 180%">Thousands of apps, native and web based, litter the consumer facing stores of big platform vendors, each with some story about how they will make your life better. Even if your problem domain is something as obscure as surviving an earthquake, someone has written <a href="http://news.cnet.com/8301-17938_105-10438121-1.html" target="_blank">a simple app with the singular purpose of keeping you alive</a>. </p>  <p style="line-height: 180%">What’s interesting to me in a world proliferated by apps is how we are conditioned now to look for boxes to fill, buttons to push, and single domain user interfaces in order to get things done. Whether it’s on the web or a mobile device, this is the paradigm we seem to find everywhere. </p>  <p><strong><font size="3">Lego and Clay</font></strong></p>  <p style="line-height: 180%">Many moons ago, when Silverlight was still fresh and bright in the eyes of the Microsoft developer crowd, I attended a talk given by <a href="http://www.rickbarraza.com/" target="_blank">Rick Barraza</a> on animation. He was attempting to walk those of us newer to Silverlight through his thought process and how he developed some of the showcase pieces of software that his then employer, Cynergy, had developed for Microsoft. As he showed attendees his process of manually animating an effect of falling snow, he discussed a paradigm analogous to working with clay and contrasted it with how many of us in the Microsoft sphere have become accustomed to controls and user interface building blocks to put things together, a more Lego oriented perspective on software development. From an interview: </p>  <p>&#160;</p>  <blockquote>   <p style="line-height: 180%">There are two types of personalities in this space. Those that like solving problems using the Lego method: snapping predictable and scalable objects together. And those who like solving problems with clay: loose and messy, but with a high level of customization and intricacy in the finished product. The tension between those two camps and their evolution, that cross pollination of ideas and techniques, should create some compelling experiences. </p> </blockquote>  <p style="line-height: 180%">I will admit I was one of those developers who was uneasy and frustrated by the lack of snap in controls. Even though things <a href="http://silverlight.codeplex.com/" target="_blank">got better</a> as Silverlight evolved, the idea of an evolving framework of prebuilt building blocks was something I had a hard time letting go of. Even if the outcome was battleship gray, I could build things quickly and without the type of detail and ownership I would encounter by making everything from scratch. </p>  <p><font size="3"><strong>Apps Are Legos</strong></font></p>  <p style="line-height: 180%">Apps fit the Lego mindset – they build a layer of abstraction on top of the task at hand, hoping to “automate” some of the structure around it. The goal of app designers (besides the money) is that this abstraction makes for a “solved problem” – that people would see effort on their part as reinventing the wheel.</p>  <p style="line-height: 180%">For example, if you have a newborn, one of the things they have you do in the first few days is track when the baby eats and when it poops. Since this problem predates the dawn of the mobile era people have usually kept a notebook with one column where you wrote the activity, one where you wrote the time and one column with “notes” for anything extra. These days, however, there are apps to simplify that with push buttons that indicate the activity, automatically recording the details. Why bother with the notepad, having to find a pen, or your inconsistent notations that the nurse has a hard time reading? Just push a button!</p>  <p style="line-height: 180%">If you are happy living in an abstraction this makes perfect sense. Most app design doesn’t anticipate too much around a problem and focuses on a specific task. Some of the more subtle and clever designs steer users in a particular direction or eliminate things the app designer finds unnecessary. It all works great as long as there is no edge case or unexpected element within the problem domain. Continuing with the idea of newborns our imaginary app that tracked eat, sleep, and poop would work well until the doctor noticed something and asked you to note something special along with the regular activity (e.g. every time little Jonny’s poop is green, write out how long it was since he had eaten!). </p>  <p><font size="3"><strong>Clay, Sculpture</strong></font></p>  <p style="line-height: 180%">For those who dislike snap-in pieces or want something completely unique, the blank piece of paper offers utmost freedom to solve problems as diverse as taking care of a newborn to planning a writing schedule. In a digitized environment clay comes primarily in the form of text editing or the slightly more evolved spreadsheets. </p>  <p style="line-height: 180%">I had a friend who worked for a defense contractor a while back who, although he couldn’t tell me much about his day job, alluded to being an engineer on a team designing missile defense systems. When I asked what kind of tools they used for something like that, thinking of something very “advanced” and esoteric, he just replied in earnest: a lot of Excel. At the time I thought he was being discrete but these days I don’t have a hard time believing it especially if he had to do a lot of mathematical models. I’ve also started to pay attention to the world of finance and the spreadsheet is the <em>lingua franca</em> of that world whether you’re doing an asset allocation model or some form of quantitative analysis. </p>  <p style="line-height: 180%">It takes no stretch of the imagination to visualize a spreadsheet that tracks events for a newborn. But because a spreadsheet is like clay designing it would involve some messiness – and automating things would require a bit more effort, the type which would send most people back to the Lego jar. </p>  <p style="line-height: 180%">The sculpting of this spreadsheet would also become a reflection of the sculptor. It could be a cringe worthy effort of repetition, manual entry, and strange conventions or it could be something singular: a small, elegant, and beautiful reflection of how they chose to solve the problem. </p>  <p><font size="3"><strong>Predisposition, Balance</strong></font></p>  <p style="line-height: 180%">As with most things it is tempting to be lured into a false dichotomy of Lego versus Clay. It seems as though so many other facets of life are polluted with characterizations of polar opposites where one has to pick a side. Artists and designers argue about form versus function. Our politics are polluted with the arguments that are liberal or conservative. Personality types are misconstrued as either extroverted or introverted. Even my petty world of comic book collecting has the perennial arguments of Marvel versus DC (Marvel of course). </p>  <p style="line-height: 180%">Rather than picking a side or calling one bad, I think it’s more constructive to do a self diagnosis of one’s predispositions and then try to find a point at which the two approaches can inform each other. I’ve seen amazing work from those that operate with Lego; from Alice Finch’s real world <a href="http://www.brothers-brick.com/2013/02/26/alice-finch-builds-massive-lego-hogwarts-from-400000-bricks/" target="_blank">recreation of Hogwarts Castle</a> to the type of apps that make the heart sing. At the same time, it’s hard to deny the beauty and power of sculpture; who wouldn’t stop for Cordier’s <a href="http://www.flickriver.com/photos/tags/charleshenrijosephcordier/interesting/" target="_blank">Bust of an African Woman</a>? </p>  <p style="line-height: 180%">My observation is that for those who are oriented toward clay, the danger lies in being overwrought or too singular; something that is molded so endlessly that it looses its sense of purpose or something that is so unique to a circumstance that it is never again useful. For those oriented toward Lego the danger seems to come in living too much inside of an abstraction and becoming unable to see around it. </p>  <p><font size="3"><strong>It Never Occurred To Me</strong></font></p>  <p style="line-height: 180%">In general, it seems as though as a general culture our focus is driven by a mix of commercial forces and laziness to be driven toward the Lego mindset; to always look for the “right” prepackaged software that meets our needs. I know I’m a Lego person, especially when it comes to simple problems that are common. But recently I’ve been thinking about how little I actually know about Excel, and how so many app oriented problems would be trivial with a spreadsheet. For example, I used a 37Signals app for manipulating a “To Do” list for my reading. How difficult would this be in Excel? Why did it never occur to me to simply make a spreadsheet?</p>  <p><img style="margin: 0px 10px 0px 0px; float: none" src="http://www.seruyange.com/images/TadaList.jpg" /></p>  <p style="line-height: 180%">In the question of balance, it is important that when decisions are made, it’s with a cognizance of alternatives – choosing from the different paths that can be taken. I have personally been too App focused, too dependent on prepackaged solutions whether it’s To Do list software or project management.&#160; What would happen if I started trying to solve these problems with clay? What would happen if, rather than color by number, I began to paint? </p>  <p><font size="3"><strong>Deliberate Selection</strong></font></p>  <p style="line-height: 180%">Apps are useful. So too is the mindset behind them; I’ve learned that most things that become mainstream do so not because people are sheep but because they are designed well enough to accommodate needs. It is also wasteful to focus on our own implementations to solved problems when this serves as a distraction to a larger problem set that we are trying to solve; back to babies, I know that when my children were born my focus was on spending time with them, helping my wife, getting sleep, and maintaining my sanity. Creating a perfect notebook or spreadsheet to track the baby’s activity was less than a passing thought in my mind for the right reasons. </p>  <p style="line-height: 180%">But there are things that warrant the attention. Things that I do every day, things that are core to my job and profession that ought to become candidates for a conscious choice of an out of the box solution or something that is customized and flexible. The pre-made software may do the trick but at this point it seems to me that the Lego oriented sphere of my thinking should inform the part that tends toward Clay, the part of my process where I think about how I would solve the problem myself if it became necessary. </p>  <p style="line-height: 180%">Joel Spolsky <a href="http://www.joelonsoftware.com/articles/fog0000000007.html" target="_blank">wrote</a> a long time ago about most of the time it’s not a good idea to reinvent the wheel but that it’s something you should do when you are operating on the core of your business, platform, or goal. This is debatable and I’m sure any reader would have an opinion (I’ve seen attempts at this become poor, feature-starved shadows of what is open and freely available) but on the question of choosing a full featured software or App that solves our problems by putting us into someone else’s abstraction versus the sweat equity of building something ourselves and really thinking through our needs, I think it’s worth the type of consideration that makes it a deliberate choice with an awareness of the benefits and limitations that we impose upon ourselves. Despite the generality that none of us is a unique and beautiful snowflake we all do come with our own edge cases. </p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -462,6 +519,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -475,10 +536,6 @@
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

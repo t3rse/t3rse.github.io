@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ Kevin Dangoor recorded an interesting screencast on some of the essentials of getting an open source project more widely circulated. Essentially &hellip;">
+  <meta name="description" content="{ A while back I made the case for applications that put together the strengths of Windows Forms and Web technologies (I thought of the catchy &quot &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,43 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/18/windows-forms-web-wib-part-ii/">Windows Forms + Web, WIB Part II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-18T06:38:00-06:00" pubdate data-updated="true">Dec 18<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A while back I <a href="http://metadeveloper.blogspot.com/2008/10/mashing-up-jquery-and-windows-forms.html">made the case</a> for applications that put together the strengths of Windows Forms and Web technologies (I thought of the catchy &quot;WIB&quot; as a name for this approach). The example I&#8217;d given then was a Windows Forms hosted Web Browser for local images that one could use for annotation that leveraged Windows for local file storage and a Web technology like jQuery for doing transitions in the user interface. </p>  <p>Today I thought of another use for this approach that wrapped itself nicely into a tool I&#8217;ve been using for some time to download mp3s from a given website<sup>1,2</sup>. I call the tool &quot;Fortinbras&quot; and if you find it useful I&#8217;d be delighted. </p>  <p><img src="http://www.seruyange.com/metadeveloper/Fortinbras.jpg" /> </p>  <p>So how was Fortinbras changed? </p>  <p>Parsing the HTML for mp3 files was a little tricky. My initial approach was to use a regular expression against the text of the document which, truth be told, is a brittle approach. Part of why I never trumpted the tool was because I never completely perfected this tactic (while it worked well enough for me personally). My code looked as follows: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	WebClient wc = new WebClient();<br />	string pageText = wc.DownloadString(browser.Url.ToString());<br />	Regex re = new Regex(&quot;href=\&quot;(?&lt;url&gt;.+?mp3)\&quot;&quot;, RegexOptions.IgnoreCase);<br />	Match mp3Matches = re.Match(text);<br />	while (mp3Matches.Success)<br />	{<br />		string matchUrl = mp3Matches.Groups[&quot;url&quot;].Value.ToString();<br />		AddMp3(browser.Url.ToString(), data, matchUrl);<br />		mp3Matches = mp3Matches.NextMatch();<br />	}</pre><br /><br /><p>Today my epiphany was that I didn&#8217;t need to use a regular expression when I could use the DOM from Windows Forms to pull out the anchors that have mp3 destinations. Here&#8217;s what that looks like: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	while (browser.Document.Body == null)Application.DoEvents();<br />	HtmlElementCollection anchors = browser.Document.Body.GetElementsByTagName(&quot;a&quot;);<br />	foreach (HtmlElement anch in anchors)<br />	{<br />		string linkUrl = anch.GetAttribute(&quot;href&quot;);<br />		if (linkUrl.ToLower().EndsWith(&quot;mp3&quot;))<br />		{<br />		    AddMp3(browser.Url.ToString(), data, linkUrl);<br />		}<br />	}</pre><br /><br /><p>As usual feedback is welcome - you can download a copy of the Fortinbras project <a href="http://www.seruyange.com/metadeveloper/Fortinbras.zip">here</a>.</p><br /><br /><p><sup>1</sup>I am aware of the <a href="http://www.downthemall.net/">Firefox extensions</a> that do this but someday (imagine a pie in the sky look on my face) I was hoping to incorporate a &quot;favorites&quot; list with URLs / locations so that this would be a one stop shop for my downloading and organizing of podcasts. My goal here is embarrasment driven development so I&#8217;ll probably be bummed enough about the code I&#8217;ve just posted to put in some enhancements as time permits. <br /><br />  <br /><sup>2</sup>My friend&#8217;s music blog is a great stop, try a couple of tracks at <a href="http://www.thelookback.com/">The Look Back</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -480,61 +517,6 @@ My sister told me about her problem,and I advised-<a href="http://www.recoveryto
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/10/19/mashing-up-jquery-and-windows-forms/">Mashing Up: JQuery and Windows Forms, a First WIB</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-10-19T00:52:00-05:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for practical reasons but also think there are advantages to fat clients that sit on the Windows platform. I&#8217;m getting to a point where I will start doing more than poking around with WPF but at present two factors hold me at bay: the control library is not robust enough (another tutorial of how to make a custom button in blend isn&#8217;t incentive enough) and XAML is still a bit daunting for what usually end up being rather involved UIs. Here, for example, is a UI from an application I&#8217;ve been working on for a while (small intentionally to impart an idea of complexity without revealing any details):</p>  <p><img src="http://seruyange.com/metadeveloper/Torment.jpg" /> </p>  <p>I think a lot of &quot;do it in XAML&quot; problems can be solved with a more web development style paradigm in Windows. A simple example is template driven databinding with styles. That&#8217;s easy to do in web applications but a little less flexible in a control based world (think a GridView with CSS versus the Windows Forms DataGridView). </p>  <p>As a proof of concept I decided to use the System.Windows.Forms.WebBrowser in a Windows Forms application to get cool features from JQuery while maintaining the strengths of a windows app. Here&#8217;s the scenario: a photo manager application. It builds and manages a database of photos from a digital camera. Rather than uploading the 300+ pictures taken in a single session to Flickr (or in conjunction with that act) one can open it up, start annotating their files and saving the comments to a portable &quot;database&quot; that they can back up along with the files on their home machine.&#160; On any machine with the application they point to the directory and can view their original comments along with the pictures. Here is a screen shot:</p>  <p><img src="http://seruyange.com/metadeveloper/Photobase.jpg" /> </p>  <p>The strength in this scenario of Windows Forms is the ease with which one can build the editing interface: textboxes, buttons and other &quot;drag / drop&quot; pieces of the control library. The strength of JQuery is in the display - I&#8217;ve chosen to use an animation and the accordion to spruce up the interface where the user looks at their photos.</p>  <p><a href="http://seruyange.com/metadeveloper/WibPhoto.zip">You can download the whole thing here</a>. (Very 0.1 but posted as an example/idea - just use the next / previous buttons to view some photos, get a feel of things).</p>  <p>I wonder if this paradigm can be a kind of Ajax &quot;aha&quot; moment; Ajax was centered on the use of a single, relatively simple MSXML component. Though System.Web.Forms.WebBrowser is not simple, it&#8217;s a single component that has a lot of room for leverage.&#160; Ajax set up some pretty standard protocols / approaches to using asynchronous HTTP requests from a client - I think an interesting parallel could exist in wrapping jQuery and Html controls into a kind of framework that is easy for any developer to use with the WebBrowser control. Imagine a grid you drop with some properties and a CSS.&#160; The last thing that made Ajax pop was the catchy name. I love naming things myself so I&#8217;ve been calling this kind of application a WIB (Windows + Web) but perhaps there&#8217;s something more catchy one could use.</p>  <p>Just some ideas, I&#8217;d be curious in the following: </p>  <p>1. Any existing applications written with this approach.    <br />2. Any potential applications that could benefit with the pros of both Windows and Web     <br />3. Any glaring shortfalls </p>  <h1><font color="#0000ff">}</font></h1>  <p>&#160;</p>  <p>ps. Thanks to Corey for encouragement on the blogging tip.</p>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Atul Rungta</div>
-<div class='content'>
-wow&#8230;. its awesome&#8230;. thnx for idea&#8230;. gr8 approach&#8230;.<br />wait one month and you can watch a demo application at http://www.itxgen.com</div>
-</div>
-<div class='comment'>
-<div class='author'>нет!</div>
-<div class='content'>
-Hello, any luck with that ?</div>
-</div>
-<div class='comment'>
-<div class='author'>thomas_huber</div>
-<div class='content'>
-Awesome - wow.<br />Thanks for this example.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -552,6 +534,10 @@ Awesome - wow.<br />Thanks for this example.</div>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -565,10 +551,6 @@ Awesome - wow.<br />Thanks for this example.</div>
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ A simple step by step1. 1. Download the Silverlight DLR SDK 2. Map the binaries (the folder with Chiron2 et. al.)&#160; in your PATH Environment &hellip;">
+  <meta name="description" content="{ SilverlightFX is an interesting library for declaratively attaching behaviors to objects in XAML. People new to the Silverlight world will like &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/03/ironpython-silverlightfx/">IronPython + SilverlightFX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-03T07:36:00-06:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p><a href="http://projects.nikhilk.net/SilverlightFX/">SilverlightFX</a> is an interesting library for declaratively attaching behaviors to objects in XAML. People new to the Silverlight world will like how they can use it to get simple animations out of simple code. Here&#8217;s a step by step: </p>  <p>1. If you don&#8217;t have it done already, <a href="http://metadeveloper.blogspot.com/2009/02/dlr-ironpython-silverlight-in-5-steps.html">set up an IronPython / Silverlight project</a>.</p>  <p>2. <a href="http://projects.nikhilk.net/SilverlightFX">Download SilverlightFX</a></p>  <p>3. Copy SilverlightFX binaries into your /app directory.</p>  <p>3. Edit the AppManifest.xaml to include the SilverlightFX binaries. Here is an example: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Deployment xmlns=&quot;http://schemas.microsoft.com/client/2007/deployment&quot; <br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot; <br />	RuntimeVersion=&quot;2.0.31005.00&quot; <br />	EntryPointAssembly=&quot;Microsoft.Scripting.Silverlight&quot; <br />	EntryPointType=&quot;Microsoft.Scripting.Silverlight.DynamicApplication&quot;&gt;<br />  &lt;Deployment.Parts&gt;<br />    &lt;!-- Add additional assemblies here --&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.ExtensionAttribute.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Silverlight.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.Core.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Microsoft.Scripting.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;IronPython.Modules.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;System.Windows.Controls.Data.dll&quot; /&gt;<br />    &lt;AssemblyPart Source=&quot;Silverlight.FX.dll&quot; /&gt;<br />  &lt;/Deployment.Parts&gt;<br />&lt;/Deployment&gt;</pre><br /><br /><p>4. Edit your app.xaml file to include references to the SilverlightFX namespaces. Here is an example:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;UserControl<br />	xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;<br />	xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;<br />	x:Class=&quot;System.Windows.Controls.UserControl&quot;<br />	xmlns:fxui=&quot;clr-namespace:Silverlight.FX.UserInterface;assembly=Silverlight.FX&quot;<br />   	xmlns:fxeffects=&quot;clr-namespace:Silverlight.FX.UserInterface.Effects;assembly=Silverlight.FX&quot;	<br />	&gt;</pre><br /><br /><p>5. Party on with some declarative effects. </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">&lt;Border Grid.Row=&quot;1&quot; x:Name=&quot;redRect&quot; Opacity=&quot;0.2&quot;&gt;<br />	&lt;TextBlock x:Name=&quot;outPut&quot; TextWrapping=&quot;Wrap&quot; <br />		Text=&quot;Lorem ipsum dolor sit amet,...&quot;  /&gt;<br />    &lt;fxui:Interaction.Behaviors&gt;<br />    &lt;fxui:HoverEffect&gt;<br />      &lt;fxeffects:Fade FadeOpacity=&quot;1&quot; /&gt;<br />    &lt;/fxui:HoverEffect&gt;<br />    &lt;/fxui:Interaction.Behaviors&gt;<br />&lt;/Border&gt;</pre><br /><br /><p>6. Read Nikhil&#8217;s related <a href="http://www.nikhilk.net/entry.aspx?id=212">blog entries</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>scitesy</div>
+<div class='content'>
+Thanks David!  I was able to get this to work.  One change&#8230;the fxui namespace for Silverlight is &quot;clr-namespace:SilverlightFX.UserInterface;assembly=SilverlightFX&quot;&gt;&quot;.  The same goes for fxeffects.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -428,43 +473,6 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/12/18/windows-forms-web-wib-part-ii/">Windows Forms + Web, WIB Part II</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-18T06:38:00-06:00" pubdate data-updated="true">Dec 18<span>th</span>, 2008</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>A while back I <a href="http://metadeveloper.blogspot.com/2008/10/mashing-up-jquery-and-windows-forms.html">made the case</a> for applications that put together the strengths of Windows Forms and Web technologies (I thought of the catchy &quot;WIB&quot; as a name for this approach). The example I&#8217;d given then was a Windows Forms hosted Web Browser for local images that one could use for annotation that leveraged Windows for local file storage and a Web technology like jQuery for doing transitions in the user interface. </p>  <p>Today I thought of another use for this approach that wrapped itself nicely into a tool I&#8217;ve been using for some time to download mp3s from a given website<sup>1,2</sup>. I call the tool &quot;Fortinbras&quot; and if you find it useful I&#8217;d be delighted. </p>  <p><img src="http://www.seruyange.com/metadeveloper/Fortinbras.jpg" /> </p>  <p>So how was Fortinbras changed? </p>  <p>Parsing the HTML for mp3 files was a little tricky. My initial approach was to use a regular expression against the text of the document which, truth be told, is a brittle approach. Part of why I never trumpted the tool was because I never completely perfected this tactic (while it worked well enough for me personally). My code looked as follows: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	WebClient wc = new WebClient();<br />	string pageText = wc.DownloadString(browser.Url.ToString());<br />	Regex re = new Regex(&quot;href=\&quot;(?&lt;url&gt;.+?mp3)\&quot;&quot;, RegexOptions.IgnoreCase);<br />	Match mp3Matches = re.Match(text);<br />	while (mp3Matches.Success)<br />	{<br />		string matchUrl = mp3Matches.Groups[&quot;url&quot;].Value.ToString();<br />		AddMp3(browser.Url.ToString(), data, matchUrl);<br />		mp3Matches = mp3Matches.NextMatch();<br />	}</pre><br /><br /><p>Today my epiphany was that I didn&#8217;t need to use a regular expression when I could use the DOM from Windows Forms to pull out the anchors that have mp3 destinations. Here&#8217;s what that looks like: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	while (browser.Document.Body == null)Application.DoEvents();<br />	HtmlElementCollection anchors = browser.Document.Body.GetElementsByTagName(&quot;a&quot;);<br />	foreach (HtmlElement anch in anchors)<br />	{<br />		string linkUrl = anch.GetAttribute(&quot;href&quot;);<br />		if (linkUrl.ToLower().EndsWith(&quot;mp3&quot;))<br />		{<br />		    AddMp3(browser.Url.ToString(), data, linkUrl);<br />		}<br />	}</pre><br /><br /><p>As usual feedback is welcome - you can download a copy of the Fortinbras project <a href="http://www.seruyange.com/metadeveloper/Fortinbras.zip">here</a>.</p><br /><br /><p><sup>1</sup>I am aware of the <a href="http://www.downthemall.net/">Firefox extensions</a> that do this but someday (imagine a pie in the sky look on my face) I was hoping to incorporate a &quot;favorites&quot; list with URLs / locations so that this would be a one stop shop for my downloading and organizing of podcasts. My goal here is embarrasment driven development so I&#8217;ll probably be bummed enough about the code I&#8217;ve just posted to put in some enhancements as time permits. <br /><br />  <br /><sup>2</sup>My friend&#8217;s music blog is a great stop, try a couple of tracks at <a href="http://www.thelookback.com/">The Look Back</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -482,6 +490,10 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
       </li>
     
@@ -495,10 +507,6 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
     
       <li class="post">
         <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/09/17/Startup-Engineering-Reviewed/">Startup Engineering Reviewed</a>
       </li>
     
   </ul>
