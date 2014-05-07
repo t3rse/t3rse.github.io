@@ -4,7 +4,7 @@
   <title><![CDATA[Fail Better]]></title>
   <link href="http://t3rse.github.io/atom.xml" rel="self"/>
   <link href="http://t3rse.github.io/"/>
-  <updated>2014-05-06T23:21:58-05:00</updated>
+  <updated>2014-05-06T23:27:25-05:00</updated>
   <id>http://t3rse.github.io/</id>
   <author>
     <name><![CDATA[David aka t3rse]]></name>
@@ -18,7 +18,7 @@
     <link href="http://t3rse.github.io/2014/05/06/moving-from-blogengine-dot-net-to-octopress/"/>
     <updated>2014-05-06T22:42:36-05:00</updated>
     <id>http://t3rse.github.io/2014/05/06/moving-from-blogengine-dot-net-to-octopress</id>
-    <content type="html"><![CDATA[<p>Although I switched to Octopress via inspiration from Staxmanade&rsquo;s blog series on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.</p>
+    <content type="html"><![CDATA[<p>Although I switched to Octopress via inspiration from <a href="http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/">Staxmanade&rsquo;s blog series</a> on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.</p>
 
 <p><strong><strong>Export to BlogML</strong></strong></p>
 
