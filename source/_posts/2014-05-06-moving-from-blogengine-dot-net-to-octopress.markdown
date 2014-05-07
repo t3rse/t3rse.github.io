@@ -7,7 +7,7 @@ categories:
  - blogging octopress 
 ---
 
-Although I switched to Octopress via inspiration from Staxmanade's blog series on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over. 
+Although I switched to Octopress via inspiration from [Staxmanade's blog series](http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/) on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over. 
 
 ****Export to BlogML****
 
