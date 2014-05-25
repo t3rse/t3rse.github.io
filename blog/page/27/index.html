@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{I am feeling my way around with CGI using perl so I took Alan Perlis&#8217;s epigrams on programming and randomized them.I think it will be my new &hellip;">
+  <meta name="description" content="{Don&#8217;t get me wrong, it&#8217;s not a jihad I have against the foreach in C#, it&#8217;s just the fact that if I had a nickel (okay, a quarter &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/12/13/foreach-considered-wack-quite-often/">Foreach Considered Wack Quite Often</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-13T09:52:00-06:00" pubdate data-updated="true">Dec 13<span>th</span>, 2006</time>
+        
+           | <a href="/2006/12/13/foreach-considered-wack-quite-often/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/12/13/foreach-considered-wack-quite-often/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Don&#8217;t get me wrong, it&#8217;s not a jihad I have against the <span style="color:#3333ff;">foreach</span> in C#, it&#8217;s just the fact that if I had a nickel (okay, a quarter to be realistic) for each time I changed a <span style="color:#3333ff;">foreach</span> to a normal <span style="color:#3333ff;">for</span> loop because I needed to track my position as I iterated through a collection and no underlying index was provided, I&#8217;d have enough money for coffee each week.<br /><br />A simple example from the .NET world is the DataTable; when you iterate the Rows collection, the Rows don&#8217;t expose an index. After seduction for the easy <span style="color:#3333ff;">foreach</span>, I end up with:<br /><br /><span style="font-family:courier new;">for(int i=0;i&lt;myTable.Rows.Count;i++){}</span><br /><br />There&#8217;s only one time that a normal <span style="color:#3333ff;">for</span> loop got the better of me - I had to iterate and remove items from the collection. Modifying a collection that you&#8217;re going through causes trouble but it&#8217;s easily remedied - not with recursion as some would have it, but by simply going backward:<br /><br /><span style="font-family:courier new;">for(int i=myTable.Rows.Count -1;i&gt;-1;i&#8211;){}</span><br /><br />Besides its syntactic elegance, of what benefit is the foreach? By calling the underlying enumerator?<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -447,46 +487,6 @@ Hi I would like to mention another search engine for dot net developers which co
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/11/04/configuration-api-confession/">Configuration API Confession, Repentance</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-11-04T23:33:00-05:00" pubdate data-updated="true">Nov 4<span>th</span>, 2006</time>
-        
-           | <a href="/2006/11/04/configuration-api-confession/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2006/11/04/configuration-api-confession/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area.  A few nights ago I thought I&#8217;d update my current development project to have its connection string maintained in a config file so that it could be changed without a recompile in a single location.<br /><br />I knew this was the approach we&#8217;d eventually take having used it like breathing on all of my previous .NET projects (which were ASP.NET).  But Windows Forms applications are slightly different and I ran into the brick wall of not grokking the structure Microsoft uses for configuration.<br /><br />The big problem in my understanding was that I wanted to have my configuration read in a separate library, thinking I&#8217;d reuse the pattern on any future project where I wanted to do something similar.  So I created a library project and knowing a little but not enough created a config file manually to use. Knowing a little but not enough (or not updated?) I named my configuration file ConfigHelper.dll.config because this is a well known convention in .NET. I also manually copied this file to the \bin folder and even considered adding a &#8220;post build event&#8221; to the Visual Studio 2005 project to do this. And when it didn&#8217;t work and my attempts to read the config file weren&#8217;t successful, I became very frustrated and even took the time to write it up.  Luckily no one besides <a href="http://www.cephas.net/blog/">A</a> the jedi master reads this blog so my voice of ignorance got drown in the black hole that is blogger. No matter: this blog is for me, like a &#8220;captains log&#8221; to chart my experiences and thoughts.<br /><br />I realized a while back that I knew just enough from the past few years programming ASP.NET to make ignorant mistakes and convoluted work-around solutions so I&#8217;ve been reading <a href="http://www.softinsight.com/bnoyes/">Brian Noyes&#8217;s</a> <a href="http://www.awprofessional.com/bookstore/product.asp?isbn=032126892X&rl=1">Data Binding with Windows Forms 2.0</a> on <a href="http://safari.oreilly.com">Safari</a> trying to grok the whole picture as Microsoft intends it. <br /><br />So here is the skinny, as embarrasing as it is for me to explain how wrong I had it:<br /><br />1. In your project, create an App.config file.  In Visual Studio 2005 this is the &#8220;Application Configuration File&#8221; option.<br />2. Make entries as you like in the configuration file.<br />3. Compiling your application will produce a MyAssembly.exe.config or MyLibrary.dll.config file in the \bin directory.<br />4. Libraries aren&#8217;t meant to read from their own configuration files. Hence attempting to read an entry even if you&#8217;ve manually copied over your MyLibrary.dll.config file will result in an empty string once retrieved. BUT!<br />5. BUT! BUT! The library is designed to read values from the configuration file of the executable.  So if you place the following line in your library:<br />string foo = ConfigurationManager.AppSettings[&#8220;bar&#8221;];<br />Your library is looking for the &#8220;bar&#8221; value in the configuration file of your application.<br /><br />To my own credit, a lot of the time when I find myself fighting with something I usually know deep down that it&#8217;s a struggle to understand what the framework designer intended and not something that is &#8220;stupid.&#8221;  In this case, what the framework designers intended is quite elegant because when you have, like us, many different libraries that all need to pull something common (connection string is probably most obvious) it can be based on the configuration of the application and managed in a single location.<br /><br />Okay, now that I got the memo, I can move on.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >} </span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/28/">&larr; Older</a>
@@ -504,6 +504,10 @@ Hi I would like to mention another search engine for dot net developers which co
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -517,10 +521,6 @@ Hi I would like to mention another search engine for dot net developers which co
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

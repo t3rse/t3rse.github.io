@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Steve Yegge has a post about the agile software development process. Gifted in wit and sarcasm, Yegge doesn&#8217;t spare many punches in basically &hellip;">
+  <meta name="description" content="{Here was an interesting issue we ran into this week. I haven&#8217;t run into this before and thought I should share - a friend was using a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/10/06/nulls-in-subqueries/">NULLs in Subqueries</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-06T09:23:00-05:00" pubdate data-updated="true">Oct 6<span>th</span>, 2006</time>
+        
+           | <a href="/2006/10/06/nulls-in-subqueries/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/10/06/nulls-in-subqueries/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{<br /></span><br />Here was an interesting issue we ran into this week. I haven&#8217;t run into this before and thought I should share - a friend was using a subquery to filter and because of NULL results in the field his result was an empty set.<br /><br />My approach to things like this is usually to use a join rather than a subquery and ultimately that&#8217;s how we saw how Microsoft SQL Server was processing things. But this behavior is quite subtle so I&#8217;m posting since a person running into the same issue may Google there way to this entry:<br /><br /><br /><div style="BACKGROUND: white;font-family:Courier New;font-size:10pt;color:black;"   ><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    1</span> <span style="color:blue;">CREATE TABLE </span>#TRAN(</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    2</span>     TRANID <span style="color:blue;">INT</span>, </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    3</span>     TRANNAME <span style="color:blue;">VARCHAR</span>(50)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    4</span> )</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    5</span> GO</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    6</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    7</span> <span style="color:blue;">CREATE TABLE </span>#ACH(</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    8</span>     ACHID <span style="color:blue;">INT IDENTITY</span>(1,1), </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">    9</span>     ACHNAME <span style="color:blue;">VARCHAR</span>(50), </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   10</span>     TRANID <span style="color:blue;">INT NULL</span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   11</span> )</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   12</span> GO</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   13</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   14</span> <span style="color:blue;">INSERT INTO </span>#TRAN <span style="color:blue;">VALUES</span>(1,<span style="color:maroon;">&#8216;TRANSACTION A&#8217;</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   15</span> <span style="color:blue;">INSERT INTO </span>#TRAN <span style="color:blue;">VALUES</span>(2,<span style="color:maroon;">&#8216;TRANSACTION B&#8217;</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   16</span> <span style="color:blue;">INSERT INTO </span>#TRAN <span style="color:blue;">VALUES</span>(3,<span style="color:maroon;">&#8216;TRANSACTION C&#8217;</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   17</span> <span style="color:blue;">INSERT INTO </span>#TRAN <span style="color:blue;">VALUES</span>(4,<span style="color:maroon;">&#8216;TRANSACTION D&#8217;</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   18</span> <span style="color:blue;">INSERT INTO </span>#TRAN <span style="color:blue;">VALUES</span>(5,<span style="color:maroon;">&#8216;TRANSACTION E&#8217;</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   19</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   20</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   21</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 1A&#8217;</span>, 1)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   22</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 2A&#8217;</span>, 2)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   23</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 3A&#8217;</span>, 3)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   24</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 1B&#8217;</span>, 1)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   25</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 1C&#8217;</span>, 1)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   26</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;ACH 3B&#8217;</span>, 3)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   27</span> <span style="color:blue;">INSERT INTO </span>#ACH <span style="color:blue;">VALUES</span>(<span style="color:maroon;">&#8216;TEST&#8217;</span>,<span style="color:blue;">NULL</span>)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   28</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   29</span> <span style="color:green;">&#8211; RETURNS NOTHING</span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   30</span> <span style="color:blue;">SELECT </span>* <span style="color:blue;">FROM </span>#TRAN </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   31</span> <span style="color:blue;">WHERE </span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   32</span> TRANID <span style="color:blue;">NOT IN </span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   33</span> (<span style="color:blue;">SELECT </span>TRANID <span style="color:blue;">FROM </span>#ACH)</p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   34</span> </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   35</span> <span style="color:green;">&#8211; RETURNS TRANID 4,5</span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   36</span> <span style="color:blue;">SELECT </span>* <span style="color:blue;">FROM </span>#TRAN </p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   37</span> <span style="color:blue;">WHERE </span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   38</span> TRANID <span style="color:blue;">NOT IN </span></p><br /><p style="MARGIN: 0px"><span style="color:#2b91af;">   39</span> (<span style="color:blue;">SELECT </span>TRANID <span style="color:blue;">FROM </span>#ACH <span style="color:blue;">WHERE </span>TRANID <span style="color:blue;">IS NOT NULL</span>)</p><br /></div><br /><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -455,46 +495,6 @@ the link &#8220;Post&#8221; is dead; can u point me to a live post.<BR/>I am loo
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/08/22/david-doesnt-get-it/">David Doesn&#8217;t Get It</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-08-22T11:45:00-05:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2006</time>
-        
-           | <a href="/2006/08/22/david-doesnt-get-it/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2006/08/22/david-doesnt-get-it/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3366ff;">{</span><br /><br />David Pogue, tech writer for the New York Times <a href="http://www.nytimes.com/2006/08/10/technology/10POGUE-EMAIL.html?ex=1156392000&en=aa8c10478e97177b&amp;ei=5070">claims</a> (follow up <a href="http://pogue.blogs.nytimes.com/?p=118">here</a>) that perhaps the reason that there are so many Wintel vs Mac computers in corporate America are because IT folks just want to keep their jobs and the viruses, spyware, and a defective Microsoft operating system help them. A corporate environment with Macs and fewer issues would, according to his logic, result in less work, a smaller budget, and a smaller IT staff.<br /><br />But Pogue is missing a big aspect of the corporate world: what Visual Basic was historically, and what the .NET Framework is today.  Corporate environments are filled with throwaway programs that are very specialized towards people&#8217;s business needs. Without an environment like that (with serious investment) on Macs, that sort of shift is not possible.  It harks back to Balmer&#8217;s &#8221;<a href="http://www.ntk.net/media/developers.mpg">Developers, Developers, Developers!</a>&#8221;<br /><br />Web applications are removing this disparity between operating systems, but I wonder if Apple sees developers as tightly bound in their corporate strategy as Microsoft does. Because they don&#8217;t, and don&#8217;t understand corporate software, it lends itself to the chasm between Apple computer and the business user. <br /><br />ps. I&#8217;m aware of Filemaker and Xcode, I just don&#8217;t think they are as good. As a thought experiment, compare how much Apple bets on these with how much Microsoft bets on Visual Studio and .NET.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/30/">&larr; Older</a>
@@ -512,6 +512,10 @@ the link &#8220;Post&#8221; is dead; can u point me to a live post.<BR/>I am loo
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -525,10 +529,6 @@ the link &#8220;Post&#8221; is dead; can u point me to a live post.<BR/>I am loo
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ Hanselman wrote about &#8220;fluent&#8221; interfaces recently which confirmed something I&#8217;d been thinking for a while. What if rather than &hellip;">
+  <meta name="description" content="{ Attepting releasing early &amp; often - here are a few new features to the ideas I&#8217;m putting together for the Database specific DSL.&nbsp; I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/21/iron-python-dsl-for-db-update-ii/">Iron Python DSL for DB Update II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-21T13:28:00-06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2008</time>
+        
+           | <a href="/2008/02/21/iron-python-dsl-for-db-update-ii/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/21/iron-python-dsl-for-db-update-ii/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Attepting releasing early &amp; often - here are a few new features to the ideas I&#8217;m putting together for the Database specific DSL.&nbsp; I&#8217;ll summarize all that&#8217;s possible with it now with the new stuff highlighted in red.</p> <blockquote> <p><font face="Courier New" size="2"><font color="#008000">#some connection strings</font><br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;&#8221;</font></p> <p><font face="Courier New" size="2"><font color="#008000">#some things to do</font><br>database(cn).table(&#8220;MyTable&#8221;).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.database(cn2)<br><font color="#ff0000">database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;spam&#92;eggs.bak&#8221;)</font></font></p></blockquote> <p>The overall idea is to build a <em>language centric, developer oriented implementation</em> of what is done in a tool like SSIS or its predecessor DTS - I&#8217;m using SQL Server for a start but there&#8217;s no reason this can&#8217;t include other database platforms. It&#8217;s quite exciting that even without knowing much Python I can get that much done in the language.&nbsp; I&#8217;ll spend time refactoring and reorganizing the script I&#8217;ve started with, but please <a href="http://www.seruyange.com/metadeveloper/database.py.txt">feel free to download and modify it</a>. Please post any improvements or ideas for how I can improve the Python and added any other features to the dsl. (Point on using __getattr__ well taken).</p> <p>My todo list?<br>1. Aforementioned &#8220;transforms&#8221; for data in migration<br>2. Exception handling :^)<br>3. Copying tables is a rough sketch but needs a lot of work<br>4. Export formats besides CSV and XML: arbitrary delimiters and fixed field length<br>5. __getattr__ :^)</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -470,46 +510,6 @@ So I know you said you were looking forward to reading the &#8220;Founders at Wo
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/01/29/disturbing-news/">Disturbing News</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-29T22:52:00-06:00" pubdate data-updated="true">Jan 29<span>th</span>, 2008</time>
-        
-           | <a href="/2008/01/29/disturbing-news/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/01/29/disturbing-news/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <blockquote> <p>&#8220;I am going to tell you something that will disturb you. You might laugh, but it will be a cold uncertain laugh that will haunt you as you read on, because somewhere deep down you&#8217;ll know it to be true. You might brush it off, get on with your day, yet sometime later, a week or a year, it will seep back in and unsettle you to the core. From that moment on you will be changed. You will think different, act different and will fundamentally be different. So take a moment to prepare yourself now, breath deeply, clear your mind and open up to the possibility that <strong>building software is hard</strong>.&#8221;</p></blockquote> <p>Interesting <a href="http://blogs.msdn.com/mattwar/archive/2007/10/17/primal-development-methodology.aspx">thoughts</a> from <strong>The Wayward Weblog</strong>.&nbsp; </p> <p>&nbsp;</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -527,6 +527,10 @@ So I know you said you were looking forward to reading the &#8220;Founders at Wo
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -540,10 +544,6 @@ So I know you said you were looking forward to reading the &#8220;Founders at Wo
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

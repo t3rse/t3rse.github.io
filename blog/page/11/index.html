@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for &hellip;">
+  <meta name="description" content="{ Making a single archive out of multiple files in .NET is easy once you know where to look but I spent far too long realizing there is a System.IO. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/20/better-know-framework-zip-package/">Better Know a Framework: Zip / Package Multiple Files in C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-20T23:59:00-05:00" pubdate data-updated="true">Oct 20<span>th</span>, 2008</time>
+        
+           | <a href="/2008/10/20/better-know-framework-zip-package/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/20/better-know-framework-zip-package/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Making a single archive out of multiple files in .NET is easy once you know where to look but I spent far too long realizing there is a System.IO.Packaging namespace (not in the mscorlib, but you need to reference WindowsBase assembly).</p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">// target file<br />string fileName = @&quot;C:\temp\myZip.zip&quot;;<br /><br />// point to some files, say JPEG - did I say I love LINQ?<br />var filesToZip = new DirectoryInfo(@&quot;c:\temp\&quot;).GetFiles(&quot;*.jpg&quot;).Select(p =&gt; p.FullName);<br /><br />using (Package exportPackage = Package.Open(fileName))<br />{<br />    foreach (var file in filesToZip)<br />    {<br />        using (FileStream fileStream = File.OpenRead(file))<br />        {<br />            Uri partUriDocument = PackUriHelper.CreatePartUri(new Uri(Path.GetFileName(file), UriKind.Relative));<br />            PackagePart packagePart = exportPackage.CreatePart(partUriDocument, System.Net.Mime.MediaTypeNames.Image.Jpeg);<br />            CopyStream(fileStream, packagePart.GetStream());<br />        }<br />    }<br />}<br /><br />// somewhere else, the CopyStream<br />private static void CopyStream(Stream source, Stream target)<br />{<br />    const int bufSize = 0x1000;<br />    byte[] buf = new byte[bufSize];<br />    int bytesRead = 0;<br />    while ((bytesRead = source.Read(buf, 0, bufSize)) &gt; 0)<br />        target.Write(buf, 0, bytesRead);<br />}</pre><br /><br /><p>The trap in looking for this was that searches for this all point towards the GZipStream which is nice for a single file but not applicable for packaging multiple files. In my case I wasn&#8217;t even interested in compression, just a single archive. You&#8217;ll find additional documentation for the library <a href="http://msdn.microsoft.com/en-us/library/system.io.packaging.package.aspx">here</a>.</p><br /><br /><p>I&#8217;m half tempted to write a nifty tool in IronPython for command line packaging but in a world with <a href="http://www.7-zip.org/">7-zip</a>, that&#8217;s simply foolish.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Alex</div>
+<div class='content'>
+Some days ago I downloaded good mp3song in zip archive.And yesterday I decided to play it.But I couldn&#39;t extract the song.Fortunately my friend advised-<a href="http://www.recoverytoolbox.com/repair_zip.html" rel="nofollow">recovery file zip</a>.And in seconds after that I already was listening this song.</div>
+</div>
+<div class='comment'>
+<div class='author'>Alexis</div>
+<div class='content'>
+There is the good tool-<a href="http://www.recoverytoolbox.com/zip_fixer.html" rel="nofollow">fix the corrupted zip on cd</a>,which recover zip files and more..It helped me many times,moreover program has free status and can too ses several algorithms to check the results and fix compressed zip broked files.</div>
+</div>
+<div class='comment'>
+<div class='author'>Alex</div>
+<div class='content'>
+My sister told me about her problem,and I advised-<a href="http://www.recoverytoolbox.com/recover_zip_file.html" rel="nofollow">recover broken zip files</a>.This tool helped me and friends too not once,also program is free as far as I know.It can recover corrupted files in Zip format and compatible with all supported versions of Windows operating system.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -488,46 +546,6 @@ Having many flavors of product adds to friction, which could be another form of 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/06/27/change-dispensed/">Change Dispensed</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-27T12:51:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
-        
-           | <a href="/2008/06/27/change-dispensed/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/06/27/change-dispensed/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>Steve <a href="http://blog.stevenlevithan.com/archives/change-dispenser">posted</a> a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and implemented it with just a small variation on pluralizing coin denominations.     <br />    <br /></p>  <pre style="line-height:120%;padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; padding-top: 10px; font-family: courier">def make_change(amt):<br />    output = &quot;Change is &quot;<br />    coins = (['quarte|r|rs', 25], ['dim|e|es', 10], ['nicke|l|ls', 5], ['penn|y|ies',1])<br />    for i in coins:   <br />        r = amt // i[1]<br />        if(r &gt; 0):<br />            coinout = re.split('\|', i[0])<br />            output += &quot;%d %s%s &quot; % (r, coinout[0], coinout[1:][r &gt; 1])<br />            amt = amt - (r * i[1])<br />    print output<br />    <br />make_change(48)</pre><br /><br /><p><br />  <br />A few things I learned along the way: <br /><br />  <br />* I was reminded that dictionary objects do not guarantee order. <br /><br />  <br />* I was using Python regular expressions to do a match on the string &quot;this |and|or that&quot; and discovered if you use match with simply \|(\w+) it returns nothing since the match must start from the beginning of the string! <br /><br />  <br />* I was going to use a lambda expression for the pluralization but that&#8217;s such a large hammer for what in the end would become a split</p><br /><br /><p>Python&#8217;s behavior with booleans is another point of interest - when I test the following: coinout[1:][r &gt; 1] I&#8217;m taking advantage of anything true being a 1. I wonder if this is &quot;bad&quot; but it&#8217;s a seductive thing to take advantage of&#8230; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -545,6 +563,10 @@ Having many flavors of product adds to friction, which could be another form of 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -558,10 +580,6 @@ Having many flavors of product adds to friction, which could be another form of 
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

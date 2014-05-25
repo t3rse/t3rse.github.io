@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ What&#8217;s the big picture and why are you doing it? A comment from my last post got me thinking I need to get back to the big picture. Robert &hellip;">
+  <meta name="description" content="{ &#8220;Testing is the engineering rigor of software development&#8221; - Neal Ford Got a little tip from fuzzyman on using unittest for Unit &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/03/26/unit-tests-with-iron-python/">Unit Tests With Iron Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-26T00:31:00-05:00" pubdate data-updated="true">Mar 26<span>th</span>, 2008</time>
+        
+           | <a href="/2008/03/26/unit-tests-with-iron-python/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/03/26/unit-tests-with-iron-python/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>&#8220;Testing is the engineering rigor of software development&#8221; - <a href="http://www.nealford.com/">Neal Ford</a></p> <p>Got a little tip from <a href="http://www.voidspace.org.uk/ironpython/index.shtml">fuzzyman</a> on using <a href="http://docs.python.org/lib/module-unittest.html">unittest</a> for Unit Testing with Iron Python. Because I&#8217;m a slouch I had an old IronPython 1.1 release and kept getting a BaseException error when my tests failed.&nbsp; The class has since been implemented and should work with the latest version of IronPython that you can download (I&#8217;m using a beta release of 2.0).</p> <p>Here is the code from my unit tests, of course it&#8217;s destined to change but I was in the mode of getting it to work with IronPython: </p> <p><pre>from Twining import *<br />import exceptions<br />import random<br />import unittest<br />import os<br /><br />class TestSequenceFunctions(unittest.TestCase):<br />    <br />    def setUp(self):<br />        self.cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br /><br />    def test_exportcsv(self):<br />        """ Export a CSV style data """<br />        outPath = "c:\\foo.csv"<br />        database(self.cn).table("Photos").copyto.csv(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def test_exportxmlattribstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_attrib.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />        <br />    def test_exportxmlelementstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_elem.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def tearDown(self):<br />        if os.path.exists("c:\\foo.csv"): os.remove("c:\\foo.csv")<br />        if os.path.exists("c:\\xml_as_attrib.xml"): os.remove("c:\\xml_as_attrib.xml")<br />        if os.path.exists("c:\\xml_as_elem.xml"): os.remove("c:\\xml_as_elem.xml")        <br />        <br />if __name__ == '__main__':<br />    unittest.main()<br /></pre><br /><p></p><br /><p>You can download this and the latest version of things from the new <a href="http://www.t3rse.com/twining/">Twining page</a>.&nbsp; </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Introspecting .NET objects from IronPython is really easy.<BR/><BR/>dir(someObject)<BR/><BR/>returns a list of strings of member names (public and protected) of that object. <BR/><BR/>help(someObject.someMethod)<BR/><BR/>can also be useful sometimes.<BR/><BR/>Lots of other easy reflection techniques (hasattr, getattr and setattr for example).<BR/><BR/>Experimenting from the interactive interpreter will give you a feel for what is possible.</div>
+</div>
+<div class='comment'>
+<div class='author'>sevenseeker</div>
+<div class='content'>
+Do you have any experience with testing existing .NET code and assemblies with IronPython?<BR/><BR/>How would I go about reflecting and introspecting elements to see what I can do if I don&#8217;t have access to all of the code?</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Hmmm&#8230; we use unittest with IronPython 1.1.1 and don&#8217;t have any &#8216;BaseException&#8217; problems.<BR/><BR/>You&#8217;re better off with IronPython 2 for a host of other reasons though.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -519,46 +577,6 @@ Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/02/21/iron-python-dsl-for-db-update-ii/">Iron Python DSL for DB Update II</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-21T13:28:00-06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2008</time>
-        
-           | <a href="/2008/02/21/iron-python-dsl-for-db-update-ii/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/02/21/iron-python-dsl-for-db-update-ii/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>Attepting releasing early &amp; often - here are a few new features to the ideas I&#8217;m putting together for the Database specific DSL.&nbsp; I&#8217;ll summarize all that&#8217;s possible with it now with the new stuff highlighted in red.</p> <blockquote> <p><font face="Courier New" size="2"><font color="#008000">#some connection strings</font><br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;&#8221;</font></p> <p><font face="Courier New" size="2"><font color="#008000">#some things to do</font><br>database(cn).table(&#8220;MyTable&#8221;).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.database(cn2)<br><font color="#ff0000">database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;spam&#92;eggs.bak&#8221;)</font></font></p></blockquote> <p>The overall idea is to build a <em>language centric, developer oriented implementation</em> of what is done in a tool like SSIS or its predecessor DTS - I&#8217;m using SQL Server for a start but there&#8217;s no reason this can&#8217;t include other database platforms. It&#8217;s quite exciting that even without knowing much Python I can get that much done in the language.&nbsp; I&#8217;ll spend time refactoring and reorganizing the script I&#8217;ve started with, but please <a href="http://www.seruyange.com/metadeveloper/database.py.txt">feel free to download and modify it</a>. Please post any improvements or ideas for how I can improve the Python and added any other features to the dsl. (Point on using __getattr__ well taken).</p> <p>My todo list?<br>1. Aforementioned &#8220;transforms&#8221; for data in migration<br>2. Exception handling :^)<br>3. Copying tables is a rough sketch but needs a lot of work<br>4. Export formats besides CSV and XML: arbitrary delimiters and fixed field length<br>5. __getattr__ :^)</p> <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/16/">&larr; Older</a>
@@ -576,6 +594,10 @@ Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -589,10 +611,6 @@ Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

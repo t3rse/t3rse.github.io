@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="Hanselman has been on a tear of late with his podcasts but one series in particular I’ve enjoyed is a series of folks who in some way are connected &hellip;">
+  <meta name="description" content="I am a language geek so I was more than intrigued with the announcement and release of TypeScript about a month ago from Microsoft. I found out via &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,101 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/31/TypeScript-Up-and-Running/">TypeScript: Up and Running</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-31T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/31/TypeScript-Up-and-Running/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am a language geek so I was more than intrigued with the announcement and release of TypeScript about a month ago from Microsoft. I found out via twitter where almost immediately there were knee jerk reactions by many. It would be false to say the reactions were equally positive and negative; many of the people who have found their way to my twitter list tended to be really cynical in one of two ways: either by saying TypeScript was not CoffeeScript or by claiming that JavaScript was fine and the language invasion was not necessary.</p>  <p>On the topic of “why TypeScript?”, Anders <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">said the following</a>: </p>  <blockquote>   <p>I am not a religious C# zealot, I am a language designer&#8230;&#160; and when language design problems present themselves, I jump in because I&#8217;m fascinated by what you can do with languages and what you can do, for example, with static typing. </p> </blockquote>  <p>I like that mentality. Put aside the hysterics, the affiliations, and all the other emotional stuff. The language is a tool, let’s see what it can do. </p>  <p>So what exactly is TypeScript? For the formal definition, let’s hit Wikipedia: </p>  <blockquote>   <p>TypeScript is a free and open source programming language developed by Microsoft. It is a superset of JavaScript, and essentially adds optional static typing and class-based object oriented programming to the language. </p> </blockquote>  <p>If you want my definition which I would hope is <a href="http://www.codinghorror.com/blog/2007/11/mort-elvis-einstein-and-you.html" target="_blank">more Elvis than Mort</a> in nature, it’s a new language that introduces the things that are useful from static typing to JavaScript. When you write code in TypeScript, the compiler emits JavaScript that reflects your design. The advantage of TypeScript is that you get compiler checking and some of the language features (e.g. interfaces) that make developers productive in statically typed, object oriented environments. </p>  <p>I guess I can say that over time I’ve become less quick with my reactions. I have a lot of strongly held opinions but one thing that has slowed me down is that these opinions develop with use rather than from conceptual understanding or classical education. In order for me to like or dislike I need to sit down and spend some time with what I’m evaluating. </p>  <p>So how to get started with TypeScript? That’s easy: </p>  <p>1. <a href="http://www.microsoft.com/en-us/download/details.aspx?id=34790" target="_blank">Download the language compiler and SDK</a>. </p>  <p>2. <a href="http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf" target="_blank">Download the language specification</a>. </p>  <p>3. Once you’ve installed it, you can verify that the compiler is alive and well by opening a command line and typing</p>  <p><font size="2" face="Courier New"><strong>tsc –help</strong></font> </p>  <p>If something is amiss here make sure you have the compiler installed and that your PATH includes a reference to the install location. </p>  <p>4. For some high level background, watch <a href="http://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript" target="_blank">Anders Hejlsberg: Introducing TypeScript</a> on Channel 9. </p>  <p>5. For an additional conversation, programmer to language designer style, listen to <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">Hanselman’s interview of Anders</a>. </p>  <p>6. The TypeScript compiler generates JavaScript files. In order to incorporate this into a web project where I could start getting into language features, I did the following: </p>  <div style="display: block; float: none">   <ul>     <li>Created a /Script folder with my *.ts TypeScript file.        <p><a style="display: block" href="/images/FirstTypeScript-Explorer_1.jpg"><img style="background-image: none; border-bottom: 0px; border-left: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top: 0px; border-right: 0px; padding-top: 0px" title="FirstTypeScript-Explorer" border="0" alt="FirstTypeScript-Explorer" src="/images/FirstTypeScript-Explorer_thumb_1.jpg" width="291" height="337" /></a></p> I have been writing a deck of cards simulation but I will detail that in a different post. For now let’s start with the greeter.ts file that is <a href="http://www.typescriptlang.org/Playground/" target="_blank">provided as a sample</a>:         <br />        <div>         <pre class="brush: csharp">module HelloWorld {  
+    class Messenger {  
+        repeat: number;  
+  
+        constructor (public message = &quot;Hello World&quot;) {  
+            this.repeat = 1;  
+        }  
+  
+        speak() {  
+            for (var i = 0; i &lt; this.repeat; i++) {  
+                console.log(this.message);  
+            }  
+        }  
+  
+        static SayHelloInSlang() {   
+            new Messenger(&quot;'Sup World?&quot;).speak();  
+        }  
+    }  
+  
+    var m = new Messenger();  
+    m.speak();  
+  
+    Messenger.SayHelloInSlang();  
+}  </pre>
+      </div>
+
+      <br /></li>
+  </ul>
+</div>
+
+<div style="display: block; float: none">
+  <ul>
+    <li>Created a PostBuild Event that ran the TypeScript compiler on my file. <em>Click the image for a full view</em>. 
+
+      <p><a style="display: block" href="/images/FirstTypeScript-PostBuild_1.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-PostBuild" border="0" alt="FirstTypeScript-PostBuild" src="/images/FirstTypeScript-PostBuild_thumb_1.jpg" width="415" height="188" /></a> </p>
+    </li>
+  </ul>
+</div>
+
+<div style="display: block">
+  <ul>
+    <li>Referenced the emitted JavaScript file in my project. My starting file was <strong>greeter.ts</strong> so the emitted JavaScript file is <strong>greeter.js</strong>. <em>Click the image for a full view.</em> 
+
+      <br />
+
+      <br /><a href="/images/FirstTypeScript-Reference.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-Reference" border="0" alt="FirstTypeScript-Reference" src="/images/FirstTypeScript-Reference_thumb.jpg" width="409" height="158" /></a> </li>
+
+    <li>Run the page and look at your console. You will see the greeting output. If you want to see something a bit more forceful or, if for some reason you are running Internet Explorer, change the console.log into a window.alert in the sample code. <em>Click image for a full view. 
+        <br />
+
+        <br /><a href="/images/FirstTypeScriptConsole.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScriptConsole" border="0" alt="FirstTypeScriptConsole" src="/images/FirstTypeScriptConsole_thumb.jpg" width="404" height="199" /></a></em> </li>
+  </ul>
+</div>
+
+<p>I’ve been experimenting with TypeScript for a little more than a week and my conclusion to this point is overwhelmingly positive: it’s a nifty language, intuitive for anyone who is used to C# or similarly object oriented languages, and having the compiler is a good benefit. On the downside I find integration and debugging a little clumsy. The debugging story is that I do it at runtime in the emitted JavaScript which I suppose I will get used to. It would be nice to seem together the build process a little better though the post build event seems to do the trick. It would be nice if there was a way I could look at compiler output in this scenario. </p>
+
+<p>In my next TypeScript post I’ll cover my actual experiment (segmented from this post to keep it smaller and focused) which is taken from <a href="http://weblog.raganwald.com/2007/01/please-design-deck-of-cards-in-java.html" target="_blank">an old Raganwald interview question post</a>: to design a deck of cards. </p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -524,46 +619,6 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/06/20/ndc-2011/">NDC 2011</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-20T07:25:00-05:00" pubdate data-updated="true">Jun 20<span>th</span>, 2011</time>
-        
-           | <a href="/2011/06/20/ndc-2011/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2011/06/20/ndc-2011/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h2><font color="#0000ff">{</font></h2>  <p>It may be easy to miss amidst all the hoopla around Windows 8 but the Norwegian Developers Conference just released all their session vidoes on the site. </p>  <p>It’s been a while since I’ve gotten to go to a conference but the last few I have attended were put on by Microsoft. Although this has advantages in the sense that it coalesces the “experts” of specific Microsoft technologies, many of the presenters work at Microsoft and therefore don’t have a similar problem set that you or I might slogging our way through building products, often with older (read: more “boring”) software. There are also some talks on development techniques like <a href="http://behaviour-driven.org/">BDD</a> and <a href="http://en.wikipedia.org/wiki/Domain-driven_design">DDD</a> that are not product specific.</p>  <p>The good thing about NDC is that it seems a lot of the presenters come from an outside perspective so it’s a good balance for a lot of the MIX / PDC type stuff I’ve been watching of late. Without further ado:</p>  <p>Direct Download from NDC website: <a href="http://ndc2011.no/agenda.aspx?cat=1071&amp;id=-1&amp;day=3726">Day 1</a> | <a href="http://ndc2011.no/agenda.aspx?cat=1071&amp;id=-1&amp;day=3727">Day 2</a> | <a href="http://ndc2011.no/agenda.aspx?cat=1071&amp;id=-1&amp;day=3728">Day 3</a></p>  <p><a href="http://goo.gl/IKrBh">Roy Osherove’s “unofficial” torrent</a></p>  <h2><font color="#0000ff">}</font></h2>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -581,6 +636,10 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -594,10 +653,6 @@ var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

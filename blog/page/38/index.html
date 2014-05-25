@@ -9,7 +9,8 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{The big release is upon us. But it begs a question that I think those of us who use commercial development tools have to ask ourselves, something &hellip;">
+  <meta name="description" content="{DECLARE @DOUT DATETIMESET @DOUT = CONVERT(DATETIME, CONVERT(CHAR(10), GETDATE(), 101))PRINT CONVERT(DATETIME, @DOUT)}
+Comments Kiran Hi Please &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +79,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/22/strip-time-off-sql-server-date/">Strip Time Off SQL Server Date Variable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-22T15:38:00-06:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+        
+           | <a href="/2005/11/22/strip-time-off-sql-server-date/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/22/strip-time-off-sql-server-date/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="color:#000099;">DECLARE</span> @DOUT <span style="color:#000099;">DATETIME</span><br /><span style="color:#000099;">SET</span> @DOUT = <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">DATETIME</span>, <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">CHAR</span>(10), <span style="color:#cc66cc;">GETDATE</span>(), 101))<br /><span style="color:#000099;">PRINT</span> <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#cc66cc;">DATETIME</span>, @DOUT)<br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Kiran</div>
+<div class='content'>
+Hi Please check this out. It suggested a similar way to strip the time part from date time.<br /><a href="http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html" rel="nofollow">http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html</a><br /><br />Thanks,<br />Kiran<br /><a href="http://cherupally.blogspot.com" rel="nofollow">http://cherupally.blogspot.com</a></div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,46 +528,6 @@ Interesting post man&#8230; have you tried this with ASP.net? I do mostly web ap
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/06/15/java-samples/">Java Samples</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-06-15T05:50:00-05:00" pubdate data-updated="true">Jun 15<span>th</span>, 2005</time>
-        
-           | <a href="/2005/06/15/java-samples/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2005/06/15/java-samples/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br /><span style="font-size:85%;">Generated during class with South Dakota State employees but hopefully useful to anyone who wanders this way.<br /><br />[<span style="color: rgb(255, 0, 0); font-weight: bold;">NOTE: My web host doesn&#8217;t serve the *.java files, so download the zipfile at the end of this post instead. I&#8217;ll rename with *.txt later.</span>]<br /><br />We began things with a Hello World program in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Hello.java">Hello.java</a>. Soon after we talked about defining classes, the basic building block of any java program. <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Clerk.java">Clerk.java</a> shows an example of a class with fields, methods, getters and setters (accessor methods), and a constructor. Along the way we also learned about overloading, as seen in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Calculator.java">Calculator.java</a>.<br /><br />We learned more details about class definitions: <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Clock.java">Clock.java</a> (check with <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/TestClock.java">TestClock.java</a>) and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Employee.java">Employee.java</a> are examples of how you can chain constructors. <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/BankAccount.java">BankAccount.java</a> was used to show the difference between static and instance methods and fields.  You can see the BankAccount class tested in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Thursday.java">Thursday.java</a>.  Once we were comfortable with the static keyword, we talked about defining constants, using <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Constants.java">Constants.java</a> as our example.<br /><br />We had a chapter that covered arrays, in which we looked at <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/UsingArrays.java">UsingArrays.java</a>. I added an aside about Collection classes in java, which are a more robust alternative to arrays in most cases, and we looked at <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Swapmeet.java">Swapmeet.java</a>. Even though I got the bubble sort wrong in class, it&#8217;s fixed in this example with some helper methods, sortMyArray and printArray. We looked at working with Calendars and dates in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/TestBed.java">TestBed.java</a>.  I also included a <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DateDiff.java">DateDiff.java</a> that shows how to get the functionality of a basic DateDiff command.  Like other things, it&#8217;s ugly in java.<br /><br />You saw one class from the swing library, the JOptionPane, which was used to talk about getting user input. I also showed you the BufferedReader along with it in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Dialoging.java">Dialoging.java</a>. I would recommend the BufferedReader approach if your application runs from the command line, personally. For most other examples in class, we used <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/EasyConsole.java">EasyConsole.java</a>, which abstracted reading and writing from the console with a few simple methods.<br /><br />At this point we began to cover inheritance.  We looked at a basic inheritance heirarchy in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Person.java">Person.java</a>, <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/InhEmployee.java">InhEmployee.java</a>, and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Executive.java">Executive.java</a>.  We looked at abstract classes in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Shape.java">Shape.java </a>and we briefly looked at interfaces in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/IPrintable.java">IPrintable.java</a>.<br /><br />We closed out with the basics of exception handlers and subclassing exception. The try{..}catch{&#8230;}finally{&#8230;} is probably best introduced by your material.<br /><br />Our final two topics were File I/O and parsing XML documents.  On the File I/O side, I had two classes: <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DavidFileReader.java">DavidFileReader.java</a> to demonstrate methods of reading from a file stream, and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DavidFileWriter.java">DavidFileWriter.java</a>, to demonstrate writing to a file stream.  In terms of XML, I have a class called <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Xreader.java">Xreader.java</a> which should help you get started parsing XML files.<br /><br />Wow, that was a lot for three days. Even typing it out makes me tired. In regards to the samples, you can download them individually, or you can <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Classfiles.zip">download a zip archive</a> of the entire set.  If you have questions or comments, don&#8217;t hesitate to email me.</span><br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/39/">&larr; Older</a>
@@ -536,6 +545,10 @@ Interesting post man&#8230; have you tried this with ASP.net? I do mostly web ap
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -549,10 +562,6 @@ Interesting post man&#8230; have you tried this with ASP.net? I do mostly web ap
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

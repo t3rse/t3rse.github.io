@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ DDJ (the print edition at least) has an interesting interview with Paul Jansen, managing director of TIOBE on languages. Some interesting points: &hellip;">
+  <meta name="description" content="{ I started my IronPython musings with Notepad++ since it&#8217;s my usual text editor (after being enamored with Textpad for many years, I moved on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/04/09/from-komodo-to-wings/">From Komodo to Wings</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-09T00:35:00-05:00" pubdate data-updated="true">Apr 9<span>th</span>, 2008</time>
+        
+           | <a href="/2008/04/09/from-komodo-to-wings/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/04/09/from-komodo-to-wings/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I started my IronPython musings with <a href="http://notepad-plus.sourceforge.net/uk/site.htm">Notepad++</a> since it&#8217;s my usual text editor (after being enamored with <a href="http://textpad.com/">Textpad</a> for many years, I moved on - lots of reasons, perhaps I&#8217;ll blog them later).&nbsp; As time passed and my scripts grew in size I started using an old version of <a href="http://www.activestate.com/Products/komodo_ide/index.mhtml">Komodo</a> I&#8217;ve got which has decent support for Python. I used Komodo (3.5) when I was writing a lot of Perl and it worked pretty well for that, especially since it had a good enough debugger and CGI emulator for me to dig myself out of holes.&nbsp; Komodo does <em>okay</em> with Python but I&#8217;ve been using <a href="http://www.wingware.com/wingide-personal/index">Wings IDE</a> on recommendation from <a href="http://www.voidspace.org.uk/python/weblog/index.shtml">fuzzyman</a> and it&#8217;s much more responsive and fluid as a development environment.&nbsp; Additionally, I got Komodo when there was still a cheapo version but now it&#8217;s quite expensive - exceeding the Wife Acceptance Factor for experiments (WAFe).&nbsp; Wings is quite reasonable, I&#8217;ll start with the Personal edition and if I can get my company onboard I&#8217;ll ask that they upgrade my license.</p> <p>Unfortunately I still need to run my scripts outside the IDE environs since Wings isn&#8217;t built with IronPython support (correct me if I&#8217;m wrong), but I&#8217;m quite used to this now.&nbsp; </p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>The Hitchcocks</div>
+<div class='content'>
+Dude, skimming your blog has made me realize just how behind the times I am.  Once upon a time, ol&#8217; Hitchcock was actually tech-savvy.  Now (as I found out last week) a 2005 RPG won&#8217;t play on my 2007 laptop because my soundcard is incompatible.  I live on MS Word.  Sigh.<BR/><BR/>Being a little homesick - and it being my and Christina&#8217;s five year anniversary - we ordered from Papa John&#8217;s last night.  For $30 we got jalapeno and pepperoni pizza, and I was in heaven.  Can&#8217;t wait to re-contaminate myself with the American diet come August.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Although you do have to run IronPython scripts &#8216;outside&#8217; of Wing IDE, it is *very* easy to setup scripts/commands to run your current script (or the test for the current script) and assign them to a function key.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -447,64 +500,6 @@ Hey David - I figured a lurking post is a good place to stop lurking and say hi&
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/03/26/unit-tests-with-iron-python/">Unit Tests With Iron Python</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-26T00:31:00-05:00" pubdate data-updated="true">Mar 26<span>th</span>, 2008</time>
-        
-           | <a href="/2008/03/26/unit-tests-with-iron-python/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/03/26/unit-tests-with-iron-python/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1> <p>&#8220;Testing is the engineering rigor of software development&#8221; - <a href="http://www.nealford.com/">Neal Ford</a></p> <p>Got a little tip from <a href="http://www.voidspace.org.uk/ironpython/index.shtml">fuzzyman</a> on using <a href="http://docs.python.org/lib/module-unittest.html">unittest</a> for Unit Testing with Iron Python. Because I&#8217;m a slouch I had an old IronPython 1.1 release and kept getting a BaseException error when my tests failed.&nbsp; The class has since been implemented and should work with the latest version of IronPython that you can download (I&#8217;m using a beta release of 2.0).</p> <p>Here is the code from my unit tests, of course it&#8217;s destined to change but I was in the mode of getting it to work with IronPython: </p> <p><pre>from Twining import *<br />import exceptions<br />import random<br />import unittest<br />import os<br /><br />class TestSequenceFunctions(unittest.TestCase):<br />    <br />    def setUp(self):<br />        self.cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br /><br />    def test_exportcsv(self):<br />        """ Export a CSV style data """<br />        outPath = "c:\\foo.csv"<br />        database(self.cn).table("Photos").copyto.csv(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def test_exportxmlattribstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_attrib.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />        <br />    def test_exportxmlelementstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_elem.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def tearDown(self):<br />        if os.path.exists("c:\\foo.csv"): os.remove("c:\\foo.csv")<br />        if os.path.exists("c:\\xml_as_attrib.xml"): os.remove("c:\\xml_as_attrib.xml")<br />        if os.path.exists("c:\\xml_as_elem.xml"): os.remove("c:\\xml_as_elem.xml")        <br />        <br />if __name__ == '__main__':<br />    unittest.main()<br /></pre><br /><p></p><br /><p>You can download this and the latest version of things from the new <a href="http://www.t3rse.com/twining/">Twining page</a>.&nbsp; </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Introspecting .NET objects from IronPython is really easy.<BR/><BR/>dir(someObject)<BR/><BR/>returns a list of strings of member names (public and protected) of that object. <BR/><BR/>help(someObject.someMethod)<BR/><BR/>can also be useful sometimes.<BR/><BR/>Lots of other easy reflection techniques (hasattr, getattr and setattr for example).<BR/><BR/>Experimenting from the interactive interpreter will give you a feel for what is possible.</div>
-</div>
-<div class='comment'>
-<div class='author'>sevenseeker</div>
-<div class='content'>
-Do you have any experience with testing existing .NET code and assemblies with IronPython?<BR/><BR/>How would I go about reflecting and introspecting elements to see what I can do if I don&#8217;t have access to all of the code?</div>
-</div>
-<div class='comment'>
-<div class='author'>Fuzzyman</div>
-<div class='content'>
-Hmmm&#8230; we use unittest with IronPython 1.1.1 and don&#8217;t have any &#8216;BaseException&#8217; problems.<BR/><BR/>You&#8217;re better off with IronPython 2 for a host of other reasons though.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -522,6 +517,10 @@ Hmmm&#8230; we use unittest with IronPython 1.1.1 and don&#8217;t have any &#821
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -535,10 +534,6 @@ Hmmm&#8230; we use unittest with IronPython 1.1.1 and don&#8217;t have any &#821
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

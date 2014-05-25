@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ Found a good podcast today, &quot;Deep Fried Bytes.&quot; Skip the first episode but the second on interviewing is a gem. Although it was posted &hellip;">
+  <meta name="description" content="{ Steve posted a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/06/27/change-dispensed/">Change Dispensed</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-27T12:51:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
+        
+           | <a href="/2008/06/27/change-dispensed/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/06/27/change-dispensed/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Steve <a href="http://blog.stevenlevithan.com/archives/change-dispenser">posted</a> a coding challenge a few days ago - a change dispenser. I thought it would be a nice exercise for my fledgling Python skills and implemented it with just a small variation on pluralizing coin denominations.     <br />    <br /></p>  <pre style="line-height:120%;padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; padding-top: 10px; font-family: courier">def make_change(amt):<br />    output = &quot;Change is &quot;<br />    coins = (['quarte|r|rs', 25], ['dim|e|es', 10], ['nicke|l|ls', 5], ['penn|y|ies',1])<br />    for i in coins:   <br />        r = amt // i[1]<br />        if(r &gt; 0):<br />            coinout = re.split('\|', i[0])<br />            output += &quot;%d %s%s &quot; % (r, coinout[0], coinout[1:][r &gt; 1])<br />            amt = amt - (r * i[1])<br />    print output<br />    <br />make_change(48)</pre><br /><br /><p><br />  <br />A few things I learned along the way: <br /><br />  <br />* I was reminded that dictionary objects do not guarantee order. <br /><br />  <br />* I was using Python regular expressions to do a match on the string &quot;this |and|or that&quot; and discovered if you use match with simply \|(\w+) it returns nothing since the match must start from the beginning of the string! <br /><br />  <br />* I was going to use a lambda expression for the pluralization but that&#8217;s such a large hammer for what in the end would become a split</p><br /><br /><p>Python&#8217;s behavior with booleans is another point of interest - when I test the following: coinout[1:][r &gt; 1] I&#8217;m taking advantage of anything true being a 1. I wonder if this is &quot;bad&quot; but it&#8217;s a seductive thing to take advantage of&#8230; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -481,46 +521,6 @@ Good post.</div>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/05/12/workaholism/">Workaholism</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-12T23:54:00-05:00" pubdate data-updated="true">May 12<span>th</span>, 2008</time>
-        
-           | <a href="/2008/05/12/workaholism/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/05/12/workaholism/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<p></p>  <h1><font color="#0000ff">{</font></h1>  <p>Matt from 37Signals <a href="http://www.37signals.com/svn/posts/1017-workaholics-fixate-on-inconsequential-details">blogs</a> about workaholics with the following assertions: they don&#8217;t get as much done (most of the time) and they focus on inconsequential details.</p>  <p>Many leapt to the defense of workaholics - people who, it seems, are workaholics themselves. Because I&#8217;m often labeled a workaholic I&#8217;m trying to see past my emotions and yet it still doesn&#8217;t smell like the truth to me.</p>  <p>And even more so because this weekend I watched <a href="http://www.pbs.org/nerds/">Triumph of the Nerds</a>, Cringley&#8217;s chronicling of the personal computer industry from it&#8217;s humble roots in what would become Silicon Valley.&#160; As he interviewed people, I couldn&#8217;t help but think that software development is experiencing a culture change.&#160; The people who got the boat off the ground were almost entirely obsessed with their work, even down to the details.&#160; I have a hard time imagining an Andy Hertzfeld, Woz, or young Bill Gates as a 501 developer.</p>  <p>Even if you go forward a few years, guys like John Carmack don&#8217;t fit the mould of &quot;balanced life/time to go pick up my kids and watch TV!&quot;</p>  <p>These days though, I think what used to be hobbyism is now simply work and fair game for any person who wants a way to earn their keep and &quot;clock out&quot; for life afterwards.&#160; This is not to say that it wasn&#8217;t that way before, it just seems like much more commitment was involved.&#160; Or maybe the moral is that no one with a 501 development attitude did anything noteworthy. </p>  <p>But even as I write that and play my hand as a kid who grew up on the folklore of the early computer industry I have to do a gut check because me staying at work late building yet another website for someone is not the same as writing the first GUI.&#160; Not even close&#8230; </p>  <p>I take away the notion that there isn&#8217;t necessarily a direct relationship between time spent at work and productivity but I also know that if I had the 9-5 attitude with no tendency to &quot;get into&quot; my profession, I might as well be an accountant. And as grandiose as it may seem, I&#8217;d love to have one idea that really matters versus a lifetime of mediocrity so I could rush home to have a &quot;life.&quot;</p>  <h1><font color="#0000ff">}</font></h1>  </div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -538,6 +538,10 @@ Good post.</div>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -551,10 +555,6 @@ Good post.</div>
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>

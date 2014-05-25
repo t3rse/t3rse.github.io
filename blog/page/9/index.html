@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ SilverlightFX is an interesting library for declaratively attaching behaviors to objects in XAML. People new to the Silverlight world will like &hellip;">
+  <meta name="description" content="{ Friend and coworker Algotron just posted an intro and sample of currying with C#. I decided to try out currying with the idea of successive &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/04/currying-with-c-and-algotron/">Currying With C# and Algotron</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-04T10:10:00-06:00" pubdate data-updated="true">Mar 4<span>th</span>, 2009</time>
+        
+           | <a href="/2009/03/04/currying-with-c-and-algotron/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/03/04/currying-with-c-and-algotron/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Friend and coworker <a href="http://algotron.blogspot.com/2009/03/function-curry.html">Algotron</a> just posted an intro and sample of currying with C#. I decided to try out currying with the idea of successive regular expressions on a string array - I found it easy to approach first with anonymous delegate syntax and then use lambda expressions. Once this was in place it was easy to understand the use of an extension method to curry any binary function.&#160; </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; fil = <br />delegate(string pattern, string[] lines){<br />    return delegate(string pattern2)<br />    {<br />	return lines<br />		    .Where(p=&gt; Regex.IsMatch(p, pattern))<br />		    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />		    .ToArray();<br />    };<br />};<br /><br /><br />Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; regFil = <br />				(pattern, input) =&gt; <br />				    (pattern2) =&gt; <br />					input<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern))<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />					    .ToArray();<br />					    <br />// assume some address data<br />string[] data = new string[]{&quot;1234 Somewhere&quot;, &quot;this&quot;, &quot;777 dakota&quot;};<br /><br />var filterNumeric = regFil(@&quot;\d&quot;, data); // make sure it has a number<br />var filterUCase = filterNumeric(&quot;[A-Z]&quot;); // make sure it has an uppercase character<br /><br />Console.Write(String.Join(&quot;,&quot;, filterUCase));					    </pre><br /><br /><p>That&#8217;s cool stuff, worth looking at for a while to try to understand.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -455,54 +495,6 @@ When you said &#8220;in 5 steps&#8221; I was hoping for interpretive dance.  C&#
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2008/12/19/programmers-as-goalkeepers/">Programmers as Goalkeepers</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-19T07:20:00-06:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time>
-        
-           | <a href="/2008/12/19/programmers-as-goalkeepers/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2008/12/19/programmers-as-goalkeepers/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<h1><font color="#0000ff">{</font></h1>  <p>The 8th annual New York Times magazine Year in Ideas featured <a href="http://www.nytimes.com/interactive/2008/12/14/magazine/2008_IDEAS.html#g-ideas">a section on Goalkeeper Science</a> profiling this paper by some Israeli scientists called <a href="http://mpra.ub.uni-muenchen.de/4477/">Action bias among elite soccer goalkeepers: The case of penalty kicks</a>. In looking at the approach of keepers in some 286 penalty kicks they found that though 94 percent of the time they dived to the right or left, the chances of stopping the kick were highest when the goalie stayed in the center. The researchers theorized that the reason keepers behaved in this way was that they were afraid of appearing that they were doing nothing. </p>  <p>Immediately I remembered a blurb from an Paul Graham&#8217;s <a href="http://www.paulgraham.com/opensource.html">What Business Can Learn from Open Source</a>&#160; essay where he expressed a similar dynamic for programmers: </p>  <blockquote>   <p>&quot;The other problem with pretend work is that it often looks better than real work. When I&#8217;m writing or hacking I spend as much time just thinking as I do actually typing. Half the time I&#8217;m sitting drinking a cup of tea, or walking around the neighborhood. This is a critical phase&#8211; this is where ideas come from&#8211; and yet I&#8217;d feel guilty doing this in most offices, with everyone else looking busy.&quot; </p> </blockquote>  <p>I wonder what Paul would say about the <a href="http://www.youtube.com/watch?v=ziOG_GHNVq0">IBM commercial on ideating</a> in which concludes that people should &quot;start doing&quot; after showing an image of people laying inert on an office floor, a stark portrayal of how a manager at IBM might see someone like Paul Graham. </p>  <p>As programmers much of what we should do may not appear to be work for the nonprogrammer and as a result many of us end up doing it at home. I spend a lot of time at home exploring different technologies in a kind of tangential approach that wouldn&#8217;t look like &quot;working&quot; at work but often my best ideas and solutions come from here.&#160; I also spend a lot of time reading technical books and blogs. </p>  <p>I&#8217;m wondering what it would look like if we could step back and look in a quantitative way at the performance deficits resulting from the desire to look busy at work. What would the workday look like? I&#8217;m wondering what an hour for reading, a few hours for exploratory/research programming, and the rest as project time would do for my own productivity.</p>  <p>If programming was goalkeeping was programming, <a href="http://en.wikipedia.org/wiki/Van_der_sar">Edwin Van der Sar</a> would be quite the Python hacker.&#160; </p>  <h1><font color="#0000ff">}</font></h1>  </div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>depola</div>
-<div class='content'>
-I am shocked to find how many out-of-this-world work conclusions come to me in the 10-12 minutes driving home from work.  The ideas really crystalize when I&#8217;m no where near the keyboard, flourescent lights, or food.</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -520,6 +512,10 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
       </li>
     
@@ -533,10 +529,6 @@ I am shocked to find how many out-of-this-world work conclusions come to me in t
     
       <li class="post">
         <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/01/08/Why-Software-Engineers-Should-Read-Science-Fiction/">Why Software Engineers Should Read Science Fiction</a>
       </li>
     
   </ul>
