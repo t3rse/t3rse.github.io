@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://t3rse.github.io/sitemap.xml 
+Sitemap: http://blog.t3rse.com/sitemap.xml 

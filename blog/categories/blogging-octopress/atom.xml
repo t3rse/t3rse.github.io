@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Blogging Octopress | Fail Better]]></title>
-  <link href="http://t3rse.github.io/blog/categories/blogging-octopress/atom.xml" rel="self"/>
-  <link href="http://t3rse.github.io/"/>
-  <updated>2014-05-09T09:49:52-05:00</updated>
-  <id>http://t3rse.github.io/</id>
+  <link href="http://blog.t3rse.com/blog/categories/blogging-octopress/atom.xml" rel="self"/>
+  <link href="http://blog.t3rse.com/"/>
+  <updated>2014-05-25T14:53:36-05:00</updated>
+  <id>http://blog.t3rse.com/</id>
   <author>
     <name><![CDATA[David aka t3rse]]></name>
     <email><![CDATA[david.seruyange@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Moving From BlogEngine.net to Octopress]]></title>
-    <link href="http://t3rse.github.io/2014/05/06/moving-from-blogengine-dot-net-to-octopress/"/>
+    <link href="http://blog.t3rse.com/2014/05/06/moving-from-blogengine-dot-net-to-octopress/"/>
     <updated>2014-05-06T22:42:36-05:00</updated>
-    <id>http://t3rse.github.io/2014/05/06/moving-from-blogengine-dot-net-to-octopress</id>
+    <id>http://blog.t3rse.com/2014/05/06/moving-from-blogengine-dot-net-to-octopress</id>
     <content type="html"><![CDATA[<p>Although I switched to Octopress via inspiration from <a href="http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/">Staxmanade&rsquo;s blog series</a> on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.</p>
 
 <p><strong><strong>Export to BlogML</strong></strong></p>
