@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://t3rse.github.io
+url: http://blog.t3rse.com
 title: Fail Better
 subtitle: Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.
 author: David aka t3rse
@@ -91,7 +91,7 @@ delicious_count: 3
 
 # Disqus Comments
 disqus_short_name: t3rse
-disqus_show_comment_count: false
+disqus_show_comment_count: true
 
 # Google Analytics
 google_analytics_tracking_id: UA-50368166-1
