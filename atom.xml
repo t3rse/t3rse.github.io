@@ -4,7 +4,7 @@
   <title><![CDATA[Fail Better]]></title>
   <link href="http://blog.t3rse.com/atom.xml" rel="self"/>
   <link href="http://blog.t3rse.com/"/>
-  <updated>2014-06-05T09:15:11-05:00</updated>
+  <updated>2014-06-05T09:22:47-05:00</updated>
   <id>http://blog.t3rse.com/</id>
   <author>
     <name><![CDATA[David aka t3rse]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.t3rse.com/2014/06/04/trend-talk/"/>
     <updated>2014-06-04T23:12:00-05:00</updated>
     <id>http://blog.t3rse.com/2014/06/04/trend-talk</id>
-    <content type="html"><![CDATA[<p>The first developer conference I ever attended was VBITS 98 in San Francisco. I won&rsquo;t forget that experience or the keynote from <a href="https://twitter.com/psaffo">Paul Saffo</a>, a futurist who exhorted us to look beyond our technological present and to try to anticipate and respond to trends.</p>
+    <content type="html"><![CDATA[<p>The first developer conference I ever attended was VBITS (&ldquo;Visual Basic Insider&rsquo;s Technical Summit&rdquo; &ndash; now defunct) in San Francisco. I won&rsquo;t forget that experience or the keynote from <a href="https://twitter.com/psaffo">Paul Saffo</a>, a futurist who exhorted us to look beyond our technological present and to try to anticipate and respond to trends.</p>
 
 <p>It was completely my own efforts but something must have stuck: learning about vtable binding and COM was useful but I also realized that I needed to do everything I could to get involved with web development. Soon after I was doing a lot more with Visual Interdev than I was with Visual Basic &ndash; and the rest is history.</p>
 
