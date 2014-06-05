@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{ Scott Hanselman was noting that many people who&#8217;d updated the locations of their tools on his 2007 Ultimate Developers Tools List had &hellip;">
+  <meta name="description" content="{ I was just missing the old Paul Graham, the one who would write wisdom for the type of programmer that I imagined myself to be. The most recent &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/08/27/graham-on-point/">Graham, on Point</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-27T23:10:00-05:00" pubdate data-updated="true">Aug 27<span>th</span>, 2007</time>
+        
+           | <a href="/2007/08/27/graham-on-point/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/08/27/graham-on-point/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1>{</h1> <p>I was just missing the old Paul Graham, the one who would write wisdom for the type of programmer that I imagined myself to be. The most recent essay, <a href="http://www.paulgraham.com/head.html">Holding A Program In One&#8217;s Head</a>, is that treat I&#8217;ve been waiting for.</p> <h1>}</h1></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Sorry, I meant #4 not #5.  &#8220;Test Often&#8221; could be along the lines of &#8220;Keep rewriting&#8230;&#8221;</div>
+</div>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+I would also add &#8220;Test Often&#8221;.  If perhaps you  consider that&#8217;s the same as #5&#8230; then I would still add &#8220;Test Real-Life Examples, not hypothetical use cases&#8221;.  To follow his line of thinking, the more actual cases you run the more those become a part of the whole package/scene running in your head.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -486,54 +539,6 @@ Superb!<br /><br />I had a database in filemaker with 250000 records and had wri
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2007/07/15/sieve-of-eratosthenes-python-set/">Sieve of Eratosthenes, Python, Set Operations</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-15T23:22:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
-        
-           | <a href="/2007/07/15/sieve-of-eratosthenes-python-set/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2007/07/15/sieve-of-eratosthenes-python-set/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I pretty much broke down after TechEd.  I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to learn it, whitespaces or no.<br /><br />The first thing I did was check out Guido van Rossum&#8217;s tutorial for programmers, which was an excellent first step.  I&#8217;ve followed that up with some random programming - a lot of fun so far.<br /><br />I was wondering about the set operations in python and how that made a difference in programming since there aren&#8217;t syntactical equivalents in .NET.  Incidentally at the time I was reading The Man Who Loved Only Numbers and ran across a short description of the Sieve of Eratosthenes as a way of finding primes.  I thought it would be a good way to check out the set operations of Python.<br /><br />I wrote the following:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />def multiples(num, thresh):<br /> multi = []<br /> for i in range(2,thresh):<br />  m = num * i<br />  if(m < thresh):<br />   multi.append(m)<br />  else:<br />   break<br /> return multi<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> nums = set(nums) - set(multiples(n, primeThresh))<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />Interesting, but slow.  The way I may do something like that in C# (which also works just fine in Python) would be this, which I wrote later:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> for m in range(2,primeThresh):<br />  try:<br />   mult = n * m<br />   if(mult > primeThresh):<br />    break<br />   nums.remove(mult)<br />  except:<br />   pass<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />It&#8217;s a lot faster than the previous approach which makes sense - doing set algebra on large sets should take a long time&#8230; but that begs the question: are those set operations dangerous (ie. so slow as to be costly).<br /><br />I&#8217;m wondering what&#8217;s &#8220;pythonic&#8221; and how a jedi would write this most effeciently.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
-<h2>Comments</h2>
-<div class='comments'>
-<div class='comment'>
-<div class='author'>marc.gaudette</div>
-<div class='content'>
-I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re interested in the sieve, site www.primestructure.com has an extensive discussion re. adding structure to it.<BR/><BR/>Marc</div>
-</div>
-</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/21/">&larr; Older</a>
@@ -551,6 +556,10 @@ I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re inter
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
       </li>
     
@@ -564,10 +573,6 @@ I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re inter
     
       <li class="post">
         <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
   </ul>

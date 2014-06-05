@@ -4,7 +4,7 @@
   <title><![CDATA[Fail Better]]></title>
   <link href="http://blog.t3rse.com/atom.xml" rel="self"/>
   <link href="http://blog.t3rse.com/"/>
-  <updated>2014-05-25T15:45:19-05:00</updated>
+  <updated>2014-06-05T09:15:11-05:00</updated>
   <id>http://blog.t3rse.com/</id>
   <author>
     <name><![CDATA[David aka t3rse]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Trend Talk]]></title>
+    <link href="http://blog.t3rse.com/2014/06/04/trend-talk/"/>
+    <updated>2014-06-04T23:12:00-05:00</updated>
+    <id>http://blog.t3rse.com/2014/06/04/trend-talk</id>
+    <content type="html"><![CDATA[<p>The first developer conference I ever attended was VBITS 98 in San Francisco. I won&rsquo;t forget that experience or the keynote from <a href="https://twitter.com/psaffo">Paul Saffo</a>, a futurist who exhorted us to look beyond our technological present and to try to anticipate and respond to trends.</p>
+
+<p>It was completely my own efforts but something must have stuck: learning about vtable binding and COM was useful but I also realized that I needed to do everything I could to get involved with web development. Soon after I was doing a lot more with Visual Interdev than I was with Visual Basic &ndash; and the rest is history.</p>
+
+<p><a href="http://www.kpcb.com/partner/mary-meeker">Mary Meeker</a> recently released her 2014 Internet Trends Report and it&rsquo;s an opportunity, these many years down the road, to try to see the big picture and get a bigger sense of direction. I looked at a few versions: <a href="http://www.kpcb.com/internet-trends">the primary source</a> and a helpful <a href="http://techcrunch.com/gallery/mary-meeker-internet-trends/">annotated version</a> on TechCrunch.</p>
+
+<p>Here are my takeaways: (apologies for going <a href="http://paulgraham.com/nthings.html">List of N</a>)</p>
+
+<ol>
+<li><p>Mobile is the place to be as a developer.</p>
+
+<p> I&rsquo;m fortunate to be a full time Android dev at present and it will be important to hone and improve the skill set. Apple&rsquo;s recent announcement of Swift is an opportunity to get in on the ground floor of iOS development as well.</p></li>
+<li><p>Personal Education</p>
+
+<p> In the midst of declining quality of education, online education is at a groundswell for those who are willing to take initiative. Taking initiative is easy for me (I love learning) but I&rsquo;m easily distracted so focusing on a single topic or subject matter area is more of a challenge. Coursera has recently launched educational tracks (Android, Data Science) which will help with this.</p></li>
+<li><p>Single Purpose Apps / Invisible Apps</p>
+
+<p> Apps should be designed to do one thing. Invisible apps leverage notification, context, and predictive computation to give you information when you need it. Here is the quote lifted from slide 41:</p>
+
+<blockquote><p>&ldquo;We’re entering the age of apps as service layers.
+  These are apps you have on your phone but only open
+  when you know they explicitly have something to say to you.
+  They aren’t for ‘idle browsing,’ they’re purpose-built &amp;
+  informed by contextual signals like hardware sensors,
+  location, history of use &amp; predictive computation.&rdquo;
+  – Matthew Panzarino, TechCrunch, 5/15/14</p></blockquote>
+
+<p> My mindset to date is on apps that users interact with but I need to start thinking more of apps as a way of passively doing things for the user &ndash; as <a href="http://www.deepelement.com/articles">my colleague</a> at Vertigo put it: &ldquo;giving [users] an additional sense.&rdquo; Sometimes this can be a simple matter of phrasing; several times now <a href="http://forecast.io">forecast.io</a> will tell me it will be raining &ldquo;in a few minutes&rdquo; with incredible accuracy.</p></li>
+<li><p>Design as a feature</p>
+
+<p> Rethinking old concepts (e.g. Yellow pages) in mobile design. I was impressed by the WWDC 2014 keynote in which Apple demonstrated for those of us who have forgotten that for them, design is a feature. I saw people joking during the keynote about all the references to transparency in UI of the new version of OSX, Yosemite, but in my mind spending as much time in the keynote on the topic just shows how important it is on their part for things to look and behave correctly.</p></li>
+</ol>
+
+
+<p>There is a lot more in the report: the growth of advertising, the flow of information through social networks, apps as second screens, China (the big project there for my son to learn Chinese?), among others. Definitely worth a few minutes of reading and some time reflecting.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Going Mac: A Developer Encountering Operating Systems as Place]]></title>
@@ -339,15 +382,6 @@ $xml.blog.posts.post | % {
     <updated>2012-12-16T00:00:00-06:00</updated>
     <id>http://blog.t3rse.com/2012/12/16/Tolkien-The-Hobbit-and-Foisted-Imagination</id>
     <content type="html"><![CDATA[<p>I grew up on fantastic fiction. Even before a kid named Scott regaled the tales of <em>The Lord of the Rings</em> to me on our trips down <a href="https://maps.google.com/maps?q=Elgeyo+Marakwet,+Kilimani,+Nairobi,+Nairobi+Province,+Kenya&amp;hl=en&amp;ll=-1.293345,36.779681&amp;spn=0.00232,0.003484&amp;geocode=FSM57P8dMzUxAg&amp;hnear=Elgeyo+Marakwet,+Kilimani,+Nairobi,+Nairobi+Province,+Kenya&amp;t=h&amp;z=19" target="_blank">Elgeyo Marakwet</a>, I remember things like a nicely illustrated version of Hans Christian Anderson’s stories and a predilection to tales read by <a href="http://www.youtube.com/playlist?list=PL00922341758896BF">The Superscope Story Teller</a>. </p>  <p>It may have been a blind choice on my end but I remember stumbling upon a character named Drizzt Do’Urden and the world of <a href="http://forgottenrealms.wikia.com/wiki/Faer%C3%BBn">Faerun</a> in books by R.A. Salvatore in college. I loved Salvatore’s stories so much I read everything of his I could get my hands on. Even as a slow reader, it wouldn’t be long before I was slowing down for the last chapter, trying to make the adventure last as long as possible. </p>  <p>A few months ago I ran across <a href="http://geeksguideshow.com/2011/10/22/ggg49-r-a-salvatore/">a podcast interview</a>[1] of Salvatore and made a shocking discovery: all these years I had the pronunciation of his signature character Drizzt wrong. Salvatore, with his true Bostonian lilt, sounds like he says “Dritts.” In my mind and with friends, I had always said “Driz-it.” It was a little jarring since my relationship with those books has spanned the last 20 years. </p>  <p>I would hope that Salvatore would not care as much. In the creative continuum his piece was done – to create a story and build the foundation from which a person’s imagination could complete the picture. This continuum exists in everything that we as humans try to understand[2]. In the parts of our lives where we consume artistic expression we experience it in the movie scene that cuts off, the action between cells in a comic book, or the dramatic pause in a song where your head keeps bobbing. </p>  <p>It’s this continuum of creative production and consumption[3] that was kindled in those early years of fiction; whether I was imagining Hans Christian Anderson’s mermaids or experiencing dread as I tried to conjure a mental picture of Medusa. It carried me forward to Salvatore’s dark elf and the other tales of might, magic, and adventure quest so intertwined with my formative years. Imagination of this kind was a wonderful and intoxicating thing. </p>  <p>It is the loss of this imagination that I have begun to lament with the success of Peter Jackson’s Middle Earth films; that world which had assembled itself in my head is now much more concrete as a sensory experience. It’s become increasingly difficult to imagine characters without their portrayals and respective actors. Middle Earth has become, for the most part, an ode to the physical geography of New Zealand[4]. </p>  <p>Perhaps the biggest departure from my viewings of <i>The Lord of the Rings</i> film trilogy is the experience of putting on the <a href="http://en.wikipedia.org/wiki/One_Ring" target="_blank">One Ring</a>. In my mind this was a sinister thing and yet as described by Tolkien prior to Frodo’s journey, it seemed a benign and even pleasurable experience of invisibility. </p>  <p>My point in all this is not to bash the films which to date I have loved and watched repeatedly. And I want to go beyond the book snob’s snide comment that films are always inferior. There have been many elements of interpretation from the film that have helped me understand the books more and Peter Jackson has been masterful, along with the cast and crew, at bringing Middle Earth to life. What I do want to pinpoint is how there is a loss of freedom with the imagination when something is done as well – how you lose the words could sound themselves out in your head any way that you liked, how it was you who remained in charge of the creative and artistic direction of a story that transferred from the pages of a book into your head. </p>  <p>There is no doubt that I will see and enjoy all of the films that make up <i>The Hobbit</i> film trilogy. I’m the target market, I’m a fan. As my imagination is filled I will notice more and forget a little. It’s the tradeoff of seeing and enjoying the film version of a book that’s been a part of my life.</p>  <p>[1] <a href="http://geeksguideshow.com/" target="_blank">Geek’s Guide to the Galaxy</a> is probably the best fantastic fiction podcast I’ve run into online. </p>  <p>[2] I’m always fascinated by how our imagination completes our religious belief. As a Christian, I find it interesting to look at renaissance artwork of Biblical events to see how outlandish or frozen in time this can be. For example, Bruegel’s <a href="http://uploads5.wikipaintings.org/images/pieter-bruegel-the-elder/christ-carrying-the-cross-1564.jpg!HD.jpg" target="_blank">Christ Carrying the Cross</a>.</p>  <p>[3] I wanted to focus on imagination as an individual experience but when stories are circulated and popular enough, there is something of a collective imagination. One of Peter Jackson’s successes was tapping into the collective imagination that already existed for Tolkien’s stories and using popular Tolkien inspired artwork for keyframes in the film. Alan Le’s <a href="http://www.amazon.com/gp/product/0618640142/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0618640142&amp;linkCode=as2&amp;tag=t3rse-20">The Lord of the Rings Sketchbook</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=0618640142" width="1" height="1" /> is a great book on this creative process that drove the film. </p>  <p>[4] New Zealand has woven itself so closely to Tolkien’s world that now <a href="http://www.discovernewzealand.com/index.cfm/nz-lord-of-the-rings-tours/?gclid=CPCB4b6HnrQCFeiPPAodWA4APg" target="_blank">a large amount of tourism</a> comes from people like me who want to experience it as Middle Earth. I’m not sure if that’s good or bad since it probably has merits of its own without being a fantasy kingdom but if someone gave me a chance to go, I’d be there. </p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[It’s Not as Much Fun to Be Bullish]]></title>
-    <link href="http://blog.t3rse.com/2012/12/12/Its-Not-As-Much-Fun-To-Be-Bullish/"/>
-    <updated>2012-12-12T00:00:00-06:00</updated>
-    <id>http://blog.t3rse.com/2012/12/12/Its-Not-As-Much-Fun-To-Be-Bullish</id>
-    <content type="html"><![CDATA[<p>Mark Dow <a href="http://markdow.tumblr.com/day/2012/08/15" target="_blank">wrote</a> a little market forecast some months ago in August. His opening paragraph is a keeper, on why it’s not as much fun to be bullish. </p>  <blockquote>   <p style="line-height: 180%"><font size="4">“It’s not as fun to be bullish. Bears are smart. Bulls are wide-eyed optimists. Bears have data. Bulls tell stories. Bears make money when everyone else is in pain. Bulls make money when everyone else already claims to be a genius. In short, many of us get more satisfaction being bearish because the psychic payoff is greater: we calibrate our own self esteem not by our victories in absolute terms, but in our victories relative to others.”</font></p> </blockquote>  <p>I have to admit, I’m always a bit bullish but I’m more of the foolish optimist. </p>
 ]]></content>
   </entry>
   

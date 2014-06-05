@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{Generated during class with South Dakota State employees but hopefully useful to anyone who wanders this way.[NOTE: My web host doesn&#8217;t serve &hellip;">
+  <meta name="description" content="{Here are the examples from the last piece of the course when we explored the .NET Framework&#8217;s implementation of XML related parsers and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/06/16/xml-net-custom-samples/">XML .NET (the Custom Samples)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-06-16T08:34:00-05:00" pubdate data-updated="true">Jun 16<span>th</span>, 2005</time>
+        
+           | <a href="/2005/06/16/xml-net-custom-samples/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/06/16/xml-net-custom-samples/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><span style="font-size:85%;"><br />Here are the examples from the last piece of the course when we explored the .NET Framework&#8217;s implementation of XML related parsers and techniques.<br /><br />You can download the sample in this zip file which you can extract to its project form to look at the code. Most examples are &#8220;methods&#8221; implemented off of Module1.vb1.<br /><br /><span style="font-weight: bold;font-size:100%;" >Read and Write</span><br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">BasicReader()</span> method shows an example of parsing an XML document with a XmlReader. Pay attention to the Select… Case expression to see how to filter nodes based on their types.<br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">ValidReader()</span> method shows an example of a validating parser (XmlValidatingReader). Although this method does the legwork, our ValidationEventHandler, the method <span style="color: rgb(255, 102, 0); font-weight: bold;">ValidError()</span> is responsible for responding to any &#8220;events&#8221; related to the validation. I stressed the importance of understanding Delegates here, and did a quick example of what I meant which you can download in a different project, <a href="http://hobbitwerk.brinkster.net/metadeveloper/vbDel.zip">vbDel</a>. If you don&#8217;t mind looking at C#, you can look at some earlier entries I made about how delegates work. One of the best uses of delegates is to make an asynchronous call to any method you&#8217;ve written. Asynchronous delegates are how asynchronous web service calls are implemented.<br /><br />The fake SAX Parser we wrote is also in the project, in its own file called<span style="color: rgb(255, 102, 0);"> SAXP.vb</span>. It is not very complete but should give you an idea of how to get the SAX functionality out of the .NET Framework. If you&#8217;d ever want to – that&#8217;s probably a remote possibility.<br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">WriteXML()</span> method is a very basic example of how you can use the XmlTextWriter to create XML documents. This isn&#8217;t too interesting, but if you start to combine the XmlTextReader and the XmlTextWriter, you can start to see the power and ease of the .NET APIs. In the second group, we wrote some code that would convert an attribute based document into an element based one. You will find this in a method called <span style="font-weight: bold; color: rgb(255, 102, 0);">AttToElement()</span>.<br /><br /><span style="font-weight: bold;font-size:100%;" >Transforming</span><br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">SimpleTransform()</span> method is an example of the simplest form of XSLT Transformations that can be done with the .NET Framework. Another method, called <span style="color: rgb(255, 102, 0); font-weight: bold;">MemoryTransform()</span>, is an example of how transformation can be done and processed in memory to return results in a string format. You will notice the use of the MemoryStream class in this example.<br /><br /><span style="font-weight: bold;font-size:100%;" >Serialization</span><br /><br />We took two different looks at serialization. In the first we looked at how a built in class, the DataSet, has the ability to persist itself in XML format. Our method <span style="color: rgb(255, 102, 0); font-weight: bold;">PersistDataSet()</span> shows an example of this.  In order to demonstrate the retrieval of a persisted DataSet, we wrote another method called <span style="color: rgb(255, 102, 0); font-weight: bold;">ReadPersistedDataSet()</span>. Along the way we talked about the Schema options of the WriteXml method of the DataSet. Although it was a barely noticeable blurb, make sure you investigate the XmlDataDocument class. It&#8217;s a quick way to go from a DataSet to an XML Dom-like object and back again.<br /><br />Once we&#8217;d seen that type of persistence, we looked at conventional serialization, or being able to take any old class and serialize it into some output stream. We wrote the <span style="font-weight: bold; color: rgb(255, 102, 0);">PersistConventional()</span> method to display this functionality with a class called Person, and then we depersisted in a method called <span style="color: rgb(255, 102, 0); font-weight: bold;">DepersistConventional()</span>.<br /><br />This was a good way to start working at understanding web services. I&#8217;ll make another entry with the web services demos, but really quickly, the last few examples related to XML and .NET:<br /><br /><span style="font-weight: bold;font-size:100%;" >XML and SQL Server 2000</span><br /><br />We looked at ways to retrieve XML data from the database, and I demonstrated the FOR XML clause of an sql statement. After we looked at a few examples, we wrote the <span style="color: rgb(255, 102, 0); font-weight: bold;">GetXMLFromDB()</span> method that would issue a FOR XML query and return results using the XmlReader. Which left us with one other thing on our &#8220;to do&#8221; list: inserting XML data into SQL Server directly.<br /><br />In the project you will find a file called OPENXML.sql. This file contains a series of scripts to work through to understand how one can use the OPENXML function in SQL Server 2000 to build a &#8220;rowset&#8221; view on an XML document. Once this rowset functionality is understood, it&#8217;s easy to see how it can be combined with Insert/Select statements to insert data. This is demonstrated in the <span style="color: rgb(255, 102, 0); font-weight: bold;">InsertXMLContent()</span> method.<br /><br />So that was the <span style="font-style: italic;">tour de force</span>.  You can download it all in <a href="http://hobbitwerk.brinkster.net/metadeveloper/nsBasic.zip">this zipped project</a>.  If you have questions, don&#8217;t hesitate to email me.  </span><br /><br /><span style="font-size:180%;"><span style="color: rgb(0, 0, 153);">}</span></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>kevinflynn9768</div>
+<div class='content'>
+<B>St0ck For Your Review - FCPG</B><BR/><BR/>Current Profile<BR/>Faceprint Global Solutions <B>(FCPG)</B> <BR/>Current Price $0.15<BR/><BR/>A U.S. based-company dedicated to the goal of <BR/>bringing effective security solutions to the marketplace.<BR/><BR/><B>With violent and white-collar terrorism on the rise, <BR/>companies are starving for innovative security solutions.</B> <BR/><BR/>FCPG is set to bring hot new security solutions to <BR/>the industry, <B>with currently over 40 governmental and <BR/>non-governmental contracts, being negotiated.</B><BR/><BR/>Please Review Exactly What this Company Does.<BR/><BR/><B>Why consider Faceprint Global Solutions (FCPG)?</B> <BR/><BR/>Faceprint Global Solutions (FCPG) holds the exclusive <BR/>marketing rights from Keyvelop, to sell the world�s <BR/>leading encryption technology to be distributed directly <BR/>to the Healthcare industry in North America.<BR/><BR/>Faceprint Global Solutions has completed its biometric <BR/>software that recognizes facial features of individuals <BR/>entering and leaving through airports, ship yards, banks, <BR/>large buildings, etc. <BR/><BR/>FCPG acquired Montreal-based Apometrix Technologies, <BR/>which enhances the companies mission of being a <BR/>full-service provider to the multi-application smart <BR/>card industry. The North American market appears ready <BR/>for significant expansion of price-competitive, proven, <BR/>multi-application solutions on smart cards. <B>Apometrix&#8217;s <BR/>forecast of over 300 customers and sales of more than $50 <BR/>million in North America over the next five years, appears <BR/>very realistic, according to company management.</B> <BR/><BR/>Faceprint Global Solutions is currently in contract negotiations <BR/>with over 40 governmental agencies and businesses seeking to use <BR/>their encryption, biometric, and smart-card technologies.<BR/><BR/><B>Breaking News for Faceprint Global Solutions (FCPG)</B><BR/><BR/>Faceprint Global Solutions (FCPG) <B><I>is pleased to announce that <BR/><B>IBM</B> will now offer the world�s leading encryption software to <BR/>its major Healthcare clients in North America.</B></I><BR/><BR/>With FCPG owning the exclusive North American rights to distribute <BR/>the worlds leading encryption and transmission software developed by <BR/>Keyvelop, <B><I>FCPG is poised to capture large volumes of sales generated <BR/>by customers currently using IBM�s software in the healthcare and other <BR/>industries.</B></I><BR/><BR/>�This is a very positive move for FCPG and for Keyvelop,� said FCPG <BR/>CEO Pierre Cote. �We are very happy about the decision to go with IBM. <BR/>This is a continuation of the progress made by everyone associated <BR/>with FCPG and its partners.�<BR/><BR/>Buell Duncan, IBM&#8217;s general manager of ISV & Developer Relations commented, <BR/>�Collaborating with Keyvelop will ensure that we develop open solutions that <BR/>are easy to maintain and cost effective for our customers in the healthcare <BR/>and life sciences industry.�<BR/><BR/>Among other things, this new software technology which is currently <BR/>being used by a number of European healthcare companies, is used to <BR/>send any file, regardless of format or size. Encryption keys, evidence <BR/>of transmission integrity with fingerprint calculation, time-stamping <BR/>of all actions and status record updating, pre-checking sender and <BR/>receiver identities, validating file opening dates are part of Keyvelop features.<BR/><BR/><B>About FacePrint Global Solutions, Inc.</B><BR/><BR/>FCPG operates a business, which develops and delivers a variety of <BR/>technology solutions, including biometric software applications on <BR/>smart cards and other support mediums (apometric solutions). FCPG�s <BR/>products provide biometric solutions for identity authentication and a <BR/>host of smart card- and biometrics-related hardware peripherals and <BR/>software applications. Apometrix, FCPG�s wholly-owned subsidiary, <BR/>combines on-card or in-chip multi-application management solutions <BR/>with best-of-breed �in-card matching� biometrics. Keyvelop�s secure <BR/>digital envelope solution and Apometrix�s on-card biometrics work <BR/>together to produce the winning combination in the fields of security, <BR/>traceability and identity management. <BR/><BR/><B>Conclusion:</B><BR/><BR/>The examples above show the Awesome, Earning Potential of little known <BR/>Companies That Explode onto Investor�s Radar Screens. This sto,ck will <BR/>not be a Secret for long. Then You May Feel the Desire to Act Right Now! <BR/>And Please Watch This One Trade! <BR/><BR/><B>GO FCPG!</B><BR/><BR/>Disclaimer:<BR/>Information within this email contains &#8220;forward |ooking statements&#8221; within <BR/>the meaning of Section 27Aof the Securities Act of 1933 and Section 21B of <BR/>the Securities Exchange Act of 1934. Any statements that express or involve <BR/>discussions with respect to predictions, expectations, beliefs, plans, <BR/>projections, objectives, goals, assumptions or future events or performance <BR/>are not statements of historical fact and may be &#8220;forward |ooking statements&#8221;. <BR/>&#8220;Forward |ooking statements&#8221; are based on expectations, estimates and projections <BR/>at the time the statements are made that involve a number of risks and uncertainties <BR/>which could cause actual results or events to differ materially from those presently <BR/>anticipated. We were paid a sum of three thousand USD to disseminate this information <BR/>from ir marketing. Forward loking statements in this action may be identified through <BR/>the use of words such as &#8220;projects&#8221;, &#8220;foresee&#8221;, &#8220;expects&#8221;, &#8220;will&#8221;, &#8220;anticipates&#8221;,<BR/>&#8220;estimates&#8221;, &#8220;believes&#8221;, &#8220;understands&#8221; or that by statements indicating<BR/>certain actions &#8220;may&#8221;, &#8220;could&#8221;, or &#8220;might&#8221; occur. Risk factors include<BR/>general economic and business conditions, the ability to acquire and develop <BR/>specific projects, the ability to fund operations and changes in consumer and <BR/>business consumption habits and other factors over which the company has little <BR/>or no control. The publisher of this newsletter does not represent that the <BR/>information contained herein are true and correct.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -476,46 +524,6 @@ Nice writeup.  How do you provide a default selected item using just strings in 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2005/03/12/microsoft-vs-groove/">Microsoft vs Groove</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-03-12T17:34:00-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2005</time>
-        
-           | <a href="/2005/03/12/microsoft-vs-groove/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2005/03/12/microsoft-vs-groove/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(0, 0, 102);font-size:180%;" >{</span><br /><br /><a href="http://www.msnbc.msn.com/id/7147797/">Things are astir</a>: Microsoft has bought<span style="font-style: italic;"> Groove</span> and with it, acquired Ray Ozzie as CTO.  I always liked the idea of <span style="font-style: italic;">Groove</span>; I&#8217;ve been the child of groupware since my alma mater is a huge customer of Centrinity, the maker of <a style="font-style: italic;" href="http://www.centrinity.com/">FirstClass</a> software.<br /><br />Biola runs, in large part, through its version of <span style="font-style: italic;">FirstClass</span> which is known as <a href="http://www.bubbs.biola.edu/">BUBBS</a> (Biola University Bulletin Board System). Everything from homework assignments, class communication, and student carousing starts on BUBBS.<br /><br />I think the idea of true groupware bundled with Microsoft Office will be a huge boost to its functionality and it&#8217;s been a long time since Office had as large a change in functionality. Outlook provided some very lightweight groupware features, but nothing on the scale of <span style="font-style: italic;">Groove</span>.<br /><br />On my last major project I tried very hard to lobby for the use of <span style="font-style: italic;">Groove </span>as a true groupware solution but I can attribute failure to two things. First, <span style="font-style: italic;">Groove </span>wasn&#8217;t developed enough. Second, groupware implementations are a group effort and can only be mandated by a higher power.<br /><br />On the first point, there were things that made <span style="font-style: italic;">Groove </span>cumbersome. It was a very fat client and the machines we were running on (as well as our network) were not state of the art. During the installation, forgotten passwords were not retrievable and so entire accounts for which passwords were lost became dead space, totally orphaned. The chat feature was also bloated; a massive pop up would appear at the bottom of the screen rather intrusively - people started to use MSN messenger because although alerts for conversations appeared, there was no massive pop up on screen.<br /><br />On the second, because there we had a pot pourri of tools and no mandate to unify them, we ended up using all the different tools to differing degrees - some MSN Messenger, some Outlook, some Word/Excel, some web based applications (FogBugz), and Visual SourceSafe. Each tool on its own was a little better than <span style="font-style: italic;">Groove </span>(Messenger is a better chat client, Outlook was a better email client) and so we gravitated towards the specialized hodge podge rather than the unified but more bulky solution.<br /><br />It&#8217;s sad because for so much of our work we needed threaded discussions, not endless meetings and emails that were copied to the entire team. We needed a centralized repository for important documents, not migrating file servers and directories like:<br />&#92;testserve\Files\Projects\ProjectXYZ\Documentation\Requirementswith 7 different word documents with names like ReqDoc1.doc. We needed file synchronization across multiple machines instead of ugly copy/paste jobs (&#8220;XCOPY deployment&#8221; if you want to sound sophisticated&#8230; ).<br /><br />Although <span style="font-style: italic;">Groove </span>still had a ways to go when we used it, this will mark an interesting direction for Microsoft. One thing that is fairly obvious is that <span style="font-style: italic;">Groove </span>needs to be webified; a slick little groupware utility from <span style="font-style: italic;">Google </span>could annihilate the prospect of people paying for a Windows based client to collaborate. This isn&#8217;t new, but <span style="font-style: italic;">Google </span>has a knack at implementing things much better than others for the browser.<br /><br />And of course Microsoft is buying the mind of Ray Ozzie. He attributes his affinity to groupware to the university experience as well in his now defunct <a href="http://www.ozzie.net/blog/stories/2002/08/04/why.html">blog</a>:<br /><blockquote><br /><span style="font-size:85%;">Many years ago, in the <a href="http://www.ozzie.net/blog/stories/2002/08/04/who.html#1974">mid 70&#8217;s</a> at University of Illinois, I was fortunate enough to have been touched by something called <a href="http://www.thinkofit.com/plato/dwplato.htm">PLATO</a>&#8230;<br />  </span><p><span style="font-size:85%;">As many of us who had spent years immersed in the PLATO environment left and entered the &#8220;real world&#8221;, we were shocked and dismayed to find a world lacking electronic connection. And as I entered the business world, it simply made no sense to me that computers were being used solely for computing and &#8220;data processing&#8221;; the collaborative online work environment that I&#8217;d taken for granted, that I&#8217;d used day in and day out, was simply missing in action. Our work lives are all about interpersonal connections, our businesses processes are structured into connections amongst people and systems that must be coordinated. What better use of technology than to help people to connect?</span></p>  <p><span style="font-size:85%;">And so, for most of my life since that time, it has been my goal to explore what lies at the intersection between people, organizations, and technology. To attempt to utilize technology - to mold it, to shape it into a form such that it can help organizations to achieve a greater &#8220;return on connection&#8221; from employee, customer, and partner relationships, and to help individuals to strengthen the bonds between themselves and those with whom they interact - online. Because - empirically - collaborative technology has substantive value, in reducing the cost of coordination, in providing shared awareness across differences in space and time.<br />  </span></p> <p><span style="font-size:85%;">The way that I explore is to build products, and to see how they are used. To see what works, and what doesn&#8217;t. To listen, to interact, to refine. Because cooperative work exists at the intersection between people, organizations, and technology, collaborative systems are truly fascinating: in order to serve people effectively, technologists must, for example, understand social dynamics, social networks, human factors. In order to serve people in the context of organizations effectively, technologists must, for example, understand organizational dynamics, <a href="http://www.ssc.ruc.dk/institutional/rpnit_01_00.pdf">modularity</a><a href="http://www.ssu.missouri.edu/faculty/HJames/tce-bib.htm">transaction cost economics</a>.</span> and </p>  <p><span style="font-size:85%;">The bottom line to &#8220;why?&#8221; To create real value in a dimension that I passionately believe in.</span></p><br /></blockquote>Sounds like Ray is quite the technologist, poised to make an impact.<br /><br /><span style="color: rgb(0, 0, 102);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/40/">&larr; Older</a>
@@ -533,6 +541,10 @@ Nice writeup.  How do you provide a default selected item using just strings in 
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
       </li>
     
@@ -546,10 +558,6 @@ Nice writeup.  How do you provide a default selected item using just strings in 
     
       <li class="post">
         <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
   </ul>

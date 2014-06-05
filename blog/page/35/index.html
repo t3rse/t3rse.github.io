@@ -9,7 +9,7 @@
   <meta name="author" content="David aka t3rse">
 
   
-  <meta name="description" content="{I&#8217;ve just got to Jack W. Reeves thoughts on Code as Design in his seminal article originally in the now defunct C++ Journal, and now &hellip;">
+  <meta name="description" content="{One thing I&#8217;m very interested in hearing about at TechEd is going to be the Microsoft Atlas framework. Ajax is haute couture and Atlas seems &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/08/thinking-atlas/">Thinking Atlas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-08T22:52:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2006</time>
+        
+           | <a href="/2006/06/08/thinking-atlas/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/06/08/thinking-atlas/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One thing I&#8217;m very interested in hearing about at TechEd is going to be the <a href="http://atlas.asp.net/Default.aspx?tabid=47">Microsoft Atlas </a>framework.  Ajax is haute couture and Atlas seems to be at the center of Microsoft&#8217;s strategy.  On my current project I took a look at using Atlas but never really &#8220;got&#8221; the benefits of the technology.  The declarative side of things seems to be designed for the IDE, and without the IDE here it&#8217;s a bit of a non-intuitive hassle to hand code things out.   The second thing that made me leary was the direction Atlas took towards web services.  The tasks I needed to perform were very simple and I shuddered when I thought about how much overhead there would be, say, for a webservice whose only job was to send me a filtered list of things for a dropdown.  In the end I used my own XmlHttp and a bit of POX (I love that acronym, &#8220;Plain Old XML&#8221;) to send things back and forth.  Also courtesy of the O&#8217;Reilly <a href="http://www.oreilly.com/catalog/ajaxhks/index.html"><span style="font-style: italic;">Ajax Hacks</span></a> book I got a handle on <a href="http://www.json.org/">JSON</a> and how awesome it is when it comes to sending things from the server and handling it with client side javascript. <br /><br />Today I listened to <a href="http://dotnetrocks.com/default.aspx?showID=177">Ken Alstad</a> interviewed on <a href="http://www.dotnetrocks.com">.NET Rocks</a> concerning Atlas and it confirmed my suspicions on Atlas leveraging web services and how easy it was to &#8220;bind&#8221; data from the server using javascript.<br /><br />It&#8217;s interesting that there seem to be two directions here - looking on the open source side of things, <a href="http://prototype.conio.net/">Prototype</a> seems to be generating quite a buzz.  I ran into Prototype in December courtesy of <a href="http://www.24ways.org/">24 ways</a> and it took about 35 minutes to really &#8220;get&#8221; it.  Prototype is getting mixed in with a lot of JSON and other javascript libraries and techniques for some pretty cool stuff like script.aculo.us. <br /><br />On the Microsoft side we&#8217;re waiting for Atlas to become standardized, complete, (marketable?).  It&#8217;s declarative, more IDE friendly it seems, and at least for me, less intuitive.<br /><br />Anyway, part of the problem might be my ability to understand it and see where I can leverage it so I&#8217;m going to be in <a href="http://www.wintellect.com/Weblogs/CategoryView,category,Jeff%20Prosise.aspx">Jeff Prosise&#8217;s</a> session on Atlas at TechEd. A few questions I&#8217;m thinking of are as follows:<br /><br />1. How to control when data is bound, doing filtering and other operations using javsacript.<br />2. Will Atlas play well with JSON?  Not JSON being shoehorned into some Atlas app, but more like the ability to return JSON style strings from the server.<br />3. What sort of IDE interface can we expect with Atlas&#8217;s release?  Can we expect any improvements to javascript editing in Visual Studio as a result?<br /><br />&#8230; I&#8217;m sure there are more, and I&#8217;m sure that after the session I&#8217;ll have a much clearer picture of Atlas and it&#8217;s future in web apps for Microsoft developers.  I am pretty sure we made the right choice on the current project, but a year from now I could be singing praises for Atlas.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>James Baker</div>
+<div class='content'>
+I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling you how impressed I was with <BR/>the information you have posted here.<BR/>If you have a moment, please visit my site: <BR/><A HREF="http://www.job-portal.ws" REL="nofollow">job portal</A><BR/>It covers job portal related contents.<BR/>I send you warm regards and wish you continued success.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -553,46 +601,6 @@ Thanks for posting this, it saved me a lot of time searching MSDN.</div>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2006/05/09/aaargh/">AAARGH!!!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-09T21:55:00-05:00" pubdate data-updated="true">May 9<span>th</span>, 2006</time>
-        
-           | <a href="/2006/05/09/aaargh/#disqus_thread"
-             data-disqus-identifier="http://blog.t3rse.com/2006/05/09/aaargh/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='post'>
-<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Can you spot the mistake?<br /><br />string where = PathContext.Value += &#8220;&#92;&#8221; + subfolder;<br /><br />Another night of programming my little mistakes away&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/36/">&larr; Older</a>
@@ -610,6 +618,10 @@ Thanks for posting this, it saved me a lot of time searching MSDN.</div>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
       </li>
     
@@ -623,10 +635,6 @@ Thanks for posting this, it saved me a lot of time searching MSDN.</div>
     
       <li class="post">
         <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2014/02/18/Best-Social-Media-Hack-2014/">Best Social Media Hack 2014</a>
       </li>
     
   </ul>
