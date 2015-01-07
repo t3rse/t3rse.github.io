@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Remove Duplicate Lines In Python"
+date: 2007-07-29T21:14:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I had posted about the set operator in Python with some questions.  All that changed today when I wrote a little script to remove duplicate lines from a file. The set operator takes a list and automatically gets rid of duplicate items.  Very useful for situations like this:<br /><br /><pre style="margin: 1em 0pt; padding: 10px; background: rgb(0, 0, 0) none repeat scroll 0% 50%; overflow: auto; font-family: courier; font-size: 12pt; color: rgb(238, 238, 238); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; width: 425px;"><br />#!/usr/bin/env python<br /><br />f = open("c:\\temp\\Original.txt")<br />f2 = open("c:\\temp\\Unique.txt", "w")<br />uniquelines = set(f.read().split("\n"))<br />f2.write("".join([line + "\n" for line in uniquelines]))<br />f2.close()<br /></pre><br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Ramen</div>
+<div class='content'>
+But the problem is the set operator automatically sort after removing the duplicate...What if we don&#39;t want to change the order...</div>
+</div>
+<div class='comment'>
+<div class='author'>Covert Assassin</div>
+<div class='content'>
+Hi.. I just used this one to eliminate duplicates in my file. I would like to know more about this function set. I&#39;m seriously left wondering how did such few LOC do that perfectly?! Any thoughts?</div>
+</div>
+<div class='comment'>
+<div class='author'>G.T. Rajpurohit</div>
+<div class='content'>
+it is great.<br />but it alter the sequence of file in it</div>
+</div>
+<div class='comment'>
+<div class='author'>Admin</div>
+<div class='content'>
+Superb!<br /><br />I had a database in filemaker with 250000 records and had written a script to delete duplicates. I was looking at around 24 hours to run that in Filemaker.<br /><br />Exported it as a CSV and ran your code in Python. Took less than 3 seconds and spat out a CSV that I imported back to filemaker.<br /><br />Thank you!</div>
+</div>
+</div>

@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Say Hello"
+date: 2006-07-25T21:17:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><div style="color: white; background-color: gray;"><br /><pre><blockquote>bdos    equ    0005H    ; BDOS entry point<br />start:  mvi    c,9      ; BDOS function: output string<br />    lxi    d,msg$   ; address of msg<br />    call   bdos<br />    ret             ; return to CCP<br /><br />msg$:   db    'Hello, world!$'<br />end     start</blockquote></pre><br /></div><br />Oh, that's just me saying "Hello World" in assembler.  There's a <a href="http://en.wikipedia.org/wiki/List_of_hello_world_programs">massive list</a> of the program to begin programs over at Wikipedia.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>

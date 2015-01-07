@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Generic Enum Parsing in C#"
+date: 2008-04-19T08:37:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Generics, as it were, are passe to talk about these days. However, I found myself dealing with enumerations on Friday and was a little surprised there wasn't an approach to parsing these out in a more generic fashion. I scribbled the following, perhaps it will be of value to someone:</p><pre class="csharpcode"><span class="kwrd">enum</span> Test { <br />    v1, <br />    v2,<br />    v3   <br />}</pre><pre class="csharpcode"><span class="kwrd">public</span> <span class="kwrd">static</span> T EnumParser&lt;T&gt;(<span class="kwrd">string</span> givenValue)<br />{<br />    <span class="kwrd">return</span> (T)Enum.Parse(<span class="kwrd">typeof</span>(T), givenValue, <span class="kwrd">true</span>);<br />}</pre><pre class="csharpcode">//usage:<br>Test val = EnumParser&lt;Test&gt;("v1");</pre><br /><h1><font color="#0000ff">}</font></h1>  </div>

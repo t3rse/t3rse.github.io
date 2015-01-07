@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Square Roots with Isaac Newton and C#"
+comments: true
+---
+
+<blockquote>   <p style="line-height: 180%">There was a footpath leading across fields to New Southgate, and I used to go there alone to watch the sunset and contemplate suicide. I did not, however, commit suicide because I wished to know more of mathematics. – <a href="http://en.wikipedia.org/wiki/Bertrand_Russell" target="_blank">Bertrand Russell</a></p> </blockquote>  <p>I just ran across Newton’s approach to calculating square roots and thought it was fantastic. It’s interesting that our history of knowledge seems to get catapulted every few generations by individuals (Euclid, Archimedes, … Newton). Although I can proclaim with confidence I am not one such person I do fit in the category of oglers who stop to appreciate the beauty. </p>  <p>These days you can get a square root by using a button on a calculator but how exactly did he achieve this, especially for results that are irrational (e.g. √2 )?</p>  <p>Here is a step by step: </p>  <p>1. Make an estimate or a result. It doesn’t have to be too accurate – the example I saw starts with 1. </p>  <p>2. Verify your result. If it is not accurate, compute the average of&#160; your estimate plus the quotient of the number and the estimate. </p>  <p>3. Use the results of step 2 as your new estimate. </p>  <p>Here is an example, calculating the square root of 2.</p>  <table border="0" cellspacing="0" cellpadding="2" width="400"><tbody>     <tr>       <td valign="top" width="133"><strong>Estimation</strong></td>        <td valign="top" width="133"><strong>Quotient</strong></td>        <td valign="top" width="133"><strong>Mean</strong></td>     </tr>      <tr>       <td valign="top" width="133">1</td>        <td valign="top" width="133">2 / 1 = 2</td>        <td valign="top" width="133">1.5</td>     </tr>      <tr>       <td valign="top" width="133">1.5</td>        <td valign="top" width="133">2 / 1.5 = 1.333</td>        <td valign="top" width="133">1.4167</td>     </tr>      <tr>       <td valign="top" width="133">1.4167</td>        <td valign="top" width="133">2 / 1.4167 = 1.4118</td>        <td valign="top" width="133">1.4142</td>     </tr>      <tr>       <td valign="top" width="133"><strong>1.4142</strong></td>        <td valign="top" width="133">&#160;</td>        <td valign="top" width="133">&#160;</td>     </tr>   </tbody></table>  <p>&#160;</p>  <p>Here is some C# that does the trick: </p>  <div class="code">   <pre class="brush: csharp">class Program
+{
+    static void Main(string[] args)
+    {
+        var root = ComputeSquareRoot(1, 2);
+        Console.WriteLine(root);
+        Console.ReadLine();
+    }
+
+    static bool ResultWithinThreshold(double result, double target) {
+        return Math.Abs(result * result - target) &lt; (target * 0.01); 
+    }
+
+    static double RefineSquareRootEstimate(double estimate, double target) {
+        var newGuess = (estimate + target / estimate) / 2;
+        return newGuess;
+    }
+
+    static double ComputeSquareRoot(double estimate, double target) {
+        return ResultWithinThreshold(estimate, target) ? 
+                    estimate : ComputeSquareRoot(RefineSquareRootEstimate(estimate, target), target);
+    }
+}</pre>
+</div>
+
+<p>
+  <br />That's pretty cool. I wonder if there is a layman’s version of <a href="http://www.amazon.com/gp/product/1888009233/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1888009233&amp;linkCode=as2&amp;tag=t3rse-20">Newton's Principia</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=1888009233" width="1" height="1" /> to work through; I’d love to call myself an amateur mathematician. </p>

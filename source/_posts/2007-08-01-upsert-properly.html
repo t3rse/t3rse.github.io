@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Upsert Properly"
+date: 2007-08-01T21:50:00-07:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />For the longest time, my approach to update/insert logic has been the following:<br /><br />IF EXISTS(SELECT...) BEGIN<br />   UPDATE...<br />END<br />ELSE BEGIN<br />   INSERT...<br />END<br /><br />So courtesy of .NET Kicks <a href="http://weblogs.sqlteam.com/mladenp/archive/2007/07/30/60273.aspx">this gem</a> was very informative which is the same logic but with a cleaner approach.  Instead of selecting records first, you attempt to do an update and check afterwards if the @@rowcount is greater than zero - if not the record doesn't exist so you can move logically to an insert.<br /><br />UPDATE ...<br /><br />IF @@rowcount  = 0 BEGIN<br />   INSERT...<br />END<br /><br />Nifty, very nifty.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>

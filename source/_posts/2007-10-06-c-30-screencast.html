@@ -1,0 +1,21 @@
+---
+layout: post
+title: "C# 3.0 Screencast"
+date: 2007-10-06T20:28:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I hope I can call him a friend - I was fortunate enough to sit a class with him and then ran into him at TechEd - but <a href="http://www.timrayburn.net/">Tim Rayburn</a> has an <a href="http://flash.timrayburn.net/introtocsharp3/">excellent screencast</a> overview of C# 3.0 new language features.&nbsp; For 46 minutes of your time, you'll not only be up to speed, but hopefully a little excited at the future.</p> <p>&nbsp;The first few items have more to do with improving the syntactial approach to things we're already familiar with:</p> <p>1. Automatic Properties</p> <p><font face="Courier New" size="2">public string Foo{get;set;}</font></p> <p>2. Implicitly Typed Variables</p> <p><font face="Courier New" size="2">var o = new SpecificType();</font></p> <p>3. Object Initializers</p> <p><font face="Courier New" size="2">class Test{</font></p> <blockquote> <p><font face="Courier New" size="2">public string Foo{get;set;}</font></p> <p><font face="Courier New" size="2">public string Bar{get;set}</font></p></blockquote> <p><font face="Courier New" size="2">}</font></p> <p><font face="Courier New" size="2">var p&nbsp;= new Test(){Foo = "shaz", Bar = "bot"};</font></p> <p>4. Collection Initializers</p> <p><font face="Courier New" size="2">List&lt;string&gt; myList = new List&lt;string&gt;(){"foo", 'bar"};</font></p> <p><font face="Courier New" size="2">List&lt;Test&gt; myList2 = new List&lt;Test&gt;(){</font></p> <blockquote> <p><font face="Courier New" size="2">new Test(){Foo="foo", Bar="bar"}, </font></p> <p><font face="Courier New" size="2">new Test(){Foo = "blam", Bar="biff"}</font></p></blockquote> <p><font face="Courier New" size="2">}</font></p> <p>The remaining items are better explained rather than just shown - I suggest you pay closer attention to the screencast: </p> <p>5. &nbsp;LINQ &amp; Anonymous Types</p> <p>6. Lambda Expressions</p> <p>7. Extension Methods</p> <p>(This was, as Tim assumed, my favorite piece)</p> <p>Although Partial Methods were noted on the list, time seemed to run out on Tim. Stay tuned; it appears he is planning to continue doing screencasts.</p> <h1><font color="#0000ff">}</font></h1></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Tim</div>
+<div class='content'>
+You most certainly can call me a friend, and I am certainly glad you enjoyed it. The partial methods portion of the talk was lost in editing due to unworkable background noise, but yes I do intend to do more of these.</div>
+</div>
+<div class='comment'>
+<div class='author'>Tim</div>
+<div class='content'>
+This comment has been removed by the author.</div>
+</div>
+</div>

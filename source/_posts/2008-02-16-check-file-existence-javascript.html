@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Check File Existence, Javascript (Prototype)"
+date: 2008-02-16T17:17:00-08:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>If you're like me, you spend a lot of time using System.IO and can easily check for the existence of a file on the filesystem with a File.Exists(@"C:\spam\eggs.file")</p> <p>It's a little surprising that I hadn't run into it before but a few weeks ago I needed that same functionality with javascript. I found a few things online and what works best is using AJAX to make a request and check the HTTP status for whether or not the request failed.&nbsp; My approach was to use <a href="http://www.prototypejs.org/">Prototype</a> and something like this:</p><pre style="background-color: #e0e0e0">function checkForFile(imgName, displayHolder){<br />    new Ajax.Request('Repo/' + imgName + '.jpg',   <br />        {<br />        method:'get',<br />        onSuccess: function(transport){   <br />            var response = transport.status || "no response text";   <br />            if(parseInt(response) == 200){<br />                displayHolder.src = 'Repo/' + imgName + '.jpg';<br />                displayHolder.style.display='block';<br />            }<br />        },     <br />        onFailure: function(){ <br />            displayHolder.src = 'Repo/NoImage.gif';<br />            displayHolder.style.display='block';<br />        }   <br />    });     <br />}<br /></pre><br /><p> Works like a charm.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>

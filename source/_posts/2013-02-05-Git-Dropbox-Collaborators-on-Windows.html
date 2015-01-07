@@ -1,0 +1,90 @@
+---
+layout: post
+title: "Git, Dropbox, and Collaborators on Windows"
+comments: true
+---
+
+<p>First and foremost the full disclosure:<strong> I’m new to Git</strong>. Although I’d <a href="https://github.com/t3rse" target="_blank">used Github</a> for a few of my errant thoughts/projects, it was for the most part just copying commands without a deep understanding of the benefits of distributed source control. </p>  <p>Today a light clicked on when I was finally able to set up a Dropbox repository and share it out with some collaborators. First, here are the steps I followed, adapted from an old post by <a href="http://rogerstringer.com/2012/04/16/using-dropbox-as-a-git-repository/" target="_blank">Roger Stringer</a>.</p>  <p><font size="4">Setting Up Your Remote Repository On DropBox</font></p>  <p>1. Get Dropbox, create your folder. (If you don’t have a Dropbox account, please use <a href="http://db.tt/5HsjFfwV" target="_blank">this affiliate link</a> which will give me more space). </p>  <p>2. Create a “bare” repository there: </p>  <ul>   <li>Start Git Bash in the folder and use the following commands: </li> </ul>  <pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git init –-bare</pre>
+
+<ul>
+  <li>Once you’ve created your empty repository you’ll see the repository metadata which is ok. </li>
+</ul>
+
+<p><font size="4"></font></p>
+
+<p><font size="4">Setting Up Your Local Repository, Pushing To Dropbox</font></p>
+
+<p>Now that you have your DropBox folder set up to be a remote repository, you can set up your working folder. I already have a Visual Studio project with some files in it so I just started a Git Bash in that folder. </p>
+
+<p>1. Double check that you’ve got a <strong><a href="https://github.com/github/gitignore/blob/master/VisualStudio.gitignore" target="_blank">.gitignore file</a></strong> that is configured for Visual Studio or <a href="https://github.com/github/gitignore" target="_blank">whatever</a> project files you’d like to ignore.</p>
+
+<p>2. Create the local git repository with the following: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git init .</pre>
+
+<p>
+  <br />3. Now add all your files to be tracked by the local repository with the following: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git add --all</pre>
+
+<p>
+  <br />4. Commit the changes you made by adding all those files: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git commit –m “Added initial files for git tracking”</pre>
+
+<p>
+  <br />5. Now set up your remote repository as the previously created “bare” repository in DropBox. Here is the small divergence from the original article since Windows is the file system: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git remote add origin /c/users/curufin/dropbox/gitbox</pre>
+
+<p>
+  <br />In the above: </p>
+
+<ul>
+  <li><em>origin</em> represents the name of the remote repository </li>
+
+  <li>In the local path, <em>curufin</em> is my username on windows and gitbox is the name of the folder I made. </li>
+</ul>
+
+<p>6. Push your files to the remote dropbox repository: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git push origin master</pre>
+
+<p><font size="4"></font></p>
+
+<p><font size="4">Collaborators and Others Wishing to Connect to Your Repository</font></p>
+
+<p>The point behind using Dropbox is to have a synced space for your remote repository but without hosting and some of the other frictions or sharing elsewhere. Here are the steps to get your collaborators onboard: </p>
+
+<p>1. Share your Dropbox folder with them. They will need Dropbox accounts, of course. </p>
+
+<p>2. Once the folder is shared and propagated, they will need to make an empty repository in the folder from which they plan to work. The command, reiterated from above is: </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git init .</pre>
+
+<p>
+  <br />3. The next step is to point to the remote repository. The “remote” repository is really the synced Dropbox folder and the idea is that Dropbox will do the heavy lifting in terms of keeping the folders synced. </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git clone /c/users/celebrimbor/dropbox/gitbox</pre>
+
+<p>
+  <br />In the above: </p>
+
+<ul>
+  <li>In the local path, <em>celebrimbor</em> is the username on windows. </li>
+</ul>
+
+<p>4. The next step is to do a pull from the remote repository. </p>
+
+<pre style="padding-bottom: 3px; background-color: #333; padding-left: 3px; padding-right: 3px; color: #ccc; padding-top: 3px">git pull origin</pre>
+
+<p>
+  <br />5. At this point they should be able to inspect the project files in their local folder and work on them using git to manage their versions. </p>
+
+<p><font size="4">The Future Is Distributed</font></p>
+
+<p>I opened the article by admitting I am new to Git. In terms of serious projects, I would only consider the last month or so as legitimate experience. I’ve also struggled, as a person relatively experienced with Subversion, with the gestalt of Git. </p>
+
+<p>However what the above shows is how useful it is to generate repositories that live in local or remote file systems and how much flexibility there is in being able to take advantage of existing protocols and structures that do the sharing on our behalf. Not only is that remote repository so easily accessible, it’s logically separate from my local repository to which I can make changes and commit to my heart’s content. There are probably other niceties but the last positive I noticed was that Git was tracking my changes with my default user/email configuration. There is a way to reset this but it makes it easy to differentiate my changes from any collaborators. If you add on the ability to do in place branching this is quite a powerful environment. </p>
+
+<p>One final note: of course the above is probably not a great idea for a full fledged project (or is it? maybe someone with experience can comment… ). The project I work on is taking advantage of <a href="http://www.github.com" target="_blank">Github</a> and especially after using their tools to hunt down (blame button!) some issues I fully appreciate their business model. One other plug is for my personal project hosting provider, <a href="http://www.projectlocker.com/" target="_blank">ProjectLocker</a>. They host Git repositories and after 2+ years with them as a primarily Subversion customer, I’m happy. I’ve started my first Git repository and the process is straightforward. </p>

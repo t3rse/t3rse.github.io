@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Regex: replace multiple strings in a single pass with C#"
+date: 2008-06-10T22:13:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I wish I could say I was the clever one to think of this but I ran into it in my copy of the Python Cookbook (the original author is <a href="http://defrang.com/">Xavier Defrang</a>, the Python implementation <a href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/81330">here</a>). It's cool enough that I ported it today - I'll know I'll use the C# implementation of it quite often: </p>  <pre>        static string MultipleReplace(string text, Dictionary<string , string> replacements) {<br />            return Regex.Replace(text, <br />                                    &quot;(&quot; + String.Join(&quot;|&quot;, adict.Keys.ToArray()) + &quot;)&quot;,<br />                                    delegate(Match m) { return replacements[m.Value]; }<br />                                    );<br />        }<br />	// somewhere else in code<br />            string temp = "Jonathan Smith is a developer";<br />            adict.Add("Jonathan", "David");<br />            adict.Add("Smith", "Seruyange");<br />            string rep = MultipleReplace(temp, adict);<br /></pre><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fabian</div>
+<div class='content'>
+Hi! Your code works well with simple replacement but will fail with complex pattern as the dictionnary key will not be the pattern but the matched string in the input.</div>
+</div>
+<div class='comment'>
+<div class='author'>Chris Partridge</div>
+<div class='content'>
+This is great, thank you!</div>
+</div>
+</div>

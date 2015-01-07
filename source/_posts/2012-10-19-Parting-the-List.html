@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Parting the List"
+comments: true
+---
+
+<p>Here’s a nice quick solution. Let’s say you have some List&lt;T&gt; and you need to separate it into chunks of some number N or less, for example taking 100 numbers and separating them into batches of 25. </p>  <div class="code">   <pre class="brush: csharp">List&lt;int&gt; myListOfNumbers = Enumerable.Range(1, 100).ToList();
+
+var parted = Enumerable.Range(0, myListOfNumbers.Count)
+						.GroupBy(n =&gt; n / 25) // &lt;-- clever sleight of hand here
+						.Select(n =&gt; n.Select(index =&gt; myListOfNumbers[index]).ToList());
+
+// prints 1-24, 25-49, 50-74, 75-100
+foreach (var part in parted) {
+	Debug.WriteLine(String.Join(&quot;,&quot;, part.Select(p =&gt; p.ToString())));
+}</pre>
+</div>
+
+<p>
+  <br />The sleight of hand I’m noting is a neat trick with integer division truncating or flooring values. You can fairly easily generalize this into a method where you pass a List&lt;T&gt; and a parameter for how many items you want in a group.</p>
+
+<div class="code">
+  <pre class="brush: csharp">Func&lt;List&lt;int&gt;, int, IEnumerable&lt;List&lt;int&gt;&gt;&gt; splitList = (list, groupSize) =&gt; {
+	return Enumerable.Range(0, list.Count)
+						.GroupBy(n =&gt; n / groupSize) 
+						.Select(n =&gt; n.Select(index =&gt; list[index]).ToList());            
+};
+
+List&lt;int&gt; primes = new List&lt;int&gt;(){ 2, 3, 5, 7, 11, 13, 17 };
+var primesGrouped = splitList(primes, 3);</pre>
+</div>
+
+<p>
+  <br />Pretty cool no? </p>

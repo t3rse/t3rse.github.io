@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Happy pi day!"
+date: 2011-03-14T21:29:00-07:00
+---
+
+<div class='post'>
+<h2><font color="#0000ff">{</font></h2>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 10pt; overflow: auto; padding-top: 10px">class Program<br />{<br /><br />       static double PI(int i, int limit)<br />       {<br />               return (i &gt; limit)? 1 : (1 + i / (2.0 * i + 1) * PI(i + 1, limit));<br />       }<br /><br />       static void Main(string[] args)<br />       {<br />               double pi = 2 * PI(1, 2011);<br />               Console.WriteLine(pi);<br />               Console.WriteLine(&quot;Happy pi day!&quot;);<br />               Console.ReadLine();<br />       }<br />}</pre><br /><br /><h2><font color="#0000ff">}</font></h2>  </div>

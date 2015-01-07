@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Strip Time Off SQL Server Date Variable"
+date: 2005-11-22T13:38:00-08:00
+---
+
+<div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="color:#000099;">DECLARE</span> @DOUT <span style="color:#000099;">DATETIME</span><br /><span style="color:#000099;">SET</span> @DOUT = <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">DATETIME</span>, <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">CHAR</span>(10), <span style="color:#cc66cc;">GETDATE</span>(), 101))<br /><span style="color:#000099;">PRINT</span> <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#cc66cc;">DATETIME</span>, @DOUT)<br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Kiran</div>
+<div class='content'>
+Hi Please check this out. It suggested a similar way to strip the time part from date time.<br /><a href="http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html" rel="nofollow">http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html</a><br /><br />Thanks,<br />Kiran<br /><a href="http://cherupally.blogspot.com" rel="nofollow">http://cherupally.blogspot.com</a></div>
+</div>
+</div>

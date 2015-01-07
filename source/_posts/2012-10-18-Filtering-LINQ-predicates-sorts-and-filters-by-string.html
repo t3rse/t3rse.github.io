@@ -1,0 +1,74 @@
+---
+layout: post
+title: "Filtering LINQ predicates, sorts, and filters by string"
+comments: true
+---
+
+<p>Those of us in the C# realm have become so used to LINQ it’s difficult to remember the problems of yesteryear and how we used to solve them. The reason is that almost all of the time, LINQ takes that work we used to do and abstracts a lot of the pain into a query syntax. </p>  <p>But there are some problems things that used to be more intuitive. The dinosaurs among us remember writing code like this:</p>  <div class="code">   <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">void SortRecords(DataTable data, string column, string direction) { 
+	data.DefaultView.Sort = String.Join(&quot;{0} {1}&quot;, column, direction); 
+} </pre>
+</div>
+
+<p>
+  <br />In a typical scenario you might have a user click on a column, in some interface and pass that to your SortRecords method to change the way the data is displayed. In the present day, using LINQ to sort is trivial but because LINQ takes expressions as parameters for the typically used OrderBy and OrderByDescending, using a string isn’t as straight forward of a process. What’s a path around this problem? </p>
+
+<p>First, let’s demonstrate the problem. Assume I have a class Person with two properties, FirstName and LastName. Let’s further assume that although an instance of Person is useful, we often have lists of Person that we occasionally find ourselves having to sort. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};</pre>
+</div>
+
+<p>
+  <br />A typical sorting expression in LINQ takes an expression, not a string that could be passed as a parameter. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var result = people.OrderBy(p =&gt; p.LastName); // not a string</pre>
+</div>
+
+<p>
+  <br />This creates a problem if you try to generalize sorting into something more reusable like a method or a function. Sure, you could pass an expression, but passing those expressions from the UI can be a little bit tricky. So what course of action? </p>
+
+<p>My solution is to use a <a href="http://en.wikipedia.org/wiki/Dispatch_table" target="_blank">dispatch table</a>. I first saw the concept back in my days hacking perl but it works in C# with delegates. Here is an example of a dispatch table using strings as keys for our anonymous delegates representing the Linq expression that we would use to sort: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+    {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+    {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+};</pre>
+</div>
+
+<p>
+  <br />Now the task of sorting by string is simple because that can be used as the key to reference the correct delegate that would be used as the sort expression. This anonymous method demonstrates the concept: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">IEnumerable&lt;Person&gt; SortThem(string fieldName, IEnumerable&lt;Person&gt; people) {
+    Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+        {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+        {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+    };
+    // Q.E.D. really
+    return people.OrderBy(sortLookups[fieldName]);
+}</pre>
+</div>
+
+<p>
+  <br />Here is an example of a call to our SortThem method: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">&gt;
+var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};
+var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
+</div>
+
+<p>
+  <br />Dispatch tables make stringifying method parameters and dealing with LINQ much more palatable since LINQ is all about dealing with expressions. This is just the tip of the iceberg. Once you know how to match up anonymous methods into dispatch tables watch out! You’ll start seeing applications of the technique everywhere!</p>

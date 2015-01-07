@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Ruby $LOAD_PATH Watir"
+date: 2006-08-19T20:16:00-07:00
+---
+
+<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />On and off I've been messing around trying to get <a href="http://wtr.rubyforge.org/watir_user_guide.html">Watir</a> to work on my machine. The gem installed properly based on the instructions given to simple go to the command line and use the following:<br /><br /><span style="font-style: italic;">gem install watir</span><br /><br />But when I tried to execute a simple test I got the following:<br /><br /><span style="font-style: italic;">uninitialized constant Watir</span><br /><span style="font-style: italic;">./watir.rb:6</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'</span><br /><span style="font-style: italic;">C:/CODE06/RubyStart/WatirTest.rb:7</span><br /><span style="font-style: italic;">./watir.rb:6: uninitialized constant Watir (NameError)</span><br /><span style="font-style: italic;">    from c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require'</span><br /><span style="font-style: italic;">    from C:/CODE06/RubyStart/WatirTest.rb:7</span><br /><br />It seemed like an environment variable was not properly referencing the library but when I hunted for it I saw no environment variables. I ran the unit tests for Watir and it seemed to have installed correctly but I noticed the following at the beginning of each:<br /><br /><span style="font-style: italic;">$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..') if $0 == __FILE__</span><br /><br />Smells like a path the the library so I investigated with:<br /><br />puts $LOAD_PATH<br /><br />which shows me the following:<br /><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8/i386-msvcrt</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/1.8</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/1.8/i386-mswin32</span><br /><br />In order to get the script working I just hacked the $LOAD_PATH to include a hardcoded reference to my Watir libraries:<br /><br /><span style="font-style: italic;">$LOAD_PATH.unshift 'c:/ruby/lib/ruby/gems/1.8/gems/watir-1.4.1'</span><br /><br />From there I was set with the following simple script:<br /><br /><span style="font-style: italic;">require 'watir'</span><br /><br /><span style="font-style: italic;">include Watir</span><br /><br /><span style="font-style: italic;">ie = Watir::IE.new</span><br /><span style="font-style: italic;">ie.goto("http://www.t3rse.com")</span><br /><br />I'll dig into this - I haven't had the patience to sit down with a Ruby book just yet (anyone have ideas?) but if anyone has a similar problem running Watir, here is a hack to get you started if this is a hit on your Google search.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Erpheus</div>
+<div class='content'>
+Thank you, I&#39;ve alredy spent a lot of time looking for the solution.</div>
+</div>
+<div class='comment'>
+<div class='author'>Mordechai</div>
+<div class='content'>
+Thanks a lot for this hack.  I spent a good 2 hours wondering what the heck I was doing wrong.<BR/><BR/>Much appreciated.<BR/>Mordechai</div>
+</div>
+</div>

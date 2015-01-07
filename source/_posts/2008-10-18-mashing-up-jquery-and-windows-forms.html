@@ -1,0 +1,26 @@
+---
+layout: post
+title: "Mashing Up: JQuery and Windows Forms, a first WIB"
+date: 2008-10-18T22:52:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for practical reasons but also think there are advantages to fat clients that sit on the Windows platform. I'm getting to a point where I will start doing more than poking around with WPF but at present two factors hold me at bay: the control library is not robust enough (another tutorial of how to make a custom button in blend isn't incentive enough) and XAML is still a bit daunting for what usually end up being rather involved UIs. Here, for example, is a UI from an application I've been working on for a while (small intentionally to impart an idea of complexity without revealing any details):</p>  <p><img src="http://seruyange.com/metadeveloper/Torment.jpg" /> </p>  <p>I think a lot of &quot;do it in XAML&quot; problems can be solved with a more web development style paradigm in Windows. A simple example is template driven databinding with styles. That's easy to do in web applications but a little less flexible in a control based world (think a GridView with CSS versus the Windows Forms DataGridView). </p>  <p>As a proof of concept I decided to use the System.Windows.Forms.WebBrowser in a Windows Forms application to get cool features from JQuery while maintaining the strengths of a windows app. Here's the scenario: a photo manager application. It builds and manages a database of photos from a digital camera. Rather than uploading the 300+ pictures taken in a single session to Flickr (or in conjunction with that act) one can open it up, start annotating their files and saving the comments to a portable &quot;database&quot; that they can back up along with the files on their home machine.&#160; On any machine with the application they point to the directory and can view their original comments along with the pictures. Here is a screen shot:</p>  <p><img src="http://seruyange.com/metadeveloper/Photobase.jpg" /> </p>  <p>The strength in this scenario of Windows Forms is the ease with which one can build the editing interface: textboxes, buttons and other &quot;drag / drop&quot; pieces of the control library. The strength of JQuery is in the display - I've chosen to use an animation and the accordion to spruce up the interface where the user looks at their photos.</p>  <p><a href="http://seruyange.com/metadeveloper/WibPhoto.zip">You can download the whole thing here</a>. (Very 0.1 but posted as an example/idea - just use the next / previous buttons to view some photos, get a feel of things).</p>  <p>I wonder if this paradigm can be a kind of Ajax &quot;aha&quot; moment; Ajax was centered on the use of a single, relatively simple MSXML component. Though System.Web.Forms.WebBrowser is not simple, it's a single component that has a lot of room for leverage.&#160; Ajax set up some pretty standard protocols / approaches to using asynchronous HTTP requests from a client - I think an interesting parallel could exist in wrapping jQuery and Html controls into a kind of framework that is easy for any developer to use with the WebBrowser control. Imagine a grid you drop with some properties and a CSS.&#160; The last thing that made Ajax pop was the catchy name. I love naming things myself so I've been calling this kind of application a WIB (Windows + Web) but perhaps there's something more catchy one could use.</p>  <p>Just some ideas, I'd be curious in the following: </p>  <p>1. Any existing applications written with this approach.    <br />2. Any potential applications that could benefit with the pros of both Windows and Web     <br />3. Any glaring shortfalls </p>  <h1><font color="#0000ff">}</font></h1>  <p>&#160;</p>  <p>ps. Thanks to Corey for encouragement on the blogging tip.</p>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Atul Rungta</div>
+<div class='content'>
+wow.... its awesome.... thnx for idea.... gr8 approach....<br />wait one month and you can watch a demo application at http://www.itxgen.com</div>
+</div>
+<div class='comment'>
+<div class='author'>нет!</div>
+<div class='content'>
+Hello, any luck with that ?</div>
+</div>
+<div class='comment'>
+<div class='author'>thomas_huber</div>
+<div class='content'>
+Awesome - wow.<br />Thanks for this example.</div>
+</div>
+</div>

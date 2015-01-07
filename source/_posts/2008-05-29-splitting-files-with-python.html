@@ -1,0 +1,8 @@
+---
+layout: post
+title: "Splitting Files with Python"
+date: 2008-05-29T21:09:00-07:00
+---
+
+<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I've been recently needing to generate sql scripts from large Excel spreadsheets. But once the script is finished I've had issues getting SQL Management Studio to execute as large a script in a single run. The solution? Split up the file with a little Python that takes it's arguments like this:</p>  <p>ipy Splitter.py&#160; LargeFile.sql 3</p>  <p></p>  <pre>#import clr<br />#pass arguments like so:<br /># THISSCRIPT.PY FILE NUM_PARTS<br /># ipy Ringil.py LargeFile.sql 4<br /><br />import sys<br /><br />if(len(sys.argv) == 3):<br />    splits = int(sys.argv[2])<br />    f = open(sys.argv[1])<br />    data = f.readlines()<br />    lc = len(data)/splits<br />    print &quot;number of lines&quot;, len(data)<br />    for c in range(0,splits):<br />        outstream = open(&quot;data&quot; + str(c + 1) + &quot;.sql&quot;, 'w')<br />        for line in data[:lc]: <br />            outstream.write(line)<br />        outstream.close()<br />        del data[:lc]<br />    f.close()<br />else:<br />    print &quot;Expected arguments: file and number of splits\n example: ipy Splitter.py LargeFile.sql 4&quot;</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
