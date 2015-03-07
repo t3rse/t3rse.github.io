@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Square Roots With Isaac Newton and C# - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="There was a footpath leading across fields to New Southgate, and I used to go there alone to watch the sunset and contemplate suicide. I did not, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2012/11/25/Square-Roots-with-Isaac-Newton-and-C">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Square Roots With Isaac Newton and C#</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-25T00:00:00-06:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote>   <p style="line-height: 180%">There was a footpath leading across fields to New Southgate, and I used to go there alone to watch the sunset and contemplate suicide. I did not, however, commit suicide because I wished to know more of mathematics. – <a href="http://en.wikipedia.org/wiki/Bertrand_Russell" target="_blank">Bertrand Russell</a></p> </blockquote>  <p>I just ran across Newton’s approach to calculating square roots and thought it was fantastic. It’s interesting that our history of knowledge seems to get catapulted every few generations by individuals (Euclid, Archimedes, … Newton). Although I can proclaim with confidence I am not one such person I do fit in the category of oglers who stop to appreciate the beauty. </p>  <p>These days you can get a square root by using a button on a calculator but how exactly did he achieve this, especially for results that are irrational (e.g. √2 )?</p>  <p>Here is a step by step: </p>  <p>1. Make an estimate or a result. It doesn’t have to be too accurate – the example I saw starts with 1. </p>  <p>2. Verify your result. If it is not accurate, compute the average of&#160; your estimate plus the quotient of the number and the estimate. </p>  <p>3. Use the results of step 2 as your new estimate. </p>  <p>Here is an example, calculating the square root of 2.</p>  <table border="0" cellspacing="0" cellpadding="2" width="400"><tbody>     <tr>       <td valign="top" width="133"><strong>Estimation</strong></td>        <td valign="top" width="133"><strong>Quotient</strong></td>        <td valign="top" width="133"><strong>Mean</strong></td>     </tr>      <tr>       <td valign="top" width="133">1</td>        <td valign="top" width="133">2 / 1 = 2</td>        <td valign="top" width="133">1.5</td>     </tr>      <tr>       <td valign="top" width="133">1.5</td>        <td valign="top" width="133">2 / 1.5 = 1.333</td>        <td valign="top" width="133">1.4167</td>     </tr>      <tr>       <td valign="top" width="133">1.4167</td>        <td valign="top" width="133">2 / 1.4167 = 1.4118</td>        <td valign="top" width="133">1.4142</td>     </tr>      <tr>       <td valign="top" width="133"><strong>1.4142</strong></td>        <td valign="top" width="133">&#160;</td>        <td valign="top" width="133">&#160;</td>     </tr>   </tbody></table>  <p>&#160;</p>  <p>Here is some C# that does the trick: </p>  <div class="code">   <pre class="brush: csharp">class Program
+{
+    static void Main(string[] args)
+    {
+        var root = ComputeSquareRoot(1, 2);
+        Console.WriteLine(root);
+        Console.ReadLine();
+    }
+
+    static bool ResultWithinThreshold(double result, double target) {
+        return Math.Abs(result * result - target) &lt; (target * 0.01); 
+    }
+
+    static double RefineSquareRootEstimate(double estimate, double target) {
+        var newGuess = (estimate + target / estimate) / 2;
+        return newGuess;
+    }
+
+    static double ComputeSquareRoot(double estimate, double target) {
+        return ResultWithinThreshold(estimate, target) ? 
+                    estimate : ComputeSquareRoot(RefineSquareRootEstimate(estimate, target), target);
+    }
+}</pre>
+</div>
+
+<p>
+  <br />That&#8217;s pretty cool. I wonder if there is a layman’s version of <a href="http://www.amazon.com/gp/product/1888009233/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1888009233&amp;linkCode=as2&amp;tag=t3rse-20">Newton&#8217;s Principia</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=1888009233" width="1" height="1" /> to work through; I’d love to call myself an amateur mathematician. </p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-25T00:00:00-06:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2012/11/25/Square-Roots-with-Isaac-Newton-and-C/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2012/11/25/Square-Roots-with-Isaac-Newton-and-C/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/11/21/Skater-Poser-Coder/" title="Previous Post: Skater Poser, Coder">&laquo; Skater Poser, Coder</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/11/27/Foxes-Hedgehogs-and-Software-Developers/" title="Next Post: Foxes, Hedgehogs, and Software Developers">Foxes, Hedgehogs, and Software Developers &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.t3rse.com/2012/11/25/Square-Roots-with-Isaac-Newton-and-C/';
+        var disqus_url = 'http://blog.t3rse.com/2012/11/25/Square-Roots-with-Isaac-Newton-and-C/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

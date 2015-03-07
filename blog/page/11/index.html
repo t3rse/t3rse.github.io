@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ Tonight I needed to copy a bunch of images, no matter their level in the hierarchy to a single folder. Cake walk with C# and LINQ, I&#8217;ll post &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/11">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/23/recursive-copy-ala-linq/">Recursive Copy Ala LINQ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-23T00:30:00-05:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2008</time>
+        
+           | <a href="/2008/10/23/recursive-copy-ala-linq/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/23/recursive-copy-ala-linq/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Tonight I needed to copy a bunch of images, no matter their level in the hierarchy to a single folder. Cake walk with C# and LINQ, I&#8217;ll post the Python equivalent tomorrow.</p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">string sourceDir = @&quot;C:\thesource&quot;;<br />string targDir = @&quot;c:\thetarget&quot;;<br />var files = new DirectoryInfo(sourceDir).GetFiles(&quot;*&quot;, SearchOption.AllDirectories)<br />                .Where(p=&gt; !p.Extension.Contains(&quot;db&quot;)) // exclude the pesky windows db file<br />                .Select(p =&gt; p.FullName);<br />foreach (string path in files) {<br />    File.Copy(path, Path.Combine(targDir, Path.GetFileName(path)));<br />}</pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/20/better-know-framework-zip-package/">Better Know a Framework: Zip / Package Multiple Files in C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-20T23:59:00-05:00" pubdate data-updated="true">Oct 20<span>th</span>, 2008</time>
+        
+           | <a href="/2008/10/20/better-know-framework-zip-package/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/20/better-know-framework-zip-package/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Making a single archive out of multiple files in .NET is easy once you know where to look but I spent far too long realizing there is a System.IO.Packaging namespace (not in the mscorlib, but you need to reference WindowsBase assembly).</p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">// target file<br />string fileName = @&quot;C:\temp\myZip.zip&quot;;<br /><br />// point to some files, say JPEG - did I say I love LINQ?<br />var filesToZip = new DirectoryInfo(@&quot;c:\temp\&quot;).GetFiles(&quot;*.jpg&quot;).Select(p =&gt; p.FullName);<br /><br />using (Package exportPackage = Package.Open(fileName))<br />{<br />    foreach (var file in filesToZip)<br />    {<br />        using (FileStream fileStream = File.OpenRead(file))<br />        {<br />            Uri partUriDocument = PackUriHelper.CreatePartUri(new Uri(Path.GetFileName(file), UriKind.Relative));<br />            PackagePart packagePart = exportPackage.CreatePart(partUriDocument, System.Net.Mime.MediaTypeNames.Image.Jpeg);<br />            CopyStream(fileStream, packagePart.GetStream());<br />        }<br />    }<br />}<br /><br />// somewhere else, the CopyStream<br />private static void CopyStream(Stream source, Stream target)<br />{<br />    const int bufSize = 0x1000;<br />    byte[] buf = new byte[bufSize];<br />    int bytesRead = 0;<br />    while ((bytesRead = source.Read(buf, 0, bufSize)) &gt; 0)<br />        target.Write(buf, 0, bytesRead);<br />}</pre><br /><br /><p>The trap in looking for this was that searches for this all point towards the GZipStream which is nice for a single file but not applicable for packaging multiple files. In my case I wasn&#8217;t even interested in compression, just a single archive. You&#8217;ll find additional documentation for the library <a href="http://msdn.microsoft.com/en-us/library/system.io.packaging.package.aspx">here</a>.</p><br /><br /><p>I&#8217;m half tempted to write a nifty tool in IronPython for command line packaging but in a world with <a href="http://www.7-zip.org/">7-zip</a>, that&#8217;s simply foolish.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Alex</div>
+<div class='content'>
+Some days ago I downloaded good mp3song in zip archive.And yesterday I decided to play it.But I couldn&#39;t extract the song.Fortunately my friend advised-<a href="http://www.recoverytoolbox.com/repair_zip.html" rel="nofollow">recovery file zip</a>.And in seconds after that I already was listening this song.</div>
+</div>
+<div class='comment'>
+<div class='author'>Alexis</div>
+<div class='content'>
+There is the good tool-<a href="http://www.recoverytoolbox.com/zip_fixer.html" rel="nofollow">fix the corrupted zip on cd</a>,which recover zip files and more..It helped me many times,moreover program has free status and can too ses several algorithms to check the results and fix compressed zip broked files.</div>
+</div>
+<div class='comment'>
+<div class='author'>Alex</div>
+<div class='content'>
+My sister told me about her problem,and I advised-<a href="http://www.recoverytoolbox.com/recover_zip_file.html" rel="nofollow">recover broken zip files</a>.This tool helped me and friends too not once,also program is free as far as I know.It can recover corrupted files in Zip format and compatible with all supported versions of Windows operating system.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/19/mashing-up-jquery-and-windows-forms/">Mashing Up: JQuery and Windows Forms, a First WIB</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-19T00:52:00-05:00" pubdate data-updated="true">Oct 19<span>th</span>, 2008</time>
+        
+           | <a href="/2008/10/19/mashing-up-jquery-and-windows-forms/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/19/mashing-up-jquery-and-windows-forms/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A lot of people are down on Windows Forms as something passe. I have a feeling there are a lot of people like me who not only must use it for practical reasons but also think there are advantages to fat clients that sit on the Windows platform. I&#8217;m getting to a point where I will start doing more than poking around with WPF but at present two factors hold me at bay: the control library is not robust enough (another tutorial of how to make a custom button in blend isn&#8217;t incentive enough) and XAML is still a bit daunting for what usually end up being rather involved UIs. Here, for example, is a UI from an application I&#8217;ve been working on for a while (small intentionally to impart an idea of complexity without revealing any details):</p>  <p><img src="http://seruyange.com/metadeveloper/Torment.jpg" /> </p>  <p>I think a lot of &quot;do it in XAML&quot; problems can be solved with a more web development style paradigm in Windows. A simple example is template driven databinding with styles. That&#8217;s easy to do in web applications but a little less flexible in a control based world (think a GridView with CSS versus the Windows Forms DataGridView). </p>  <p>As a proof of concept I decided to use the System.Windows.Forms.WebBrowser in a Windows Forms application to get cool features from JQuery while maintaining the strengths of a windows app. Here&#8217;s the scenario: a photo manager application. It builds and manages a database of photos from a digital camera. Rather than uploading the 300+ pictures taken in a single session to Flickr (or in conjunction with that act) one can open it up, start annotating their files and saving the comments to a portable &quot;database&quot; that they can back up along with the files on their home machine.&#160; On any machine with the application they point to the directory and can view their original comments along with the pictures. Here is a screen shot:</p>  <p><img src="http://seruyange.com/metadeveloper/Photobase.jpg" /> </p>  <p>The strength in this scenario of Windows Forms is the ease with which one can build the editing interface: textboxes, buttons and other &quot;drag / drop&quot; pieces of the control library. The strength of JQuery is in the display - I&#8217;ve chosen to use an animation and the accordion to spruce up the interface where the user looks at their photos.</p>  <p><a href="http://seruyange.com/metadeveloper/WibPhoto.zip">You can download the whole thing here</a>. (Very 0.1 but posted as an example/idea - just use the next / previous buttons to view some photos, get a feel of things).</p>  <p>I wonder if this paradigm can be a kind of Ajax &quot;aha&quot; moment; Ajax was centered on the use of a single, relatively simple MSXML component. Though System.Web.Forms.WebBrowser is not simple, it&#8217;s a single component that has a lot of room for leverage.&#160; Ajax set up some pretty standard protocols / approaches to using asynchronous HTTP requests from a client - I think an interesting parallel could exist in wrapping jQuery and Html controls into a kind of framework that is easy for any developer to use with the WebBrowser control. Imagine a grid you drop with some properties and a CSS.&#160; The last thing that made Ajax pop was the catchy name. I love naming things myself so I&#8217;ve been calling this kind of application a WIB (Windows + Web) but perhaps there&#8217;s something more catchy one could use.</p>  <p>Just some ideas, I&#8217;d be curious in the following: </p>  <p>1. Any existing applications written with this approach.    <br />2. Any potential applications that could benefit with the pros of both Windows and Web     <br />3. Any glaring shortfalls </p>  <h1><font color="#0000ff">}</font></h1>  <p>&#160;</p>  <p>ps. Thanks to Corey for encouragement on the blogging tip.</p>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Atul Rungta</div>
+<div class='content'>
+wow&#8230;. its awesome&#8230;. thnx for idea&#8230;. gr8 approach&#8230;.<br />wait one month and you can watch a demo application at http://www.itxgen.com</div>
+</div>
+<div class='comment'>
+<div class='author'>нет!</div>
+<div class='content'>
+Hello, any luck with that ?</div>
+</div>
+<div class='comment'>
+<div class='author'>thomas_huber</div>
+<div class='content'>
+Awesome - wow.<br />Thanks for this example.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/01/yui-file-disjoin-complexity-help/">YUI File Disjoin Complexity HELP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-01T19:27:00-05:00" pubdate data-updated="true">Oct 1<span>st</span>, 2008</time>
+        
+           | <a href="/2008/10/01/yui-file-disjoin-complexity-help/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/01/yui-file-disjoin-complexity-help/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I got a little help yesterday from <a href="http://blog.davglass.com/">Dav Glass</a> and <a href="http://360.yahoo.com/profile-JG9noGk0aa9kLMDBru_y9a2uxmo-">Eric Miraglia</a> for my issue on selection of YUI javascript files. What I&#8217;d had distributed over a bunch of files is now: </p>  <p></p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; width: 699px; color: #eee; padding-top: 10px; font-family: courier; height: 263px">&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <p></p></pre><br /><br /><p>Hm&#8230; a bit better. Both Dav and Eric confirm that the canonical solution to this problem is to spend some quality time at the <a href="http://developer.yahoo.com/yui/articles/hosting/">YUI Configuration Site</a> which will allow you to pick the widgets and utilities you&#8217;ve leveraged in order to combine it into a more simplified call. </p><br /><br /><p>A someday project: the following style of implementation to make the reference a bit more crisp (I didn&#8217;t add everything from above, but the pattern should be easy to observe):</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; width: 679px; color: #eee; padding-top: 10px; font-family: courier; height: 97px">&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo/2.5.2/dom-event&amp;animation-min&amp;element-beta-min&amp;container_core-min&quot;&gt;&lt;/script&gt; </pre><br /><br /><p></p><br /><br /><p>&#160;</p><br /><br /><p>Anyhow, thanks for the help. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/09/30/yui-file-disjoint-complexity-fail/">YUI File Disjoint Complexity FAIL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T17:39:00-05:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+        
+           | <a href="/2008/09/30/yui-file-disjoint-complexity-fail/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/09/30/yui-file-disjoint-complexity-fail/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>So here&#8217;s what has been getting my goat for a while with YUI and a very smple application I&#8217;ve been using it to build.</p>  <p><img src="http://www.t3rse.com/t3rse/images/yahooCSS.jpg" />     <br /><img src="http://www.t3rse.com/t3rse/images/yahoojslib.jpg" /> </p>  <p>So for said application, I have to reference 12 separate Javascript files along with 5 separate CSS files.&#160; All for this simple interface (datatable, tabs, button, ajax (connection), events and maybe a few more things I am not remembering):   <br />     <br /><img height="272" src="http://www.t3rse.com/t3rse/images/keep.jpg" width="514" /> </p>  <p>This type of complexity is what makes YUI daunting for many developers and difficult to maintain; over at <a href="http://www.nregex.com">nRegex</a> I&#8217;m referencing a bunch of older versions of YUI and if/when I do decide to update there will be quite a few places in which compatibility and errors have the potential in manifesting themselves.</p>  <p>YUI controls are nice once working but I&#8217;m at the point of wondering if this kind of disjointedness should lead me towards <a href="http://jquery.com/">jQuery</a> or <a href="http://dojotoolkit.org/">Dojo</a>. Especially with Microsoft&#8217;s <a href="http://weblogs.asp.net/scottgu/archive/2008/09/28/jquery-and-microsoft.aspx">recent adoption</a> of jQuery, I&#8217;m leaning in that direction. But I don&#8217;t want to be rash so I&#8217;ll ask:     <br />1. What is the canonical solution e.g. blessed by Yahoo! (I see a YUI loader of some kind)?    <br />2. What does that look like with the 5 CSS and 12 *.JS files I&#8217;ve got above?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Eric Miraglia</div>
+<div class='content'>
+You should be able to do all of this in just three requests as of YUI 2.5.2:<BR/><BR/>&lt;!&#8211; css &#8211;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/fonts/fonts-min.css&quot;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css&quot;&gt; <BR><BR/>&lt;!&#8211; js &#8211;&gt; <BR><BR/>&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <BR/><BR/>As Dav says, head over to the YUI dependency configurator to explore your options.</div>
+</div>
+<div class='comment'>
+<div class='author'>Dav Glass</div>
+<div class='content'>
+Try the Dependency Configurator: <A HREF="http://developer.yahoo.com/yui/articles/hosting/" REL="nofollow">http://developer.yahoo.com/yui/articles/hosting/</A><BR/><BR/>Also an FYI, the <STRONG>yahoo-dom-event.js</STRONG> file is a roll up of the <STRONG>yahoo-min.js</STRONG>, <STRONG>dom-min.js</STRONG> &amp; the <STRONG>event-min.js</STRONG>. So there is no reason to include them over again.</div>
+</div>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I thought I should leak why I&#8217;ve been such a bad blogger of late.</div>
+</div>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+Sooo&#8230; what&#8217;s a picture of an ultrasound doing on your blog post? Subtle hint or random choice?</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/29/reading-source-minima-iii/">Reading Source, Minima III</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-29T00:05:00-05:00" pubdate data-updated="true">Jul 29<span>th</span>, 2008</time>
+        
+           | <a href="/2008/07/29/reading-source-minima-iii/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/07/29/reading-source-minima-iii/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>As my reading of <a href="http://www.codeplex.com/Minima">Minima source code</a> continues I wanted next to comment upon the database interaction which is novel (to me at least) in that it is exclusively a LINQ implementation with no stored procedure or ADO.NET implementation.&#160; I&#8217;ve seen LINQ quite a bit, but many using it seem to stick to using the query syntax rather than using raw lambda expressions.&#160; All the LINQ in Minima that I&#8217;ve seen uses lambda expressions and I&#8217;ve&#160; come to appreciate it as a clean, sparse syntax.&#160; To illustrate a more trivial example, assuming I have a table Users with Username / Password columns I wanted to verify for access. The first step with all things LINQ is to make your data model, which amounts to a DBML file that you map database objects to with drag and drop. Next you can write query expressions to pull data out of the database - notice that the db variable here points to the data model as embodied in a &quot;data context&quot; object: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            var authUserQuery = from u in db.Users <br />                    where u.Email == Login1.UserName &amp;&amp; u.Passphrase == Login1.Password<br />                        select u;</pre><br /><br /><p>Unfortunately the query expressions return an IEnumerable&lt;T&gt; that doesn&#8217;t support a Count or Length property. It&#8217;s a somewhat inflexible thing that in my *very* limited experience is useful mainly for iterating with a ForEach - and I suspect it&#8217;s reasons like this that led Betz to using a lambda syntax that is much cleaner and gets more bang with less code: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;Data.User, Boolean&gt; checkUser = x =&gt; x.Email == Login1.UserName &amp;&amp; x.Passphrase = Login1.Password;<br />            Data.User u = db.Users.SingleOrDefault(checkUser);</pre><br /><br /><p>You can use nullability to test for the presence of a record based on the LINQ query. Some source from Minima that demonstrates this is verification of the existence of a blog author: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">            Func&lt;AuthorLINQ, Boolean&gt; authorExists = x =&gt; x.AuthorEmail == authorEmail;<br />            authorLinq = db.Authors.SingleOrDefault(authorExists);<br />            if (authorLinq == null)<br />            {<br />                throw new ArgumentException(message);<br />            }</pre><br /><br /><p>It&#8217;s truly novel and I don&#8217;t mean to make that sound like a trivial or ornamental type &quot;novel&quot; I write; after spending so much time building a data access layer with stored procedures and ADO.NET (Connection, Command, Reader, DataSet, ad nauseum) it seems like our collective destiny is to walk away from that and let something like a DBML data context do black magic for us.</p><br /><br /><p>Even though the ADO.NET Entity Framework is getting a <a href="http://efvote.wufoo.com/forms/ado-net-entity-framework-vote-of-no-confidence/">FAIL</a> vote from some people, I&#8217;m interested to see how this overlaps with LINQ. Even after listening to Hanselman&#8217;s <a href="http://www.hanselminutes.com/default.aspx?showID=120">interview</a> of Mike Pizzo I&#8217;m still a little unclear. My plan of action is to get serious about NHibernate to try to understand, as Scott would say, &quot;the gestalt&quot; of an ORM and then make the call on ADO.NET Entity Framework when it&#8217;s released.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/24/twining-twydl/">Twining, TwyDL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-24T23:35:00-05:00" pubdate data-updated="true">Jul 24<span>th</span>, 2008</time>
+        
+           | <a href="/2008/07/24/twining-twydl/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/07/24/twining-twydl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A quick note that <a href="http://www.t3rse.com/twining">Twining</a> isn&#8217;t dead and that I actually have been working on it. Some work I&#8217;ve done in the past few months has involved a lot of databases I don&#8217;t have more than an ISPs user/password level of access to so it&#8217;s been quite handy to copy data in and out with brief pieces of code. Here&#8217;s one feature I&#8217;ve used, exporting a table definition and all of its contents to a scripted insert statement in a file: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).table(&quot;MY_TABLE&quot;).copyto.script(&quot;c:\\temp\\MY_SCRIPT.sql&quot;)</pre><br /><br /><p>&#160;</p><br /><br /><p>Another piece that I&#8217;ve been working on is the ability to generate schema objects in a more fluid, compact way. I like SQL just fine but after seeing how easy it is to make data structures with the Google App Engine I sought to shoot for something similar. Also within the flow of writing a Twining script it&#8217;s easy to keep this type of syntax Pythonic for certain scenarios (you want to create a temp table and dump data into it from somewhere; you want to create a table and generate sample data, etc, etc). I call it TwyDL as a play on <a href="http://en.wikipedia.org/wiki/Drop_(SQL)">DDL</a>: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).create.table(&quot;Employees&quot;, <br />                               [<br />                                   col.ident(&quot;EmployeeID&quot;), <br />                                   col.string(&quot;FirstName&quot;), <br />                                   col.string(&quot;LastName&quot;), <br />                                   col.numeric(&quot;Salary&quot;)<br />                               ]<br />                          )</pre><br /><br /><p>&#160;</p><br /><br /><p>The methods you see for defining column types take optional parameters so you can pass additional specifications when you feel the need. For example, the string columns default to varchar(50) but if you wanted to have a specific length all you&#8217;d need to do is: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.string(&quot;FirstName&quot;, 25)</pre><br /><br /><p>The same is true for numeric types: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.numeric(&quot;Salary&quot;, 18, 4)</pre><br /><br /><p>I&#8217;ve got one more thing I&#8217;m interested in implementing (time! time!) which is generating sample data given some table definition. I&#8217;m hoping to get up a rough cut of it all in the next day or two, after I&#8217;ve updated unit tests and organized things.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/22/reading-source-minima-ii/">Reading Source, Minima II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-22T00:19:00-05:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2008</time>
+        
+           | <a href="/2008/07/22/reading-source-minima-ii/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/07/22/reading-source-minima-ii/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Yesterday I wrote that my next stop was the use of Generics with WCF. Sometimes, it seems, a lot of experience is a handicap to learning new things - such was definitely the case when it comes to the full use of Generics with C#.&#160; Most of my usage, I admit, has been limited to Generic Collections such as List&lt;T&gt; or Dictionary&lt;T, K&gt;.&#160; But there is a beautiful leveraging of Generics I see with WCF that can be applied all over the place.&#160; As a trivial example, consider the code that is used to safely read values from a database field.&#160; I will admit to writing a lot of code like: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />	public static void GetSafeString(object field);<br />	public static void GetSafeDecimal(object fiel);<br />	// and so on.<br />	<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.GetSafeString(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.GetSafeDecimal(rs[&quot;Salary&quot;]);</pre><br /><br /><p>A lot of redundancy and little extensibility. Here&#8217;s how a WCF infected mind might write that: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />        static T SafeField&lt;T&gt;(object field, T defaultValue){<br />            return (field == DBNull.Value) ? defaultValue : (T)field;<br />        }<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.SafeField&lt;string&gt;(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.SafeField&lt;decimal&gt;(rs[&quot;Salary&quot;]);</pre><br /><br /><p>If you coupled the above with some <em>inversion of control</em> you&#8217;d have a pretty powerful and extensible code for dealing with any potentially null field type coming from your database.&#160; It&#8217;s not that such use is an innovation exclusive to WCF, I see it used a lot more there.&#160; Back to Minima, one can see a good example of this in the project responsible for exposing configuration values:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">namespace Themelia.Configuration<br />{<br />    public static class ConfigAccessor<br />    {<br />        public static T ApplicationSettings&lt;T&gt;(string key);<br />        public static string ApplicationSettings(string key);<br />        public static T ApplicationSettings&lt;T&gt;(string key, bool isRequired);<br />        public static string ApplicationSettings(string key, bool isRequired);<br />        public static string ConnectionString(string key);<br />    }<br />}</pre><br /><br /><p>&#160;</p><br /><br /><p>More on Minima later (hopefully tomorrow), taking a look at database access.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/20/reading-source-minima-i/">Reading Source, Minima I</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-20T23:05:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2008</time>
+        
+           | <a href="/2008/07/20/reading-source-minima-i/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/07/20/reading-source-minima-i/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m interested in the notion of deliberate practice as it relates to software developers.&#160; How do we &quot;practice&quot; effectively?&#160; One of the things I&#8217;ve been wanting to be more serious and deliberate about was reading source code.&#160; Hanselman has inspired me with his &quot;weekly source code&quot; posts and since good ideas are worth copying I&#8217;ll start to document some of the projects I download and look into for examples of good code.</p>  <p>The project I&#8217;m currently working on involves a lot of WCF. I&#8217;ve got mixed feelings (as well as a lot to learn) about it so I thought I&#8217;d start off by running <a href="http://www.netfxharmonics.com/2008/05/Minima-30-Released">Minima</a>, Dave Betz&#8217;s WCF/.NET 3.5 blog engine as a sample of an end-to-end application I can model my own WCF architectures after.&#160; </p>  <p>Minima was not easy to get going. While I&#8217;m perhaps not the brightest kid on the block, the biggest item I struggled with would probably be a challenge to anyone: the certificates used in the WCF security model. While Betz has <a href="http://notgartner.wordpress.com/2007/09/06/using-certificate-based-authentication-and-protection-with-windows-communication-foundation-wcf/">a blog entry</a> documenting the basic usage of certificates with WCF, it is predicated on the WCF host not being IIS. For the blog I assumed everything should be deployed to IIS and ran into the a lesser known fact that one must use the <a href="http://www.microsoft.com/downloads/thankyou.aspx?familyId=c42e27ac-3409-40e9-8667-c748e422833f&amp;displayLang=en#">Windows HTTP Services Certification Configuration Tool</a> to enable the ASPNET account access to the certificates for their usage. There were also a couple of post build events in the project that I removed after getting my references set up.</p>  <p>But before I get into particulars, I wanted to go over the broader structure of the project.&#160; The Minima solution has the following projects:   <br />* Minima.Service    <br />This has the service and data contracts with no implementation    <br />* Minima.ServiceImpl    <br />This has the implementation of the service    <br />* Minima.Configuration    <br />A configuration helper which makes use of a library called Themelia (Betz is, apparently, a Biblical Greek scholar on the side)    <br />* Minima.Web    <br />Library for the blog website&#8217;s features    <br />* Website    <br />A website project    <br />* Website Service project (exposes services for posting content to the database via WCF)</p>  <p>I&#8217;ll write about more particulars in my next post but for this overview my biggest takeaway in the project structure is decoupling.&#160; Separating the service from the service implementation, separating the website from it&#8217;s functionality by a project with the only purpose of implementing that backend logic, and separating general purpose frameworks like Themelia (for reading the config file etc).</p>  <p>When I start my own projects I usually think too much about doing a proof of concept and less about decoupling the overall structure. As a result most projects start off as a &quot;sketch&quot; in a single Visual Studio project and by the first release end up staying that way on a permanent basis. But perhaps what we should focus on as programmers is less the cleverest algorithms and more the most elegant structure for building solid applications.</p>  <p>Next stop: WCF and Generics.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/07/16/tragically-well-known/">Tragically Well Known</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-16T23:01:00-05:00" pubdate data-updated="true">Jul 16<span>th</span>, 2008</time>
+        
+           | <a href="/2008/07/16/tragically-well-known/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/07/16/tragically-well-known/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Of late there seem to be a lot of the well knowns of blogging bowing out (at least in volume) because of how much work it takes to qualify and disclaim the topics they take upon themselves. I find it sad because even the essays I find myself disagreeing with usually provide the same thought provoking effect as the ones I enjoy in agreement. It&#8217;s strange to think that people like Paul Graham and Joel Spolsky would be exasperated by the barbs people toss their way and yet, it seems, they are.&#160; Paul&#8217;s <a href="http://www.paulgraham.com/disagree.html">essay on disagreement</a> seems evidence of this and the <a href="http://itc.conversationsnetwork.org/shows/detail3741.html">most recent Stackoverflow podcast</a> dwells considerably on the topic from Joel&#8217;s perspective.</p>  <p>I would like to make the following proposal both in encouragement of people like this writing and for people like myself enjoying it: rather than quick barbs and/or &quot;jumped the shark&quot; posts, return to the previous material of the author and enjoy an old post. It&#8217;s not that disagreement is bad or unwelcome; I think a lot of the well knowns enjoy a spirited discourse.&#160; It has more to do with people either misunderstanding or disagreeing in the wrong way - DH0 to DH4 as Paul would have it.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/12/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/10/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

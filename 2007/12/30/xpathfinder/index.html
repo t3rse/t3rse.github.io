@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>xPathFinder - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ The short version: I&#8217;m releasing xPathFinder, a tool I wrote for doing XPATH expressions against xml files on the file system. You can get &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2007/12/30/xpathfinder">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">xPathFinder</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-30T16:28:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2007</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p><em>The short version:</em> <br>I&#8217;m releasing xPathFinder, a tool I wrote for doing XPATH expressions against xml files on the file system. You can get information about it as a tool by going to the <a href="http://www.t3rse.com/xPathFinder">website</a>. Here are some screenshots:</p> <p><img src="http://www.t3rse.com/xPathFinder/Screen1_small.jpg"> </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen2_small.jpg">&nbsp; </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen3_small.jpg"> </p> <p><em>The long version:</em><br>Not too long ago I ran into a problem that I thought would be common but didn&#8217;t seem to have a canned solution. We use a webservice to store some data in a database but we also store the xml files transmitted on the file system as a defensive maneuver in case the database is unavailable or the xml is invalid. After a while I was dealing with a lot of xml files - far too many to search one at a time and needing more structured lookup than a desktop search tool offered. This is the raison d&#8217;etre of this tool. Of course it could have been a quick script in -insert language of choice- but this was something I needed to do repeatedly and have more facility with than console output. I&#8217;m also planning to make it simple enough for our client to use. It was a goal of mine to get it up before the end of the year so I&#8217;m happily posting this a day early. </p> <p>One more footnote to this tool - stylistically I&#8217;ve done quite a bit of blending between Windows Forms and Web by leveraging the WebBrowser control heavily for things I thought would be easier to quickly generate html for as well as the feedback mechanism which allows users to report bugs or request features. It&#8217;s so tightly coupled that while it will work without an internet connection, it&#8217;s a much more limited experience. I really like this model and will probably start doing more blending like this for new work.</p> <p>You can get more detail from <a href="http://www.t3rse.com/xPathFinder/">the website</a> or just ask directly by <a href="http://www.t3rse.com/xPathFinder/SubmitFeedback.html">submitting feedback</a>.</p> <p>Future plans?</p> <p>1. XPATH functionality works for most xml documents, but namespace heavy documents with prefixes seem to throw a curve ball. <br>2. What I&#8217;m posting was actually a fast prototype I intended to use to make this tool in WPF from - I&#8217;m not sure that the WPF step is still necessary but I may release an updated version since this is a fairly straight forward utility.<br>3. I&#8217;d like to make it open source. Not sure of what steps to follow, but CodePlex is probably the best starting point. I always promise myself I&#8217;ll clean up my code before doing something like that but maybe I should just bite the bullet since I think the idea is sound enough.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-30T16:28:00-06:00" pubdate data-updated="true">Dec 30<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2007/12/30/xpathfinder/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2007/12/30/xpathfinder/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/12/11/installing-aspnet-35-mvc-preview/" title="Previous Post: Installing ASP.NET 3.5 MVC Preview">&laquo; Installing ASP.NET 3.5 MVC Preview</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/01/02/enemies-and-organization/" title="Next Post: Enemies and Organization">Enemies and Organization &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

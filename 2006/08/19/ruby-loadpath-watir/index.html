@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ruby $LOAD_PATH Watir - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{On and off I&#8217;ve been messing around trying to get Watir to work on my machine. The gem installed properly based on the instructions given to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2006/08/19/ruby-loadpath-watir">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ruby $LOAD_PATH Watir</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-08-19T22:16:00-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2006</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />On and off I&#8217;ve been messing around trying to get <a href="http://wtr.rubyforge.org/watir_user_guide.html">Watir</a> to work on my machine. The gem installed properly based on the instructions given to simple go to the command line and use the following:<br /><br /><span style="font-style: italic;">gem install watir</span><br /><br />But when I tried to execute a simple test I got the following:<br /><br /><span style="font-style: italic;">uninitialized constant Watir</span><br /><span style="font-style: italic;">./watir.rb:6</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require&#8217;</span><br /><span style="font-style: italic;">C:/CODE06/RubyStart/WatirTest.rb:7</span><br /><span style="font-style: italic;">./watir.rb:6: uninitialized constant Watir (NameError)</span><br /><span style="font-style: italic;">    from c:/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:21:in `require&#8217;</span><br /><span style="font-style: italic;">    from C:/CODE06/RubyStart/WatirTest.rb:7</span><br /><br />It seemed like an environment variable was not properly referencing the library but when I hunted for it I saw no environment variables. I ran the unit tests for Watir and it seemed to have installed correctly but I noticed the following at the beginning of each:<br /><br /><span style="font-style: italic;">$LOAD_PATH.unshift File.join(File.dirname(__FILE__), &#8216;..&#8217;) if $0 == __FILE__</span><br /><br />Smells like a path the the library so I investigated with:<br /><br />puts $LOAD_PATH<br /><br />which shows me the following:<br /><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby/1.8/i386-msvcrt</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/site_ruby</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/1.8</span><br /><span style="font-style: italic;">c:/ruby/lib/ruby/1.8/i386-mswin32</span><br /><br />In order to get the script working I just hacked the $LOAD_PATH to include a hardcoded reference to my Watir libraries:<br /><br /><span style="font-style: italic;">$LOAD_PATH.unshift &#8216;c:/ruby/lib/ruby/gems/1.8/gems/watir-1.4.1&#8217;</span><br /><br />From there I was set with the following simple script:<br /><br /><span style="font-style: italic;">require &#8216;watir&#8217;</span><br /><br /><span style="font-style: italic;">include Watir</span><br /><br /><span style="font-style: italic;">ie = Watir::IE.new</span><br /><span style="font-style: italic;">ie.goto(&#8220;http://www.t3rse.com&#8221;)</span><br /><br />I&#8217;ll dig into this - I haven&#8217;t had the patience to sit down with a Ruby book just yet (anyone have ideas?) but if anyone has a similar problem running Watir, here is a hack to get you started if this is a hit on your Google search.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Erpheus</div>
+<div class='content'>
+Thank you, I&#39;ve alredy spent a lot of time looking for the solution.</div>
+</div>
+<div class='comment'>
+<div class='author'>Mordechai</div>
+<div class='content'>
+Thanks a lot for this hack.  I spent a good 2 hours wondering what the heck I was doing wrong.<BR/><BR/>Much appreciated.<BR/>Mordechai</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-08-19T22:16:00-05:00" pubdate data-updated="true">Aug 19<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2006/08/19/ruby-loadpath-watir/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2006/08/19/ruby-loadpath-watir/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/08/18/podcasts-to-invoke-musing-mulling/" title="Previous Post: Podcasts to invoke musing, mulling">&laquo; Podcasts to invoke musing, mulling</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/08/22/david-doesnt-get-it/" title="Next Post: David doesn't get it">David doesn't get it &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

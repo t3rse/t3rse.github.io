@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How Much Code Do You Write? - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I&#8217;ve previously identified perl as my &#8220;night language.&#8221; In other words, I&#8217;m hacking away at it in the off hours trying to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2007/04/15/how-much-code-do-you-write">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How Much Code Do You Write?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-04-15T21:17:00-05:00" pubdate data-updated="true">Apr 15<span>th</span>, 2007</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I&#8217;ve previously identified perl as my &#8220;night language.&#8221; In other words, I&#8217;m hacking away at it in the off hours trying to get better. Maybe, just maybe, I will find a way to get paid for writing perl code.  As of now, however, I write C#/.NET code to put food on the table.<br /><br />As an exercise in perl, in order to demonstrate how fast it is, I wrote <a href="http://hobbitwerk.brinkster.net/metadeveloper/LineCounter.txt">a small script</a> that would count the number of lines of code I was responsible for last year.  That&#8217;s an easy task; I keep all the code I am working on for a given year in the same directory.  There are a few projects that span a year&#8217;s end, but it&#8217;s okay since there&#8217;s a lot of code that is written that doesn&#8217;t make it to my directory, and there is a lot of code I write that isn&#8217;t C#, which is all I was counting in this instance.<br /><br />After a little tweaking, I had a script I felt happy enough with to point at my CODE06 directory.  I was fairly curious - the folder is about 650MB but a lot of that is binary stuff, everything from installers to compiled bits of projects.  My script - or perl, I should say - is unbelievably fast; when I changed output to a file it was able to run in less than a half minute.    The first run showed that there were ~160,000 lines of code in the directories *.cs files.<br /><br />Interesting - not an accurate estimate of things but 438 lines of code per day (160,000 / 365) and if you consider only business days (251), that&#8217;s on the order of 637.5 per day.  I can hear the Herbert song playing <a href="http://www.last.fm/music/Herbert/_/Something+Isn%27t+Right"><span style="font-style: italic;">Something Isn&#8217;t Right</span></a> in my head at this point.<br /><br />I do use Visual Studio, and one of the points of interest for me was the difference in how much code I actually wrote and how much was generated.  Again back to estimating I excluded Visual Studio generated files from my project and that cut the number down to ~30,000 lines of code.<br /><br />This is very imprecise because there are some *.cs files which are generated but it still has the <span style="font-style: italic;">Something Isn&#8217;t Right</span> going in my head because a little bit of help and organization from an IDE is fine, but the cost of 84% of output being machine generated is steep.<br /><br />It&#8217;s an <a href="http://archive.salon.com/21st/feature/1998/05/cov_12feature.html">Ellen Ullman moment</a>; the realization that there are so many layers of abstraction between you and your tool - that you&#8217;re unaware of all the hiding it does for you.  It&#8217;s a reminder of a moment a while back when I was showing someone <a href="http://metadeveloper.blogspot.com/2006/10/commands-and-abstractions.html">how dangerous</a> letting a tool do something for you can really be.<br /><br /><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://hobbitwerk.brinkster.net/metadeveloper/LineCounter.txt"><img style="cursor: pointer;" src="http://hobbitwerk.brinkster.net/metadeveloper/LOC.jpg" alt="" border="0" /></a><br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-04-15T21:17:00-05:00" pubdate data-updated="true">Apr 15<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2007/04/15/how-much-code-do-you-write/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2007/04/15/how-much-code-do-you-write/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/04/08/proper-01/" title="Previous Post: Proper 0.1">&laquo; Proper 0.1</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/04/16/microsoft-silverlight/" title="Next Post: Microsoft Silverlight">Microsoft Silverlight &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

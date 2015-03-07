@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Office Interop With .NET - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{Are you still doing VBA with Office even though you know you should be doing your coding with the .NET Framework? Probably like many I did things &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2005/10/30/office-interop-with-net">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Office Interop With .NET</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-30T23:35:00-05:00" pubdate data-updated="true">Oct 30<span>th</span>, 2005</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Are you still doing VBA with Office even though you know you should be doing your coding with the .NET Framework? Probably like many I did things the old way rather than dealing with COM Interop, especially since this was particularly daunting with Office. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It isn&#8217;t as of a while ago, but you, like me, may have been a bit too busy to notice. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">First, you must download the Office Interop Libraries from </span><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C41BD61E-3060-4F71-A6B4-01FEBA508E52&displaylang=en"><span style="font-size:85%;">here</span></a><span style="font-size:85%;">. The instructions are clear; run the <em>register.bat</em> from the VS.NET command prompt. After that you can make a reference to the application interop assembly of your choice, such as Microsoft.Office.Interop.Excel.dll.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Reference the namespace in your app:<br /><span style="color:#ff0000;">using Excel = Microsoft.Office.Interop.Excel;</span></span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Code away:</span><br /><br /><span style="font-size:85%;color:#ff0000;">Excel.Application app = new Excel.Application();<br />Excel.Workbook book = app.Workbooks.Open(@&#8221;c:\data\Daita.xls&#8221;,Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing);<br />Excel.Worksheet sheet = (Excel.Worksheet)book.Worksheets[1];<br />for(int i=1;i<10;i++) j="1;j<7;j++)" rg =" (Excel.Range)sheet.Cells[i,j];"><br /><br /><span style="color:#000000;"><span style="font-size:85%;">A few interesting things:</span><br /></span><ul><li><span style="font-size:85%;color:#000000;">The Type.Missing passed for all those COM-esque optional parameters. Ugh.</span></li><li><span style="font-size:85%;color:#000000;">Casting the cell you are on into a Excel.Range when you need to access its contents.</span></li></ul><span style="font-size:85%;"></span><br /><span style="color:#000000;"><span style="font-size:85%;">Finally:</span><br /><span style="font-size:85%;">Many more articles can be found </span></span><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_wrcore/html/wroriAutomatingOfficeApplications.asp"><span style="font-size:85%;color:#000000;">here</span></a><span style="font-size:85%;color:#000000;">, on MSDN.</span><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /></span><span style="font-size:85%;color:#ff0000;"></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>[konoimo]   &gt;-</div>
+<div class='content'>
+Interesting post man&#8230; have you tried this with ASP.net? I do mostly web apps and it would be cool if I can use interop with ASP.net&#8230;</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-30T23:35:00-05:00" pubdate data-updated="true">Oct 30<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2005/10/30/office-interop-with-net/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2005/10/30/office-interop-with-net/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/10/29/try-fail-try-again-fail-better/" title="Previous Post: Try. Fail. Try again. Fail better...">&laquo; Try. Fail. Try again. Fail better...</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/10/31/web-developer-tools/" title="Next Post: Web Developer Tools">Web Developer Tools &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

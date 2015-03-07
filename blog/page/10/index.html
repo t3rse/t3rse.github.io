@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/10">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/20/parameterized-in-queries/">Parameterized in Queries</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-20T07:50:00-06:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+        
+           | <a href="/2008/12/20/parameterized-in-queries/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/12/20/parameterized-in-queries/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I haven&#8217;t listened to the podcast yet but saw a cool trick from Joel Spolsky on approaching parameterized IN queries. Purists will bemoan its lack of premature optimization but I think it&#8217;s novel enough to study because of the approach: using the SQL LIKE operator on your parameter rather than a field, which is what people like me are used to. There&#8217;s code on <a href="http://stackoverflow.com/questions/337704/parameterizing-a-sql-in-clause">the StackOverflow post</a> but I thought I&#8217;d paste some of the poking around I did in Sql Management Studio: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">-- setup<br />CREATE TABLE Person<br />(<br />      PersonID INT IDENTITY(1,1) PRIMARY KEY, <br />      FirstName VARCHAR(50) NULL<br />)<br />GO<br /><br />-- some data <br />INSERT INTO Person VALUES('David')<br />INSERT INTO Person VALUES('Jonathan')<br />INSERT INTO Person VALUES('Zlatan')<br />INSERT INTO Person VALUES('Trilby')<br /><br />-- here's the magic<br />DECLARE @FirstName VARCHAR(50)<br />SET @FirstName = '|David|Trilby|'<br />SELECT * FROM Person WHERE @FirstName like '%|' + FirstName + '|%'<br /><br />-- ported to a proc<br />CREATE PROC uspPersonSelector<br />      @FirstNames VARCHAR(500)<br />AS<br />      SELECT * FROM Person WHERE @FirstNames like '%|' + FirstName + '|%'<br />GO<br /><br />-- showing it works<br />uspPersonSelector '|David|Trilby|'<br /><br />-- somewhere in the netherworld of C#: <br />/* <br />string[] names = {&quot;David&quot;, &quot;Trilby&quot;};<br />SqlCommand cmd = GetACommandFromSomewhere();<br />cmd.Parameters.AddWithValue(&quot;@FirstNames&quot;, &quot;|&quot;.Join(names));<br />*/<br /><br />--teardown<br />Drop Table Person </pre><br /><br /><p>&#160;</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/19/programmers-as-goalkeepers/">Programmers as Goalkeepers</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-19T07:20:00-06:00" pubdate data-updated="true">Dec 19<span>th</span>, 2008</time>
+        
+           | <a href="/2008/12/19/programmers-as-goalkeepers/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/12/19/programmers-as-goalkeepers/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>The 8th annual New York Times magazine Year in Ideas featured <a href="http://www.nytimes.com/interactive/2008/12/14/magazine/2008_IDEAS.html#g-ideas">a section on Goalkeeper Science</a> profiling this paper by some Israeli scientists called <a href="http://mpra.ub.uni-muenchen.de/4477/">Action bias among elite soccer goalkeepers: The case of penalty kicks</a>. In looking at the approach of keepers in some 286 penalty kicks they found that though 94 percent of the time they dived to the right or left, the chances of stopping the kick were highest when the goalie stayed in the center. The researchers theorized that the reason keepers behaved in this way was that they were afraid of appearing that they were doing nothing. </p>  <p>Immediately I remembered a blurb from an Paul Graham&#8217;s <a href="http://www.paulgraham.com/opensource.html">What Business Can Learn from Open Source</a>&#160; essay where he expressed a similar dynamic for programmers: </p>  <blockquote>   <p>&quot;The other problem with pretend work is that it often looks better than real work. When I&#8217;m writing or hacking I spend as much time just thinking as I do actually typing. Half the time I&#8217;m sitting drinking a cup of tea, or walking around the neighborhood. This is a critical phase&#8211; this is where ideas come from&#8211; and yet I&#8217;d feel guilty doing this in most offices, with everyone else looking busy.&quot; </p> </blockquote>  <p>I wonder what Paul would say about the <a href="http://www.youtube.com/watch?v=ziOG_GHNVq0">IBM commercial on ideating</a> in which concludes that people should &quot;start doing&quot; after showing an image of people laying inert on an office floor, a stark portrayal of how a manager at IBM might see someone like Paul Graham. </p>  <p>As programmers much of what we should do may not appear to be work for the nonprogrammer and as a result many of us end up doing it at home. I spend a lot of time at home exploring different technologies in a kind of tangential approach that wouldn&#8217;t look like &quot;working&quot; at work but often my best ideas and solutions come from here.&#160; I also spend a lot of time reading technical books and blogs. </p>  <p>I&#8217;m wondering what it would look like if we could step back and look in a quantitative way at the performance deficits resulting from the desire to look busy at work. What would the workday look like? I&#8217;m wondering what an hour for reading, a few hours for exploratory/research programming, and the rest as project time would do for my own productivity.</p>  <p>If programming was goalkeeping was programming, <a href="http://en.wikipedia.org/wiki/Van_der_sar">Edwin Van der Sar</a> would be quite the Python hacker.&#160; </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+I am shocked to find how many out-of-this-world work conclusions come to me in the 10-12 minutes driving home from work.  The ideas really crystalize when I&#8217;m no where near the keyboard, flourescent lights, or food.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/18/windows-forms-web-wib-part-ii/">Windows Forms + Web, WIB Part II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-18T06:38:00-06:00" pubdate data-updated="true">Dec 18<span>th</span>, 2008</time>
+        
+           | <a href="/2008/12/18/windows-forms-web-wib-part-ii/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/12/18/windows-forms-web-wib-part-ii/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A while back I <a href="http://metadeveloper.blogspot.com/2008/10/mashing-up-jquery-and-windows-forms.html">made the case</a> for applications that put together the strengths of Windows Forms and Web technologies (I thought of the catchy &quot;WIB&quot; as a name for this approach). The example I&#8217;d given then was a Windows Forms hosted Web Browser for local images that one could use for annotation that leveraged Windows for local file storage and a Web technology like jQuery for doing transitions in the user interface. </p>  <p>Today I thought of another use for this approach that wrapped itself nicely into a tool I&#8217;ve been using for some time to download mp3s from a given website<sup>1,2</sup>. I call the tool &quot;Fortinbras&quot; and if you find it useful I&#8217;d be delighted. </p>  <p><img src="http://www.seruyange.com/metadeveloper/Fortinbras.jpg" /> </p>  <p>So how was Fortinbras changed? </p>  <p>Parsing the HTML for mp3 files was a little tricky. My initial approach was to use a regular expression against the text of the document which, truth be told, is a brittle approach. Part of why I never trumpted the tool was because I never completely perfected this tactic (while it worked well enough for me personally). My code looked as follows: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	WebClient wc = new WebClient();<br />	string pageText = wc.DownloadString(browser.Url.ToString());<br />	Regex re = new Regex(&quot;href=\&quot;(?&lt;url&gt;.+?mp3)\&quot;&quot;, RegexOptions.IgnoreCase);<br />	Match mp3Matches = re.Match(text);<br />	while (mp3Matches.Success)<br />	{<br />		string matchUrl = mp3Matches.Groups[&quot;url&quot;].Value.ToString();<br />		AddMp3(browser.Url.ToString(), data, matchUrl);<br />		mp3Matches = mp3Matches.NextMatch();<br />	}</pre><br /><br /><p>Today my epiphany was that I didn&#8217;t need to use a regular expression when I could use the DOM from Windows Forms to pull out the anchors that have mp3 destinations. Here&#8217;s what that looks like: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">	while (browser.Document.Body == null)Application.DoEvents();<br />	HtmlElementCollection anchors = browser.Document.Body.GetElementsByTagName(&quot;a&quot;);<br />	foreach (HtmlElement anch in anchors)<br />	{<br />		string linkUrl = anch.GetAttribute(&quot;href&quot;);<br />		if (linkUrl.ToLower().EndsWith(&quot;mp3&quot;))<br />		{<br />		    AddMp3(browser.Url.ToString(), data, linkUrl);<br />		}<br />	}</pre><br /><br /><p>As usual feedback is welcome - you can download a copy of the Fortinbras project <a href="http://www.seruyange.com/metadeveloper/Fortinbras.zip">here</a>.</p><br /><br /><p><sup>1</sup>I am aware of the <a href="http://www.downthemall.net/">Firefox extensions</a> that do this but someday (imagine a pie in the sky look on my face) I was hoping to incorporate a &quot;favorites&quot; list with URLs / locations so that this would be a one stop shop for my downloading and organizing of podcasts. My goal here is embarrasment driven development so I&#8217;ll probably be bummed enough about the code I&#8217;ve just posted to put in some enhancements as time permits. <br /><br />  <br /><sup>2</sup>My friend&#8217;s music blog is a great stop, try a couple of tracks at <a href="http://www.thelookback.com/">The Look Back</a>.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/12/17/growing-open-source-community/">Growing Open Source Community</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-17T07:40:00-06:00" pubdate data-updated="true">Dec 17<span>th</span>, 2008</time>
+        
+           | <a href="/2008/12/17/growing-open-source-community/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/12/17/growing-open-source-community/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Kevin Dangoor recorded an interesting screencast on some of the essentials of getting an open source project more widely circulated. Essentially Dangoor explains that having a successful open source project is not just about code, it&#8217;s about good product management. I wanted to title this post with Dangoor&#8217;s most quotable quote: &quot;Rails is not where it is because of great code.&quot; But there are a lot of people who would take that as an opener for a religious war without seeing his real intent of highlighting marketing and management of a project.</p>  <p>I won&#8217;t rehash it, it&#8217;s worth <a href="http://dangoor.blip.tv/file/1530233/">watching it</a> for yourself.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/26/bruce-eckel-python-book/">Bruce Eckel&#8217;s Python Book</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-26T00:07:00-06:00" pubdate data-updated="true">Nov 26<span>th</span>, 2008</time>
+        
+           | <a href="/2008/11/26/bruce-eckel-python-book/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/11/26/bruce-eckel-python-book/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>It escaped my notice but Eckel&#8217;s been writing a <a href="http://www.bitbucket.org/BruceEckel/python-3-patterns-idioms/">new Python book</a>. Should be worth digging into sometime in the future.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>gefilte</div>
+<div class='content'>
+His _Thinking in Java_ taught me Java all those years ago. Didn&#8217;t teach me to /like/ it though&#8230; But I did like Eckel&#8217;s style.</div>
+</div>
+<div class='comment'>
+<div class='author'>gefilte</div>
+<div class='content'>
+This comment has been removed by the author.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/23/how-to-steal-time-on-programming-and/">How to Steal Time: On Programming and Being a Father</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-23T22:16:00-06:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2008</time>
+        
+           | <a href="/2008/11/23/how-to-steal-time-on-programming-and/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/11/23/how-to-steal-time-on-programming-and/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>It&#8217;s been alluded to but here it is neither shaken nor stirred: I became a father exactly on month ago.&#160; While it hasn&#8217;t been without challenges the joy of being a father is something I understand now firsthand after being told or observing it in others. Even though I first was quite seduced by a &quot;mystique&quot; in programming - a nocturnal person drinking jolt with binary being reflected from mirror shades - I now realize not only that nearly every programmer and professional person I admire is a parent, but that they find their core of happiness in that well beyond the realm of work.</p>  <p>Nevertheless, I have been trying to keep up my personal work and interests so with that goal in mind I&#8217;ve adjusted my schedule to wake up as early as I can (usually 5am) and get a few hours of solid time while leaving the evenings as a time when I can help out and be a &quot;family man.&quot;&#160; It still doesn&#8217;t feel natural but the payoff is that I can still advance my work with IronPython and other interests. It&#8217;s already been pointed out to me that my productivity here and other places has dropped since my daughter was born.</p>  <p>So question for other programmer/dad people: how do you work the family schedule? Any tips and tricks for a one month father who is still daydreaming about what it was like to sleep all night? </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Catherine</div>
+<div class='content'>
+Hey, congratulations!  Wow!</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/10/loop-reordering-optimizing-face/">Loop Reordering, Optimizing Face Recognition</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-10T23:28:00-06:00" pubdate data-updated="true">Nov 10<span>th</span>, 2008</time>
+        
+           | <a href="/2008/11/10/loop-reordering-optimizing-face/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/11/10/loop-reordering-optimizing-face/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Got <a href="http://lbrandy.com/blog/2008/10/how-we-made-our-face-recognizer-25-times-faster/">this</a> a few weeks ago from a friend but didn&#8217;t have a chance to sit down and digest the entry until tonight. Pretty cool and although premature optimization gets a bad rap, it&#8217;s a reminder that sometimes what seems intuitive and quick could actually be costing a lot - </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Unsure when I linked to that article before (perhaps from you?), the methodology is fascinating even though I don&#8217;t understand the code.  Didn&#8217;t read the Comments on that one until just now.  Isn&#8217;t it interesting how a discussion about how to deal with an challenge can get derailed by a discussion of whether we should participate at all?   Lead me to ponder &#8230; &#8220;Render unto Caesar the things which are Caesar&#8217;s, and to God the things that are God&#8217;s&#8217;&#8221;.  -ERD</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/05/lake-wobegon-distribution/">Lake Wobegon Distribution</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-05T23:23:00-06:00" pubdate data-updated="true">Nov 5<span>th</span>, 2008</time>
+        
+           | <a href="/2008/11/05/lake-wobegon-distribution/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/11/05/lake-wobegon-distribution/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Not sure where I saw this one first but it&#8217;s <a href="http://blog.plover.com/math/right-skewed.html">a great article</a>. I wonder if the Lake Wobegon distribution applies as well to programmers&#8230; </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Good article but I&#8217;m not sure the thinking is complete (I&#8217;d have to think about it!).  There&#8217;s a big hole, MLB-quality pitchers are mentioned therefore the first baseline graph isn&#8217;t appropriate.  <BR/>Regarding your musing about whether it applies to programmers, don&#8217;t forget the curve depends alot on whether they&#8217;re being &#8220;pitched&#8221; by MLB-quality problems!<BR/>(There are plenty of good coders whose .401 average is because they&#8217;re fiddling with less than intricate business processes).</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/11/01/linq-to-sql-death-rumors/">LINQ to SQL Death Rumors</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-01T00:39:00-05:00" pubdate data-updated="true">Nov 1<span>st</span>, 2008</time>
+        
+           | <a href="/2008/11/01/linq-to-sql-death-rumors/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/11/01/linq-to-sql-death-rumors/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I think it all started with <a href="http://blogs.msdn.com/adonet/archive/2008/10/29/update-on-linq-to-sql-and-linq-to-entities-roadmap.aspx">this post</a> from Tim Mallalieu reporting some directions for LINQ to SQL and the ADO.NET Entity Framework. <a href="http://ayende.com/Blog/archive/2008/10/31/microsoft-kills-linq-to-sql.aspx">Ayende</a> and <a href="http://codebetter.com/blogs/david.hayden/archive/2008/10/31/linq-to-sql-is-dead-read-between-the-lines.aspx">others</a> have had some strong reactions (LINQ to SQL is dead) and there&#8217;s now a <a href="http://stackoverflow.com/questions/252683/is-linq-to-sql-doa">StackOverflow thread</a> you can use to follow the discussion. </p>  <p>It will be interesting to track over the next few days what other responses pop up. A few things that come to my mind: </p>  <p>1. This is an opening for people using Linq to SQL to migrate to SubSonic or NHibernate. I&#8217;ve been using SubSonic lately and enjoying myself quite a bit.</p>  <p>2. A big disappointment for people like <a href="http://blog.benday.com/">Benjamin Day</a> who I saw speak at VSLive and who have incoprorated LINQ to SQL into their development projects. Next time wait for Microsoft to 2.0 something before spending too much time working it into your dev cycle. </p>  <p>3. I wonder if Microsoft hasn&#8217;t thought of spinning off some of the tool makers as different companies. Perhaps there is an MBA out there who could draw some charts and convince management to have ADO.NET Entity Framework and the LINQ to SQL folks compete/copy in the same space. If the team isn&#8217;t fully formed, why not make one? And then how cool would that be: profit centers that encourage developers to use Microsoft tools and competition to get the best ideas out the door. The trade off of Balkanization versus One True Product is that the former will mean that cool new ideas belong to you - the company won&#8217;t have to get the ideas from outside sources.&#160; </p>  <p>4. I wonder if we aren&#8217;t moving towards a tipping point of Microsoft developers &quot;getting&quot; open source and shifting their tool/framework usage outside of Microsoft. I know lots of people who won&#8217;t use __anything__ unless it has a Microsoft logo because it feels safer and more commoditized. Moves like this seem to go against that since open source projects tend to live a longer time and technologies / frameworks from companies become &quot;obsolete&quot; (how many versions of ADO can you count?) because of a product cycle that requires new purchases every 2 years or so. I would argue with my boss on a new project that it&#8217;s safer to use NHibernate than ADO.NET Entity Framework if this indicates a chance that the Entity Framework could be the next LINQ to SQL project.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/10/24/net-survey/">.NET Survey</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-10-24T00:35:00-05:00" pubdate data-updated="true">Oct 24<span>th</span>, 2008</time>
+        
+           | <a href="/2008/10/24/net-survey/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/10/24/net-survey/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Scott Hanselman did a survey of .NET usage and <a href="http://www.hanselman.com/blog/SurveyRESULTSWhatNETFrameworkFeaturesDoYouUse.aspx">posted results</a> on his blog. A few interesting notes:</p>  <p>1. Heavy use of older stuff: ASMX, DataSet, WebForms, Windows Forms   <br />You&#8217;d be hard pressed to find new blog entries on it but it shows that older (tried) technologies don&#8217;t sync up with what&#8217;s popular. The last few projects I&#8217;ve worked on have had development cycles that far exceed the excitement of their underpinning technology. One needs to remember that excitement and hype aren&#8217;t what make something useful, it&#8217;s use. So the people who talk down DataSets do so in the face of what obviously works for a silent majority who are busy getting stuff done.</p>  <p>2. Some new stuff won&#8217;t take, some new stuff takes off   <br />The respondents using CardSpace and WorkFlow are dismal. I can match the &quot;unscientific&quot; survey with a lot of my own experience in the last few years and conclude it&#8217;s within a broader trend. On the other hand, LINQ To SQL has very heavy use for something relatively new, almost on par with ADO DataSets which one could argue are in the same competitive space. That says to me that in some cases adoption is just slow when there&#8217;s a &quot;legacy&quot; counterpart for a technology but in others, when the new technology is compelling, people take to it very quickly.</p>  <p>3. WinForms &gt; WPF   <br />More than twice the respondents but here&#8217;s my conclusion: it&#8217;s all about the toolset, not the technology. WPFs tools are not on par with their WinForms equivalents. The dual Blend + VS strategy doesn&#8217;t make sense for a large majority of us who don&#8217;t have full time designers we work with and the lack of built in controls (such as a DataGridView) mean as cool as rounded edges are, function trumps form when programming.</p>  <p>4. MVC?   <br />Last I checked this was *just* released as a beta. More people claim to use that than WPF which seems to indicate a Hanselman type majority in respondents. Even if I wanted to jump into MVC, until it&#8217;s at a &quot;1.0&quot; release I couldn&#8217;t (and I&#8217;m wondering how others seem to be doing so) justify starting or migrating a major product to a product/framework that isn&#8217;t yet complete.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Justice~!</div>
+<div class='content'>
+Actually, to be fair I&#8217;ve been using MVC on a bunch of projects lately some minor (conference booking application) and some major (massive government application).  Frankly, at around preview 2-3 it was stable enough to build an app around even if I had to build some plumbing.<BR/><BR/>The major govt one is because we were looking to get ahead of the curve.  Part of this is driven by me having control over technical determinations for most/all projs I  am currently working on.</div>
+</div>
+<div class='comment'>
+<div class='author'>Tim</div>
+<div class='content'>
+MVC likely is being driven by two things &#8230; the Alt.NET movement and the fact that you have the source and can recompile for bug fixes if you need it.  Makes having a &#8220;baked&#8221; product less important.  Remember, for Open Source projects you get very little more than that in the way of promises and people use those technologies all the time.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/11/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/9/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

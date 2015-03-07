@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>TypeScript: Up and Running - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="I am a language geek so I was more than intrigued with the announcement and release of TypeScript about a month ago from Microsoft. I found out via &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">TypeScript: Up and Running</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-31T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I am a language geek so I was more than intrigued with the announcement and release of TypeScript about a month ago from Microsoft. I found out via twitter where almost immediately there were knee jerk reactions by many. It would be false to say the reactions were equally positive and negative; many of the people who have found their way to my twitter list tended to be really cynical in one of two ways: either by saying TypeScript was not CoffeeScript or by claiming that JavaScript was fine and the language invasion was not necessary.</p>  <p>On the topic of “why TypeScript?”, Anders <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">said the following</a>: </p>  <blockquote>   <p>I am not a religious C# zealot, I am a language designer&#8230;&#160; and when language design problems present themselves, I jump in because I&#8217;m fascinated by what you can do with languages and what you can do, for example, with static typing. </p> </blockquote>  <p>I like that mentality. Put aside the hysterics, the affiliations, and all the other emotional stuff. The language is a tool, let’s see what it can do. </p>  <p>So what exactly is TypeScript? For the formal definition, let’s hit Wikipedia: </p>  <blockquote>   <p>TypeScript is a free and open source programming language developed by Microsoft. It is a superset of JavaScript, and essentially adds optional static typing and class-based object oriented programming to the language. </p> </blockquote>  <p>If you want my definition which I would hope is <a href="http://www.codinghorror.com/blog/2007/11/mort-elvis-einstein-and-you.html" target="_blank">more Elvis than Mort</a> in nature, it’s a new language that introduces the things that are useful from static typing to JavaScript. When you write code in TypeScript, the compiler emits JavaScript that reflects your design. The advantage of TypeScript is that you get compiler checking and some of the language features (e.g. interfaces) that make developers productive in statically typed, object oriented environments. </p>  <p>I guess I can say that over time I’ve become less quick with my reactions. I have a lot of strongly held opinions but one thing that has slowed me down is that these opinions develop with use rather than from conceptual understanding or classical education. In order for me to like or dislike I need to sit down and spend some time with what I’m evaluating. </p>  <p>So how to get started with TypeScript? That’s easy: </p>  <p>1. <a href="http://www.microsoft.com/en-us/download/details.aspx?id=34790" target="_blank">Download the language compiler and SDK</a>. </p>  <p>2. <a href="http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf" target="_blank">Download the language specification</a>. </p>  <p>3. Once you’ve installed it, you can verify that the compiler is alive and well by opening a command line and typing</p>  <p><font size="2" face="Courier New"><strong>tsc –help</strong></font> </p>  <p>If something is amiss here make sure you have the compiler installed and that your PATH includes a reference to the install location. </p>  <p>4. For some high level background, watch <a href="http://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript" target="_blank">Anders Hejlsberg: Introducing TypeScript</a> on Channel 9. </p>  <p>5. For an additional conversation, programmer to language designer style, listen to <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">Hanselman’s interview of Anders</a>. </p>  <p>6. The TypeScript compiler generates JavaScript files. In order to incorporate this into a web project where I could start getting into language features, I did the following: </p>  <div style="display: block; float: none">   <ul>     <li>Created a /Script folder with my *.ts TypeScript file.        <p><a style="display: block" href="/images/FirstTypeScript-Explorer_1.jpg"><img style="background-image: none; border-bottom: 0px; border-left: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top: 0px; border-right: 0px; padding-top: 0px" title="FirstTypeScript-Explorer" border="0" alt="FirstTypeScript-Explorer" src="/images/FirstTypeScript-Explorer_thumb_1.jpg" width="291" height="337" /></a></p> I have been writing a deck of cards simulation but I will detail that in a different post. For now let’s start with the greeter.ts file that is <a href="http://www.typescriptlang.org/Playground/" target="_blank">provided as a sample</a>:         <br />        <div>         <pre class="brush: csharp">module HelloWorld {  
+    class Messenger {  
+        repeat: number;  
+  
+        constructor (public message = &quot;Hello World&quot;) {  
+            this.repeat = 1;  
+        }  
+  
+        speak() {  
+            for (var i = 0; i &lt; this.repeat; i++) {  
+                console.log(this.message);  
+            }  
+        }  
+  
+        static SayHelloInSlang() {   
+            new Messenger(&quot;'Sup World?&quot;).speak();  
+        }  
+    }  
+  
+    var m = new Messenger();  
+    m.speak();  
+  
+    Messenger.SayHelloInSlang();  
+}  </pre>
+      </div>
+
+      <br /></li>
+  </ul>
+</div>
+
+<div style="display: block; float: none">
+  <ul>
+    <li>Created a PostBuild Event that ran the TypeScript compiler on my file. <em>Click the image for a full view</em>. 
+
+      <p><a style="display: block" href="/images/FirstTypeScript-PostBuild_1.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-PostBuild" border="0" alt="FirstTypeScript-PostBuild" src="/images/FirstTypeScript-PostBuild_thumb_1.jpg" width="415" height="188" /></a> </p>
+    </li>
+  </ul>
+</div>
+
+<div style="display: block">
+  <ul>
+    <li>Referenced the emitted JavaScript file in my project. My starting file was <strong>greeter.ts</strong> so the emitted JavaScript file is <strong>greeter.js</strong>. <em>Click the image for a full view.</em> 
+
+      <br />
+
+      <br /><a href="/images/FirstTypeScript-Reference.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-Reference" border="0" alt="FirstTypeScript-Reference" src="/images/FirstTypeScript-Reference_thumb.jpg" width="409" height="158" /></a> </li>
+
+    <li>Run the page and look at your console. You will see the greeting output. If you want to see something a bit more forceful or, if for some reason you are running Internet Explorer, change the console.log into a window.alert in the sample code. <em>Click image for a full view. 
+        <br />
+
+        <br /><a href="/images/FirstTypeScriptConsole.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScriptConsole" border="0" alt="FirstTypeScriptConsole" src="/images/FirstTypeScriptConsole_thumb.jpg" width="404" height="199" /></a></em> </li>
+  </ul>
+</div>
+
+<p>I’ve been experimenting with TypeScript for a little more than a week and my conclusion to this point is overwhelmingly positive: it’s a nifty language, intuitive for anyone who is used to C# or similarly object oriented languages, and having the compiler is a good benefit. On the downside I find integration and debugging a little clumsy. The debugging story is that I do it at runtime in the emitted JavaScript which I suppose I will get used to. It would be nice to seem together the build process a little better though the post build event seems to do the trick. It would be nice if there was a way I could look at compiler output in this scenario. </p>
+
+<p>In my next TypeScript post I’ll cover my actual experiment (segmented from this post to keep it smaller and focused) which is taken from <a href="http://weblog.raganwald.com/2007/01/please-design-deck-of-cards-in-java.html" target="_blank">an old Raganwald interview question post</a>: to design a deck of cards. </p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-31T00:00:00-05:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/10/27/Hanselmans-NASA-Podcast-Series/" title="Previous Post: Hanselman’s NASA Podcast Series">&laquo; Hanselman’s NASA Podcast Series</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/11/06/TypeScript-Delving-Deeper/" title="Next Post: TypeScript: Delving Deeper">TypeScript: Delving Deeper &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/';
+        var disqus_url = 'http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

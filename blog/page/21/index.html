@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I pretty much broke down after TechEd. I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/21">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/07/15/sieve-of-eratosthenes-python-set/">Sieve of Eratosthenes, Python, Set Operations</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-15T23:22:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+        
+           | <a href="/2007/07/15/sieve-of-eratosthenes-python-set/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/07/15/sieve-of-eratosthenes-python-set/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I pretty much broke down after TechEd.  I thought I&#8217;d be patient enough to wait for Ruby but because Python is most mature I have started to learn it, whitespaces or no.<br /><br />The first thing I did was check out Guido van Rossum&#8217;s tutorial for programmers, which was an excellent first step.  I&#8217;ve followed that up with some random programming - a lot of fun so far.<br /><br />I was wondering about the set operations in python and how that made a difference in programming since there aren&#8217;t syntactical equivalents in .NET.  Incidentally at the time I was reading The Man Who Loved Only Numbers and ran across a short description of the Sieve of Eratosthenes as a way of finding primes.  I thought it would be a good way to check out the set operations of Python.<br /><br />I wrote the following:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />def multiples(num, thresh):<br /> multi = []<br /> for i in range(2,thresh):<br />  m = num * i<br />  if(m < thresh):<br />   multi.append(m)<br />  else:<br />   break<br /> return multi<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> nums = set(nums) - set(multiples(n, primeThresh))<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />Interesting, but slow.  The way I may do something like that in C# (which also works just fine in Python) would be this, which I wrote later:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> for m in range(2,primeThresh):<br />  try:<br />   mult = n * m<br />   if(mult > primeThresh):<br />    break<br />   nums.remove(mult)<br />  except:<br />   pass<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />It&#8217;s a lot faster than the previous approach which makes sense - doing set algebra on large sets should take a long time&#8230; but that begs the question: are those set operations dangerous (ie. so slow as to be costly).<br /><br />I&#8217;m wondering what&#8217;s &#8220;pythonic&#8221; and how a jedi would write this most effeciently.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>marc.gaudette</div>
+<div class='content'>
+I also found The Man Who Loved Only Numbers a fun read. Since you&#8217;re interested in the sieve, site www.primestructure.com has an extensive discussion re. adding structure to it.<BR/><BR/>Marc</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/07/15/being-better/">Being Better</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-15T00:27:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2007</time>
+        
+           | <a href="/2007/07/15/being-better/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/07/15/being-better/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I probably won&#8217;t be officially &#8220;tagged&#8221; but a meme is going around about what one would do in the next 6 months to become better.  Hanselman, in his podcast, spoke of a few things and the responses seem to be going up around the blogs. <br /><br />How will I be better? Most of the things people mentioned are things I already try to do: reading technical books, working on my software, looking at open source, training others&#8230; but one thing I want to do is to start posting code. <br /><br />I write a lot of code and much of it doesn&#8217;t make it here because I&#8217;m sheepish about looking foolish.  But getting better is about having courage to show my work because without that, how could it get any better? <br /><br />I&#8217;m going to start with my JAPH, a program that prints &#8220;Just Another Perl Hacker.&#8221;  It&#8217;s meant to be novel and I actually like mine since it leverages some language features that don&#8217;t exist in my mainstay, C#.  The map operation can visit each item on an array performing some opertion - in this case I&#8217;m using a regular expression on each item and grabbing alternating characters! I haven&#8217;t been writing perl for a long time so hopefully over time I can claim a better one but at least this is my own thinking at play, destined for improvement.  I did post it on usenet (a first version which had some foolish mistakes) but this is after a little bit of massage:<br /><br /><span style="font-size:85%;"><span style="font-family: courier new;">#!/usr/bin/perl -w</span><br /><span style="font-family: courier new;"># David&#8217;s JAPH, volume 0.1</span><br /><span style="font-family: courier new;">map(print(/(\w)\w/g,&#8221; &#8220;),</span><br /><span style="font-family: courier new;">qw(Jaubsctd Aenfogthhiejrk Plemrmln Hoapcqkresrt));</span></span><br /><br />The <a href="http://www.ibm.com/developerworks/library/l-japh.html">original JAPHs</a>, from Randall Schwartz, were not really about obfuscation but more about language features.  The use of map, regular expressions, and $_ in the above are what make it interesting to me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/07/14/jlam-on-dnr/">JLam on DNR</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-14T16:48:00-05:00" pubdate data-updated="true">Jul 14<span>th</span>, 2007</time>
+        
+           | <a href="/2007/07/14/jlam-on-dnr/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/07/14/jlam-on-dnr/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I never mind a long drive with a podcast.  A few days ago I listened to <a href="http://www.dotnetrocks.com/default.aspx?showNum=254">John Lam on Dot Net Rocks</a>.  I&#8217;ll admit that sometimes the DNR people can be annoying to me (think Richard Campbell saying over and over like it&#8217;s a joke &#8220;Managed JavaScript??&#8221;) but it was all worth it to hear some of the internal goings on with the Iron Ruby project.<br /><br />Gleaning: Iron Ruby is a ways off.  I got somewhat impatient and have been using IronPython in the meantime, but more on that later.  That&#8217;s not a small decision for me because I am of <a href="http://norvig.com/21-days.html">the Norvig perspective</a> on learning a new language - it takes the length of time needed to think in terms of the idioms of that language, as opposed to just writing your code with different syntax and keywords (ala writing C# in Ruby).<br /><br />Gleaning: Ruby is a powerful language for creating domain specific languages.  That meme has been floating in my head for a while - listened to a good <a href="http://www.se-radio.net/index.php?post_id=195834">Software Engineering Radio podcast</a> on the topic sometime back.<br /><br />Gleaning: JLam talks a bit about how the learning curve for new languages these days revolves around the frameworks for languages - I think the idea of Ruby combined with .NET is that the .NET libraries will fill a gap that Ruby has always missed in library support.  Dangerous or brilliant?  In other words, I&#8217;m sure the open source crowd (is/will be) up in arms because this will, in their minds, dilute the community effort behind a language.  Brilliant because the Mort you know (who is probably your boss) will have a better level of confidence about using it.<br /><br />Gleaning: Iron Ruby is implemented in C# but Managed Javascript for Silverlight is a VB.NET implementation!<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/07/02/true-story-cat-ate-my-source/">True Story: The Cat Ate My Source</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-02T22:56:00-05:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2007</time>
+        
+           | <a href="/2007/07/02/true-story-cat-ate-my-source/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/07/02/true-story-cat-ate-my-source/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />A security issue prompted my ISP to change passwords for all users.  Normally, this wouldn&#8217;t be a problem - I&#8217;d go to my repository of code, divided at present by year in a &#8220;Code05,&#8221; &#8220;Code06,&#8221; &#8220;Code07&#8221; format and update a constant in my Constants class and *presto* the connectivity would be back.<br /><br />Problem is, what if I have to go back more than 3 years? <br /><br />I&#8217;m usually not that irresponsible.  In fact, I&#8217;m fiendish about backing things up.  Yes, I use source control, even on my own little-bitty projects that matter to no one but me.  But my mistake was using an external drive - a flakey one - which died after I&#8217;d had to reformat/reinstall.  I&#8217;d backed everything up to it, and my data was gone.<br /><br />Edge case since I&#8217;d after the reinstall I&#8217;d moved what was important back to the machine.  Edge case because it was in a &#8220;code archive&#8221; that was something like 6 years old - code that was so long forgotten it was like a head bludgeon when I got a phone call from the client saying that their site was down. <br /><br />After panicking and looking for some accidental backup (why do we look for things when we know they&#8217;re gone for good?) I had an epiphany. <br /><br />I downloaded the *.aspx pages and the site dll - I then used <a href="http://www.aisto.com/roeder/dotnet/">Reflector</a> to disassemble and - I kid you not - 15 minutes later the client was up and running. <br /><br />And yes, I kept the source&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/25/mac-history/">Mac History</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-25T23:06:00-05:00" pubdate data-updated="true">Jun 25<span>th</span>, 2007</time>
+        
+           | <a href="/2007/06/25/mac-history/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/25/mac-history/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />It&#8217;s strange that I&#8217;ve had a long relationship to Apple&#8217;s products - or perhaps not if you&#8217;re a believer and consider their reach unremarkable&#8230;<br /><br />Growing up in Nairobi, a missionary&#8217;s kid next door had an Apple IIc he&#8217;d occasion to let me use (more often I&#8217;d simply watch him using it).  A few years later, I spent time in my <a href="http://www.rosslynacademy.com/">high school</a> computer classes using Apple IIe computers - for the most part it was typing but I had moments of the extracurricular. <br /><br />My freshman year of <a href="http://www.biola.edu/">college</a> (1993), after many months hovering around the computer store, drooling and daydreaming, a family gifted my sister and I with a Powerbook 160.  The little Powerbook that could took us through the college years although by the end it was on its last legs -<br /><br />&#8230; after which I took a long departure from the Apple universe. I began working with PCs and forgot how much fun it was to pick icons, leverage a trackball, and use the Finder. <br /><br />After talking my boss into it, however, a year ago I got the priviledge of using Macs again with a company owned, David leveraged iBook G4.  It&#8217;s still a foreign environment but it&#8217;s nice to return to - especially last week after my HP laptop needed to be reinstalled after catching a virus.<br /><br />All this to post that there is <a href="http://tofslie.com/work/apple_evolution.jpg">this interesting graphic</a> of Macs in time, with most of my old friends along the way.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>depola</div>
+<div class='content'>
+Agreed, &#8220;privilege&#8221; is an appropriate word.  After a stretch of 20 years (since my stepsister had one) I&#8217;ve been poring through my own Mac for a couple years now.  It&#8217;s renewed my faith in the ability of man to guide a machine, and not vice versa.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/25/yegge-nbl/">Yegge, NBL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-25T12:39:00-05:00" pubdate data-updated="true">Jun 25<span>th</span>, 2007</time>
+        
+           | <a href="/2007/06/25/yegge-nbl/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/25/yegge-nbl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />John Lam <a href="http://www.iunknown.com/2007/06/steve-yegge-por.html">reports</a> that <a href="http://steve-yegge.blogspot.com/">Steve Yegge</a> revealed a Javascript implementation of the Rails framework at this weekend&#8217;s &#8220;Foocamp.&#8221;  Having just finished   Yegge&#8217;s most recent post <a href="http://steve-yegge.blogspot.com/2007/06/rich-programmer-food.html">Rich Programmer Food</a> this weekend, and following his <a href="http://steve-yegge.blogspot.com/2007/02/next-big-language.html">NBL (Next Big Language) post</a> from a while back, the dots seem to be connected.  It seems early even among technical blogs but I suspect information will start to seep out in the short future.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/22/ndepend-vs-me/">NDepend vs Me</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-22T00:02:00-05:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2007</time>
+        
+           | <a href="/2007/06/22/ndepend-vs-me/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/22/ndepend-vs-me/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I didn&#8217;t manage a blog post during TechEd but I&#8217;ll take a stab at a few things that have swilled in my mind since then.  The first thing I&#8217;ve been working on is understanding <a href="http://www.ndepend.com/">NDepend</a>, the tool for static analysis.  I went to a &#8220;Birds of a Feather&#8221; spearheaded by <a href="http://www.cauldwell.net/patrick/blog/">some</a> <a href="http://ferncrk.com/blog/">folks</a> from Corillian and had to keep my mouth shut tight so as not to look a fool. Luckily many of the folks there were like me: they knew about static analysis as a concept but were trying to figure out how they could make good use of it.<br /><br />It will be quite some time before we have static analysis as a part of our build process but I&#8217;m most interested in using a tool like NDepend to take the emotion out of code reviews.  That is to say that while I do love a vigorous discussion on style and preference, there are concrete measures one can look at objectively to evaluate the well being of software design.<br /><br />While I&#8217;m shaky on the exact meaning of all the metrics (it was suggested to run repeatedly looking for trends) I ran it against a project that has pretty much taken my thirty first year on this earth.  For a while that&#8217;s been on my &#8220;to do&#8221; list but I think there&#8217;s always a bit of hesitancy on my part when I&#8217;m about to be brutally honest with myself; I designed this software and wrote quite a bit of the code. <br /><br />The results weren&#8217;t great, but they weren&#8217;t horrible.  When I used it on the libraries by themselves, the visualizations of the dependencies seemed clean and tidy, and many of the metrics weren&#8217;t too badly outside of some of the pointers in <a href="http://www.hanselman.com/blog/EducatingProgrammersWithPlacematsNDependStaticAnalysisPoster.aspx">the cheat sheet</a> we got.<br /><br />However.<br /><br />There are some obvious weaknesses that came to light.  First and foremost, we were solidly in the zone of instability for most of our assemblies.  There are two things that were suspicions now confirmed: first, we didn&#8217;t have a very formal design process.  I need to get better at perceiving my job at an architect level versus as a coder.  The second is that we rushed.  The rush was not just a schedule thing, it can also be attributed to our short release cycles.  The agile folks recommend these, but it should be balanced with a period of silence at the beginning when overall design decisions are being made.  The final item, which NDepend would have helped us with in a continuous integration cycle, was showing unused code.  After a year&#8217;s worth of work it&#8217;s hard to look at so much and except oneself to clean it up, but as a weekly task it would be an easy way to keep things healthy and tight.<br /><br />Final note: running NDepend is ridiculously easy.  The hardest thing besides looking at metrics and trying to understand them is having the courage to look objectively at what you&#8217;ve done.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/21/slowly-back/">Slowly Back</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-21T21:14:00-05:00" pubdate data-updated="true">Jun 21<span>st</span>, 2007</time>
+        
+           | <a href="/2007/06/21/slowly-back/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/21/slowly-back/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />After a weekend with a virus, and a horrible waste of time, I&#8217;ve got a clean installation of XP. The upside was that it forced me back to the iBook G4 that&#8217;s been a little lonely without me.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/06/programming-personality/">Programming Personality</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-06T06:06:00-05:00" pubdate data-updated="true">Jun 6<span>th</span>, 2007</time>
+        
+           | <a href="/2007/06/06/programming-personality/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/06/programming-personality/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />This <a href="http://www.doolwind.com/index.php?page=11">programming personality test</a> was interesting. <br /><br />Your programmer personality type is:   PLSC<br /><br /><blockquote>You&#8217;re a Planner.You may be slow, but you&#8217;ll usually find the best<br />solution. If something&#8217;s worth doing, it&#8217;s worth doing right.<br /><br />You like coding at a Low level.You&#8217;re from the old school of programming<br />and believe that you should have an intimate relationship with the computer.<br /><br />You don&#8217;t mind juggling registers around and spending hours getting a 5%<br />performance increase in an algorithm.<br /><br />You work best in a Solo situation.The best way to program is by yourself.<br />There&#8217;s no communication problems, you know every part of the code allowing you<br />to write the best programs possible.<br /><br />You are a Conservative programmer.The less code you write, the less chance<br />there is of it containing a bug. You write short and to the point code that gets<br />the job done efficiently.<br /></blockquote><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2007/06/05/free-powershell-book/">Free Powershell Book</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-05T23:26:00-05:00" pubdate data-updated="true">Jun 5<span>th</span>, 2007</time>
+        
+           | <a href="/2007/06/05/free-powershell-book/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2007/06/05/free-powershell-book/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />All I can say is that I&#8217;m loving powershell right now. Hopefully some more goodies will ensue upon this blog but if you&#8217;re learning like me you can get a free book by leveraging the full length help that is offered on objects. You can print in the following steps:<br /><br />Get the cmdlets and send the documentation of each to its own file:<br /><span style="font-family:courier new;">get-command % {man $_ -full &gt;&#8221;C:/Power/$_.txt&#8221;} </span><br /><br />Now make an index page so you can navigate to the individuals:<br /><span style="font-family:courier new;">$cmd = get-command % {write-output &#8220;&lt;a href=&#8217;$_.txt&#8217;&gt;$_&lt;/a&gt;&lt;br&gt;&#8221;}<br />&#8220;&lt;html&gt;$cmd&lt;/html&gt;&#8221; &gt;C:/Power/index.html </span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/22/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/20/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

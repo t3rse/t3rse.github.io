@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XML .NET (the Custom Samples) - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{Here are the examples from the last piece of the course when we explored the .NET Framework&#8217;s implementation of XML related parsers and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2005/06/16/xml-net-custom-samples">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XML .NET (the Custom Samples)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-06-16T08:34:00-05:00" pubdate data-updated="true">Jun 16<span>th</span>, 2005</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><span style="font-size:85%;"><br />Here are the examples from the last piece of the course when we explored the .NET Framework&#8217;s implementation of XML related parsers and techniques.<br /><br />You can download the sample in this zip file which you can extract to its project form to look at the code. Most examples are &#8220;methods&#8221; implemented off of Module1.vb1.<br /><br /><span style="font-weight: bold;font-size:100%;" >Read and Write</span><br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">BasicReader()</span> method shows an example of parsing an XML document with a XmlReader. Pay attention to the Select… Case expression to see how to filter nodes based on their types.<br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">ValidReader()</span> method shows an example of a validating parser (XmlValidatingReader). Although this method does the legwork, our ValidationEventHandler, the method <span style="color: rgb(255, 102, 0); font-weight: bold;">ValidError()</span> is responsible for responding to any &#8220;events&#8221; related to the validation. I stressed the importance of understanding Delegates here, and did a quick example of what I meant which you can download in a different project, <a href="http://hobbitwerk.brinkster.net/metadeveloper/vbDel.zip">vbDel</a>. If you don&#8217;t mind looking at C#, you can look at some earlier entries I made about how delegates work. One of the best uses of delegates is to make an asynchronous call to any method you&#8217;ve written. Asynchronous delegates are how asynchronous web service calls are implemented.<br /><br />The fake SAX Parser we wrote is also in the project, in its own file called<span style="color: rgb(255, 102, 0);"> SAXP.vb</span>. It is not very complete but should give you an idea of how to get the SAX functionality out of the .NET Framework. If you&#8217;d ever want to – that&#8217;s probably a remote possibility.<br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">WriteXML()</span> method is a very basic example of how you can use the XmlTextWriter to create XML documents. This isn&#8217;t too interesting, but if you start to combine the XmlTextReader and the XmlTextWriter, you can start to see the power and ease of the .NET APIs. In the second group, we wrote some code that would convert an attribute based document into an element based one. You will find this in a method called <span style="font-weight: bold; color: rgb(255, 102, 0);">AttToElement()</span>.<br /><br /><span style="font-weight: bold;font-size:100%;" >Transforming</span><br /><br />The <span style="font-weight: bold; color: rgb(255, 102, 0);">SimpleTransform()</span> method is an example of the simplest form of XSLT Transformations that can be done with the .NET Framework. Another method, called <span style="color: rgb(255, 102, 0); font-weight: bold;">MemoryTransform()</span>, is an example of how transformation can be done and processed in memory to return results in a string format. You will notice the use of the MemoryStream class in this example.<br /><br /><span style="font-weight: bold;font-size:100%;" >Serialization</span><br /><br />We took two different looks at serialization. In the first we looked at how a built in class, the DataSet, has the ability to persist itself in XML format. Our method <span style="color: rgb(255, 102, 0); font-weight: bold;">PersistDataSet()</span> shows an example of this.  In order to demonstrate the retrieval of a persisted DataSet, we wrote another method called <span style="color: rgb(255, 102, 0); font-weight: bold;">ReadPersistedDataSet()</span>. Along the way we talked about the Schema options of the WriteXml method of the DataSet. Although it was a barely noticeable blurb, make sure you investigate the XmlDataDocument class. It&#8217;s a quick way to go from a DataSet to an XML Dom-like object and back again.<br /><br />Once we&#8217;d seen that type of persistence, we looked at conventional serialization, or being able to take any old class and serialize it into some output stream. We wrote the <span style="font-weight: bold; color: rgb(255, 102, 0);">PersistConventional()</span> method to display this functionality with a class called Person, and then we depersisted in a method called <span style="color: rgb(255, 102, 0); font-weight: bold;">DepersistConventional()</span>.<br /><br />This was a good way to start working at understanding web services. I&#8217;ll make another entry with the web services demos, but really quickly, the last few examples related to XML and .NET:<br /><br /><span style="font-weight: bold;font-size:100%;" >XML and SQL Server 2000</span><br /><br />We looked at ways to retrieve XML data from the database, and I demonstrated the FOR XML clause of an sql statement. After we looked at a few examples, we wrote the <span style="color: rgb(255, 102, 0); font-weight: bold;">GetXMLFromDB()</span> method that would issue a FOR XML query and return results using the XmlReader. Which left us with one other thing on our &#8220;to do&#8221; list: inserting XML data into SQL Server directly.<br /><br />In the project you will find a file called OPENXML.sql. This file contains a series of scripts to work through to understand how one can use the OPENXML function in SQL Server 2000 to build a &#8220;rowset&#8221; view on an XML document. Once this rowset functionality is understood, it&#8217;s easy to see how it can be combined with Insert/Select statements to insert data. This is demonstrated in the <span style="color: rgb(255, 102, 0); font-weight: bold;">InsertXMLContent()</span> method.<br /><br />So that was the <span style="font-style: italic;">tour de force</span>.  You can download it all in <a href="http://hobbitwerk.brinkster.net/metadeveloper/nsBasic.zip">this zipped project</a>.  If you have questions, don&#8217;t hesitate to email me.  </span><br /><br /><span style="font-size:180%;"><span style="color: rgb(0, 0, 153);">}</span></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>kevinflynn9768</div>
+<div class='content'>
+<B>St0ck For Your Review - FCPG</B><BR/><BR/>Current Profile<BR/>Faceprint Global Solutions <B>(FCPG)</B> <BR/>Current Price $0.15<BR/><BR/>A U.S. based-company dedicated to the goal of <BR/>bringing effective security solutions to the marketplace.<BR/><BR/><B>With violent and white-collar terrorism on the rise, <BR/>companies are starving for innovative security solutions.</B> <BR/><BR/>FCPG is set to bring hot new security solutions to <BR/>the industry, <B>with currently over 40 governmental and <BR/>non-governmental contracts, being negotiated.</B><BR/><BR/>Please Review Exactly What this Company Does.<BR/><BR/><B>Why consider Faceprint Global Solutions (FCPG)?</B> <BR/><BR/>Faceprint Global Solutions (FCPG) holds the exclusive <BR/>marketing rights from Keyvelop, to sell the world�s <BR/>leading encryption technology to be distributed directly <BR/>to the Healthcare industry in North America.<BR/><BR/>Faceprint Global Solutions has completed its biometric <BR/>software that recognizes facial features of individuals <BR/>entering and leaving through airports, ship yards, banks, <BR/>large buildings, etc. <BR/><BR/>FCPG acquired Montreal-based Apometrix Technologies, <BR/>which enhances the companies mission of being a <BR/>full-service provider to the multi-application smart <BR/>card industry. The North American market appears ready <BR/>for significant expansion of price-competitive, proven, <BR/>multi-application solutions on smart cards. <B>Apometrix&#8217;s <BR/>forecast of over 300 customers and sales of more than $50 <BR/>million in North America over the next five years, appears <BR/>very realistic, according to company management.</B> <BR/><BR/>Faceprint Global Solutions is currently in contract negotiations <BR/>with over 40 governmental agencies and businesses seeking to use <BR/>their encryption, biometric, and smart-card technologies.<BR/><BR/><B>Breaking News for Faceprint Global Solutions (FCPG)</B><BR/><BR/>Faceprint Global Solutions (FCPG) <B><I>is pleased to announce that <BR/><B>IBM</B> will now offer the world�s leading encryption software to <BR/>its major Healthcare clients in North America.</B></I><BR/><BR/>With FCPG owning the exclusive North American rights to distribute <BR/>the worlds leading encryption and transmission software developed by <BR/>Keyvelop, <B><I>FCPG is poised to capture large volumes of sales generated <BR/>by customers currently using IBM�s software in the healthcare and other <BR/>industries.</B></I><BR/><BR/>�This is a very positive move for FCPG and for Keyvelop,� said FCPG <BR/>CEO Pierre Cote. �We are very happy about the decision to go with IBM. <BR/>This is a continuation of the progress made by everyone associated <BR/>with FCPG and its partners.�<BR/><BR/>Buell Duncan, IBM&#8217;s general manager of ISV & Developer Relations commented, <BR/>�Collaborating with Keyvelop will ensure that we develop open solutions that <BR/>are easy to maintain and cost effective for our customers in the healthcare <BR/>and life sciences industry.�<BR/><BR/>Among other things, this new software technology which is currently <BR/>being used by a number of European healthcare companies, is used to <BR/>send any file, regardless of format or size. Encryption keys, evidence <BR/>of transmission integrity with fingerprint calculation, time-stamping <BR/>of all actions and status record updating, pre-checking sender and <BR/>receiver identities, validating file opening dates are part of Keyvelop features.<BR/><BR/><B>About FacePrint Global Solutions, Inc.</B><BR/><BR/>FCPG operates a business, which develops and delivers a variety of <BR/>technology solutions, including biometric software applications on <BR/>smart cards and other support mediums (apometric solutions). FCPG�s <BR/>products provide biometric solutions for identity authentication and a <BR/>host of smart card- and biometrics-related hardware peripherals and <BR/>software applications. Apometrix, FCPG�s wholly-owned subsidiary, <BR/>combines on-card or in-chip multi-application management solutions <BR/>with best-of-breed �in-card matching� biometrics. Keyvelop�s secure <BR/>digital envelope solution and Apometrix�s on-card biometrics work <BR/>together to produce the winning combination in the fields of security, <BR/>traceability and identity management. <BR/><BR/><B>Conclusion:</B><BR/><BR/>The examples above show the Awesome, Earning Potential of little known <BR/>Companies That Explode onto Investor�s Radar Screens. This sto,ck will <BR/>not be a Secret for long. Then You May Feel the Desire to Act Right Now! <BR/>And Please Watch This One Trade! <BR/><BR/><B>GO FCPG!</B><BR/><BR/>Disclaimer:<BR/>Information within this email contains &#8220;forward |ooking statements&#8221; within <BR/>the meaning of Section 27Aof the Securities Act of 1933 and Section 21B of <BR/>the Securities Exchange Act of 1934. Any statements that express or involve <BR/>discussions with respect to predictions, expectations, beliefs, plans, <BR/>projections, objectives, goals, assumptions or future events or performance <BR/>are not statements of historical fact and may be &#8220;forward |ooking statements&#8221;. <BR/>&#8220;Forward |ooking statements&#8221; are based on expectations, estimates and projections <BR/>at the time the statements are made that involve a number of risks and uncertainties <BR/>which could cause actual results or events to differ materially from those presently <BR/>anticipated. We were paid a sum of three thousand USD to disseminate this information <BR/>from ir marketing. Forward loking statements in this action may be identified through <BR/>the use of words such as &#8220;projects&#8221;, &#8220;foresee&#8221;, &#8220;expects&#8221;, &#8220;will&#8221;, &#8220;anticipates&#8221;,<BR/>&#8220;estimates&#8221;, &#8220;believes&#8221;, &#8220;understands&#8221; or that by statements indicating<BR/>certain actions &#8220;may&#8221;, &#8220;could&#8221;, or &#8220;might&#8221; occur. Risk factors include<BR/>general economic and business conditions, the ability to acquire and develop <BR/>specific projects, the ability to fund operations and changes in consumer and <BR/>business consumption habits and other factors over which the company has little <BR/>or no control. The publisher of this newsletter does not represent that the <BR/>information contained herein are true and correct.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-06-16T08:34:00-05:00" pubdate data-updated="true">Jun 16<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2005/06/16/xml-net-custom-samples/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2005/06/16/xml-net-custom-samples/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/06/15/java-samples/" title="Previous Post: Java Samples">&laquo; Java Samples</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/10/29/try-fail-try-again-fail-better/" title="Next Post: Try. Fail. Try again. Fail better...">Try. Fail. Try again. Fail better... &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

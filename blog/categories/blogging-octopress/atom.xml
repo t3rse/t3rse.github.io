@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Blogging Octopress | Fail Better]]></title>
+  <link href="http://blog.t3rse.com/blog/categories/blogging-octopress/atom.xml" rel="self"/>
+  <link href="http://blog.t3rse.com/"/>
+  <updated>2014-08-13T09:13:36-05:00</updated>
+  <id>http://blog.t3rse.com/</id>
+  <author>
+    <name><![CDATA[David aka t3rse]]></name>
+    <email><![CDATA[david.seruyange@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Moving From BlogEngine.net to Octopress]]></title>
+    <link href="http://blog.t3rse.com/2014/05/06/moving-from-blogengine-dot-net-to-octopress/"/>
+    <updated>2014-05-06T22:42:36-05:00</updated>
+    <id>http://blog.t3rse.com/2014/05/06/moving-from-blogengine-dot-net-to-octopress</id>
+    <content type="html"><![CDATA[<p>Although I switched to Octopress via inspiration from <a href="http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/">Staxmanade&rsquo;s blog series</a> on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.</p>
+
+<p><strong><strong>Export to BlogML</strong></strong></p>
+
+<p>The first task was to export my current blog entries. You can generate a BlogML file with all of your posts with the following steps:</p>
+
+<ol>
+<li>Log into the administration portal then choose Settings.</li>
+<li>On the subnavigation select the &ldquo;Import &amp; Export&rdquo; option.</li>
+<li>Click the <em>Export</em> button.</li>
+</ol>
+
+
+<p><strong><strong>Importing to Octopress</strong></strong></p>
+
+<p>You need to generate files for each of your posts. I found <a href="https://github.com/philippkueng/philippkueng.github.com/blob/30ef1570f06d33938b18d5eee7767d6641b9a779/source/_import/blogml.rb">a lengthy Ruby script</a> to do this but I just hacked up what I needed in a few lines of powershell:</p>
+
+<pre><code>$file_name = "{0}-{1}.html"
+$post_template = 
+@"
+---
+layout: post
+title: `"{0}`"
+comments: true
+---
+
+{1}
+"@
+$xml = [xml](get-content BlogML.xml)
+$xml.blog.posts.post | % { 
+  $name = $file_name -f [DateTime]::Parse($_."date-created").ToString("yyyy-MM-dd"), ($_."post-url" -replace ".aspx", "")
+  $name = $name -replace "/post/\d{4}/\d{2}/\d{2}/", ""
+  $value = $post_template -f $_.title.InnerText, $_.content.InnerText
+
+  New-Item -Path . -Name $name -Value $value -ItemType file
+}
+</code></pre>
+
+<p>I ran it in the same directory as my BlogML.xml file and it iterates over each post generating a file and using the post name and created date for a unique file name.</p>
+
+<p><strong><strong>Fixing Images and Links</strong></strong></p>
+
+<p>You may need to clean up links to images and other posts. I&rsquo;ve done it for images and something similar could be done for posts (I don&rsquo;t link to myself very often though I may update this script when there is time). First, I copied all my images out of the /App_Data/files directory and into /public/images in my octopress folder structure. Next, here is an powershell one liner (where my BlogEngine was &ldquo;<a href="http://www.t3rse.com">http://www.t3rse.com</a>&rdquo; you will need to make sure you replace with whatever domain name you were using):</p>
+
+<pre><code>ls *.html -rec | %{ $f=$_; (gc $f.PSPath) | %{ $_ -replace "http://www.t3rse.com/image.axd\?picture=", "/images/" } | sc $f.PSPath }
+</code></pre>
+
+<p>This script, run in the same directory as the generated posts visits each (the .html extension) and does simple replace.</p>
+
+<hr />
+
+<p>There may be some additional details migrating (for example, I ignored comments, I also didn&rsquo;t pull in the categories for each post) that I add tweaks for in the future. If you have a bright idea comment or modify my gists on github &ndash; I&rsquo;d love to improve them for anyone else to use.</p>
+
+<ul>
+<li><a href="https://gist.github.com/t3rse/11241697">Blog Engine Import Gist</a></li>
+<li><a href="https://gist.github.com/t3rse/11401972">Blog Engine Image Fix</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

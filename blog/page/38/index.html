@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="
+{What directory am I in again?string dir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);}
+">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/38">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/22/get-executable-directory-with-net/">Get Executable Directory With .NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-22T21:35:00-06:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+        
+           | <a href="/2005/11/22/get-executable-directory-with-net/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/22/get-executable-directory-with-net/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><span style="font-size:180%;color:#000099;"></span><br /><span style="font-size:85%;color:#000000;">What directory am I in again?</span><br /><br /><span style="font-size:85%;"><span style="color:#000099;">string</span> dir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);</span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/22/strip-time-off-sql-server-date/">Strip Time Off SQL Server Date Variable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-22T15:38:00-06:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2005</time>
+        
+           | <a href="/2005/11/22/strip-time-off-sql-server-date/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/22/strip-time-off-sql-server-date/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="color:#000099;">DECLARE</span> @DOUT <span style="color:#000099;">DATETIME</span><br /><span style="color:#000099;">SET</span> @DOUT = <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">DATETIME</span>, <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#000099;">CHAR</span>(10), <span style="color:#cc66cc;">GETDATE</span>(), 101))<br /><span style="color:#000099;">PRINT</span> <span style="color:#cc66cc;">CONVERT</span>(<span style="color:#cc66cc;">DATETIME</span>, @DOUT)<br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Kiran</div>
+<div class='content'>
+Hi Please check this out. It suggested a similar way to strip the time part from date time.<br /><a href="http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html" rel="nofollow">http://cherupally.blogspot.com/2009/09/easy-way-to-strip-time-part-in-sql-date.html</a><br /><br />Thanks,<br />Kiran<br /><a href="http://cherupally.blogspot.com" rel="nofollow">http://cherupally.blogspot.com</a></div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/09/technology-or-tools-visual-studio-2005/">Technology or Tools, Visual Studio 2005</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-09T20:28:00-06:00" pubdate data-updated="true">Nov 9<span>th</span>, 2005</time>
+        
+           | <a href="/2005/11/09/technology-or-tools-visual-studio-2005/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/09/technology-or-tools-visual-studio-2005/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">The big release is upon us.  But it begs a question that I think those of us who use commercial development tools have to ask ourselves, something our Open Source brothers and sisters do not to the same degree.  The question is whether we are driven by technology first, or whether we are led by tools.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Microsoft is driven to release products on a cycle that will earn them a consistent amount of revenue; sometimes the &#8220;new&#8221; product is hardly new at all.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Visual Studio 2005 looks good from my very preliminary browsing about, but I&#8217;m still approaching it with some caution.  It&#8217;s really cool to do &#8220;push button&#8221; refactoring, but is refactoring something we need to really think deeply about?  A part of an underlying structure that must be designed carefully?  Something that can&#8217;t fix code that is already structurally defunct?</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">The class designer and snippets are cool too, but when I see the IDE eating up 800MB of memory on &#8220;Hello World&#8221; type projects, it makes me nervous.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">My first stop is going to be new language features.  After that I&#8217;m going to delve a little bit more heavily into the IDE.  The ASP.NET features look good and somewhat different.  But I&#8217;m a skeptic until I see the power for myself.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It&#8217;s such a contrast to other worlds - to return to the idea of Open Source - technology there is more likely to evolve because of a need that must be met or a new idea.  It is independent of the goons in sales & marketing.</span><br /><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/03/aspnet-control-trees/">ASP.NET Control Trees</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-03T22:30:00-05:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2005</time>
+        
+           | <a href="/2005/11/03/aspnet-control-trees/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/03/aspnet-control-trees/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Debugging a problem today I wrote </span><a href="http://hobbitwerk.brinkster.net/metadeveloper/DisplayControlTree.txt"><span style="font-size:85%;">this</span></a><span style="font-size:85%;">, which may be useful to someone. It displays all the controls on an ASP.NET Page in a tree structure. You can actually call it from any control, it will recursively traverse the heirarchy below it. I tested it on ASP.NET 2.0, and it works fine:<br /><br />Call it with the following:<br /><br />DisplayControlTree(this.Controls, 1, 30);<br /><br />Incidentally, the problem I had (and still have) comes from dynamically loading User Controls. Once they&#8217;ve been loaded using <em>LoadControl(&#8220;&#8230; path&#8221;)</em> they don&#8217;t seem to persist themselves in the ViewState. I think my best hope for now is to save entries made to the User Controls by parsing the Querystring or Form collection manually. </span><span style="font-size:85%;"><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /><br /></span><span style="font-size:85%;"></span><span style="font-size:85%;"></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Rod</div>
+<div class='content'>
+You have a great blog here! I have a <A HREF="http://www.diabetesconcerns.com/" REL="nofollow">symptoms of diabetes</A> site. It covers everything about symptoms of diabetes as well as diabetes care, complications, treatment and insulin. You&#8217;ll find it very informative. Check it out when you can :)<BR/>Rod</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/02/buzz-watch-ruby-on-rails/">Buzz Watch: Ruby on Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-02T21:49:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2005</time>
+        
+           | <a href="/2005/11/02/buzz-watch-ruby-on-rails/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/02/buzz-watch-ruby-on-rails/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;">{</span><br /><br /><span style="font-size:85%;"><em>Ruby on Rails</em> is getting more and more buzz each time I open my browser.  This time it was Bruce Tate </span><a href="www.zeldman.com/daily/1005i.shtml"><span style="font-size:85%;">claiming</span></a><span style="font-size:85%;"> that <em>Java</em> is dead (&#8220;like <em>COBOL</em>, not Elvis&#8221;) and that he was turning to <em>Ruby on Rails</em> as his framework for application development.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">A few days ago I also noticed a </span><a href="http://www.onlamp.com/pub/a/onlamp/2005/10/13/what_is_rails.html"><span style="font-size:85%;">define/tutorial</span></a><span style="font-size:85%;"> on <em>Ruby on Rails</em> over at <em>O&#8217;Reilly</em>.  More and more of these seem to be popping up of late.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">The most interesting thing about this buzz, however, seems to be the shift in the pendulum swing to a language that is light and airy, one which isn&#8217;t belabored by the stiffness of strong types.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I remember the process of learning <em>Java</em> - there seemed to be a lot of people coming from a <em>C/C++ </em>background who perpetually scowled at the <em>VB/Microsoft/Webby/Scripter</em> types like me.  Now many of this camp are turning away from that rigidity and heading back to the land of &#8220;dynamic&#8221; typing.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Pendulum swing&#8230; a few days ago I met with a prospective client and they showed me an app they were using that was written in <em>PowerBuilder</em>.  I don&#8217;t know much about <em>PowerBuilder</em> but the app seemed quick, flexible, and tightly coupled with the database.  What&#8217;s most ironic is that the reason I was there was to help with stored procedures and triggers that would let them add business logic to the otherwise light and airy environment in which their application came into being.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Deja vu, all over again.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I&#8217;ve got <em>Ruby on Rails</em> on my watch list.  Go to the <a href="http://www.rubyonrails.com/">official website</a> and there&#8217;s even a movie amongst the tutorials.</span><br /><br /><span style="font-size:180%;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>BnB</div>
+<div class='content'>
+House rejects bill to exempt Internet from campaign-finance rules<BR/>There&#8217;s broad agreement among Democrats and Republicans that the Internet writings of political bloggers shouldn&#8217;t be tangled in complex federal campaign-finance regulations.<BR/>Hi, I was just blog surfing and found you! If you are interested, go see my <A HREF="http://www.zclassact.blogspot.com" REL="nofollow">shopping mall</A> related site. It isnt anything special but you may still find something of interest. Come in and check it out if you get time :-.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/11/01/remedial-css/">Remedial CSS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-11-01T22:20:00-05:00" pubdate data-updated="true">Nov 1<span>st</span>, 2005</time>
+        
+           | <a href="/2005/11/01/remedial-css/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/11/01/remedial-css/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">I&#8217;ve been doing web development for a long time.  Long enough to have developed lots of patterns and habits for how I&#8217;d approach putting together a website.  Because most of my work is done with server side code, I&#8217;ve also yielded most layout thinking to the Panels, Grids, and User Controls I create in ASP.NET.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">So it&#8217;s a bit of a surprise now that I find that my habits are wrong, horrid even when it comes to web development.  My effortlessly thinking in tables goes against the grain of any CSS ideologies out there. Having just redesigned <a href="http://hobbitwerk.brinkster.net">my personal site</a>, this is a bit of a drag.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">As I read up on layouts with CSS, it&#8217;s funny to see things turned back on themselves: </span><br /><ul><li><span style="font-size:85%;">Absolute Positioning - I used to tell everyone to avoid this because of different screen resolutions</span></li><li><span style="font-size:85%;">ul/li tags - Which were so passe, and used as an example of the obscure tags one didn&#8217;t need anymore.</span></li><li><span style="font-size:85%;">Tables - frown upon for anything other than displaying tabular data. Read: no layouts, thank you.</span></li></ul><span style="font-size:85%;">So I&#8217;m beefing up again. I need to learn the particular advantages of these newer layout strategies - after messing around today a bit I don&#8217;t seem to gain anything over my older methods.  I&#8217;m sure this will change.  </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">I did some surfing and checked out various sites&#8230; most of them are using DIVs and CSS for layout, not tables.  Curiously, </span><a href="http://picks.yahoo.com"><span style="font-size:85%;">Yahoo! Picks</span></a><span style="font-size:85%;"> is one site that seems to have kept things the way they were.  </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>trezzure</div>
+<div class='content'>
+Bright spots<BR/>There are bright spots in the horizon. I spoke at the Inquirer series on youth last week, and the &#8230; Blog&#8221; is short for &#8220;web log,&#8221; which is a journal of sorts of individuals, paraded before their world in gory or glory detail.<BR/>Blog anda hebat sekali. Sekalian deh saya bookmark, boleh kan?? heheh<BR/><BR/>Saya punya situs <BR/><A HREF="http://www.rahasia-online-bisnis.com" REL="nofollow"><BR/>internet mlm </A> . Pokoknya segala sesuatu tentang internet mlm  , dijamin anda akan terpuaskan dengan informasi ini.<BR/><BR/>Selamat berjuang, dan sukses selalu..!!! Kapan kapan kunjungi website ku itu yaahh, kalo anda ada waktu maksudnya&#8230;. :)</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/31/hunting-for-elusive-column-table-proc/">Hunting for the Elusive Column, Table, Proc, &#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-31T22:22:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
+        
+           | <a href="/2005/10/31/hunting-for-elusive-column-table-proc/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/10/31/hunting-for-elusive-column-table-proc/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">One of our clients has a Microsoft SQL Server table with 284 fields. So when I&#8217;m given a spec that references the &#8220;OrigLoanAmount&#8221; field, it&#8217;s sometimes difficult to ascertain where that field lives. On some systems, especially if you&#8217;ve got familiarity where data are likely to be stored, you can make an educated guess. But if you&#8217;re interested in some quick digging, try these queries from the Information Schema views:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; find that elusive column</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Columns WHERE Column_Name LIKE &#8216;%MyColumn%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; list out the tables</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Tables</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">For procedures, views, and functions, I&#8217;ve just queried sysobjects. I learned this from a guy who was in my class once; I used to be one of the hapless Enterprise Manager users until I saw him digging effortlessly with queries like:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all stored procedures</span><br /><span style="font-size:85%;">SELECT * FROM syobjects WHERE type = &#8216;p&#8217; AND name NOT LIKE &#8216;dt%&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all views </span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;v&#8217;</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">&#8211; show me all user defined functions</span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type=&#8217;FN&#8217; </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">&#8230; and so on. </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/31/web-developer-tools/">Web Developer Tools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-31T11:32:00-05:00" pubdate data-updated="true">Oct 31<span>st</span>, 2005</time>
+        
+           | <a href="/2005/10/31/web-developer-tools/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/10/31/web-developer-tools/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br /><span style="font-size:85%;">Glad I found about Chris Pederick&#8217;s <a style="font-style: italic;" href="http://chrispederick.com/work/webdeveloper/">Web Developer Extension</a>. It&#8217;s a set of tools that will run inside Firefox or Mozilla revealing the underlying structure of any site you pull up in your browser.<br /><br />Some of my favorite things:<br /></span> <ul>   <li><span style="font-size:85%;">Displaying borders on table structure</span></li>   <li><span style="font-size:85%;">Displaying borders on frame and iframe elements</span></li>   <li><span style="font-size:85%;">Showing dimmensions of images on screen</span></li>   <li><span style="font-size:85%;">Adding your own user stylesheet</span></li><li><span style="font-size:85%;">Displaying stylesheets for a site within your browser<br /></span></li>  </ul> <span style="font-size:85%;"><br />Now to find an IE version&#8230; </span><br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/30/office-interop-with-net/">Office Interop With .NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-30T23:35:00-05:00" pubdate data-updated="true">Oct 30<span>th</span>, 2005</time>
+        
+           | <a href="/2005/10/30/office-interop-with-net/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/10/30/office-interop-with-net/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Are you still doing VBA with Office even though you know you should be doing your coding with the .NET Framework? Probably like many I did things the old way rather than dealing with COM Interop, especially since this was particularly daunting with Office. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It isn&#8217;t as of a while ago, but you, like me, may have been a bit too busy to notice. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">First, you must download the Office Interop Libraries from </span><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C41BD61E-3060-4F71-A6B4-01FEBA508E52&displaylang=en"><span style="font-size:85%;">here</span></a><span style="font-size:85%;">. The instructions are clear; run the <em>register.bat</em> from the VS.NET command prompt. After that you can make a reference to the application interop assembly of your choice, such as Microsoft.Office.Interop.Excel.dll.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Reference the namespace in your app:<br /><span style="color:#ff0000;">using Excel = Microsoft.Office.Interop.Excel;</span></span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Code away:</span><br /><br /><span style="font-size:85%;color:#ff0000;">Excel.Application app = new Excel.Application();<br />Excel.Workbook book = app.Workbooks.Open(@&#8221;c:\data\Daita.xls&#8221;,Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing);<br />Excel.Worksheet sheet = (Excel.Worksheet)book.Worksheets[1];<br />for(int i=1;i<10;i++) j="1;j<7;j++)" rg =" (Excel.Range)sheet.Cells[i,j];"><br /><br /><span style="color:#000000;"><span style="font-size:85%;">A few interesting things:</span><br /></span><ul><li><span style="font-size:85%;color:#000000;">The Type.Missing passed for all those COM-esque optional parameters. Ugh.</span></li><li><span style="font-size:85%;color:#000000;">Casting the cell you are on into a Excel.Range when you need to access its contents.</span></li></ul><span style="font-size:85%;"></span><br /><span style="color:#000000;"><span style="font-size:85%;">Finally:</span><br /><span style="font-size:85%;">Many more articles can be found </span></span><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_wrcore/html/wroriAutomatingOfficeApplications.asp"><span style="font-size:85%;color:#000000;">here</span></a><span style="font-size:85%;color:#000000;">, on MSDN.</span><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /></span><span style="font-size:85%;color:#ff0000;"></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>[konoimo]   &gt;-</div>
+<div class='content'>
+Interesting post man&#8230; have you tried this with ASP.net? I do mostly web apps and it would be cool if I can use interop with ASP.net&#8230;</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2005/10/29/try-fail-try-again-fail-better/">Try. Fail. Try Again. Fail Better&#8230;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-10-29T15:48:00-05:00" pubdate data-updated="true">Oct 29<span>th</span>, 2005</time>
+        
+           | <a href="/2005/10/29/try-fail-try-again-fail-better/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2005/10/29/try-fail-try-again-fail-better/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">After months of neglect, I&#8217;m going to try this again.  No more epics, just short snippets of developer talk.  </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/39/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/37/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

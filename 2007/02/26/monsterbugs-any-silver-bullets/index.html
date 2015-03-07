@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Monsterbugs: Any Silver Bullets? - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{A few weeks ago our client began to report errors with our Windows Forms (.NET 2.0) application when she&#8217;d retrieve certain records. It was a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2007/02/26/monsterbugs-any-silver-bullets">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Monsterbugs: Any Silver Bullets?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-26T12:44:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2007</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />A few weeks ago our client began to report errors with our Windows Forms (.NET 2.0) application when she&#8217;d retrieve certain records.  It was a strange bug that would hang the program for about 60 seconds and then crash without reporting errors.  We could reproduce it on the test machine, but in development even while pointing to the same database, everything worked. Perfectly.<br /><br />I looked in the Event Log and noticed the following error:<br /><blockquote>&#8220;Faulting application epicenter.exe, version 1.0.0.0, stamp 45df84bf faulting module kernel32.dll, version 5.2.3790.2756, stamp 44c60f39, debug? 0, fault address 0x00015e02&#8221;</blockquote>Really, really helpful stuff. And especially because this wasn&#8217;t something we could get in development, on any of our boxes, it was confusing.  Google searches weren&#8217;t giving specific answers - the error seemed to general in the realm of .NET 2.0 to make much of -<br /><br />So how do you pin something like this down? <br /><br />My approach was as follows:<br /><br />// code to load data<br />MessageBox.Show(&#8220;Loaded data&#8221;);<br />// code to display data<br />MessageBox.Show(&#8220;Displayed data&#8221;);<br /><br />Our application is not small.  The form that displays data contains 3300 lines of non-wizard generated code.  Data is loaded from a set of methods in a separate library which itself may have upwards of 3000 lines, not to mention that that library references yet more libraries*&#8230; my point here is that it&#8217;s not a small script to throw a dialog up after each line or call.<br /><br />In the end I spent about 4 hours stepping through each of the major calls via dialog messages.  I couldn&#8217;t debug since our test machine doesn&#8217;t have Visual Studio or other debugging tools on it (like all the other machines in their offices).<br /><br />Although I think we&#8217;ve done a good job breaking the logic into pieces (ie. one method for getting data, one for display that is broken into methods for customizations on each object) it was still difficult to  discover.<br /><br />And in the end, of course, it was something small and subtle: calling the <a href="http://forums.microsoft.com/MSDN/ShowPost.aspx?PostID=502255&SiteID=1">AutoColumnsResize </a>method of a DataGridView can sometimes throw exceptions - because of the recursion of the resizing combined with the paint operation of the Windows Forms application. What was probably most annoying was that it wasn&#8217;t even my code that was responsible for the hanging exception, it was the framework&#8217;s inability to recover from an internal exception. <br /><br />When I first started troubleshooting I thought I should have elaborated more on a &#8220;tracing&#8221; level in our application - we trace some exceptions but not all to the database.  But when I finally found the bug, especially because it wasn&#8217;t in the code we were responsible for writing, I doubt it would have done more than just save time.  A stack trace would probably have helped as well, if caught at the point of the exception.  But my big question is whether there are any well trodden techniques for finding and dealing with bugs like this, especially if they are in the framework and not in one&#8217;s own code. How do you deal with stuff like this, or is it always a slog for which there is not silver bullet?<br /><br />*I think the design of the application is okay (duh, I&#8217;m the one responsible) but it may sound more convoluted in that statement than it actually is.  We&#8217;ve got a DataHelper library that is covered by unit tests which does all of our data access at the database level. It runs stored procedures, deals with parameters, and so on.  One level of abstraction higher we&#8217;ve got a set of business layer objects for dealing with the entities related to our application: loans, disbursements, checks and so on.  The Windows Forms application is what we use to let the user display/enter/modify data.  We&#8217;ve got a few additional libraries for tracing, configuration, format, data validation, and Crystal Reports.  Not so bad I hope&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I&#8217;m in the hunt for the answer to your question Mike - I&#8217;m trying write something that tries to emulate that paint/autosize clash just for curiosity&#8217;s sake.</div>
+</div>
+<div class='comment'>
+<div class='author'>Mike</div>
+<div class='content'>
+There are no errors like unreproducable errors.  :)  <BR/><BR/>Not sure there is a silver bullet for these situations short of building everything yourself, and that is obviously overkill here considering how productive the MS tools can make you the 99.9% of the time they aren&#8217;t breaking.<BR/><BR/>Coming from the web world, there are lots more options in which libraries you use for things, and very often this decision comes down to who documents their libraries the best.  With a single-vendor system like Windows Forms it is more complicated since you either deal with it or choose a new line of work.  <BR/><BR/>Did you find out why the development systems didn&#8217;t break in the same way when looking at the same database?  That is curious.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-26T12:44:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2007/02/26/monsterbugs-any-silver-bullets/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2007/02/26/monsterbugs-any-silver-bullets/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2007/02/23/configuration-ammendment/" title="Previous Post: Configuration Ammendment">&laquo; Configuration Ammendment</a>
+      
+      
+        <a class="basic-alignment right" href="/2007/02/26/what-set-you-claim-server-software/" title="Next Post: What Set You Claim? (Server Software)">What Set You Claim? (Server Software) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

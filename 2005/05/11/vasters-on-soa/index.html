@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vasters on SOA - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{A small time ago I admitted that SOA is still a bit elusive to me as this ubiquitous need we were all unaware of having. Multiple marketing &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2005/05/11/vasters-on-soa">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vasters on SOA</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-11T23:28:00-05:00" pubdate data-updated="true">May 11<span>th</span>, 2005</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="font-size:180%;">{</span><br /><br />A small time ago I <a href="http://metadeveloper.blogspot.com/2005/02/more-soa.html">admitted </a>that SOA is still a bit elusive to me as this ubiquitous need we were all unaware of having.  Multiple marketing machines are in full swing with it, however, and it&#8217;s hard to separate useful and useless facts, much less fact and fiction.<br /><br />I found a lengthy <a href="http://java.sun.com/developer/technicalArticles/WebServices/soa/">article </a>on java.sun.com which should prove to be more technical (and therefore more useful) but meanwhile I&#8217;m also beginning to find some other questions similar to my own. <br /><br />Clemens Vasters writes in his <a href="http://staff.newtelligence.net/clemensv/PermaLink,guid,535d4a96-2cc3-4306-8b56-9a96c7c6fa39.aspx">blog</a>:<br /><br /><blockquote>&#8221; When you look at what’s being advertised as “serviced oriented architecture”, you see either the marketing-glorified repackaging of Ethernet, TCP/IP, and LDAP (“Enterprise Service Bus”), or architectural blueprints that looks strikingly similar to things that people have been doing for a long time with DCE, CORBA, J2EE, COM, or mainframe technologies. What’s different now is that it is easier, cheaper and likely more productive to create bridges between systems. &#8221;</blockquote><br /><br />A Bill Simser <a href="http://weblogs.asp.net/bsimser/archive/2005/05/04/405642.aspx">responds</a>:<br /><br /><blockquote>&#8220;Indeed at the lower levels of the architecture stack the base concepts of SO have been around as good practices for years. However, we as an industry haven&#8217;t been applying these base concepts consistently or properly across solutions so it&#8217;s somewhat academic. If calling them SOA means that people now pay attention to them and somehow feel better about using them, then that&#8217;s reason enough for me to accept that SOA exists. &#8221;</blockquote><br /><br />And finally, visiting his blog, I read something that gels the concept a bit more clearly as he speculates on how SAP might have been implemented in a SOA world:<br /><br /><blockquote>&#8220;But what if the architects for SAP had applied SOA from the get-go? The actual architecture would have been defined as several aggregations of financial capabilities (like accounts, money movements, and so on) with appropriate service contracts. It would have also included a collection of capability that would be needed by the finance functions of a typical organization, again with appropriate service contracts. It would have have included some UI capabilities (Web Parts if they were really on the ball) that could consume these services (and indeed other services from different providers) and have the &#8220;appearance&#8221; of a traditional &#8220;application&#8221;. However, as architects we would recognize that what the user thinks is the &#8220;application&#8221; is really just a thin facade to the orchestrations of functions they need. An important additional capability is to easily orchestrate other services that are not part of SAP (for example, a service with AMEX to get your credit card statements that can augment expense reports).&#8221;</blockquote><br /><br />Definitely food for thought, with my own response as follows:<br /><br /><blockquote>Relating to your speculating about SAP, however, a few things come to mind. First, a different way of thinking when it comes to enterprise applications. You are right when you say that &#8220;traditional&#8221; thinking lies around task automation rather than loosely coupled &#8220;services&#8221; that are stitched together by consuming applications (or environments).  <br />  <br />But how much of development revolves around loosely coupled services versus automation? Has the nature of the application changed to justify all the force behind service orientation? In one sense I can see it: the elegance of separate, contractual, modular partners, on the other I see architecture astronauts [<a target="_new" href="http://www.joelonsoftware.com/articles/fog0000000018.html">http://www.joelonsoftware.com/articles/fog0000000018.html</a>] building a massive framework that ultimately doesn&#8217;t propel us.    <br />  <br />All this talk of &#8220;contracts&#8221; and &#8220;services&#8221; and so on, and I contrast this with Amazon ECS - making requests for XML formatted data over HTTP: simple, elegant, and effecient. </blockquote>The journey continues, but it&#8217;s midnight and tomorrow&#8217;s coming fast.<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bil Simser</div>
+<div class='content'>
+But Amazon ECS is exactly the point. Their &#8220;architecture astronauts&#8221; did a lot of heavy lifting so their Web Services would indeed be &#8220;simple, elegant, and efficient&#8221; for the users of these services. Behind these contracts are significant systems (it&#8217;s not just XML data), and many other services that they orchestrate for you. It just appears simple from the outside looking in (which is a good end result).<BR/> <BR/>When we can publish Web Services that are as easy for our customers to use as theirs are for their customers, we&#8217;ll be somewhere too. I don&#8217;t imagine it will be simple behind the contract, at least initially.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-11T23:28:00-05:00" pubdate data-updated="true">May 11<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2005/05/11/vasters-on-soa/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2005/05/11/vasters-on-soa/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/04/26/asynchronous-delegates-with-c/" title="Previous Post: Asynchronous Delegates With C#">&laquo; Asynchronous Delegates With C#</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/05/12/supporting-each-other-vb6-in-longhorn/" title="Next Post: Supporting Each Other, VB6 in Longhorn">Supporting Each Other, VB6 in Longhorn &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

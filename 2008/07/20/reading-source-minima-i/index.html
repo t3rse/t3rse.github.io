@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Reading Source, Minima I - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I&#8217;m interested in the notion of deliberate practice as it relates to software developers.&#160; How do we &quot;practice&quot; effectively &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2008/07/20/reading-source-minima-i">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Reading Source, Minima I</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-20T23:05:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2008</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I&#8217;m interested in the notion of deliberate practice as it relates to software developers.&#160; How do we &quot;practice&quot; effectively?&#160; One of the things I&#8217;ve been wanting to be more serious and deliberate about was reading source code.&#160; Hanselman has inspired me with his &quot;weekly source code&quot; posts and since good ideas are worth copying I&#8217;ll start to document some of the projects I download and look into for examples of good code.</p>  <p>The project I&#8217;m currently working on involves a lot of WCF. I&#8217;ve got mixed feelings (as well as a lot to learn) about it so I thought I&#8217;d start off by running <a href="http://www.netfxharmonics.com/2008/05/Minima-30-Released">Minima</a>, Dave Betz&#8217;s WCF/.NET 3.5 blog engine as a sample of an end-to-end application I can model my own WCF architectures after.&#160; </p>  <p>Minima was not easy to get going. While I&#8217;m perhaps not the brightest kid on the block, the biggest item I struggled with would probably be a challenge to anyone: the certificates used in the WCF security model. While Betz has <a href="http://notgartner.wordpress.com/2007/09/06/using-certificate-based-authentication-and-protection-with-windows-communication-foundation-wcf/">a blog entry</a> documenting the basic usage of certificates with WCF, it is predicated on the WCF host not being IIS. For the blog I assumed everything should be deployed to IIS and ran into the a lesser known fact that one must use the <a href="http://www.microsoft.com/downloads/thankyou.aspx?familyId=c42e27ac-3409-40e9-8667-c748e422833f&amp;displayLang=en#">Windows HTTP Services Certification Configuration Tool</a> to enable the ASPNET account access to the certificates for their usage. There were also a couple of post build events in the project that I removed after getting my references set up.</p>  <p>But before I get into particulars, I wanted to go over the broader structure of the project.&#160; The Minima solution has the following projects:   <br />* Minima.Service    <br />This has the service and data contracts with no implementation    <br />* Minima.ServiceImpl    <br />This has the implementation of the service    <br />* Minima.Configuration    <br />A configuration helper which makes use of a library called Themelia (Betz is, apparently, a Biblical Greek scholar on the side)    <br />* Minima.Web    <br />Library for the blog website&#8217;s features    <br />* Website    <br />A website project    <br />* Website Service project (exposes services for posting content to the database via WCF)</p>  <p>I&#8217;ll write about more particulars in my next post but for this overview my biggest takeaway in the project structure is decoupling.&#160; Separating the service from the service implementation, separating the website from it&#8217;s functionality by a project with the only purpose of implementing that backend logic, and separating general purpose frameworks like Themelia (for reading the config file etc).</p>  <p>When I start my own projects I usually think too much about doing a proof of concept and less about decoupling the overall structure. As a result most projects start off as a &quot;sketch&quot; in a single Visual Studio project and by the first release end up staying that way on a permanent basis. But perhaps what we should focus on as programmers is less the cleverest algorithms and more the most elegant structure for building solid applications.</p>  <p>Next stop: WCF and Generics.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-07-20T23:05:00-05:00" pubdate data-updated="true">Jul 20<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2008/07/20/reading-source-minima-i/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2008/07/20/reading-source-minima-i/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/07/16/tragically-well-known/" title="Previous Post: Tragically Well Known">&laquo; Tragically Well Known</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/07/22/reading-source-minima-ii/" title="Next Post: Reading Source, Minima II">Reading Source, Minima II &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

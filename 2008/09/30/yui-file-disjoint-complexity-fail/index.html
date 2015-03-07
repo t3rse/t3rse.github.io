@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>YUI File Disjoint Complexity FAIL - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ So here&#8217;s what has been getting my goat for a while with YUI and a very smple application I&#8217;ve been using it to build. So for said &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2008/09/30/yui-file-disjoint-complexity-fail">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">YUI File Disjoint Complexity FAIL</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T17:39:00-05:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>So here&#8217;s what has been getting my goat for a while with YUI and a very smple application I&#8217;ve been using it to build.</p>  <p><img src="http://www.t3rse.com/t3rse/images/yahooCSS.jpg" />     <br /><img src="http://www.t3rse.com/t3rse/images/yahoojslib.jpg" /> </p>  <p>So for said application, I have to reference 12 separate Javascript files along with 5 separate CSS files.&#160; All for this simple interface (datatable, tabs, button, ajax (connection), events and maybe a few more things I am not remembering):   <br />     <br /><img height="272" src="http://www.t3rse.com/t3rse/images/keep.jpg" width="514" /> </p>  <p>This type of complexity is what makes YUI daunting for many developers and difficult to maintain; over at <a href="http://www.nregex.com">nRegex</a> I&#8217;m referencing a bunch of older versions of YUI and if/when I do decide to update there will be quite a few places in which compatibility and errors have the potential in manifesting themselves.</p>  <p>YUI controls are nice once working but I&#8217;m at the point of wondering if this kind of disjointedness should lead me towards <a href="http://jquery.com/">jQuery</a> or <a href="http://dojotoolkit.org/">Dojo</a>. Especially with Microsoft&#8217;s <a href="http://weblogs.asp.net/scottgu/archive/2008/09/28/jquery-and-microsoft.aspx">recent adoption</a> of jQuery, I&#8217;m leaning in that direction. But I don&#8217;t want to be rash so I&#8217;ll ask:     <br />1. What is the canonical solution e.g. blessed by Yahoo! (I see a YUI loader of some kind)?    <br />2. What does that look like with the 5 CSS and 12 *.JS files I&#8217;ve got above?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Eric Miraglia</div>
+<div class='content'>
+You should be able to do all of this in just three requests as of YUI 2.5.2:<BR/><BR/>&lt;!&#8211; css &#8211;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/fonts/fonts-min.css&quot;&gt; <BR><BR/>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css&quot;&gt; <BR><BR/>&lt;!&#8211; js &#8211;&gt; <BR><BR/>&lt;script type=&quot;text/javascript&quot; src=&quot;http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&amp;2.5.2/build/animation/animation-min.js&amp;2.5.2/build/element/element-beta-min.js&amp;2.5.2/build/container/container_core-min.js&amp;2.5.2/build/menu/menu-min.js&amp;2.5.2/build/button/button-min.js&amp;2.5.2/build/connection/connection-min.js&amp;2.5.2/build/datasource/datasource-beta-min.js&amp;2.5.2/build/datatable/datatable-beta-min.js&amp;2.5.2/build/tabview/tabview-min.js&quot;&gt;&lt;/script&gt; <BR/><BR/>As Dav says, head over to the YUI dependency configurator to explore your options.</div>
+</div>
+<div class='comment'>
+<div class='author'>Dav Glass</div>
+<div class='content'>
+Try the Dependency Configurator: <A HREF="http://developer.yahoo.com/yui/articles/hosting/" REL="nofollow">http://developer.yahoo.com/yui/articles/hosting/</A><BR/><BR/>Also an FYI, the <STRONG>yahoo-dom-event.js</STRONG> file is a roll up of the <STRONG>yahoo-min.js</STRONG>, <STRONG>dom-min.js</STRONG> &amp; the <STRONG>event-min.js</STRONG>. So there is no reason to include them over again.</div>
+</div>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I thought I should leak why I&#8217;ve been such a bad blogger of late.</div>
+</div>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+Sooo&#8230; what&#8217;s a picture of an ultrasound doing on your blog post? Subtle hint or random choice?</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-30T17:39:00-05:00" pubdate data-updated="true">Sep 30<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2008/09/30/yui-file-disjoint-complexity-fail/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2008/09/30/yui-file-disjoint-complexity-fail/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2008/07/29/reading-source-minima-iii/" title="Previous Post: Reading Source, Minima III">&laquo; Reading Source, Minima III</a>
+      
+      
+        <a class="basic-alignment right" href="/2008/10/01/yui-file-disjoin-complexity-help/" title="Next Post: YUI File Disjoin Complexity HELP">YUI File Disjoin Complexity HELP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

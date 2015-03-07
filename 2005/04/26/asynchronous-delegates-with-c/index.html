@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Asynchronous Delegates With C# - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{In my previous article on delegates in C#, I gave the syntactical basics of delegates as well as a very rough idea of how they could be used in a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2005/04/26/asynchronous-delegates-with-c">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Asynchronous Delegates With C#</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-26T23:38:00-05:00" pubdate data-updated="true">Apr 26<span>th</span>, 2005</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br />In <a href="http://metadeveloper.blogspot.com/2005/04/beginning-with-delegates-in-c.html">my previous article</a> on delegates in C#, I gave the syntactical basics of delegates as well as a very rough idea of how they could be used in a callback scenario. This time I&#8217;d like to revisit the concept of delegates but take it a step further and show you how the .NET Framework wraps the ability to make asynchronous calls right into the capabilities of delegates. In short, once an instance of a delegate is obtained, it comes with <span style="color: rgb(255, 0, 0);">BeginInvoke(&#8230;)</span> and <span style="color: rgb(255, 0, 0);">EndInvoke(IAsyncResult)</span> methods that can be used to piece together an asynchronous call.<br /><br />In my previous example, we used a class called DB that had a method called RunLongQuery to fake the notion of something that takes a long time. However, it&#8217;s not difficult to write code that chews away CPU and I/O cycles so this time around we&#8217;ll use a class that really does take some time to do its work:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 51, 255);">public class</span> FileMapper{<br />         <span style="color: rgb(51, 51, 255);">public string</span> MapHeirarchy(<span style="color: rgb(51, 51, 255);">string </span>startPoint, <span style="color: rgb(51, 51, 255);">int </span>thresh, <span style="color: rgb(51, 51, 255);">bool </span>top){&#8230;}<br />}</span><br /><br />Our class, FileMapper, has a method called MapHeirarchy which takes a directory path, a threshold, and a boolean flag as its respective arguments. The overall goal of this method is simple: you pass it a path and it will graphically map out the directory structure. The integer and boolean arguments are there because the method is called recursively. So if I wrote the following code:<br /><br /><span style="font-size:85%;">FileMapper map = <span style="color: rgb(51, 51, 255);">new </span>FileMapper();<br />map.MapHeirarchy(&#8220;C:&#92;CODE&#8221;, 0, <span style="color: rgb(51, 51, 255);">true</span>);</span><br /><br />I&#8217;d get a list of the folders underneath the code directory returned as a string. It would look like:<br /><br /><span style="font-size:85%;">Mapping C:\CODE<br />-PROJA<br />&#8211;PROJASUB<br />&#8211;PROJASUB2<br />-PROJB<br />&#8211;PROJBSUB<br />&#8211;PROJBSUB2</span><br /><br />Not the most exciting thing in the world, but it can take a long time. For example, to map my C:\Program Files directory took 1 minute and 58 seconds on my Thinkpad. If we have methods such as this, which will take some time to run their course, they are good candidates for an asynchronous call. Asynchronous, in this case, means that once the method call is made, our code will continue executing until <span style="font-style: italic;">we check to see</span> that the method has completed. We don&#8217;t have to write a lick of thread management code in order to get this behavior; it&#8217;s all built in for us as long as we know how to define a delegate.<br /><br />The syntactical basics of delegates should be straightforward if you saw the earlier article. We&#8217;ll add a delegate to the FileMapper class so that we can call the MapHeirarchy method asynchronously:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 51, 255);">public class </span>FileMapper{<br />         <span style="color: rgb(51, 51, 255);">public delegate string</span> MapAsync(<span style="color: rgb(51, 51, 255);">string </span>startPoint, <span style="color: rgb(51, 51, 255);">int </span>thresh, <span style="color: rgb(51, 51, 255);">bool </span>top);<br /><br />          <span style="color: rgb(51, 51, 255);">public string</span> MapHeirarchy(<span style="color: rgb(51, 51, 255);">string </span>startPoint, <span style="color: rgb(51, 51, 255);">int </span>thresh<span style="color: rgb(51, 51, 255);"><span style="color: rgb(0, 0, 0);">,</span> bool </span>top){&#8230;}<br />}</span><br /><br />The MapAsync delegate matches the return value and arguments of the method we intend to use it for, MapHeirarchy. I like to call delegates &#8221;<span style="font-style: italic;">typesafe </span>method pointers&#8221; and point out that they are &#8220;typesafe&#8221; because you can only point to a method that has the same return type and arguments.<br /><br />In the class where we are leveraging the FileMapper class, we create an anonymous instance of the class to map the MapHeirarchy method of the instance to an instance of the MapAsync delegate. Sounds like a lot, but it&#8217;s really just a single line of code:<br /><br /><span style="font-size:85%;">FileMapper.MapAsync mp = </span><span style="color: rgb(51, 51, 255);font-size:85%;" >new </span><span style="font-size:85%;">FileMapper.MapAsync(new FileMapper().MapHeirarchy);</span><br /><br />In order to make the asynchronous call, <span style="font-style: italic;">rather </span>than invoking the delegate outright like this:<br /><br /><span style="font-size:85%;">mp(&#8220;C:&#92;DIR&#8221;, 0, true);</span><br /><br />we will use the BeginInvoke method of the delegate like this:<br /><br /><span style="font-size:85%;">IAsyncResult v = mp.<span style="color: rgb(255, 0, 0);">BeginInvoke</span>(&#8220;C:&#92;Code05&#8221;, 0, <span style="color: rgb(51, 51, 255);">true</span>, <span style="color: rgb(51, 51, 255);">null</span>, <span style="color: rgb(51, 51, 255);">null</span>);</span><br /><br />From left to right, an object which implements the IAsyncResult interface is returned from an asynchronous call. This is, quite simply, the object which we can &#8220;ask&#8221; about when the method has finished executing and which will allow us to retrieve the results of the method&#8217;s execution. The mp.BeginInvoke is the call to our delegated method along with the first three arguments which we&#8217;ve seen defined above. The last two arguments, passed as nulls in this instance can be ignored; they must be a part of the call, but we don&#8217;t have to know what they are just yet.<br /><br />The IAsyncResult object has an IsCompleted property which holds a boolean flag indicating whether the method has completed. We can write simple code to poll this property until the method has finished its execution:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 51, 255);">while</span>(!v.<span style="color: rgb(255, 0, 0);">IsCompleted</span>){<br /> Console.WriteLine(&#8220;Method still executing&#8230; &#8220;);<br />}</span><br /><br />Under normal circumstances you may take advantage of a loop like this to display or draw an animation that allowed a user to know that processing was taking place. There are many different directions that this could be taken but it suffices to say that at this point the method you&#8217;ve invoked is executing asynchronously and you&#8217;re free to carry on with whatever code follows it.<br /><br />To retrieve the result from the method, we must again ask the IAsyncResult object.  Our code may look as follows:<br /><br /><span style="font-size:85%;"><span style="color: rgb(51, 51, 255);">if</span>(v.IsCompleted){<br /> <span style="color: rgb(51, 51, 255);">string </span>tmp = mp.<span style="color: rgb(255, 0, 0);">EndInvoke</span>(v);<br /> Console.Write(tmp);<br />}</span><br /><br />Notice that after the IsCompleted method returns a true value we have the ability to use our delegate and call the EndInvoke method, passing it the IAsyncResult object to get our return value. The implementation is super slick here because the return type of the EndInvoke method is the return type of the original method!<br /><br />So here we see delegates one step further: the ability to make an asynchronous call with a delegate without having to worry about Threads, Synchs, Timers, or Locks. We also can see a way in which any method has the potential to be made asynchronous, as long as it has an associated delegate to go along with it. Finally, remember that you can define your own delegates for any method. The delegate that allows you to make an asynchronous call does not have to be defined in the same class whose methods you want to call asynchronously.<br /><br />Download the full code listing <a href="http://hobbitwerk.brinkster.net/metadeveloper/BasicDelegates2.zip">here</a>.<br /><br />Questions? david DOT(.)  seruyange AT(@) gmail DOT(.) com<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Tony</div>
+<div class='content'>
+Salut � tous, si vous �tes � la recherche d&#8217;une opportunit�<A HREF="http://www.miamitelecom.com" REL="nofollow">callback</A> de business pas contraignant, et sans besoin de vous d�placer, je vous recommande de vous lancer dans le callback t�l�phonique.<BR/>En effet, je suis tomb�e sur un site tr�s int�ressant:&#8221;miamitelecom&#8221;, qui propose des partenariats dans ce domaine, sans ou presque, apport financier initial.<BR/>Pour ceux qui ne connaissent pas, le callback est un syst�me de code ou de cartes t�l�phoniques (au choix), qui permet de t�l�phoner � l&#8217;�tranger � tr�s bas prix!!<BR/>Ces avantages: -1 seul num�ro utilisable � partir de n&#8217;importe quel t�l�phone, n&#8217;importe o� dans le monde. Ceci est tr�s avantageux pour les personnes qui voyagent beaucoup du fait de leur travail, ou pour celles vivant dans un pays pas tr�s d�velopp� en mati�re de t�l�communication par exemple.<BR/>                  - communication tr�s nette, contrairement au VOIP (=par  liaison internet, ce qui n&#8217;est pas du tout satisfaisant!!)<BR/>                   - Beaucoup moins couteux qu&#8217;un appel classic<BR/>                   - C&#8217;est vous qui d�cidez combien et quand vous voulez recharger en terme de temps de communication ( par le biais de carte bancaire ou autre)<BR/>En ce qui me concerne, j&#8217;en fais l&#8217;exp�rience en ce moment, et c&#8217;est un secteur en pleine expansion ( je distribue des acc�s surtout � des chefs d&#8217;entreprises, parcourrant la plan�te, ce qui leur permet d&#8217;�tre joint � n&#8217;importe quel moment sur un m�me num�ro!)<BR/>Je cible surtout l&#8217;Afrique en g�n�ral, et j&#8217;ai vu mon chiffre d&#8217;affaires exploser en quelques mois!<BR/>Si vous �tes int�ress�s, vous pouvez contacter Mr Corona de ma part (johanna), par mail � l&#8217;adresse suivante:www.callback@miamitelecom.com<BR/>Pour plus d&#8217;informations, vous pouvez aussi vous r�f�rer au site http://www.miamitelecom.comhttp://www.miamitelecom.com<BR/>Je vous recommande de vous y int�resser, cela peut vous rapporter gros!!!<BR/>Pour finir, et juste pour info, la soci�t� � ouvert un autre d�partement qui vaut le d�tour: http://www.miamicall.uscallback<BR/>Bien � vous.<BR/>Cordialement.<BR/>Johanna&#8230;..</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-04-26T23:38:00-05:00" pubdate data-updated="true">Apr 26<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2005/04/26/asynchronous-delegates-with-c/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2005/04/26/asynchronous-delegates-with-c/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/04/21/winforms-combobox-itemdata/" title="Previous Post: WinForms ComboBox ItemData">&laquo; WinForms ComboBox ItemData</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/05/11/vasters-on-soa/" title="Next Post: Vasters on SOA">Vasters on SOA &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1016 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="In my previous post I gave an overview of TypeScript from my perspective and my premise for kicking the tires: to avoid emotion and quick judgement &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/11/06/TypeScript-Delving-Deeper/">TypeScript: Delving Deeper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-06T00:00:00-06:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/11/06/TypeScript-Delving-Deeper/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/11/06/TypeScript-Delving-Deeper/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In <a href="http://www.t3rse.com/post/2012/10/31/TypeScript-Up-and-Running.aspx" target="_blank">my previous post</a> I gave an overview of TypeScript from my perspective and my premise for kicking the tires: to avoid emotion and quick judgement in order to see what the language is really about. I walked through my setup in Visual Studio and how I use a post build event to have the TypeScript compiler generate my JavaScript. </p>  <p>I had originally wanted to do it in a single post but thought it would be better to separate more of the TypeScript code I wrote to get a feel for the language. The mini-project I worked on was inspired by <a href="http://weblog.raganwald.com/2007/01/please-design-deck-of-cards-in-java.html" target="_blank">an old Raganwald interview question</a> on modeling a deck of playing cards within an object oriented language. As I got into this more and more I realized just how much fun and tweaking I could do with my approach so I just drew a line in the sand once I’d gotten the concept of a playable deck with players completed. </p>  <p><strong><font size="3">Interfaces</font></strong></p>  <p>Let’s start with the basic notion of a card. TypeScript supports interfaces which allow us to define a contract for what things we expect to find on a card: </p>  <div class="code">   <pre class="brush: csharp">interface ICard{
+    isFace():bool;
+    getValue():number;
+    getSuite():string;    
+}</pre>
+</div>
+
+<p>
+  <br />The definitions fall into a method():type syntactical format. Our card will tell us if it’s a “face card,” return a numeric value representing how much it is worth and can tell us what suite it is in. </p>
+
+<p><strong><font size="3">Enumerations</font></strong></p>
+
+<p>TypeScript supports enumerations but even better than that we can use idioms that exist in JavaScript to get a lot of mileage out of classes that contain definitions of constants. I wish this was a result of my own brilliant thinking but there’s <a href="http://stackoverflow.com/questions/12687793/how-to-create-enum-like-type-in-typescript" target="_blank">a StackOverflow question</a> from which I took inspiration.&#160; I’ll get to that later but first here are my constants for face cards and suites, wrapped in respective class definitions: </p>
+
+<div class="code">
+  <pre class="brush: csharp">class FaceCardTypes { 
+    JACK: number = 11;
+    QUEEN: number = 12;
+    KING: number = 13;
+    ACE: number = 1;
+}
+
+class Suites { 
+    SPADES: number = 1; 
+    HEARTS: number = 2;
+    DIAMONDS: number = 3;
+    CLUBS: number = 4;
+}</pre>
+</div>
+
+<p>
+  <br />The members are defined with the NAME:type = value syntax. Again, this is static typing. It’s a raison d&#8217;être of TypeScript and it won’t take us long to see just how useful it is. </p>
+
+<p><strong><font size="3">Class Definitions: Constructors and Inheritance</font></strong></p>
+
+<p>If you know C# then TypeScript is for the most part a breeze. There is slight variation of syntax but once you get used to it, it fits well into the your comfort zone. Here I define a Card class, implementing my previously defined interface </p>
+
+<div class="code">
+  <pre class="brush: csharp">// implement the ICard Interface
+class Card implements ICard{
+    private _value: number;
+    private _suite: string;
+    private _isFace: bool;
+
+    // constructor with suffixes specifying type
+    constructor(suite: string, value: number, isFace: bool){
+        this._suite = suite;
+        this._value = value;    
+        this._isFace = isFace;
+    }
+
+    // must implement via interface
+    public getValue(){
+        return this._value;
+    }
+
+    // must implement via interface
+    public getSuite(){
+        return this._suite;
+    }
+
+    // must implement via interface
+    public isFace(){ return this._isFace; }
+
+    public asString() { 
+        return this.getValue() + &quot; of &quot; + this.getSuite();
+    }
+}
+
+// Inheriting the Card definition with extends 
+class FaceCard extends Card{  
+    private _faceType: string;
+    constructor(faceType: string, suite: string, value: number){
+        super(suite, value, true);
+        this._faceType = faceType;
+    }
+
+    // override 
+    public isFace() { return true; }
+
+    // override
+    public asString() { 
+        return this._faceType + &quot; &quot; + super.getValue();
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">JavaScript Idioms</font></strong></p>
+
+<p>Even though TypeScript is it’s own beast you still have access to many of the idioms you might use with plain JavaScript. Earlier I defined the FaceType and Suite data structures in classes rather than in an enumeration. Here is why: I can use the for… in idiom of JavaScript to iterate over the properties of my types and take advantage of how JavaScript objects can be treated as property bags. To demonstrate this, look at my Deck class – in the constructor I am iterating through the different card suites using a for.. in, pushing the string definition of the suite into my card definitions. I’m doing something similar with the face cards. </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Deck { 
+    public Cards: Card[];
+
+    constructor () { 
+        this.Cards = [];
+        // for in, lets me get the string &quot;SPADES&quot;, &quot;CLUBS&quot; etc
+        for (var suite in new Suites()) {
+            for (var i = 1; i &lt; 11; i++) {
+                this.Cards.push(new Card(suite, i, false));
+            }
+            var faceCardLookup = new FaceCardTypes();
+            // for.. in, lets me get each facecard type &quot;JACK&quot;, &quot;QUEEN&quot; but also look up 
+            // it's numerical value like a property bag with faceCardLookup[face]
+            for (var face in new FaceCardTypes()) { 
+                this.Cards.push(new FaceCard(face, suite, faceCardLookup[face]));
+            }
+        }    
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Ambient Declarations</font></strong></p>
+
+<p>JavaScript is rife with libraries. The king of all libraries is jQuery but there are many other useful ones. In our model of card games we are going to define a class for players, giving a player the ability to have cards, shuffle the deck, pluck cards from the deck and deal to other players. </p>
+
+<p>Writing a shuffle algorithm is not hard. Writing a good shuffle algorithm… well that is a bit more tricky. Rather than implementing the shuffle ourselves, let’s take advantage of a library called <a href="http://underscorejs.org/" target="_blank">underscore.js</a> since beyond having shuffling built in it incorporates many other utility methods for collections that we will find useful. Using underscore.js with TypeScript is trivial. First download and reference underscore.js in your project. After that you simply need to download the ambient declarations (courtesy of a kind soul named alvivi on Github) and reference them in your TypeScript file with the following syntax: </p>
+
+<div class="code">
+  <pre class="brush: csharp">/// &lt;reference path=&quot;underscore.browser.d.ts&quot; /&gt;</pre>
+</div>
+
+<p>
+  <br />Now that there is a reference to underscore, you can take advantage of it in your TypeScript code. In my Player class I use _.shuffle, _.take, _.any, _.each, and _.reject. You can look up the definition of those methods on the underscore.js page which does a good job of documenting each one with some example code. </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Player { 
+    public name: string;
+    public hand: Card[];
+
+    constructor (n:string) { 
+        this.hand = [];
+        this.name = n;
+        
+    }
+
+    Shuffle(deck: Deck) { 
+        return _.shuffle(deck);
+    }
+
+    PluckCards(deck: Deck, count: number) { 
+        // just deal yourself some cards
+        this.Deal(this, count, deck);
+    }
+
+    Deal(player: Player, cardCount: number, deck: Deck) { 
+        // take out some cards
+        var hand = _.take(deck.Cards, cardCount);
+
+        // filter them out of the deck
+        deck.Cards = _.reject(deck.Cards, function (card) { 
+            return _.any(hand, function (handCard) { 
+                return card == handCard;
+            });
+        });
+
+        // push them into a player's hand
+        _.each(hand, function (card) { player.hand.push(card); });
+    }
+
+    ShowHand() { 
+        console.log(&quot;*****&quot; + this.name + &quot;*********&quot;);
+        _.each(this.hand, function (card) { 
+            console.log(card.asString());
+        });
+        console.log(&quot;**************&quot;);
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Functions First Class, Static Members</font></strong></p>
+
+<p>I really like functional programming – there are certain types of problems that lend themselves so well to this paradigm over others, like standard imperative object oriented techniques. One of the big strengths of JavaScript is that it embraces the functional paradigm and lets you use functions as first class citizens. In the card game, I try to show the kind of power inherent in this style by making a Game class that is adaptable to different types of games that may have different rules, strategies, and methodologies of picking winners. Rather than defining a class for every possible game that can be played, our Game class has two methods: PlayRound, and HasWinner, that use a function parameter to delay the approach to each so that it can vary by game. For example, you may use the first round of a game to allow each player to pick up a certain number of cards. After that you may have different game mechanics for each turn. Similarly games may calculate winners in different ways: a game where you try to have the fewest cards or a game where the value of your cards is most important. </p>
+
+<p>One final piece of TypeScript that is used is the static member. In our Game class the Start method is static factory method that returns a new instance of Game based on the players. But enough overview, here is the code: </p>
+
+<div class="code">
+  <pre class="brush: csharp">class Game { 
+    public players: Player[]; 
+    public drawPile: Deck;
+    public dealer: Player;
+
+    constructor (players: Player[], deck: Deck) { 
+        this.players = players;
+        this.drawPile = deck;
+    }
+    // PlayRound takes a function that defines the strategy 
+    // for each player on their turn
+    PlayRound(turnStrategy: (player: Player, deck: Deck) =&gt;{ }) {
+        var deck = this.drawPile;
+        _.each(this.players, function (player) { 
+            // for each player, call the passed in function 
+            // to invoke the strategy for them
+            turnStrategy(player, deck);
+        });
+    }
+
+    // HasWinner takes a function that will be called with all the players 
+    // of the game
+    HasWinner(winRule: (players: Player[]) =&gt; { }) { 
+        return winRule(this.players);        
+    }
+
+    // We can have static members 
+    static Start(players: Player[], assignDealer: bool) { 
+        return new Game(players, new Deck());
+    }
+}</pre>
+</div>
+
+<p>
+  <br /><strong><font size="3">Playing Games</font></strong></p>
+
+<p>So now that all the types are defined, we can simulate a game. The game code is simple but it shows the kind of flexibility that you could use to simulate a lot of different card games. Here is a summary of what happens: </p>
+
+<ul>
+  <li>Define the players </li>
+
+  <li>Start the game </li>
+
+  <li>Simulate a round where players pluck cards from the deck </li>
+
+  <li>Calculate a winner with the following algorithm: total up the value of each player’s cards and whoever has the most wins. </li>
+</ul>
+
+<p>Here is the code: </p>
+
+<div class="code">
+  <pre class="brush: csharp">// define the players
+var gamers = [new Player(&quot;Stan&quot;), new Player(&quot;Jack&quot;), new Player(&quot;Adi&quot;)];
+
+// start the game
+var game = Game.Start(gamers, false);
+
+// play a round
+game.PlayRound(
+    // pass a function where each player plucks cards 
+    (p: Player, d: Deck) =&gt;{ p.PluckCards(d, 3);}
+);
+
+// figure out the winner by taking each player's cards
+// and totaling up their value
+var winner = &lt;player&gt;game.HasWinner(
+    (players: Player[]) =&gt; {
+        var rankings = _.sortBy(players, function (player: Player) {
+            return _.reduce(player.hand, function (memo, card: Card) {
+                return memo + card.getValue()
+                    * -1; // reverse order
+            }, 0);
+        });
+
+        _.each(rankings, function (p: Player) {
+            p.ShowHand();
+        });
+
+        return _.take(rankings, 1);
+    }
+);
+
+// this prints out the winning hand 
+winner.ShowHand();</pre>
+</div>
+
+<p>
+  <br /><font size="3"><strong>Conclusion</strong></font></p>
+
+<p>Could I have written this in JavaScript? Sure. TypeScript by no means defines anything so radically new that I would have to use it over my own object oriented JavaScript modeling. However, I think the above demonstrates the advantage – all the while I wrote my code not only could I structure things within the statically typed paradigm that I’m used to, for example with inheritance, I also had compiler checking. This isn’t as big of a deal with small JavaScript driven pages but as your programs get bigger, the more useful something like that can become. </p>
+
+<p>The one area of TypeScript that I found awkward was runtime debugging. It was easy enough to use the Chrome Developer Tools to set a break point and step through code but it almost felt like my mind had to compile the TypeScript into the JavaScript I was debugging… fairly trivial in my utterly contrived card games but something that could be problematic as a web application gets bigger and bigger. </p>
+
+<p>Charles Petzold wrote an essay sometime back with the completely valid title/assertion “<a href="http://www.charlespetzold.com/etc/doesvisualstudiorotthemind.html" target="_blank">Does Visual Studio Rot The Mind?</a>” Many people who use TypeScript will like it because it will make their lives easier, giving them auto completion and some other things that they are used to with languages like C#. For them TypeScript might erode their ability to think in terms of JavaScript on its own terms and it will limit them from any library or platform that doesn’t snap in to the TypeScript universe as easily as something like underscore.js. It’s valid to be apprehensive about people like that for their own sakes. But for me and what I do, I like the concept and I see the opportunity for productivity increases with it especially as the tooling gets better. </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/31/TypeScript-Up-and-Running/">TypeScript: Up and Running</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-31T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/31/TypeScript-Up-and-Running/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/31/TypeScript-Up-and-Running/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I am a language geek so I was more than intrigued with the announcement and release of TypeScript about a month ago from Microsoft. I found out via twitter where almost immediately there were knee jerk reactions by many. It would be false to say the reactions were equally positive and negative; many of the people who have found their way to my twitter list tended to be really cynical in one of two ways: either by saying TypeScript was not CoffeeScript or by claiming that JavaScript was fine and the language invasion was not necessary.</p>  <p>On the topic of “why TypeScript?”, Anders <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">said the following</a>: </p>  <blockquote>   <p>I am not a religious C# zealot, I am a language designer&#8230;&#160; and when language design problems present themselves, I jump in because I&#8217;m fascinated by what you can do with languages and what you can do, for example, with static typing. </p> </blockquote>  <p>I like that mentality. Put aside the hysterics, the affiliations, and all the other emotional stuff. The language is a tool, let’s see what it can do. </p>  <p>So what exactly is TypeScript? For the formal definition, let’s hit Wikipedia: </p>  <blockquote>   <p>TypeScript is a free and open source programming language developed by Microsoft. It is a superset of JavaScript, and essentially adds optional static typing and class-based object oriented programming to the language. </p> </blockquote>  <p>If you want my definition which I would hope is <a href="http://www.codinghorror.com/blog/2007/11/mort-elvis-einstein-and-you.html" target="_blank">more Elvis than Mort</a> in nature, it’s a new language that introduces the things that are useful from static typing to JavaScript. When you write code in TypeScript, the compiler emits JavaScript that reflects your design. The advantage of TypeScript is that you get compiler checking and some of the language features (e.g. interfaces) that make developers productive in statically typed, object oriented environments. </p>  <p>I guess I can say that over time I’ve become less quick with my reactions. I have a lot of strongly held opinions but one thing that has slowed me down is that these opinions develop with use rather than from conceptual understanding or classical education. In order for me to like or dislike I need to sit down and spend some time with what I’m evaluating. </p>  <p>So how to get started with TypeScript? That’s easy: </p>  <p>1. <a href="http://www.microsoft.com/en-us/download/details.aspx?id=34790" target="_blank">Download the language compiler and SDK</a>. </p>  <p>2. <a href="http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf" target="_blank">Download the language specification</a>. </p>  <p>3. Once you’ve installed it, you can verify that the compiler is alive and well by opening a command line and typing</p>  <p><font size="2" face="Courier New"><strong>tsc –help</strong></font> </p>  <p>If something is amiss here make sure you have the compiler installed and that your PATH includes a reference to the install location. </p>  <p>4. For some high level background, watch <a href="http://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript" target="_blank">Anders Hejlsberg: Introducing TypeScript</a> on Channel 9. </p>  <p>5. For an additional conversation, programmer to language designer style, listen to <a href="http://www.hanselminutes.com/340/what-is-typescript-and-why-with-anders-hejlsberg" target="_blank">Hanselman’s interview of Anders</a>. </p>  <p>6. The TypeScript compiler generates JavaScript files. In order to incorporate this into a web project where I could start getting into language features, I did the following: </p>  <div style="display: block; float: none">   <ul>     <li>Created a /Script folder with my *.ts TypeScript file.        <p><a style="display: block" href="/images/FirstTypeScript-Explorer_1.jpg"><img style="background-image: none; border-bottom: 0px; border-left: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top: 0px; border-right: 0px; padding-top: 0px" title="FirstTypeScript-Explorer" border="0" alt="FirstTypeScript-Explorer" src="/images/FirstTypeScript-Explorer_thumb_1.jpg" width="291" height="337" /></a></p> I have been writing a deck of cards simulation but I will detail that in a different post. For now let’s start with the greeter.ts file that is <a href="http://www.typescriptlang.org/Playground/" target="_blank">provided as a sample</a>:         <br />        <div>         <pre class="brush: csharp">module HelloWorld {  
+    class Messenger {  
+        repeat: number;  
+  
+        constructor (public message = &quot;Hello World&quot;) {  
+            this.repeat = 1;  
+        }  
+  
+        speak() {  
+            for (var i = 0; i &lt; this.repeat; i++) {  
+                console.log(this.message);  
+            }  
+        }  
+  
+        static SayHelloInSlang() {   
+            new Messenger(&quot;'Sup World?&quot;).speak();  
+        }  
+    }  
+  
+    var m = new Messenger();  
+    m.speak();  
+  
+    Messenger.SayHelloInSlang();  
+}  </pre>
+      </div>
+
+      <br /></li>
+  </ul>
+</div>
+
+<div style="display: block; float: none">
+  <ul>
+    <li>Created a PostBuild Event that ran the TypeScript compiler on my file. <em>Click the image for a full view</em>. 
+
+      <p><a style="display: block" href="/images/FirstTypeScript-PostBuild_1.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-PostBuild" border="0" alt="FirstTypeScript-PostBuild" src="/images/FirstTypeScript-PostBuild_thumb_1.jpg" width="415" height="188" /></a> </p>
+    </li>
+  </ul>
+</div>
+
+<div style="display: block">
+  <ul>
+    <li>Referenced the emitted JavaScript file in my project. My starting file was <strong>greeter.ts</strong> so the emitted JavaScript file is <strong>greeter.js</strong>. <em>Click the image for a full view.</em> 
+
+      <br />
+
+      <br /><a href="/images/FirstTypeScript-Reference.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScript-Reference" border="0" alt="FirstTypeScript-Reference" src="/images/FirstTypeScript-Reference_thumb.jpg" width="409" height="158" /></a> </li>
+
+    <li>Run the page and look at your console. You will see the greeting output. If you want to see something a bit more forceful or, if for some reason you are running Internet Explorer, change the console.log into a window.alert in the sample code. <em>Click image for a full view. 
+        <br />
+
+        <br /><a href="/images/FirstTypeScriptConsole.jpg"><img style="background-image: none; border-right-width: 0px; margin: 0px 10px 0px 0px; padding-left: 0px; padding-right: 0px; float: none; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="FirstTypeScriptConsole" border="0" alt="FirstTypeScriptConsole" src="/images/FirstTypeScriptConsole_thumb.jpg" width="404" height="199" /></a></em> </li>
+  </ul>
+</div>
+
+<p>I’ve been experimenting with TypeScript for a little more than a week and my conclusion to this point is overwhelmingly positive: it’s a nifty language, intuitive for anyone who is used to C# or similarly object oriented languages, and having the compiler is a good benefit. On the downside I find integration and debugging a little clumsy. The debugging story is that I do it at runtime in the emitted JavaScript which I suppose I will get used to. It would be nice to seem together the build process a little better though the post build event seems to do the trick. It would be nice if there was a way I could look at compiler output in this scenario. </p>
+
+<p>In my next TypeScript post I’ll cover my actual experiment (segmented from this post to keep it smaller and focused) which is taken from <a href="http://weblog.raganwald.com/2007/01/please-design-deck-of-cards-in-java.html" target="_blank">an old Raganwald interview question post</a>: to design a deck of cards. </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/27/Hanselmans-NASA-Podcast-Series/">Hanselman’s NASA Podcast Series</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-27T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/27/Hanselmans-NASA-Podcast-Series/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/27/Hanselmans-NASA-Podcast-Series/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.hanselman.com/blog" target="_blank">Hanselman</a> has been on a tear of late with his podcasts but one series in particular I’ve enjoyed is a series of folks who in some way are connected with NASA or the space program. Even though I was a kid who was geek enough to want to become an astronomer, often fondling worn out pages of a <a href="http://www.amazon.com/gp/product/1426209711/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1426209711&amp;linkCode=as2&amp;tag=t3rse-20">Space Atlas</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=1426209711" width="1" height="1" /> , I think just about anyone will enjoy these conversations. </p>  <p><a href="http://www.hanselminutes.com/317/it-is-rocket-science-holly-griffith-former-space-shuttle-and-current-space-station-worker" target="_blank">Holly Griffith</a> – former space shuttle and current space station worker (<a href="http://www.spacetweepsociety.org/" target="_blank">Space Tweep Society</a>).</p>  <p><a href="http://www.hanselminutes.com/337/robots-on-mars-with-mark-powell" target="_blank">Mark Powell</a> – senior software engineer at Jet Propulsion Laboratories</p>  <p><a href="http://www.hanselminutes.com/342/an-interview-with-paul-lutus" target="_blank">Paul Lutus</a> – there are dudes and there are <em>dudes</em>. Paul Lutus is a <em><a href="http://en.wikipedia.org/wiki/Paul_Lutus" target="_blank">dude</a></em>. </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/26/Overnight-Success/">Overnight Success</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-26T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/26/Overnight-Success/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/26/Overnight-Success/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There was a time in my life when I daydreamed about being at a startup, eating pizza, and writing code while I worked the kind of hours that would be daunting for a Foxconn factory worker. Although this period of my life predates the <a href="http://paulgraham.com/" target="_blank">Paul Graham</a> / <a href="http://ycombinator.com/" target="_blank">YCombinator</a> era (it all started with <a href="http://www.amazon.com/gp/product/0887308554/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0887308554&amp;linkCode=as2&amp;tag=t3rse-20">Accidental Empires</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=0887308554" width="1" height="1" /> ), PG and the YCombinator stories are a part of internet lore much in the same way that <a href="http://www.folklore.org/index.py" target="_blank">the stories of Apple</a> captured an earlier generation’s imagination. </p>  <p>Although my life as a husband and father shifts my values and perspectives on the concepts of startups (very cool for other people but the time isn’t right for me), I still like the yarns of what it takes to have an idea and build a company out of it. This was why I tuned in to the Startup School broadcast. </p>  <p>One presentation that stuck with me was <a href="http://david.weebly.com/index.html" target="_blank">David Rusenko</a> of <a href="http://www.weebly.com/" target="_blank">Weebly</a>, a company built around serving people who want an easy, low impact way of building a website. The end of the story is where Weebly is now: vastly successful in terms of revenue, profitability, and pervasiveness – some 2% of active websites on the internet run on their platform. Weebly and his crew lived the dream: a small idea in college with friends, getting funded by YCombinator, living in San Francisco and making it big. They’ve been featured in <em>TechCrunch</em>, <em>The Wall Street Journal</em>, and&#160; <em>Newsweek</em>, and elsewhere. It’s enough to make the entrepreneurially challenged among us say “that’s so awesome” and miss out on the focal point of Rusenko’s talk - the timeline: </p>  <p>February 2006 – start of coding</p>  <p>August 2006 - 12 new users / friends and family</p>  <p>October 2006 - 30 new users / signups</p>  <p>November 2006 – Getting Techcrunched, a quick spike in user signups</p>  <p>January 2007 - at 11 months, move to san franscisco, less than 100 signups / day, only $100 in bank account</p>  <p>May 2007 - featured in newsweek (15 months in)</p>  <p>August 2007 - featured in Time, 50 best websites, (18 months in), but no “hockey stick” growth</p>  <p>October 2007 - rate of new users signups per day inflection point to positive territory</p>  <p>Fall 2008 – Economic meltdown, tough economy, bank balance going toward 0. </p>  <p>December 2008 - Figuring out what bills to pay, more financial trouble</p>  <p>January 2009 - BREAK EVEN (35 months after starting)</p>  <p>…and now, encouraging the rest of us who aspire that <a href="http://www.joelonsoftware.com/articles/fog0000000017.html" target="_blank">good software takes a long time to build</a>. </p>  <p><strong>Part 1:</strong></p> <iframe height="315" src="http://www.youtube.com/embed/l_b228qEVi8" frameborder="0" width="420" allowfullscreen="allowfullscreen"></iframe>  <p>&#160;</p>  <p><strong>Part 2: </strong></p> <iframe height="315" src="http://www.youtube.com/embed/F90BRJHXsVI" frameborder="0" width="420" allowfullscreen="allowfullscreen"></iframe>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/21/Fail-Better-Baseball-Edition/">Fail Better, Baseball Edition</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-21T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/21/Fail-Better-Baseball-Edition/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/21/Fail-Better-Baseball-Edition/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A part of the universal appeal of sport is our ability to see an overlap of beauty and reality within the games we play. The beauty comes from the ideal form, motion, and skill. The reality is the humans at play, the unfortunate circumstance and the ineffables, things like “momentum” or “heart” or “luck.” </p>  <p>While a sport like football (the American variety) is about the goal of perfection, its idealistic opposite is baseball which is consumed with the battle and nuances of failure. The best batters fail 65 percent of the time. An incredible pitching effort can be undone with a late inning meltdown. The difference between the men who are memorable and those who are forgotten is a difference between 1 in 20 at bats[1]. </p>  <p>The nuance of the game extends beyond personal failures and triumph; year after year it seems that teams which end up winning the World Series are teams that “peak at the right time.” Unlike basketball and football, where the better team almost always wins, the better team is only a likely winner in baseball with a lot that is subject to chance. Over the last 5 years, the winners of the World Series <a href="http://www.baseballrealitytour.com/2012/10/so-whats-scenario.html" target="_blank">only win about 60% of their games</a>. In American school 60% is a D – only one point shy of an F.</p>  <p>And somehow this makes me think of life and software. No one wins all the time and depending on the nature of the task, whether the system is closed or open, and the winds of the ineffable (people like Albert Pujols believe in God, not luck, so let’s keep this variable vague), failure is a part of life as a software developer. When a deadline slips, it’s like a strikeout. When a project goes underwater, it’s like losing a series. There are those extended periods of motivational weakness, where bouncing out of bed and compiling code just isn’t that fun. Especially when you work on the same problem for several months (e.g. font rendering). </p>  <p>But like baseball, I think that the difference in people has to do with more than talent. It’s the ability to deal with failure, the grit in hammering away at a problem and persevering, and a temperament that allows you to forget failure and treat the future as its own exciting journey. </p>  <br /><iframe height="315" src="http://www.youtube.com/embed/J3ymSA0RqWk" frameborder="0" width="420" allowfullscreen="allowfullscreen"></iframe>  <p>   <br />[1] The difference between batting .250 and .300 (source: <a href="http://www.amazon.com/gp/product/1600785875/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1600785875&amp;linkCode=as2&amp;tag=t3rse-20">2012 Baseball Forecaster (Ron Shandler&#8217;s Baseball Forecaster)</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=1600785875" width="1" height="1" /> )</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/19/Parting-the-List/">Parting the List</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-19T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/19/Parting-the-List/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/19/Parting-the-List/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here’s a nice quick solution. Let’s say you have some List&lt;T&gt; and you need to separate it into chunks of some number N or less, for example taking 100 numbers and separating them into batches of 25. </p>  <div class="code">   <pre class="brush: csharp">List&lt;int&gt; myListOfNumbers = Enumerable.Range(1, 100).ToList();
+
+var parted = Enumerable.Range(0, myListOfNumbers.Count)
+						.GroupBy(n =&gt; n / 25) // &lt;-- clever sleight of hand here
+						.Select(n =&gt; n.Select(index =&gt; myListOfNumbers[index]).ToList());
+
+// prints 1-24, 25-49, 50-74, 75-100
+foreach (var part in parted) {
+	Debug.WriteLine(String.Join(&quot;,&quot;, part.Select(p =&gt; p.ToString())));
+}</pre>
+</div>
+
+<p>
+  <br />The sleight of hand I’m noting is a neat trick with integer division truncating or flooring values. You can fairly easily generalize this into a method where you pass a List&lt;T&gt; and a parameter for how many items you want in a group.</p>
+
+<div class="code">
+  <pre class="brush: csharp">Func&lt;List&lt;int&gt;, int, IEnumerable&lt;List&lt;int&gt;&gt;&gt; splitList = (list, groupSize) =&gt; {
+	return Enumerable.Range(0, list.Count)
+						.GroupBy(n =&gt; n / groupSize) 
+						.Select(n =&gt; n.Select(index =&gt; list[index]).ToList());            
+};
+
+List&lt;int&gt; primes = new List&lt;int&gt;(){ 2, 3, 5, 7, 11, 13, 17 };
+var primesGrouped = splitList(primes, 3);</pre>
+</div>
+
+<p>
+  <br />Pretty cool no? </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string/">Filtering LINQ Predicates, Sorts, and Filters by String</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-18T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/18/Filtering-LINQ-predicates-sorts-and-filters-by-string/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Those of us in the C# realm have become so used to LINQ it’s difficult to remember the problems of yesteryear and how we used to solve them. The reason is that almost all of the time, LINQ takes that work we used to do and abstracts a lot of the pain into a query syntax. </p>  <p>But there are some problems things that used to be more intuitive. The dinosaurs among us remember writing code like this:</p>  <div class="code">   <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">void SortRecords(DataTable data, string column, string direction) { 
+	data.DefaultView.Sort = String.Join(&quot;{0} {1}&quot;, column, direction); 
+} </pre>
+</div>
+
+<p>
+  <br />In a typical scenario you might have a user click on a column, in some interface and pass that to your SortRecords method to change the way the data is displayed. In the present day, using LINQ to sort is trivial but because LINQ takes expressions as parameters for the typically used OrderBy and OrderByDescending, using a string isn’t as straight forward of a process. What’s a path around this problem? </p>
+
+<p>First, let’s demonstrate the problem. Assume I have a class Person with two properties, FirstName and LastName. Let’s further assume that although an instance of Person is useful, we often have lists of Person that we occasionally find ourselves having to sort. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};</pre>
+</div>
+
+<p>
+  <br />A typical sorting expression in LINQ takes an expression, not a string that could be passed as a parameter. </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">var result = people.OrderBy(p =&gt; p.LastName); // not a string</pre>
+</div>
+
+<p>
+  <br />This creates a problem if you try to generalize sorting into something more reusable like a method or a function. Sure, you could pass an expression, but passing those expressions from the UI can be a little bit tricky. So what course of action? </p>
+
+<p>My solution is to use a <a href="http://en.wikipedia.org/wiki/Dispatch_table" target="_blank">dispatch table</a>. I first saw the concept back in my days hacking perl but it works in C# with delegates. Here is an example of a dispatch table using strings as keys for our anonymous delegates representing the Linq expression that we would use to sort: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+    {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+    {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+};</pre>
+</div>
+
+<p>
+  <br />Now the task of sorting by string is simple because that can be used as the key to reference the correct delegate that would be used as the sort expression. This anonymous method demonstrates the concept: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">IEnumerable&lt;Person&gt; SortThem(string fieldName, IEnumerable&lt;Person&gt; people) {
+    Dictionary&lt;string, Func&lt;Person, object&gt;&gt; sortLookups = new Dictionary&lt;string, Func&lt;Person, object&gt;&gt;() { 
+        {&quot;FirstName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.FirstName)},
+        {&quot;LastName&quot;, new Func&lt;Person, object&gt;(p =&gt; p.LastName)}
+    };
+    // Q.E.D. really
+    return people.OrderBy(sortLookups[fieldName]);
+}</pre>
+</div>
+
+<p>
+  <br />Here is an example of a call to our SortThem method: </p>
+
+<div class="code">
+  <pre class="brush: csharp; ruler: true; first-line: 10; highlight: [2, 4, 6]">&gt;
+var people = new List<person>() { 
+        new Person(){ FirstName = &quot;Stan&quot;, LastName = &quot;Lee&quot;}, 
+        new Person(){ FirstName = &quot;Jack&quot;, LastName = &quot;Kirby&quot;}, 
+        new Person(){ FirstName = &quot;Alex&quot;, LastName = &quot;Ross&quot;},
+        new Person(){ FirstName = &quot;Adi&quot;, LastName = &quot;Granov&quot;}
+};
+var sortedByLast = SortThem(&quot;LastName&quot;, people);</pre>
+</div>
+
+<p>
+  <br />Dispatch tables make stringifying method parameters and dealing with LINQ much more palatable since LINQ is all about dealing with expressions. This is just the tip of the iceberg. Once you know how to match up anonymous methods into dispatch tables watch out! You’ll start seeing applications of the technique everywhere!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/10/You-Have-No-Excuse/">You Have No Excuse</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-10T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/10/You-Have-No-Excuse/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/10/You-Have-No-Excuse/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It’s remarkable how when one takes into account all the resources that are available for free on the internet, no one has an excuse to make regarding opportunity. I was just recently overwhelmed with a list of <a href="http://physics.stackexchange.com/questions/6157/list-of-freely-available-physics-books" target="_blank">free physics books</a> that are available on the web. I wondered if that could be combined with something like the <a href="http://ocw.mit.edu/courses/physics/" target="_blank">physics courses</a> available at MIT Open Courseware for a self driven undergraduate program. Along the way for a little help in snippets, one could watch <a href="http://www.khanacademy.org/science/physics" target="_blank">Khan Academy physics videos</a>.&#160; There are a lot of online communities one could find help in; the previously referenced <a href="http://physics.stackexchange.com/" target="_blank">Physics StackExchange site</a>, but there are plenty of <a href="http://physicsworld.com/" target="_blank">alternatives</a> and <a href="http://askthephysicist.com/" target="_blank">different formats</a> for interacting with other people trying to learn. </p>  <p>Physics just sprang to mind when I was looking through the free books but it really applies to any field of knowledge. Which makes me wonder: an undergraduate program currently costs somewhere north of $35,000 (per year at some schools). The alternative of trying to figure it out on one’s own costs nothing but has the obstacles of accountability, guidance, and discipline. But not opportunity; it’s all out there. </p>  <p>Full disclosure, I’m taking a look at <a href="http://ocw.mit.edu/courses/ocw-scholar/" target="_blank">OCW Scholar</a>. </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/08/You-%21are-what-you-do/">You !are What You Do</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-08T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/08/You-%21are-what-you-do/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/08/You-%21are-what-you-do/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: left"><a href="http://www.amazon.com/gp/product/0679731725/ref=as_li_ss_il?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0679731725&amp;linkCode=as2&amp;tag=t3rse-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&amp;ASIN=0679731725&amp;Format=_SL110_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=t3rse-20" /></a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=0679731725" width="1" height="1" /> </div>  <p>There is something tragic in reading about early 20th century butlers, especially the ones so devoted to their work that they put a lot of time and effort into the question of what it took to be a good butler. It’s not just that the profession, with a few edge cases, is all but gone – it’s that we see through the modern eye how so much of the work is contrived. The waiting of tables, the polishing of silvers, the staff schedules… it’s rare to find any description of the job that makes sense for a post millennial context.</p>  <p>What keeps me pressing forward, besides the literary craftsmanship of Kazuo Ishiguro in his book <a href="http://www.amazon.com/gp/product/0679731725/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0679731725&amp;linkCode=as2&amp;tag=t3rse-20">The Remains of the Day</a><img style="border-bottom-style: none !important; margin: 0px; border-left-style: none !important; border-top-style: none !important; border-right-style: none !important" border="0" alt="" src="http://www.assoc-amazon.com/e/ir?t=t3rse-20&amp;l=as2&amp;o=1&amp;a=0679731725" width="1" height="1" />, is the thought of how this might relate to my work as a software engineer. Will the web exist a century from now or will all the time and effort put into it be analogous to the butler’s chores around the great houses they maintained for the aristocracy? The answer to me is obvious: everything is subject to change and it’s hard to find it more rampant than in the world of technology. </p>  <p>If the work I do now is as contrived, or, to be more charitable, “of the moment we are in history,” then I would be just as pitiful as the butler if I based too much of my identity in work. Although this is intuitive in a moment of reflection, the web is chock full of “Getting Better” and “Improve Your Game” type fares to which people with my Napoleonic temperament are particularly susceptible. </p>  <p>I keep having to learn a lesson about how the transcendent parts of life are found in relationships; how my moments with my wife or my son are what will persist as “meaningful” if for some reason someone unearths my life, or lives like the one I lived, a century from now. It’s the sad lesson of the butler within the exquisite writing of Kazuo Ishiguro; sad enough that for many people it sits with them long after the conclusion of the book (or movie even though it’s not as good). My sight is set on that even if, on a late night or an early morning, I’m at my computer working hard to try to be better at what I do. </p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/06/Introducing-Quigley/">Introducing Quigley</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-06T00:00:00-05:00" pubdate data-updated="true"></time>
+        
+           | <a href="/2012/10/06/Introducing-Quigley/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2012/10/06/Introducing-Quigley/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.t3rse.com/quigley" target="_blank">Quigley</a> is really simple: it’s a notepad. Here’s a two minute overview (watch full screen for the best experience):</p>  <div style="padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px" id="scid:5737277B-5D6D-4f48-ABFC-DD9C333F4C5D:9e2622e6-c151-4fa2-acc8-4f5257605c24" class="wlWriterEditableSmartContent"><div><object width="448" height="252"><param name="movie" value="http://www.youtube.com/v/LtC1P_ulIMM?hl=en&amp;hd=1"></param><embed src="http://www.youtube.com/v/LtC1P_ulIMM?hl=en&amp;hd=1" type="application/x-shockwave-flash" width="448" height="252"></embed></object></div><div style="width:448px;clear:both;font-size:.8em">Quigley in action!</div></div>  <p>   <br /><strong>Why another notepad? Isn’t there one that comes free with my operating system? </strong></p>  <ul>   <li>Quigley runs in your browser </li>    <li>Quigley automatically saves what you type </li>    <li>Quigley let’s you create tabbed notes </li> </ul>  <p><strong>Wait, aren’t there cool products like </strong><a href="http://www.evernote.com" target="_blank"><strong>Evernote</strong></a><strong> that are better?</strong></p>  <p>Trust me: I love Evernote and use it regularly. But there is some ceremony to using it (logging in online, the big client app, the variations between notebooks, entries, and all the sharing possibilities). Quigley is about less; it’s just a scratch space. It’s for the content that you may not care to structure and organize but that you need to remember. A potential freemium feature would be exporting content to Evernote via their API.</p>  <p><strong>T3RSE, are you just trying to make money? </strong></p>  <p>Not really, it’s free and <a href="https://github.com/t3rse/Quigley/" target="_blank">open source</a> although I might add some “freemium” features (in place email, backup, export to Evernote) in the future. I did it mainly to solve a personal problem and I like to write applications entirely in HTML, CSS, and JavaScript. </p>  <p>If you have any feature ideas, implementation recommendations let me know!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

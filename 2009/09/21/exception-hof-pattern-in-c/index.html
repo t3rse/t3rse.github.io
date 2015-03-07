@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Exception HOF Pattern in C# - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2009/09/21/exception-hof-pattern-in-c">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Exception HOF Pattern in C#</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-21T00:18:00-05:00" pubdate data-updated="true">Sep 21<span>st</span>, 2009</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception handling. I write a ExceptionHelper class that takes a variety of high order function style methods to handle my exceptions in a single spot. Here is a somewhat simple form of what I&#8217;ve been doing:</p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public class ExceptionHelper<br />    {<br /><br />        public static void ExecuteWithSuppress(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                // pass and ignore the exception<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine(&quot;An exception occured! Details: \n&quot; + ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static bool ExecuteWithNotificationButIgnore(Action code)<br />        {<br />            bool ret = true;<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                ret = false;<br />            }<br />            return ret;<br />        }<br /><br />        public static void ExecuteWithLogging&lt;T&gt;(Action code) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (ex is T) {<br />                    Console.WriteLine(&quot;Logging exception &quot; + ex.ToString());<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                handles(ex);<br />            }<br />        }<br /><br />    }</pre><br /><br /><p>At this point I use it in a lot of places, here are a few scenarios: </p><br /><br /><p><strong>ExecuteWithSuppress(Action code)</strong> – code that has a low impact of failure or an expected failure under some conditions. For example, a client of mine once had a legacy database they wanted to me parse a “name” field from. We set up basic heuristics to separate out first and last and so on, but on failure we just returned a blank string. </p><br /><br /><p><strong>ExecuteWithHandler(Action code)</strong> – you have some generalized exception handling to do something: prompt the user, do logging, etc. ExecuteWithHandler(Action code, Action handler) – you get to pass in the exception handling you want<br /><br />  <br /><strong>ExecuteWithHandler(Action code, string errorMessage)</strong> – pass a custom error message<br /><br />  <br /><strong>ExecuteWithNotificationButIngore(Action code)</strong> – try to execute some code but return a boolean to indicate success<br /><br />  <br /><strong>ExecuteWithLogging&lt;T&gt;(Action code)</strong> – run some code, indicate the types of exceptions to differentiate<br /><br />  <br /><strong>ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles)</strong> – pass a method to catch be passed the exception that occurs.<br /><br />  <br /></p><br /><br /><p>The resulting code I write with this pattern, I find pleasant. Here are some examples:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    string userName = String.Empty;<br />    ErrorHelper.ExecuteWithSuppress(() =&gt; userName = doc.Descendants(&quot;Name&quot;).First().Value);<br />    return userName;</pre><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">if (ErrorHelper.ExecuteWithNotificationButIgnore(() =&gt;<br />{<br />	SendEmail();<br />}<br />else<br />{<br />	// message not delivered, etc, etc.<br />}</pre><br /><br /><p>I want it to be absolutely clear that this is not a replacement for try/catch/finally logic where it is warranted. It is simply an alternative that can help to keep code clear and readable. As with many things in software, there is taste involved in when and where something like this is leveraged. But it works well enough for me that I thought I’d share. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>empi</div>
+<div class='content'>
+Hi,<br /><br />I must say that I really don&#39;t like this pattern.<br />First of all, you catch Exception (not a specific one) and then you do nothing. It&#39;s very easy to suppress some important exceptions.<br />If you have code that throws so many exceptions that you need helpers to handle them, then maybe there is something wrong with the code in the first place.<br />Imho, it&#39;s much better to have some global exception handler that logs unhandled exceptions and to catch only specific exceptions when you exactly know what to do with them.<br />Maybe you should look at some aspect oriented frameworks and find better ways to handle exceptions globally.<br /><br />Greetings.<br /><br />http://codepark.blogspot.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Ivan</div>
+<div class='content'>
+Reminds me of a similar pattern that we use from time to time with Python decorators. We create a decorator that uses the given function and arguments to call the function, handling any exceptions that occur as desired. <br /><br />ie. Something similar to your console writing example would be.<br /><br />@print_exception<br />def foo(a, b=None):<br />&#8230;some code..<br /><br />When an exception occurs in foo, the print_exception decorator would handle it and print to std out.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-21T00:18:00-05:00" pubdate data-updated="true">Sep 21<span>st</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2009/09/21/exception-hof-pattern-in-c/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2009/09/21/exception-hof-pattern-in-c/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/09/19/fizzbuzz-functional/" title="Previous Post: FizzBuzz Functional">&laquo; FizzBuzz Functional</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/09/27/library-of-week-jsonnet/" title="Next Post: Library Of The Week: Json.NET">Library Of The Week: Json.NET &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

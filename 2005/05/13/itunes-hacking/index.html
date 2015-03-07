@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iTunes Hacking - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{So I am still coming to terms with how iTunes works, and trying to get the &#8220;philosophy&#8221; behind its organization system. My &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2005/05/13/itunes-hacking">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iTunes Hacking</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-13T15:26:00-05:00" pubdate data-updated="true">May 13<span>th</span>, 2005</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br />So I am still coming to terms with how <a href="http://www.apple.com/itunes/">iTunes</a> works, and trying to get the &#8220;philosophy&#8221; behind its organization system. My understanding is this: iTunes can scour the hard drive, if you allow it, and maintain a nice library of tracks, no matter where on your physical disk they are located. You can then sift through by artist, etc&#8230;<br /><br />In my case I have ~30 GB of music and much of it isn&#8217;t in mp3 files with ID3 tags - I&#8217;ve got a pot pourri of mixes and a ton of podcasts I&#8217;ve been listening to while I work. It&#8217;s too much of a pain to manually create a playlist for all the folders or try to find unlabeled music in the library. Maybe it&#8217;s because of winamp but I&#8217;m used to organizing my music physically, and then grabbing tracks out of a directory that I want to play, rather than by &#8220;artist&#8221; or &#8220;genre.&#8221; For example, I&#8217;ve got the following:<br /><br />-/Mp3<br />&#8212;-/PodCast<br />  &#8212;&#8212;&#8211;/ITConversations<br />&#8212;&#8212;&#8211;/KCRW<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /> &#8212;-/Albums<br />  &#8212;&#8212;&#8211;/Interpol<br />&#8212;&#8212;&#8211;    /Massive Attack<br />&#8212;&#8212;&#8211;    &#8230; and so on<br />&#8212;-/Mixes<br />&#8212;&#8212;&#8211;    /Jan2005<br />  &#8212;&#8212;&#8211;/Feb2005<br />&#8212;&#8212;&#8211;    /Mar2005<br />  &#8212;&#8212;&#8211;&#8230; and so on<br /><br />This scheme works well, but it doesn&#8217;t seem to mesh with iTunes. So I wrote a little program using the <a href="http://developer.apple.com/sdk/itunescomsdk.html">iTunes COM SDK</a> that takes a directory as a parameter and automatically creates a playlist for each folder that contains mp3 or other music files. In my case it worked perfectly (took seconds!) in creating playlists for all my folders and the files they contained. I put in a &#8220;Sync&#8221; button too, so it can synchronize with changes you make to file structure.<br /><br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.gif" /><br /><br />I&#8217;ve uploaded a <a href="http://hobbitwerk.brinkster.net/metadeveloper/iTunesBuilder.zip">*.zip</a> along with source (it&#8217;s written in VB6). I tested it with iTunes 4.7 and it works fine. I&#8217;m not sure whether this was unnecessary; perhaps iTunes has an option for doing just this, I don&#8217;t know. But more deeply, I think, is an attitude, an approach of giving the user an interaction with a piece of software.  In the PC world, one spends a lot more time &#8220;organizing&#8221; things than does on one on a Mac.  I&#8217;ve heard and read often that systems should be able to manage themselves but find myself balking at the notion that the system can do as good of a job as I can.  I download faster than I listen, so things must be organized, but the content of the audio is the archival attribute, not the date, artist, or genre.  How this can be known outside of the user, I&#8217;m not sure.<br /><br />If you do make a modification, or an improvement (many probably could be made), let me know. I&#8217;m also unaware of any <span style="font-style: italic;">plug-in</span> architecture for iTunes, otherwise I&#8217;d try to just make it a couple of buttons or menu items in the program itself.<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Phil</div>
+<div class='content'>
+I have the exact same problem. I always order my music by directories and such instead of proprietary metadata. Instead of creating playlists (which will limit the solution to iTunes) my idea is to fix the id3 tags so that they include track-numbering. (That way it will work with Muine, Rhythmbox, etc.) Unfortunately WinAmp and XMMS are the only players I know that can sort by filename.<BR/><BR/>I&#8217;m working on a Ruby solution. Check http://philisha.net in a few weeks.<BR/><BR/>As for which way of organization is superior, I think there is something to be said for the iTunes way. Organizing a 30GB collection of music is a rather mundane task; you shouldn&#8217;t HAVE to do it manually.<BR/><BR/>Unfortunately, the iTunes way really only works if you&#8217;ve been using iTunes from the start and if you don&#8217;t use your music library on other players. So it&#8217;s nice in theory, but I think I&#8217;ll still spend an unfortunate amount of time managing stuff myself.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-13T15:26:00-05:00" pubdate data-updated="true">May 13<span>th</span>, 2005</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2005/05/13/itunes-hacking/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2005/05/13/itunes-hacking/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2005/05/12/supporting-each-other-vb6-in-longhorn/" title="Previous Post: Supporting Each Other, VB6 in Longhorn">&laquo; Supporting Each Other, VB6 in Longhorn</a>
+      
+      
+        <a class="basic-alignment right" href="/2005/06/15/java-samples/" title="Next Post: Java Samples">Java Samples &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

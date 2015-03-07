@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ I’ll admit I have a Man Crush on Robbie Ingebretsen that began when I discovered his work at MIX earlier this year. To expound a bit: Microsoft &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/20/library-of-week-simple-styles-for/">Library of the Week: Simple Styles for Silverlight</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-20T21:32:00-05:00" pubdate data-updated="true">Oct 20<span>th</span>, 2009</time>
+        
+           | <a href="/2009/10/20/library-of-week-simple-styles-for/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/10/20/library-of-week-simple-styles-for/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ll admit I have a <a href="http://www.urbandictionary.com/define.php?term=Man%20Crush">Man Crush</a> on Robbie Ingebretsen that began when I discovered his work at MIX earlier this year. To expound a bit: Microsoft has worked hard to try to draw a line in the sand between “developer” and “designer” – a line I always had a visceral dislike for because it’s always been people like Robbie Ingebretsen who I’ve always tried to pattern myself after: people who can write code AND produce beautiful designs. </p>  <p>One of the more difficult things I’ve encountered in Silverlight is dealing with control templates. Even something as simple as a button, when opened in Blend, involves quite a few different moving parts so that changing behavior doesn’t always produce a desired effect. For example: changing the background of the button at some given visual state will not affect the button unless you take into account a predefined background gradient that is a part of it. </p>  <p>The <a href="http://blog.nerdplusart.com/archives/silverlightsimplestyles">Simple Styles samples</a> are stripped down, intuitive versions of the control templates with a concise starting point for anyone working to customize their behavior. To go back to the previous example, changing the background of a button involves changing the BackgroundElement. Rather than changing individual gradient stops in a Visual State, simple modify the entire element related to that Visual State. </p>  <table border="0" cellspacing="0" cellpadding="2" width="400"><tbody>     <tr>       <td valign="top" width="200">Default Button Template</td>        <td valign="top" width="200">Simple Button</td>     </tr>      <tr>       <td valign="top" width="200"><img src="http://www.t3rse.com/metadeveloper/SilverlightButtonStyle.jpg" /> </td>        <td valign="top" width="200"><img src="http://www.t3rse.com/metadeveloper/SimpleButtonStyle.jpg" /> </td>     </tr>      <tr>       <td valign="top" width="200">102 lines of XAML</td>        <td valign="top" width="200">38 lines of XAML</td>     </tr>   </tbody></table>  <p>The button is a starting point for simple conversations but there are controls like the listbox which can be deceptively unwieldy in how they are managed1.</p>  <p>The structure of the Simple Styles is also beautiful – not simply a resource dictionary with everything crammed together but a separate file for each control, a gesture one would think was straightforward until you see the many <a href="http://blogs.msdn.com/corrinab/archive/2008/10/01/8971166.aspx">examples</a> of Silverlight styles coming from Blend generated files.&#160;&#160; </p>  <p>I <a href="http://metadeveloper.blogspot.com/2009/09/ui-inspiration-for-silverlights-blank.html">mentioned previously</a> that I think that the antidote to the “blank slate” of RIA is good precedent and patterns developers and designers turn to when they build things. I think Simple Styles are a step in that direction; what I wouldn’t give to look through Robbie’s resource dictionaries. How about it Robbie?</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/08/library-of-week-imagetools/">Library of the Week: ImageTools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-08T22:01:00-05:00" pubdate data-updated="true">Oct 8<span>th</span>, 2009</time>
+        
+           | <a href="/2009/10/08/library-of-week-imagetools/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/10/08/library-of-week-imagetools/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’m not exactly sure of the reasoning, but Silverlight <strong>does not</strong> have support for either GIF or BMP file formats. This is to say that if you use the Image control, you will be unsuccessful setting the source property to a GIF/BMP file. It’s heresay from nearly a year ago but a member of the Silverlight team, Ashish Thapliyal, <a href="http://blogs.msdn.com/ashish/archive/2008/04/03/silverlight-roadmap-questions.aspx">posted on (his|her) blog</a> the following: </p>  <blockquote>   <p>“We don’t want to take the hit for another codec. It may only be a little bit of download time—but our mandate is small and fast and every little bit counts. We are also hesitant to support .gif because it implies support for animated .gif, which we decided would have to be integrated into our animation scheme somehow—and that will be a lot of work. </p>    <p>Looking from Flash perspective, Flash does not support .gif either. However, as of present, this is something being evaluated, but no date has been announced.”</p> </blockquote>  <p>Initially it was this roadblock that led me down the path to <a href="http://imagetools.codeplex.com/">ImageTools</a>. ImageTools is a project that provides Silverlight with good support for GIF and BMP amongst other formats, complete with its own Image control that allows a user to preview either format. It’s been a lifesaver for me on my current project since we have a requirement for preview capability with both. </p>  <p>ImageTools is more than just support for those antiquated formats. Once you’ve downloaded the latest release you’ll see there are a series of demos to look at: </p>  <p><strong>Animation      <br /></strong>This project shows how easy it is to load an image using the AnimatedImage type. All the sample files are GIF format.</p>  <p><strong>Colors</strong>     <br />This project shows the ability to apply brightness and contrast to images on the fly using the ImageTools.Image type.</p>  <p><strong>Dialog</strong>     <br />Asynchronously loading an image file using ImageTools.Image with IsLoadingSynchronously flag.</p>  <p><strong>Editor</strong>     <br />Shows the ImageEditorContainer control and some editing features</p>  <p><strong>Flip</strong>     <br />Shows the ImageTools.Image.Transform method which supplies not just the ability to rotate, but also to “flip” the pixels within an image either on the X or Y axis (horizontally or vertically)</p>  <p><strong>Loading</strong>     <br />I’m not completely sure why this is called “loading” because there’s a lot more going on here: the AnimatedImage control is on display with the ability to apply filters to images that are loaded. The examples given are&#160; Sepia, Inverter, and GrayscaleBT709.&#160; The IImageFilter interface allows an extensible way to define filters, look into the ImageTools.Filtering library to see the interface and other filters available.</p>  <p><strong>Resizing</strong>     <br />Shows dynamic resizing of an existing image (returns an Image object with resized Image type)</p>  <p><strong>SaveCanvas</strong>     <br />Pretty sick; this handy extension method can return an Image object representing any canvas. </p>  <p>As you can see, my simple problem of needing support for more image formats resulted in finding a library that went the distance in giving a developer flexibility with image manipulation. One more thing, I love the dependency injected goodness of how the library works. Here’s a little snippet of code to give you an idea of how well designed (extensible!) the library is: </p>  <p>1. Add a reference to ImageTools, ImageTools.IO.Bmp, ImageTools.IO.Gif</p>  <p>2. Here is code to load the files – notice the Decoders.AddDecoder takes the generic type parameter to dynamically support the desired file format which means you need only reference the format specific libraries that you need: </p>  <p></p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public partial class MainPage : UserControl<br />    {<br />        public MainPage()<br />        {<br />            InitializeComponent();<br />            <span style="color: #00ff00">// add decoders</span><br />            <span style="color: orange">Decoders.AddDecoder&lt;BmpDecoder&gt;();<br />            Decoders.AddDecoder&lt;GifDecoder&gt;();</span><br />        }<br /><br />        private void Button_Click(object sender, RoutedEventArgs e)<br />        {<br />            OpenFileDialog ofd = new OpenFileDialog();<br />            if (ofd.ShowDialog() == true)<br />            {<br />                <span style="color: #00ff00">// because decoders are taken care of, <br />                // load images as needed!</span><br />                <span style="color: orange">ImageTools.Image i = new ImageTools.Image();</span><br />                using(FileStream fs = ofd.File.OpenRead()){<br />			<span style="color: #00ff00">// note: myImage is ImageTools.Controls.AnimatedImage</span><br />			<span style="color: orange">i.SetSource(fs);<br />	                myImage.Source = i;</span><br />		}<br />            }<br />            <br />        }<br />    }</pre><br /><br /><p></p><br /><br /><p>It&#8217;s a bummer when support for things, like well known file formats like GIF are not supported via a more arbitrary decision making process but the consolation is that it’s an opportunity for people make up for it in the community. <a href="http://imagetools.codeplex.com/">ImageTools</a> is a great library, every Silverlight developer should check it out.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/27/library-of-week-jsonnet/">Library of the Week: Json.NET</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-27T23:35:00-05:00" pubdate data-updated="true">Sep 27<span>th</span>, 2009</time>
+        
+           | <a href="/2009/09/27/library-of-week-jsonnet/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/09/27/library-of-week-jsonnet/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>In the Christian Bible there’s <a href="http://www.biblegateway.com/passage/index.php?search=luke+17:11-19">a story</a> of 10 lepers miraculously healed by Jesus. Even if you don’t believe in Christianity, imagine a leper living in the dregs of society, totally dejected until one day a man shows up and heals him and nine other fellow outcasts. Imagine how happy they should be. </p>  <p>They’d say thank you, right? </p>  <p>In the Bible story, only one of the men returns to say thank you and the other nine are so busy getting back to the lives they wished they had that they forget about the reason they were healed in the first place.</p>  <p>There’s evidence of this kind of lack of gratitude in the ecosystem of free libraries and projects available for .NET developers on the web. I’m a part of that club and not proud of it. I use open source .NET libraries on a regular basis and don’t say thank you. But more than just me, I look at the community participation on CodePlex projects and find it amazing how few people say a simple “thank you.”</p>  <p>With that in mind, I’m going to start profiling libraries that I’ve used with success to build up awareness of their existence and hopefully inspire the people who write them to do more good work since what they do is so tremendously helpful. </p>  <p>The first library I want to profile is the <a href="http://json.codeplex.com/">Json.NET</a> library available from CodePlex. It contains a great, intuitive Json serialization/deserialization library. You can point to most serializable objects and convert them to a JSON format with such simple sleight of hand as: </p>  <p></p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	List&lt;Foo&gt; data = new List&lt;Foo&gt;();<br />	// adds to data<br />	string json = <span style="color: orange">JsonConvert.Serialize(data)</span>;</pre><br /><br /><p></p><br /><br /><p>As if that wasn’t simple, retrieving values from their serialized format is also made trivial: </p><br /><br /><p></p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">	string jsonItems = GetYourJSON();<br />	List&lt;Foo&gt; data = <span style="color: orange">JsonConvert.DeserializeObject&lt;List&lt;Foo&gt;&gt;(jsonItems)</span>;	</pre><br /><br /><p></p><br /><br /><p>One great differentiator of Silverlight versus existing web technologies is the ability to have a virtual file system on a client computer. While HTML 5 seems to include facilities for this it is not yet built into existing browsers and even when it is, previous track records on “standards” are a precedent for how balkanized the implementation of them can be. In many areas of web development, you can push the envelope of existing technologies to get what you do out of Silverlight, but the existence of Isolated Storage is a killer feature.</p><br /><br /><p>Give Json.NET a try whether you’re doing Silverlight or using a different .NET related paradigm. It’s a great library.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/21/exception-hof-pattern-in-c/">Exception HOF Pattern in C#</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-21T00:18:00-05:00" pubdate data-updated="true">Sep 21<span>st</span>, 2009</time>
+        
+           | <a href="/2009/09/21/exception-hof-pattern-in-c/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/09/21/exception-hof-pattern-in-c/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception handling. I write a ExceptionHelper class that takes a variety of high order function style methods to handle my exceptions in a single spot. Here is a somewhat simple form of what I&#8217;ve been doing:</p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public class ExceptionHelper<br />    {<br /><br />        public static void ExecuteWithSuppress(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                // pass and ignore the exception<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine(&quot;An exception occured! Details: \n&quot; + ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static bool ExecuteWithNotificationButIgnore(Action code)<br />        {<br />            bool ret = true;<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                ret = false;<br />            }<br />            return ret;<br />        }<br /><br />        public static void ExecuteWithLogging&lt;T&gt;(Action code) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (ex is T) {<br />                    Console.WriteLine(&quot;Logging exception &quot; + ex.ToString());<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                handles(ex);<br />            }<br />        }<br /><br />    }</pre><br /><br /><p>At this point I use it in a lot of places, here are a few scenarios: </p><br /><br /><p><strong>ExecuteWithSuppress(Action code)</strong> – code that has a low impact of failure or an expected failure under some conditions. For example, a client of mine once had a legacy database they wanted to me parse a “name” field from. We set up basic heuristics to separate out first and last and so on, but on failure we just returned a blank string. </p><br /><br /><p><strong>ExecuteWithHandler(Action code)</strong> – you have some generalized exception handling to do something: prompt the user, do logging, etc. ExecuteWithHandler(Action code, Action handler) – you get to pass in the exception handling you want<br /><br />  <br /><strong>ExecuteWithHandler(Action code, string errorMessage)</strong> – pass a custom error message<br /><br />  <br /><strong>ExecuteWithNotificationButIngore(Action code)</strong> – try to execute some code but return a boolean to indicate success<br /><br />  <br /><strong>ExecuteWithLogging&lt;T&gt;(Action code)</strong> – run some code, indicate the types of exceptions to differentiate<br /><br />  <br /><strong>ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles)</strong> – pass a method to catch be passed the exception that occurs.<br /><br />  <br /></p><br /><br /><p>The resulting code I write with this pattern, I find pleasant. Here are some examples:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    string userName = String.Empty;<br />    ErrorHelper.ExecuteWithSuppress(() =&gt; userName = doc.Descendants(&quot;Name&quot;).First().Value);<br />    return userName;</pre><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">if (ErrorHelper.ExecuteWithNotificationButIgnore(() =&gt;<br />{<br />	SendEmail();<br />}<br />else<br />{<br />	// message not delivered, etc, etc.<br />}</pre><br /><br /><p>I want it to be absolutely clear that this is not a replacement for try/catch/finally logic where it is warranted. It is simply an alternative that can help to keep code clear and readable. As with many things in software, there is taste involved in when and where something like this is leveraged. But it works well enough for me that I thought I’d share. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>empi</div>
+<div class='content'>
+Hi,<br /><br />I must say that I really don&#39;t like this pattern.<br />First of all, you catch Exception (not a specific one) and then you do nothing. It&#39;s very easy to suppress some important exceptions.<br />If you have code that throws so many exceptions that you need helpers to handle them, then maybe there is something wrong with the code in the first place.<br />Imho, it&#39;s much better to have some global exception handler that logs unhandled exceptions and to catch only specific exceptions when you exactly know what to do with them.<br />Maybe you should look at some aspect oriented frameworks and find better ways to handle exceptions globally.<br /><br />Greetings.<br /><br />http://codepark.blogspot.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Ivan</div>
+<div class='content'>
+Reminds me of a similar pattern that we use from time to time with Python decorators. We create a decorator that uses the given function and arguments to call the function, handling any exceptions that occur as desired. <br /><br />ie. Something similar to your console writing example would be.<br /><br />@print_exception<br />def foo(a, b=None):<br />&#8230;some code..<br /><br />When an exception occurs in foo, the print_exception decorator would handle it and print to std out.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/19/fizzbuzz-functional/">FizzBuzz Functional</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-19T19:57:00-05:00" pubdate data-updated="true">Sep 19<span>th</span>, 2009</time>
+        
+           | <a href="/2009/09/19/fizzbuzz-functional/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/09/19/fizzbuzz-functional/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ve been reading Tomas Petricek and John Skeet’s <a href="http://www.manning.com/petricek/">Functional Programming for the Real World</a>. I’m hoping I can, as Steve McConnel says, <em>program into</em><sup>1</sup> my C# projects some elements of functional problem solving. As I was working to grok the beginning portions of the book I thought I’d rewrite FizzBuzz since I’ve aleady posted a <a href="http://metadeveloper.blogspot.com/2007/03/fizbuzz-conundrum-ramanujan.html">few</a> <a href="http://metadeveloper.blogspot.com/2007/09/pivot-udf-fizzbuzz.html">versions</a> of a solution. Here is my solution: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br /><br />foreach(var i in Enumerable<br />                    .Range(1, 100)<br />                    .Select(n =&gt;(isMultiple(n, new int[]{3,5}))<br />                                    ?fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                                    :fb(n, n, n.ToString())<br />    )Console.WriteLine(i);</pre><br /><br /><p>Another version, using ForEach on a List&lt;T&gt;: </p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br />Enumerable<br />        .Range(1, 100)<br />        .Select(n =&gt; (isMultiple(n, new int[] { 3, 5 }))<br />                        ? fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                        : fb(n, n, n.ToString()))<br />        .ToList()<br />        .ForEach(num =&gt; Console.WriteLine(num));</pre><br /><br /><p>I&#8217;m just starting to wade into using F# but I&#8217;m hoping to start building my proficiency the further I get into the book</p><br /><br /><p><sup>1</sup>&quot;<em>Don&#8217;t limit your programming thinking only to the concepts that are supported automatically by your language. The best programmers think of what they want to do, and then they assess how to accomplish their objectives with the programming tools at their disposal.</em>&quot; – Steve McConnell, <a href="http://cc2e.com/">Code Complete 2nd Edition</a></p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/09/19/ui-inspiration-for-silverlights-blank/">UI Inspiration for Silverlight’s Blank Slate</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-19T10:07:00-05:00" pubdate data-updated="true">Sep 19<span>th</span>, 2009</time>
+        
+           | <a href="/2009/09/19/ui-inspiration-for-silverlights-blank/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/09/19/ui-inspiration-for-silverlights-blank/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ll admit that I spent an inordinate amount of time last week thinking about dialog boxes. Silvelright’s canned prompt comes courtesy of a call to MessageBox.Show which displays the browser’s native modal dialog. I think you get the same thing from HtmlPage.Window.Alert too. Needless to say, these <em>should</em> leave you wanting.</p>  <p>A good place to start, rather than wasting the better part of a day playing around like me, is to begin with a really good convention rather than making something “original.” </p>  <p>So without further ado, I’m linking to <a href="http://www.teehanlax.com/blog/?p=1628">a nice PSD</a> courtesy of <a href="http://www.teehanlax.com">teehan+lax</a> that contains visual styles for many of the iPhone’s UI Elements. I’ll have to build a nice workflow to get things like this into XAML.     <br /></p>  <div style="width: 100%; border-top: black 1px dotted">&#160;</div>  <p>One more philosophical note (noted below so that if you just needed the link you won’t be daunted by my long windedness) – almost 100 episodes ago the <a href="http://www.hanselminutes.com/">Hanselminutes podcast</a> featured Scott interviewing <a href="http://www.loudthinking.com">David Heinemeier Hansson</a> and <a href="http://www.martinfowler.com/bliki/">Martin Fowler</a> at RailsConf 2007. When talking about UI design and originality here is what DHH had to say: </p>  <blockquote>   <p>“I think the low level of      <br />expressiveness that we have in HTML and CSS       <br />and JavaScript is actually a huge boon to most       <br />applications that constraints are a good thing,       <br />that<strong> constraints leads to better applications when        <br />we don’t need to reinvent everything</strong>. When you       <br />just have blank canvas where you can paint       <br />whatever you want on it, you pretty much end up       <br />with something “original” every time; and I don’t       <br />think originality in UI design is necessarily a good       <br />thing; I just think actually most of the time it&#8217;s a       <br />bad thing.”</p> </blockquote>  <p>I agree with DHH on this point. It’s worth listening to the entire podcast to put some context to his comments. Where my opinion veers from his or at least my hope for Silverlight is that conventions more powerful than those of HTML/CSS/JavaScript begin to come together for developers and they spend less time thinking about a blank slate and more about how their application works with the benefit of a better experience. <a href="http://silverlight.codeplex.com/Wiki/View.aspx?title=Silverlight%20Toolkit%20Overview%20Part%203">Themes</a> are a good step in this direction but things like dialogs go beyond to interactions as opposed to just colors and gradients.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/07/16/why-ie6-continues-to-ruin-my-life/">Why IE6 Continues to Ruin My Life</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-16T23:08:00-05:00" pubdate data-updated="true">Jul 16<span>th</span>, 2009</time>
+        
+           | <a href="/2009/07/16/why-ie6-continues-to-ruin-my-life/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/07/16/why-ie6-continues-to-ruin-my-life/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Via a good friend, <a href="http://blog.digg.com/?p=878">this post</a> confirms that many of us are in the same situation: corporate IT people force users to stay in IE6 which forces, in turn, all of us developers to suffer by having to support it. The post, written from an inside Digg perspective doesn&#8217;t tell the whole story so I’d like to add one dimension. Many corporate environments are in this unfortunate cycle based on the inability to project abstract costs, that is to say that often (always?) software is rushed through and “finished” in an agile, <a href="http://en.wikipedia.org/wiki/You_Ain%27t_Gonna_Need_It">YAGNI</a> kind of way, and after the fact managers<sup>1</sup> have a hard time capturing the costs it takes to support legacy browsers because of “finished” software. The two development efforts are seen as separate, so the extra time in new development doesn’t factor into the decision to keep what is old.</p>  <p>Cheers for Virtual PC and the ability to test things out without having it installed locally but nevertheless I’d like to force everyone to upgrade and forget that browser ever existed.</p>  <p>Side note, if you are fortunate enough to force an upgrade, <a href="http://code.google.com/p/ie6-upgrade-warning/">here is some help</a>.</p>  <p><sup>1</sup>I’m sure special kinds of managers are able to guess this in and make good decisions but they are a rare breed and the elixir they drink is hard to find.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/05/06/proper-02-inotify-dependencyproperty/">Proper 0.2: INotify, DependencyProperty Support</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-06T07:59:00-05:00" pubdate data-updated="true">May 6<span>th</span>, 2009</time>
+        
+           | <a href="/2009/05/06/proper-02-inotify-dependencyproperty/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/05/06/proper-02-inotify-dependencyproperty/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Several years ago, in a land of Visual Studio 2005 and no CodeRush, I made a tool called <a href="http://t3rse.com/proper">Proper</a> to automate the monotony of creating properties. You just type something like “int Foo;string Bar;” and you’d get basic property generation. You can use shortcuts to types by typing an undercore “_” character. For example, “i_” will pop up int, “dt_” would pop up DateTime (<a href="http://metadeveloper.blogspot.com/2007_04_01_archive.html">You can also create your own</a>). It’s funny how the stuff that you’re half serious about can last so long – at the time I wanted to write something useful entirely in JavaScript and to experiment a little with JQuery. </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-simple.png" /> </p>  <p>The tool suffered neglect for the next few years until recently when I began working with Silverlight and was amazed at how a similar monotony (and more code!) accompanies using INotifyPropertyChanged and implementing dependency properties. I remembered my old tool and added support for generating them there. Here are some screenshots that should illustrate how it works (you select “advanced options” and then select a few checkboxes, in a nutshell). I’ll update the feature to report bugs – I’m sure there are a few. I also neglected to update it for VB.NET – I’ll do that over the next few weeks.</p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-INotify.png" /> </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-Dependency.png" /> </p>  <p>If you do spot a bug, let me know. There are a few new goals I have with the tool, the first of which is refactoring some of the embarrassing JavaScript I crufted together to make this work. I remember <a href="http://www.blueskyonmars.com/">Kevin Dangoor</a> talking about Embarrassment Driven Development (when your code is so embarrassing that you’re motivated to update it); that’s the one thing about JavaScript – you can’t hide the way things are constructed. :)</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Hey Dave, <br /><br />Thanks for the questions, I&#39;ll try to be brief and avoid &quot;one time at band camp&quot; stories&#8230; :)<br /><br />&gt; Why not use VS Snippets<br /><br />It&#39;s a valid alternative - something tells me a majority of developers prefer to stay in VS. There are a few reasons I went down this alternative path which may or may not resonate with other developers: <br /><br />1. The built in snippets require a &quot;one by one&quot; approach. You&#39;d need to type in prop A, B, C sequentially. This approach is &quot;batched&quot; in that you set everything up and then generate the code. <br />2. Snippets involve more typing. At the time I made this tool you&#39;d need to tab through 3 items on a snippet: type, private member, and property name. This uses a convention to allow you to type less and get more faster.<br />3. Customized snippets tether a person to an installation of Visual Studio (or customizing each one they touch). Because I am constantly developing across several machines and because I don&#39;t like tying myself to an instance of Visual Studio, that&#39;s another reason I do a lot of webby type tools like this.<br /><br />&gt; Why not output a CodeDom object<br />That&#39;s an interesting concept. I think I&#39;d be leaving the world of JavaScript but it could be much more flexible in the end. Perhaps an Ajaxy implementation where the CodeDom stuff lived on the server  would be apropos. <br /><br />&gt; dep props are only necessary for the TARGET of a data binding the the DubPeeEff/&quot;web killer&quot;<br /><br />You&#39;re right in the above although as I&#39;ve been building more UserControls that are templates for displaying data within the context of some larger list bound control (ItemsControl/DataGrid/etc) I see the need cropping up more and more. <br /><br />&gt; What is the answer to life, the<br />&gt; universe, and everything?<br /><br />http://www.youtube.com/watch?v=hkbdP7sq0w8</div>
+</div>
+<div class='comment'>
+<div class='author'>Dave</div>
+<div class='content'>
+Nice idea&#8230; few questions though (I promise the fourth one is easy):<br /><br />We could talk for hours why this isn&#8217;t easier to do withe the lang primitives&#8230; but in the meantime people (using VS) could use code snippets for a more integrated experience&#8230; why not do it as snippets?<br /><br />To address the lack of VB support&#8230; why not output a CodeDom object and leave it to a language provider to write the code&#8230; that is, recently I discovered the XsdDataContractImporter class that lets you take a set of XML schema documents and generate a CodeCompileUnit which is then sent to a code provider that does the &#8220;semi-harry&#8221; details of writing code (give me a little room here&#8230; I might have gotten a few class names wrong, I didn&#8217;t verify it all, it&#8217;s &#8220;Memory Driven Development&#8221;). I realize you&#8217;ve got a website here and CodeCompiieUnit probably isn&#8217;t a serializable types&#8230; but you could probably stop the &#8220;strcat&#8221; and move to the CodeDom (assuming you are doing strcat&#8230; &#8220;Assumption Driven Development&#8221;)?<br /><br />As I understand it (mem driven dev again) dep props are only necessary for the TARGET of a data binding the the DubPeeEff/&#8221;web killer&#8221; (aka Silverlight) world so why bother&#8230; just make the source props INotifyPropertyChanged (don&#8217;t &#8220;ultra&#8221;-long interface names make you think something is inherently wrong) instead?<br /><br />What is the answer to life, the universe, and everything?</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/04/24/using-ironpython-for-coverters-in/">Using IronPython for Converters in Silverlight</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-24T06:22:00-05:00" pubdate data-updated="true">Apr 24<span>th</span>, 2009</time>
+        
+           | <a href="/2009/04/24/using-ironpython-for-coverters-in/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/04/24/using-ironpython-for-coverters-in/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>&#160;</p>  <p>Tim Heuer has a <a href="http://timheuer.com/blog/archive/2008/07/30/format-data-in-silverlight-databinding-valueconverter.aspx">great intro post</a> on Silverlight data binding and value converters. The concept is a really nice one but I’m not wild about having to write a class that implements the IValueConverter interface every time I need some ad-hoc tweaking of the values I get from being data bound and how I’d like to use them within XAML. What set me off this track was a case where I simply needed to invert a boolean – what should just be “not myvalue” ended up requiring a class, an interface, and so on.</p>  <p>Dynamic languages excel at this sort of thing and since they support the ability to evaluate code on the fly I thought it would make sense to write a single implementation of IValueConverter and host Python inside of it to evaluate binding expressions that are passed in. Here is what that might look like: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class PythonExpConverter : IValueConverter<br />    {<br />        private ScriptEngine _engine;<br /><br />        public PythonExpConverter()<br />        {<br />	   <span style="color: orange"><br />            ScriptRuntimeSetup setup = Python.CreateRuntimeSetup(null);<br />            setup.DebugMode = true;<br />            var runtime = new ScriptRuntime(setup);<br />            _engine = Python.GetEngine(runtime);<br /> 	    </span><br />        }<br /><br />        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            object result;<br />            string python = parameter.ToString()<br />                                .Replace(&quot;value&quot;, value.ToString());<br />            try<br />            {<br />                <span style="color: orange">result = _engine.Execute(python);</span><br />            }<br />            catch (Exception ex)<br />            {<br />                // pass, just use original value<br />                result = value;<br />            }<br />            return result;<br />        }<br /><br />        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            // same concept as above<br />            return value;<br />        }<br />    }</pre><br /><br /><p>No magic, just instantiate the Python runtime and then proceed to leverage it in the Convert phase by taking a string as the parameter for the conversion method. Use value as a keyword in your Python expression to get at the value of the underlying data.&#160; Once this is added as a static resource, you can leverage it in many ways. For example, if I had a class “Person”:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class Person<br />    {<br />        public string FirstName { get; set; }<br />        public string LastName { get; set; }<br />        public bool OnVacation { get; set; }<br />        public double Balance { get; set; }<br />    }</pre><br /><br /><p>Let’s say I’m binding to an instance of Person (yeah, very contrived) with the following template conversions: <br />  <br />1. Uppercase last name. <br /><br />  <br />2. If OnVacation is true, disable a link to their schedule. <br /><br />  <br />3. Format balance using some currency specific format. <br /><br />  <br />Here is the XAML that leverages my single converter for all of the above:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: xml;">&lt;StackPanel Orientation=&quot;Vertical&quot;&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;First Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Last Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Is Active&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Rating&quot; Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;{Binding FirstName}&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding LastName, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'value\'.upper()}&quot;</span> Width=&quot;100&quot; /&gt;<br />                &lt;HyperlinkButton Width=&quot;100&quot; NavigateUri=&quot;http://foo&quot; Content=&quot;View&quot; <br />                        <span style="color: orange">IsEnabled=&quot;{Binding OnVacation, Converter={StaticResource PythonExpConverter}, ConverterParameter=not value}&quot;</span> /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding Balance, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'%2.2f\' % value}&quot;</span> Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />        &lt;/StackPanel&gt;</pre><br /><br /><p>This is a very powerful approach since the limitations you hit will probably be born by a limitation in skill with Python or your dynamic language of choice rather than the approach.&#160; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/03/23/almost-famous/">Almost Famous</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-23T22:38:00-05:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2009</time>
+        
+           | <a href="/2009/03/23/almost-famous/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2009/03/23/almost-famous/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Yours truly, looking embarrassed in the middle.</p>  <p><img src="http://seruyange.com/metadeveloper/Almost Famous.jpg" /> </p>  <p>&#160;</p>  <p>Here is <a href="http://haacked.com/archive/2008/04/10/upcoming-changes-in-routing.aspx">the link</a> to Phil&#8217;s write up. </p>  <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

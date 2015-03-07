@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rob Relyea on WPF - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{The timelag on posts is due to several 4 hour nights in succession while partaking in the festivities at TechEd. Here is a quick recap of Monday. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2006/06/13/rob-relyea-on-wpf">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rob Relyea on WPF</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-13T22:35:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2006</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><p class="MsoNormal">The timelag on posts is due to several 4 hour nights in succession while partaking in the festivities at TechEd.<span style="">  </span>Here is a quick recap of Monday.</p>    <p class="MsoNormal">First session was WPF presented by <a href="http://rrelyea.spaces.msn.com/PersonalSpace.aspx">Rob Reylea</a>.<span style="">  </span>WPF seems to be coming together more and more; Rob demonstrated new controls and old controls with new features: the listbox is quite a standout – textboxes that support spellchecking, controls having the ability to embed any other controls (button in a button).<span style="">  </span>Another new feature is in the ability to do screen layout: flow layout, grid layout, and others besides the traditional absolute layout most WinForms developers are used to.<span style="">  </span>Databinding in WPF is also quite improved, and learned from the web world: there is a repeater type approach to it now possible as well as functionality in the new listbox control. Vectors, fonts – there was a lot to the presentation.<span style="">  </span>Rob has a blog, so it’s something to watch as the WPF things consolidate more.</p>    <p class="MsoNormal">After the session was finished I asked Rob whether they were watching other projects like Mozilla’s XUL/XPFE stuff since, in my own thinking, they were similar in approach.<span style="">  </span>He was a bit dismissive here in the sense that he didn’t see why WPF and XPFE should be compared.<span style="">  </span>Since we didn’t have the same assumptions, I withdrew the question although here is my own thinking: </p>  <ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style="">XAML      is like XUL, both are a special markup for describing presentation. </li><li class="MsoNormal" style="">XPCOM      provides hooks into the operating system functionality, making the client      thick just the way that Windows Vista is going to have a special      understanding and capability with XAML and the code associated with WPF      applications.<o:p><br /></o:p></li></ol>    <p class="MsoNormal">There are some big differences for sure: XPFE uses javascript and CSS, WPF does not.<span style="">  </span>XPFE relies on RDF, and I’m not sure that they’ll be any configuration involved in WPF applications since the runtime should handle much of that for the developer.<span style="">  </span>I am not sure about this.  Another set of differences are the vectors and rendering of WPF - XPFE does not, to my knowledge, have an equivalent.  However, the basis for my assumption was that they both attempt at solving similar problems - extend the web aware application to the desktop to give it a more &#8220;client app&#8221; functionality and feel.  Leverage better controls and have more flexibility than HTML/DHTML and so on.  And yes, this is from the perspective of WPF/e - the use in web based applications.<br /></p>    <p class="MsoNormal">There is much to learn, and much to be seen of WPF, I’ll stay tuned to Rob’s and other blogs that follow the development.</p>  <span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-13T22:35:00-05:00" pubdate data-updated="true">Jun 13<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2006/06/13/rob-relyea-on-wpf/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2006/06/13/rob-relyea-on-wpf/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/06/13/teched-keynote/" title="Previous Post: TechEd Keynote">&laquo; TechEd Keynote</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/06/14/adonet-vnext-at-teched/" title="Next Post: ADO.NET vNext at TechEd">ADO.NET vNext at TechEd &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

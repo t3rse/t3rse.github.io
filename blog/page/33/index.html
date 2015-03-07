@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{&#8220;Functional Programming&#8221; is a term I&#8217;ve been long accustomed to hearing and generalizing about, but whoever is at the end of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/33">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/15/grok-functional/">Grok the Functional</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-15T16:44:00-05:00" pubdate data-updated="true">Jul 15<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/15/grok-functional/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/15/grok-functional/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />&#8220;Functional Programming&#8221; is a term I&#8217;ve been long accustomed to hearing and generalizing about, but whoever is at the end of defmarco has done a great job in <a href="http://defmacro.org/ramblings/fp.html">this essay</a> of unpacking the basics of Functional Programming for those of us who never encountered it in an academic setting. I found it referenced via <a href="http://www.iunknown.com/articles/2006/06/30/javascript-and-continuation-passing-style">John Lam</a>.<br /><br />The essay sweeps through the logic and ideas of Plato, the <a href="http://en.wikipedia.org/wiki/Alonzo_Church">geniuses</a> at Princeton who started thinking in lambda expressions, and John McCarthy&#8217;s innovation at MIT of LISP.  From there a case is made for the benefits of Functional Programming along the following lines:<br /><br />1. Unit Testing<br />2. Debugging<br />3. Concurrency<br />4. Hot Code Deployment<br />5. Machine Assisted Proofs and Optimizations<br /><br />The latter part of the essay is defmarco explaining the basics of Functional Programming. Even though the essay is &#8220;for the rest of us&#8221; I admit that the differing style from what I&#8217;m used to in impatrive style did require frequent stopping and mulling.  But it&#8217;s well written and very accessible in its explanation of some of the fundamentals:<br /><br />1. High Order Functions - functions operating on other functions<br />2. Currying - reusing functions by assignment<br />3. Lazy Evaluation - evaluation as needed<br />4. Infinite Data Structures - based on functions<br />5. Continuations - like the stack, but oh so powerful<br />6. Pattern Matching - functions match calls based on parameter values matching<br />7. Closures - state management function to function<br /><br />Great essay, well worth the time and effort.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/13/operator-im-late-to-party/">?? Operator - I&#8217;m Late to the Party</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-13T00:41:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/13/operator-im-late-to-party/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/13/operator-im-late-to-party/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I shouldn&#8217;t have glossed over those &#8220;new features&#8221; ReadMe files for .NET 2.0.  Today I found the ?? operator which is probably going to get me into even more trouble than my use of ?: with other developers.<br /><br />In short, you can test for a null and return an alternative like so:<br /><br />string test = (myObject ?? &#8220;&#8221;);<br /><br />Fritz Onion <a href="http://pluralsight.com/blogs/fritz/archive/2005/12/07/17313.aspx">posted</a> about its use with the ViewState some months ago. I&#8217;m sorry I missed it then&#8230;<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/13/does-scott-hanselman-sleep/">Does Scott Hanselman Sleep?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-13T00:31:00-05:00" pubdate data-updated="true">Jul 13<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/13/does-scott-hanselman-sleep/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/13/does-scott-hanselman-sleep/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />His level of productivity is frightening; every time I try to relax and watch TV I get a mental picture of him furiously spitting code, or working on his next book, or presentation, or whatever.  But he exposes at least one secret an online presentation: know your tools and customize to avoid wasting time.<br /><br /><a href="http://www.wrox.com/WileyCDA/Section/id-292091.html">This presentation</a> is about tools to enhance developer productivity. <br /><br />On his site he&#8217;s got a great list <a href="http://www.hanselman.com/blog/ScottHanselmans2005UltimateDeveloperAndPowerUsersToolList.aspx">here</a>.<br /><br />I wonder if anyone has documented the old DOS commands / techniques for those of us whose digital life was born in the Windows era. I&#8217;ll have to look around -<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Scott Hanselman</div>
+<div class='content'>
+This might make you smile:<BR/><BR/>http://www.hanselman.com/blog/ABetterPROMPTForCMDEXEOrCoolPromptEnvironmentVariablesAndANiceTransparentMultiprompt.aspx<BR/><BR/>As for do I sleep, go get a copy of &#8220;Beggars in Spain&#8221; and read it, and we&#8217;ll dicuss when you&#8217;re done. :)</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/11/back-at-mac/">Back at the Mac</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-11T21:24:00-05:00" pubdate data-updated="true">Jul 11<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/11/back-at-mac/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/11/back-at-mac/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://www.youtube.com/watch?v=UA3NyRr4Eng">Retaliatory commercials</a> via YouTube.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/08/martin-fowler-at-railsconf-2006/">Martin Fowler at RailsConf 2006</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-08T13:41:00-05:00" pubdate data-updated="true">Jul 8<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/08/martin-fowler-at-railsconf-2006/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/08/martin-fowler-at-railsconf-2006/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />You can watch the entire keynote <a href="http://blog.scribestudio.com/articles/2006/07/03/martin-fowler-railsconf-2006-keynote-address">here</a>, many a good thought. Some interesting thoughts:<br /><br />1. Ruby on Rails, as an opinionated framework with limited focus is good.<br />2. Fast development cycles are good, better than <span style="font-style: italic;">Big Design Up Front</span>.<br />3. People think in the mistaken trade off of quick & dirty (VB, PHP) and &#8220;enterprise.&#8221;  Just because something was done quickly doesn&#8217;t mean it&#8217;s dirty.<br />4. Keep programmers and customers in close quarters, combine with quick release cycles and allow for observation of how software is used.  (I love this idea, I learn *so* much when I watch people use the software I&#8217;ve written for them).<br />5. Disdain for libraries (and I read along with that unnecessary abstraction) with several jokes about java.util.Calendar<br />6. Ruby <span style="font-style: italic;">the language</span> is essential for Rails.<br />7. Postmodern Programming: embrace inconsistencies, cobbled together world and realize software is the same way giving the example of Unix. <br /><br />I found myself agreeing with Martin, blow for blow most of the time.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/08/meeting-sahil-and-ambrose-becoming/">Meeting Sahil and Ambrose, Becoming Famous</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-08T08:27:00-05:00" pubdate data-updated="true">Jul 8<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/08/meeting-sahil-and-ambrose-becoming/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/08/meeting-sahil-and-ambrose-becoming/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />The Saturday night before TechEd I noticed a gathering online - the &#8220;Party with Palermo&#8221; - organized by C# MVP Jeffrey Palermo.  This was courtesy of Google so I didn&#8217;t have a personal connection with any of the players there other than knowing they were some of the higher profile attendees.<br /><br />The first person I got to meet was <a href="http://blah.winsmarts.com/">Sahil Malik</a>; I have his <a href="http://www.apress.com/book/bookDisplay.html?bID=10002">ADO.NET 2.0 book</a> from Apress but didn&#8217;t make the connection at the time. I wish I had although it&#8217;s probably a good thing since I&#8217;d have pestered him with more than a few questions.  But Sahil did the courtesy of talking to me a little bit about <span style="font-style: italic;">Concurrency </span>- expanding the notion in my mind from just database locking mechanisms and settings to the statefulness of objects and their interaction in the .NET Framework. Sahil was very courteous.<br /><br />After Sahil excused himself I noticed a guy wearing an <a href="http://www.infragistics.com/">Infragistics</a> shirt and, completely forgetting myself, pounced upon my opportunity to dialogue with a representative of a company I&#8217;ve blessed and cursed in the same breath. <br /><br />Almost forgetting to introduce myself I began firing off comments - the shortened version of which is that Infragistics makes powerful stuff but leaves gaps in documentation, and that the dark, voodoo magic that is left on an ASP.NET page in the form of cryptic javascript is quite disconcerting - perhaps before I learned that I had met <a href="https://mvp.support.microsoft.com/profile=1bae6533-b16f-42e1-88af-f4c4fbf33394#top">Ambrose Little</a>, another C# MVP who had only just started at Infragistics as a technical evangelist of sorts.<br /><br />Ambrose played it well, allowing me to get my frustrations off my chest asking questions like &#8220;what do you think we can do better?&#8221;, and then pausing for my excited bursts of opinion.  My excited babble only continued when I discovered he was presenting on the <a href="http://msdn.microsoft.com/practices/">Microsoft Enterprise Library</a>.  I asked him what he thought of it, <span style="font-style: italic;">really</span>, as a <span style="font-style: italic;">very large</span> layer of abstraction of other libraries (which themselves are layers of abstraction), and he gave a neutral response along the lines of it depending on the developer and their approach.  I&#8217;ve met many people and I&#8217;ve got to think hard of a person who was able to deftly answer questions while choosing not to really commit a strong opinion, as well as steer an encounter like ours into therapeutic venting rather than debate or contention.  I didn&#8217;t go to his session about the the Enterprise Library but I&#8217;m really looking forward to the TechEd DVD when I can get a real sense of his thoughts and what he presented upon.<br /><br />During my excited conversation I noticed a picture taker and now these moments are <a href="http://devcow.com/photos/tech-ed_2006/picture931.aspx">recorded for posterity</a> on an offshoot of the Atlanta .NET Regular Guys website.  They were taken by Heidi Schwartz whose husband Brendon is a developer actively involved in the INETA organization.<br /><br />Sahil&#8217;s blog is <a href="http://blah.winsmarts.com/">here</a>, Ambrose writes a blog <a href="http://dotnettemplar.net/default.aspx">here</a>, and Brendon contributes to a blog <a href="http://devcow.com/blogs/default.aspx">here</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Sahil Malik [MVP C#]</div>
+<div class='content'>
+BOO !! :)<BR/><BR/>I hope we stay in touch<BR/><BR/>Sahil</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/07/06/tdd-is-like-flossing/">TDD Is Like Flossing</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-06T23:47:00-05:00" pubdate data-updated="true">Jul 6<span>th</span>, 2006</time>
+        
+           | <a href="/2006/07/06/tdd-is-like-flossing/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/07/06/tdd-is-like-flossing/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Everyone knows they should be flossing as well as writing their tests first.  They&#8217;ve heard of the tools like <a href="http://www.nunit.org/index.php">NUnit</a>, but they just don&#8217;t do it. Take it from a guy who got drilled for several hours recently because of cavities between the teeth: it&#8217;s not worth it.<br /><br />On a serious note, I&#8217;m spending most of my time in my current project on bug fixing.  I know that leveraging unit tests and a tool like NUnit will not only make me more productive, but also trim the amount of time I spend like today fixing bugs (all day long).<br /><br />The big question is how to apply that to a web application.  Many of the examples given for tests in NUnit really lend themselves to libraries (DLLs) and not to Web Forms with postback cycles.<br /><br />I haven&#8217;t had much time to dig into it, but pretty soon I&#8217;ll have to roll up my sleeves and do a comparison of the new Visual Studio Team System test capabilities and NUnit.  The NUnit people <a href="http://nunit.com/blogs/?p=19">blogged</a> a comparison but I&#8217;d like to have a look for myself. My leanings would probably be toward NUnit for simplicity, less overhead, and availability, but I&#8217;ll withhold judgement until I&#8217;ve had a chance to get dirty.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Aaron Johnson</div>
+<div class='content'>
+for web applications you should also check out selenium:<BR/><BR/>http://www.openqa.org/selenium/<BR/><BR/>We&#8217;re going to start using it at work, I haven&#8217;t played with it yet.<BR/><BR/>AJ</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/29/emitting-code-mind-your-language/">Emitting Code, Mind Your Language</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-29T08:08:00-05:00" pubdate data-updated="true">Jun 29<span>th</span>, 2006</time>
+        
+           | <a href="/2006/06/29/emitting-code-mind-your-language/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/06/29/emitting-code-mind-your-language/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Caught sight of a <a href="http://www.codinghorror.com/blog/archives/000617.html">post</a> over at Jeff Atwood&#8217;s Coding Horror blog in which he demonstrates some of the clunkiness of using object libraries while coding.  His example is as follows:<br /><br />Let&#8217;s say you wanted to generate and render this XML fragment:<br /><br />&lt;status code=&#8221;1&#8221;&gt;&lt;data&gt;&lt;usergroup id=&#8221;usr&#8221;&gt;&lt;/data&gt;<br /><br />He then shows the 17 or so lines of code it takes to do it with System.Xml objects and shows an alternative with Response.Write and a String formatter:<br /><br />string s = @&#8221;&lt;status code=&#8221;&#8220;&gt;&lt;data&gt;&lt;usergroup id=&#8221;&#8220;&gt;&lt;/data&gt;&#8221;;<br />Response.Write(String.Format(s, myCode, myUserGroup));<br /><br />What he was getting at seemed fairly intuitive but a firestorm erupted over his berating those who considered the use of Response.Write and other more terse approaches over object models as second class or &#8220;dreadful citizenry.&#8221;<br /><br />Of course the big pitfall of his example is that it can be easily broken if the variables used in a Response.Write approach to generating xml contain unescaped or &#8220;bad&#8221; charactes.  The object proponents jumped on this and hammered at how stuff like this works for a &#8220;trivial&#8221; example but it leaves an aweful exposure for &#8220;real world&#8221; applications.  I&#8217;m always annoyed by that word &#8220;trivial&#8221; because those that use it tend to abuse it for the sake of complexity and overengineering.  On the other hand, if you look at my previous post, I&#8217;m no stranger to bad characters and encoding issues (trust me, the pain has been dealt!).  But I think what this discussion points to is something that is near and dear to my heart: language itself.<br /><br />It didn&#8217;t take long for a Ruby coder to point out that generating something like this in Ruby, using the libraries was as simple as:<br /><br />builder = Builder::XmlMarkup.new(:target=&gt;STDOUT, :indent=&gt;2)<br />builder.person { |b| b.name(&#8220;Jim&#8221;); b.phone(&#8220;555-1234&#8221;) }<br /><br />Which generates:<br /><br />&lt;person&gt;<br />  &lt;name&gt;Jim&lt;/name&gt;<br />  &lt;phone&gt;555-1234&lt;/phone&gt;<br />&lt;/person&gt;<br /><br />And along came a Perl programmer who shows the original example as:<br /><br />$x = XML(&#8216;status&#8217;, [code =&gt; 1],<br />    [&#8216;data&#8217;, [],<br />     [&#8216;usergroup&#8217;, [id =&gt; &#8220;usr&#8221;]]]);<br /><br />I share Jeff&#8217;s frustration in the heavily object oriented approach to doing things with traditional .NET libraries - but I think it points to two things: first, the libraries we get sometimes are a clunky &#8220;one size fits all&#8221; offering that leave the developer writing a lot of line noise for a simple result, and second that while the language itself may not be the initial culprit (I think the two shorter examples above could be duplicated in C#, for example)  the thinking one acquires from their language, libraries, and best practices is why System.Xml makes some developers think that 17 lines of code is the best for a &#8220;trivial&#8221; example of generating some xml.<br /><br />This is why language is so interesting to me: the way you think is overwhelmingly influenced by how you express yourself.<br /><br />Where does that discussion leave me?  Wanting to know more about Ruby and work on my fluency in Perl.  I may have to write that C#, but I want more flexibility in thinking.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/28/querystring-drama/">Querystring Drama</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-28T19:58:00-05:00" pubdate data-updated="true">Jun 28<span>th</span>, 2006</time>
+        
+           | <a href="/2006/06/28/querystring-drama/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/06/28/querystring-drama/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />Apparently it&#8217;s older news - a security feature from ASP.NET 1.1 that protects the webserver from &#8220;dangerous&#8221; querystrings that throws exceptions for illegal characters like angle brackets and so on.<br /><br />We happened upon it when trying to pass information from a VB6 application to a web app by putting together a querystring and appending it to the target page like so:<br /><br />http://foo/bar.aspx?id=29oeiu&0209&amp;wweoi9239<br /><br />The garbled bit after the ? was assembled by doing a little bit of shifting of character codes.   It doesn&#8217;t really qualify as encryption but it seems daunting enough for the casual user and there&#8217;s really not enough text for a persistent person to find much of a pattern.  Unfortunately as you happily shift those ascii codes you run into the &#8221;<" and other characters that ASP.NET 1.1+ is not happy about.   It makes the case for doing proper encoding but even true URL encoding (done by putting a "%" with the upper and lower 4 bits in the character byte encoded as hex) will not absolve the developer of the application server's squeamishness. For example, the URL encoded value for the left angle bracket, "&lt;", is %3c.  For the right angle bracket, ">&#8221; it is %3e.  So if you think that you might get away with a URL that should be http://foo/bar.aspx?start=&lt;&tag=h1&amp;end=&gt; by formating it as http://foo/bar.aspx?start=%3c&tag=h1&amp;end=%3e you will be sorely disappointed. Sorely.<br /><br />My colleague and I then thought we&#8217;d be a little clever - okay it was my [bad] idea -  and just use a constant character for one of the angle brackets but this also fell short since it&#8217;s not just angle brackets that are considered dangerous.<br /><br />So what was the fix?  Step one is to leverage the might of Google and search on the error message.  Then we <a href="http://support.esri.com/index.cfm?fa=knowledgebase.techarticles.articleShow&d=26147">discovered</a> an attribute to the page processing directive that turns this feature off - it was almost too easy:<br /><br />ValidatePageRequest=&#8221;false&#8221;<br /><br />Of course this puts the burden of securing the querystring on the developer but there are a few perks: first is that it only applies to the single page when placed as a directive.  The second is that the vulnerability is squarely on the developer leveraging the querystring for some back end command functionality.  That&#8217;s easy to narrow into some clean validation logic.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2006/06/27/starting-ruby/">Starting Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-27T23:28:00-05:00" pubdate data-updated="true">Jun 27<span>th</span>, 2006</time>
+        
+           | <a href="/2006/06/27/starting-ruby/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2006/06/27/starting-ruby/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://www.iunknown.com">John Lam&#8217;s</a> RubyCLR project piqued my interest even before I saw him at TechEd.  Today was my first step to getting started, here were my steps.<br /><br />1. Played a bit with <a href="http://tryruby.hobix.com/">a free online Ruby interpreter</a>.<br />2. Got <a href="http://rubyinstaller.rubyforge.org/wiki/wiki.pl">the single click installer</a> for my own machine.<br />3. Read a bit of <a href="http://www.ruby-doc.org/docs/ProgrammingRuby/">documentation</a>.<br />4. Then discovered <a href="http://www.activestate.com/Products/Komodo/?_x=1">Komodo</a>, the IDE I originally bought for Perl stuff supports Ruby and has an interpreter.  Very, very cool.<br /><br />Next step: language fundamentals.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/34/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/32/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

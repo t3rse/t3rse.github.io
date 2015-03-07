@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Commands and Abstractions - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{I clash with people occasionally over my approach to SQL Server. My approach to SQL Server is quite simple: Transact SQL. Never one for layers of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2006/10/24/commands-and-abstractions">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Commands and Abstractions</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-24T19:33:00-05:00" pubdate data-updated="true">Oct 24<span>th</span>, 2006</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="COLOR: rgb(51,102,255);font-size:180%;" >{</span><br /><br />I clash with people occasionally over my approach to SQL Server. My approach to SQL Server is quite simple: Transact SQL. Never one for layers of abstraction and always seduced by speed, I prefer to keep my management activity in Query Analyzer. SQL Management Studio seems a bit slower than its older cousin, so quite often I prefer Query Analyzer even with the brand new SQL Server 2005.<br /><br />Often times for me preferences like this develop after bad experiences but today was a reminder of what kinds of things a layer of abstraction is capable of doing behind your back if you don&#8217;t monitor it. We have a table with 82 columns and something like 50,000 rows. One of these columns needed to be extended from VARCHAR(10) to VARCHAR(50). I was walking through the steps as they may occur in Enterprise Manager so I opened the product (wait a few seconds), selected my database (wait a few seconds), opened the tables node (wait a few seconds), and then right clicked on my table to examine and manipulate the column (another few seconds, plus scrolling up and down to locate the column I wanted). I made my change and then proceeded to make a &#8220;change script&#8221; which, to my horror, creates a temp table, copies data and affects other tables referenced by the table whose column I was changing.<br /><br />My usual approach to something like this is the following: Start->Run (Instantaneous). &#8220;isqlw&#8221; and hit enter (Instantaneous). In the query window I type the following:<br /><br /><br /><br /><div style="BACKGROUND: white;font-family:Courier New;font-size:10pt;color:black;"   ><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    1</span> <span style="color:blue;">USE </span>MyTestDatabase</span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    2</span> GO </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    3</span> </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    4</span> <span style="color:blue;">ALTER TABLE </span>Foo </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    5</span>     <span style="color:blue;">ALTER COLUMN </span>Bar <span style="color:blue;">VARCHAR</span>(50) </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    6</span> GO </span></p><br /></div>This is a simple example, titled away from the GUI but there&#8217;s more to this. Because the GUI represents an abstraction, there are limitations a person who is there encounters and begins to operate with. A simple example is the following: assume a table has 3 stored procedures (select, insert, update) and you&#8217;ve added a few columns that you&#8217;d like to include as parameters in each of the procs. In Enterprise Manager, or SQL Management Studio, a person is inclined to think in terms of a single procedure at once and likely to visit each procedure to make this change. A wise Unix gray beard or someone else who&#8217;s comfortable with a text editor will dump all the procedures they need to modify into a single file, do some search/replace operations as a single step, and do the update.<br /><br />The point for me really veers from SQL Server at this point and gets into the question of the abstractions which I myself rely on unnecessarily - which prevent my thinking to get past a certain point.  Although I have come to rely on the command line more and more over time, there are still things I learn: DOS things! that have really changed how I think about certain types of problems.  A simple example of this is from a few months ago when I learned of the existence of pushd and popd, commands for storing and retrieving working directories on a stack.  These relatively trivial techniques make it easy to do things that never really occured to me before. Like the fact that I could just use fc to check for differences in files. Or piping a request for help to a file so I could have documentation for a command. Here is an example that might be interesting:  wsdl.exe /? >wsdlParameters.txt<br /><br />One last point of clarification: I am not against abstractions. In many instances they work quite well. A while back I wrote a web based tool for viewing objects in SQL Server databases - basically outputting queries to the Information Schema views.  Everything that tool does can be duplicated in query analyzer or in SQL Management Studio.  But in terms of raw speed, flipping back and forth on table definitions in the web based tool beats clicking around in the GUI or retyping the same select statement with a different table name in the where clause.  What I believe is that abstractions are used best when what they are hiding is understood fully.  This is counter intuitive; most people think the abstractions - an easy GUI, a simple command, and so on - are there to make things simpler for people who want to keep details hidden.  That is always dangerous, even when it&#8217;s effective.  I&#8217;d prefer to struggle with what&#8217;s underneath and then live blissfully choosing the abstractions I find useful.<br /><br /><span style="COLOR: rgb(51,102,255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Spoken from one who knows.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron Johnson</div>
+<div class='content'>
+Another good thing about using TSQL instead of SQL Enterprise Manager is that you&#8217;ll be able to reproduce and test your modifications programatically.  You can&#8217;t test &#8216;Expand Server &gt; Expand Database &gt; Right click on table n &gt; Add column&#8217;.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-24T19:33:00-05:00" pubdate data-updated="true">Oct 24<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2006/10/24/commands-and-abstractions/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2006/10/24/commands-and-abstractions/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/10/23/serious-reading/" title="Previous Post: Serious Reading">&laquo; Serious Reading</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/10/27/friction/" title="Next Post: Friction">Friction &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

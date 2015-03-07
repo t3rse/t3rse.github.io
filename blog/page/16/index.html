@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{ My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; Unplanned illness slowed me down over the weekend, but the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/blog/page/16">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/26/twining-iron-python-dsl-for-db-update/">Twining: Iron Python DSL for DB Update III</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-26T13:45:00-06:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/26/twining-iron-python-dsl-for-db-update/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/26/twining-iron-python-dsl-for-db-update/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; </p> <p>Unplanned illness slowed me down over the weekend, but the beauty of lambda expressions make transformations a breeze. I&#8217;ll let the code document what I added.</p> <p><pre>cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />mytrans = {"Field1":"upper","Field1": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br />database(cn).table("Photos").transform(mytrans).copyto.csv("c:\\foo.csv")<br /></pre><br /><p>As you can see, &#8220;mytrans&#8221; is a dictionary containing a matching of column names to both a keyword string, &#8220;upper&#8221;, and also lambda expressions that model functions to operate on the constituent data (the [::-1] idiom reverses a string).&nbsp; I&#8217;d add a few keywords for simple things people often do to data but the beauty of lambda expressions is that it keeps my code lazy and empowers whoever is using the script to make their own judgement about what to do with data.</p><br /><p>Here&#8217;s what goes on behind the scenes - the <font face="Courier New" size="2">copyto</font> class has a <font face="Courier New" size="2">checkAndTransform</font> method that matches up a field value with it&#8217;s &#8220;transform&#8221;:</p><br /><p><pre>	def checkAndTransform(self, field, value):<br />		if registrar.transforms.has_key(field):<br />			if repr(type(registrar.transforms[field])) == "&lt;type  'function'&gt;":<br />				value = registrar.transforms[field](value)<br />			if registrar.transforms[field] == "upper":<br />				value = value.upper()<br />		return value	<br /></pre><br /><p></p><br /><p>I&#8217;m not <em>Pythonic</em> enough yet to know if I need to call repr and do a string comparison when testing if a type is a function, but it works just fine.</p><br /><p>So a few thoughts:</p><br /><p>1. What are the usual changes we make to data when exporting or importing?<br>2. Is it stupid to have shortcut strings or should I just fall back on writing lambdas?<br>3. Is there a better way of testing for a function than <br><font face="Courier New" size="2">repr(type(registrar.transforms[field])) == &#8220;&lt;type &#8216;function&#8217;&gt;&#8221;</font></p><br /><p>The to-do list from my previous post is still intact, I&#8217;ll be working through it in the near future.&nbsp; Have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the complete script</a> and if you have thoughts or opinions, please let me know. A big goal here is not only to make something useful, but to learn Python (and be Pythonic, the two don&#8217;t necessarily coincide).</p><br /><p>Here&#8217;s a full list of what can be done at this point:</p><br /><p><pre>mytrans = {"Field1":"upper","Field2": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br /><br />database(cn).table("MyTable").transform(mytrans).copyto.csv("c:\\foo.csv") #with transform<br />database(cn).table("MyTable").copyto.csv("c:\\foo.csv") #without transform<br />database(cn).table("MyTable").copyto.database(cn2)<br />database(cn).table("MyTable").copyto.xmlFieldsAsAttributes("c:\\here.xml")<br />database(cn).table("MyTable").copyto.xmlFieldsAsElements("c:\\there.xml")<br />database(cn).backupto("C:\\temp\\my_backup.bak")<br /><br /></pre><br /><p></p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Great feedback!  <BR/><BR/>I changed my function checking &#8216;cuteness&#8217; for callable - what you say makes total sense and I ran into it while studying Mark Pilgrim&#8217;s <A HREF="http://www.diveintopython.org/" REL="nofollow">Dive Into Python</A>.<BR/><BR/>@fuzzyman - I started with the idea of built in types but the thing that I&#8217;m loving about the lambda is that it&#8217;s a generic, lazy approach that defers exactly which types of &#8220;transforms&#8221; are needed until the time of use if that makes sense.<BR/><BR/>@fuzzyman/catherine - I tried to merge both of your comments into the following compromise: I use the try/except from your comment but rather than let it pass I put a list in registrar (which is a goofy way of having a &#8220;global&#8221; space for things) called &#8220;warnings&#8221; in which I store the exceptional occurance. After something occurs I&#8217;ll check the length of warnings and display anything I find in there. Something like: <BR/>except TypeError:<BR/> registrar.warnings.append(&#8220;Your transform failed on field %s&#8221; % field)<BR/><BR/>I&#8217;ll post the updates I&#8217;ve made within the next day or so.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Regarding this approach:<BR/><BR/><BR/>try:<BR/>value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>pass<BR/><BR/>It has a minor problem that TypeErrors raised inside the transform will then be swallowed. *Personally* I think using callable is slightly better for this situation.</div>
+</div>
+<div class='comment'>
+<div class='author'>Catherine</div>
+<div class='content'>
+David, you&#8217;re writing code faster than I can read it and comment.  :)<BR/><BR/>What fuzzyman said about using callable - good advice.  Writing Pythonically, you try not to think about what an object <EM>is</EM>, but <EM>what you can do with it</EM>, because then you don&#8217;t break polymorphism - if I write some funky object that doesn&#8217;t look like a function to your test, but can be called, then you still want to accept it.<BR/><BR/>You can go a step further - not test at all and apply EAFP - Easier to Ask Forgiveness than Permission -<BR/><BR/>try:<BR/>    value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>    pass<BR/><BR/>Also, &#8220;if registrar.transforms.has_key(field):&#8221; is 100% legitimate, but I like &#8220;if field in registrar.transforms&#8221; better, because it looks prettier.<BR/><BR/>Anyway, I like your approach!  I&#8217;m looking at some ETL code I wrote years ago and thinking that it would be better using your dict-of-transforms idea.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Third and final thought (I promise&#8230;) - even better than checking for objects that are functions you can simply check if the object is callable:<BR/><BR/>if callable(something):<BR/><BR/>This is more Pythonic as it doesn&#8217;t restrict you to using functions, but allows any callable object.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+You can also replace your lambdas with builtin functions:<BR/><BR/>str.upper<BR/>reversed</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Your technique for checking if objects are functions is &#8216;cute&#8217;. :-)<BR/><BR/>The best way is to use the types module from the Python standard library.<BR/><BR/>from types import FunctionType<BR/><BR/>isinstance(something, FunctionType)<BR/><BR/>If you want to avoid the import you can do:<BR/><BR/>def nothing: pass<BR/>FunctionType = type(nothing)<BR/><BR/>Hope that helps.</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/21/iron-python-dsl-for-db-update-ii/">Iron Python DSL for DB Update II</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-21T13:28:00-06:00" pubdate data-updated="true">Feb 21<span>st</span>, 2008</time>
+        
+           | <a href="/2008/02/21/iron-python-dsl-for-db-update-ii/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/21/iron-python-dsl-for-db-update-ii/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Attepting releasing early &amp; often - here are a few new features to the ideas I&#8217;m putting together for the Database specific DSL.&nbsp; I&#8217;ll summarize all that&#8217;s possible with it now with the new stuff highlighted in red.</p> <blockquote> <p><font face="Courier New" size="2"><font color="#008000">#some connection strings</font><br>cn = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;&#8221;<br>cn2 = &#8220;Data Source=.&#92;sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;&#8221;</font></p> <p><font face="Courier New" size="2"><font color="#008000">#some things to do</font><br>database(cn).table(&#8220;MyTable&#8221;).copyto.csv(&#8220;c:&#92;foo.csv&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.database(cn2)<br><font color="#ff0000">database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsAttributes(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).table(&#8220;MyTable&#8221;).copyto.xmlFieldsAsElements(&#8220;c:&#92;spam&#92;eggs.xml&#8221;)<br>database(cn).backupto(&#8220;C:&#92;spam&#92;eggs.bak&#8221;)</font></font></p></blockquote> <p>The overall idea is to build a <em>language centric, developer oriented implementation</em> of what is done in a tool like SSIS or its predecessor DTS - I&#8217;m using SQL Server for a start but there&#8217;s no reason this can&#8217;t include other database platforms. It&#8217;s quite exciting that even without knowing much Python I can get that much done in the language.&nbsp; I&#8217;ll spend time refactoring and reorganizing the script I&#8217;ve started with, but please <a href="http://www.seruyange.com/metadeveloper/database.py.txt">feel free to download and modify it</a>. Please post any improvements or ideas for how I can improve the Python and added any other features to the dsl. (Point on using __getattr__ well taken).</p> <p>My todo list?<br>1. Aforementioned &#8220;transforms&#8221; for data in migration<br>2. Exception handling :^)<br>3. Copying tables is a rough sketch but needs a lot of work<br>4. Export formats besides CSV and XML: arbitrary delimiters and fixed field length<br>5. __getattr__ :^)</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/19/iron-python-dsl-for-etl/">Iron Python DSL for ETL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-19T23:33:00-06:00" pubdate data-updated="true">Feb 19<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/19/iron-python-dsl-for-etl/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/19/iron-python-dsl-for-etl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Hanselman wrote about <a href="http://www.hanselman.com/blog/TheWeeklySourceCode14FluentInterfaceEdition.aspx">&#8220;fluent&#8221; interfaces</a> recently which confirmed something I&#8217;d been thinking for a while. What if rather than massive tools we just had a language to express ourselves when we wanted to move data around?&nbsp; What if we could say something like:</p> <p><font face="Courier New" color="#ff0000"><strong>database(&#8220;connection string&#8221;).table(&#8220;table&#8221;).copyto.csv(&#8220;C:&#92;spam&#92;eggs.csv&#8221;)</strong></font><br>or<br><font face="Courier New" color="#ff0000"><strong>database(&#8220;connetion string&#8221;).table(&#8220;table&#8221;).copyto.database(&#8220;connection string 2&#8221;)</strong></font></p> <p>In the spirit of releasing early and often, here&#8217;s an implementation of the above language for sql server with Python. I&#8217;ll be extending the flexibility quite a bit, and my Python skills are still those of a learner, but here it is for comment.&nbsp; Before I post the whole script, here are a few goals:<br>1. XML data: <br><font face="Courier New">database(&#8220;connection string&#8221;).table(&#8220;table&#8221;).copyto.xml(&#8220;C:&#92;spam&#92;eggs.xml&#8221;) </font><br>2. Transforms:<br><font face="Courier New">transformDictionary = {&#8216;column1&#8217;:&#8217;upper&#8217;, &#8216;column2&#8217;:&#8217;some regex&#8217;} #these could become a fluent interface of their own.<br>database(&#8220;connection string&#8217;).table(&#8220;table&#8221;).withTransform(transformDictionary).copyto.csv(&#8220;C:&#92;spam&#92;eggs.csv&#8221;)</font></p> <p>So <strike>here&#8217;s that rather unrefined code</strike> <a href="http://www.seruyange.com/metadeveloper/database.py.txt">download the latest implementation</a>.&nbsp; </p> <p>Below was just some scratchwork from a Friday afternoon when I started sketching: </p><pre style="background-color: #e0e0e0"># BORRE DATABASE OBJECT<br /># 02/08/2008 - David Seruyange - @FRIDAY BURNOUT<br />import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.IO import *<br /><br />class registrar:<br />	tableRegister = ""<br />	databaseRegister = ""<br /><br />class database:<br />	"Model of a database somewhere"<br />	def __init__(self, connectString):<br />		"Initialize the rectangle"<br />		self.connect = connectString<br />		registrar.databaseRegister = connectString<br />		self.copyto = copyto()		<br />	<br />	def table(self, t):<br />		registrar.tableRegister = t<br />		return self<br />		<br />class copyto:<br />	"Model of a copy of some object"<br />	def csv(self, path):<br />		""" Save the result to a CSV file """<br />		cn = SqlConnection(registrar.databaseRegister)<br />		cn.Open()<br />		cmd = SqlCommand("select * from " + registrar.tableRegister, cn)<br />		r = cmd.ExecuteReader()<br />		fileOut = open(path, 'w')<br />		while r.Read():<br />			sOut = ""<br />			for i in range(r.FieldCount):<br />				sOut += str(r[i]) + ","<br />			sOut += "\n"<br />			fileOut.write(sOut)<br />		cn.Close()<br />		fileOut.close()<br />	<br />	def database(self, connect):<br />		(ddl, colInfo) = buildDDL(registrar.tableRegister)<br />		cnTarget = SqlConnection(connect)<br />		cnTarget.Open()<br />		cmdBuildTargetTable = SqlCommand(ddl, cnTarget)<br />		cmdBuildTargetTable.ExecuteNonQuery() #builds the target table<br />		cnSource = SqlConnection(registrar.databaseRegister)<br />		cnSource.Open()<br />		cmdSourceIter = SqlCommand("select * from " + registrar.tableRegister, cnSource)<br />		sourceReader = cmdSourceIter.ExecuteReader()<br />		insertCode = ""<br />		while(sourceReader.Read()):<br />			insertTemplate = "INSERT INTO " + registrar.tableRegister + " VALUES("			<br />			for i in range(sourceReader.FieldCount):<br />				insertTemplate += "'" + str(sourceReader[i]) + "',"<br />			insertCode += insertTemplate[:-1] + ")\n"<br />		cmdExecuteInsert = SqlCommand(insertCode, cnTarget)<br />		cmdExecuteInsert.ExecuteNonQuery()<br />		# "save: %s\n table: %s\n to path: %s" % (registrar.databaseRegister, registrar.tableRegister, connect)		<br /><br />def buildDDL(tName):<br />	query = """<br />		select <br />				c.[name], c.max_length, c.[precision], c.scale, <br />				ty.[name] as typename <br />		from <br />			sys.columns c <br />				join sys.tables t on c.object_id = t.object_id<br />				join sys.types ty on c.system_type_id = ty.system_type_id<br />		 where <br />			t.[name] = '__table__'<br />	"""<br />	query = query.replace('__table__', tName)<br />	cn = SqlConnection(registrar.databaseRegister)<br />	cn.Open()<br />	cmd = SqlCommand(query, cn)<br />	r = cmd.ExecuteReader()<br /><br />	ddl = """<br />	CREATE TABLE __xyz__(<br />			__columns__)<br />	"""<br />	<br />	columnsDefinition = ""<br />	colTypeInfo = []<br />	while r.Read():<br />		#todo: support for other column types such as numeric or decimal<br />		columnTemplate = "	COLUMN_NAME	DATATYPE LENGTH NULL,"<br />		columnTemplate = columnTemplate.replace('COLUMN_NAME', str(r[0]))<br />		columnTemplate = columnTemplate.replace('DATATYPE', str(r[4]))<br />		colTypeInfo.append(str(r[4]))<br />		if str(r[4]) == "varchar":<br />			columnTemplate = columnTemplate.replace('LENGTH', "(" + str(r[1]) + ")")<br />		elif str(r[4]) == "char":<br />			columnTemplate = columnTemplate.replace('LENGTH', "(" + str(r[1]) + ")")			<br />		else:<br />			columnTemplate = columnTemplate.replace('LENGTH', "")<br />		columnsDefinition += columnTemplate + "\n"<br /><br />	r.Close()<br />	cn.Close()<br />	ddl = ddl.replace('__xyz__', tName).replace('__columns__', columnsDefinition).replace(",\n)", "\n\t)")<br />	return [ddl, colTypeInfo]<br /><br />	<br />cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />cn2 = "Data Source=.\\sqlexpress;Initial Catalog=Irvine;Integrated Security=SSPI;"<br /># jepp<br />#database(cn).table("Photos").copyto.csv("c:\\foo.csv")<br />#print "---"<br />database(cn).table("Photos").copyto.database(cn2)<br /></pre><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+@fuzzyman - that must be the &#8220;method missing&#8221; type functionality in Python? I&#8217;ll have to dig into that for sure.<BR/><BR/>@aj - that is cool stuff, i wonder if the java compiler is smarter when it comes to chaining methods over the C# one?</div>
+</div>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+Nice David! I thought the fluent stuff was pretty interesting too, I wrote about my experiments with it <A HREF="http://cephas.net/blog/2006/07/20/fluentinterface/" REL="nofollow">here</A>.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+You could get a lot of mileage with judicious use of &#8216;__getattr__&#8217; for some of these methods&#8230;</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/18/release-early-often/">Release Early & Often</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-18T20:27:00-06:00" pubdate data-updated="true">Feb 18<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/18/release-early-often/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/18/release-early-often/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Paul Buchheit (who we can thank for Gmail) <a href="http://paulbuchheit.blogspot.com/2008/02/most-import-thing-to-understand-about.html">comments</a> on a <a href="http://blog.pmarca.com/2007/06/the-pmarca-gu-2.html">post</a> by Marc Andreessen:</p> <blockquote> <p>For web based products at least, there&#8217;s another very powerful technique: release early and iterate. The sooner you can start testing your ideas, the sooner you can start fixing them.  <p>I wrote the first version of Gmail in one day. It was not very impressive. All I did was stuff my own email into the Google Groups (Usenet) indexing engine. I sent it out to a few people for feedback, and they said that it was somewhat useful, but it would be better if it searched over their email instead of mine. That was version two. After I released that people started wanting the ability to respond to email as well. That was version three. That process went on for a couple of years inside of Google before we released to the world.</p></blockquote> <p>Interesting and it goes along with something Guy Kawasaki was saying in a recent podcast I <a href="http://metadeveloper.blogspot.com/2007/10/podcasts-i-think-big.html">commented on</a> hearing.&nbsp; So the next question comes down to technique - when you&#8217;re working on something by yourself, how do you schedule builds?&nbsp; I&#8217;m thinking I may start to take deliberate &#8220;coding vacations&#8221; - days I take off* from work in order to push through releases on my various little software projects.&nbsp; Hm&#8230; other thoughts?</p> <p>*My employer offers &#8220;comp days&#8221; so it&#8217;s not at the expense of my day job.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Hey AJ, <BR/><BR/>I have the book but it&#8217;s been in my reading queue - I did read a few chapters though, the del.icio.us one and the one on Philip Greenspun.<BR/><BR/>I work a lot so I accumulate a good amount of comp time. But I&#8217;m not militant about taking the time off (feeling swamped with what I need to do) so it hasn&#8217;t been a clearly defined area.  The idea is that you take a day &#8220;when you need it.&#8221;  <BR/><BR/>It feels like I&#8217;m somewhat cheating myself though by not trying to keep track and be more militant about making sure I balance the whole &#8220;comp time&#8221; equation properly for what it was designed.</div>
+</div>
+<div class='comment'>
+<div class='author'>AJ</div>
+<div class='content'>
+So I know you said you were looking forward to reading the &#8220;Founders at Work&#8221; book (http://metadeveloper.blogspot.com/2007/02/founders-at-work.html), but did you ever? If not, there&#8217;s a great chapter on / by Paul Buchheit and Gmail. One of my favorite chapters and a really fun book to read.<BR/><BR/>So.. comp days at work. How often do you get them and how much direction are you given?</div>
+</div>
+</div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/16/check-file-existence-javascript/">Check File Existence, Javascript (Prototype)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-16T19:17:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/16/check-file-existence-javascript/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/16/check-file-existence-javascript/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>If you&#8217;re like me, you spend a lot of time using System.IO and can easily check for the existence of a file on the filesystem with a File.Exists(@&#8221;C:\spam\eggs.file&#8221;)</p> <p>It&#8217;s a little surprising that I hadn&#8217;t run into it before but a few weeks ago I needed that same functionality with javascript. I found a few things online and what works best is using AJAX to make a request and check the HTTP status for whether or not the request failed.&nbsp; My approach was to use <a href="http://www.prototypejs.org/">Prototype</a> and something like this:</p><pre style="background-color: #e0e0e0">function checkForFile(imgName, displayHolder){<br />    new Ajax.Request('Repo/' + imgName + '.jpg',   <br />        {<br />        method:'get',<br />        onSuccess: function(transport){   <br />            var response = transport.status || "no response text";   <br />            if(parseInt(response) == 200){<br />                displayHolder.src = 'Repo/' + imgName + '.jpg';<br />                displayHolder.style.display='block';<br />            }<br />        },     <br />        onFailure: function(){ <br />            displayHolder.src = 'Repo/NoImage.gif';<br />            displayHolder.style.display='block';<br />        }   <br />    });     <br />}<br /></pre><br /><p> Works like a charm.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/16/mantras/">Mantras</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-16T19:03:00-06:00" pubdate data-updated="true">Feb 16<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/16/mantras/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/16/mantras/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Some <a href="http://dormando.livejournal.com/484577.html">good things to repeat to yourself</a> from Dormando. I&#8217;ve a long way to go on so many of these and was geeky enough to give myself a scorecard. </p> <p>I&#8217;ll spare you that (after just deleting a lot of babble that would only be interesting to me) but there are two areas that I can do with some serious improvement:</p> <p>1. Relentless automation<br>It&#8217;s shameful how often I&#8217;m doing things I could easily automate (repeated FTP sessions?)<br>2. Monitoring<br>I wonder how out of line it would be to programmatically enable &#8220;breadcrumbs&#8221; for user&#8217;s activity?&nbsp; Finding out what they really used and what they insisted upon for nothing.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/09/spitting-code-like-lam/">Spitting Code Like Lam</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-09T11:44:00-06:00" pubdate data-updated="true">Feb 9<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/09/spitting-code-like-lam/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/09/spitting-code-like-lam/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I started changing my Visual Studio settings after seeing Hanselman&#8217;s <a href="http://www.hanselman.com/blog/VisualStudioProgrammerThemesGallery.aspx">post</a> and thought I&#8217;d be able to spit fire like John Lam once I&#8217;d downloaded <a href="http://www.iunknown.com/2007/06/vibrant_ink_vis.html">his settings</a> (<a href="http://www.youtube.com/watch?v=BhHONpmlxPc">it&#8217;s gotta be</a> <a href="http://www.youtube.com/watch?v=qYc3cZOkwPU&amp;feature=related">the shoes</a>!). The contrast was a bit much (though working in low light helped) and after a night&#8217;s worth of being like JLam I wanted to go back to (dare I admit?) VS default settings. That didn&#8217;t work out too well (even using the &#8220;default settings&#8221; option in VS, go figure) so I opted for <a href="http://www.agileprogrammer.com/dotnetguy/archive/2006/09/07/19030.aspx">Brad Wilson&#8217;s settings</a> which I&#8217;ve grown to like.</p> <p>When the IDE &#8220;hot or not&#8221; thing first cropped up I changed settings but what makes me <em>boring</em>, preferring the default, is that I&#8217;m on a lot of machines at different times; my laptop, desktop, remote on a couple of servers, and when I help others.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/05/grabbing-sql-2005-blobs-with-ironpython/">Grabbing SQL 2005 Blobs With IronPython</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-05T00:00:00-06:00" pubdate data-updated="true">Feb 5<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/05/grabbing-sql-2005-blobs-with-ironpython/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/05/grabbing-sql-2005-blobs-with-ironpython/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>On Saturday I needed to grab some blob data and create files out of it. The following was some Python I used, inspired very much by this code.</p> <p>The biggest point of interest is the strongly typed array, which in IronPython is simple once you know how: using Array.CreateInstance.</p> <p>&nbsp;</p> <p>&nbsp;</p><pre>#GET IMAGES FROM IMAGE BINARY FIELD<br /># 02/02/2008 - David - @THE COMMAND CENTRE<br /><br />import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.IO import *<br /><br />CONNECT = "Data Source=(local)\sqlexpress;Initial Catalog=DATABASE;Integrated Security=SSPI"<br /><br />sql = "select ID_FIELD, BLOB_FIELD from product_set"<br />cn = SqlConnection(CONNECT)<br />cn.Open()<br />cmd = SqlCommand(sql, cn)<br />reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)<br />buffSize = 100<br />buff = Array.CreateInstance(Byte, buffSize)<br />recCounter = 0<br />while reader.Read():<br />	print "Creating " + str(reader[0])<br />	fs = FileStream(str(reader[0]) + str(recCounter) + "_diagram.png", FileMode.OpenOrCreate, FileAccess.Write)<br />	bw = BinaryWriter(fs)<br />	if(reader[1] != DBNull.Value):<br />		posit = 0<br />		b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		while(b == buffSize):<br />			bw.Write(buff)<br />			bw.Flush()<br />			posit = posit + buffSize<br />			b = reader.GetBytes(1, posit, buff, 0, buffSize)		<br />		bw.Write(buff, 0, b)<br />		bw.Flush()<br />		bw.Close()<br />		fs.Close()<br />	recCounter = recCounter + 1<br /><br />reader.Close()</pre><pre><br /></pre><br /><p>I&#8217;d like to clean it up a bit, but I&#8217;ve written about <em>5,000,000 things</em> that I &#8220;intend&#8221; to clean up before posting and they&#8217;re never posted.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/02/04/what-comes-first-rocks/">What Comes First; Rocks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-04T23:53:00-06:00" pubdate data-updated="true">Feb 4<span>th</span>, 2008</time>
+        
+           | <a href="/2008/02/04/what-comes-first-rocks/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/02/04/what-comes-first-rocks/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Oliver Steele has a new essay entitled <a href="http://osteele.com/archives/2008/02/project-drag">Adding the Easy Piece; or, The Metaphor of the Rock</a>.&nbsp; Insightful as usual, and I love the visualizations.</p> <p>Personally, I&#8217;m experiencing the effects of pushing a rather large rock around a room.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2008/01/30/scott-mccloud-four-tribes-developer/">Scott McCloud&#8217;s Four Tribes - Developer Edition</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-30T23:57:00-06:00" pubdate data-updated="true">Jan 30<span>th</span>, 2008</time>
+        
+           | <a href="/2008/01/30/scott-mccloud-four-tribes-developer/#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com/2008/01/30/scott-mccloud-four-tribes-developer/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Last year I was fortunate to catch <a href="http://www.scottmccloud.com/">Scott McCloud</a> here in Sioux Falls. It&#8217;s doubtful that he&#8217;d ever find his way here under normal circumstances but he was doing a 50 state tour in support of his book, &#8221;<a href="http://www.amazon.com/Making-Comics-Storytelling-Secrets-Graphic/dp/0060780940">Making Comics</a>.&#8221;&nbsp; I believe a dual aim was to provide his two young daughters, who travelled and presented with him, an experience of a lifetime.&nbsp; </p> <p>I was particularly struck with a classification he had for comic (and indeed all types) artists.&nbsp; He placed them into four quadrants:</p> <p><img src="http://seruyange.com/metadeveloper/mccloud02.jpg"> </p> <p>Here is a quote of <a href="http://webcomicsreview.com/?p=151">an explanation</a> of how the classifications work:</p> <blockquote> <p>Those who value draftsmanship the most, and who are the most invested in the idea of mastery, beauty, and craft find themselves on the opposite side of the fence from those whose strongest values are raw honesty, authenticity, and a kind of rebellion against the status quo. That dichotomy comes between what I call the classicists and the iconoclasts. The children of Hal Foster versus the children of R. Crumb.  <p>That’s the truth and beauty diagonal that separates two of the four tribes. The other two corners are the formalists and the animists, who represent the distinction between form and content. The formalists like to experiment and take the medium apart, figure out how it works and put it back together, and try new things; while the animists really just like to tell a compelling story, and want the form to vanish, to become transparent, so that you don’t know you’re reading a comic at all.</p></blockquote> <p>I wonder how well these notions apply to the practice of programming.&nbsp; I can easily see the classicist: mastery, beauty, and craft - the person who uses things like recursion excessively for the computer science elegance they bestow.&nbsp; Opposite them, I see the iconoclast -&nbsp; the hacks that make things work and could care less about the principles or structure of a thing and instead devote themselves to the beauty of experience. </p> <p>I think the animists and formalists can be distinguished as well by the metric of language/tool preference.&nbsp; The obsessives of language would seem to tend toward formalism and understanding every moving part.&nbsp; An animist may be the type of person who excels at making a tool do legwork with no particular interest in exactly what that tool is baking under the covers.&nbsp; </p> <p>Of course we all will have elements of each but I like to think of myself patterned after Scott McCloud. The formalist who might write the same software over and over in different languages just to see how expression and power vary at the lowest levels.</p> <p>Interesting food for thought.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/17/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/15/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

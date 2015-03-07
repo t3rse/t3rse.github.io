@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Thinking Atlas - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="{One thing I&#8217;m very interested in hearing about at TechEd is going to be the Microsoft Atlas framework. Ajax is haute couture and Atlas seems &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2006/06/08/thinking-atlas">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Thinking Atlas</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-08T22:52:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2006</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One thing I&#8217;m very interested in hearing about at TechEd is going to be the <a href="http://atlas.asp.net/Default.aspx?tabid=47">Microsoft Atlas </a>framework.  Ajax is haute couture and Atlas seems to be at the center of Microsoft&#8217;s strategy.  On my current project I took a look at using Atlas but never really &#8220;got&#8221; the benefits of the technology.  The declarative side of things seems to be designed for the IDE, and without the IDE here it&#8217;s a bit of a non-intuitive hassle to hand code things out.   The second thing that made me leary was the direction Atlas took towards web services.  The tasks I needed to perform were very simple and I shuddered when I thought about how much overhead there would be, say, for a webservice whose only job was to send me a filtered list of things for a dropdown.  In the end I used my own XmlHttp and a bit of POX (I love that acronym, &#8220;Plain Old XML&#8221;) to send things back and forth.  Also courtesy of the O&#8217;Reilly <a href="http://www.oreilly.com/catalog/ajaxhks/index.html"><span style="font-style: italic;">Ajax Hacks</span></a> book I got a handle on <a href="http://www.json.org/">JSON</a> and how awesome it is when it comes to sending things from the server and handling it with client side javascript. <br /><br />Today I listened to <a href="http://dotnetrocks.com/default.aspx?showID=177">Ken Alstad</a> interviewed on <a href="http://www.dotnetrocks.com">.NET Rocks</a> concerning Atlas and it confirmed my suspicions on Atlas leveraging web services and how easy it was to &#8220;bind&#8221; data from the server using javascript.<br /><br />It&#8217;s interesting that there seem to be two directions here - looking on the open source side of things, <a href="http://prototype.conio.net/">Prototype</a> seems to be generating quite a buzz.  I ran into Prototype in December courtesy of <a href="http://www.24ways.org/">24 ways</a> and it took about 35 minutes to really &#8220;get&#8221; it.  Prototype is getting mixed in with a lot of JSON and other javascript libraries and techniques for some pretty cool stuff like script.aculo.us. <br /><br />On the Microsoft side we&#8217;re waiting for Atlas to become standardized, complete, (marketable?).  It&#8217;s declarative, more IDE friendly it seems, and at least for me, less intuitive.<br /><br />Anyway, part of the problem might be my ability to understand it and see where I can leverage it so I&#8217;m going to be in <a href="http://www.wintellect.com/Weblogs/CategoryView,category,Jeff%20Prosise.aspx">Jeff Prosise&#8217;s</a> session on Atlas at TechEd. A few questions I&#8217;m thinking of are as follows:<br /><br />1. How to control when data is bound, doing filtering and other operations using javsacript.<br />2. Will Atlas play well with JSON?  Not JSON being shoehorned into some Atlas app, but more like the ability to return JSON style strings from the server.<br />3. What sort of IDE interface can we expect with Atlas&#8217;s release?  Can we expect any improvements to javascript editing in Visual Studio as a result?<br /><br />&#8230; I&#8217;m sure there are more, and I&#8217;m sure that after the session I&#8217;ll have a much clearer picture of Atlas and it&#8217;s future in web apps for Microsoft developers.  I am pretty sure we made the right choice on the current project, but a year from now I could be singing praises for Atlas.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>James Baker</div>
+<div class='content'>
+I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling you how impressed I was with <BR/>the information you have posted here.<BR/>If you have a moment, please visit my site: <BR/><A HREF="http://www.job-portal.ws" REL="nofollow">job portal</A><BR/>It covers job portal related contents.<BR/>I send you warm regards and wish you continued success.</div>
+</div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-08T22:52:00-05:00" pubdate data-updated="true">Jun 8<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2006/06/08/thinking-atlas/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2006/06/08/thinking-atlas/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2006/06/06/code-as-design-implications-for/" title="Previous Post: Code as Design: Implications for Architects">&laquo; Code as Design: Implications for Architects</a>
+      
+      
+        <a class="basic-alignment right" href="/2006/06/13/teched-keynote/" title="Next Post: TechEd Keynote">TechEd Keynote &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

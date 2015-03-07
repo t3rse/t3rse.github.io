@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hallo Welt: Octopress Edition - Fail Better</title>
+  <meta name="author" content="David aka t3rse">
+
+  
+  <meta name="description" content="I&rsquo;ve been through a lot of blogging engines. My first blog was built on the Radio Userland platform, created by Dave Winer who technorati know &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.t3rse.com/2014/04/21/hello-from-octopress">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Fail Better" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50368166-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Fail Better</a></h1>
+  
+    <h2>Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.t3rse.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/articles">Articles</a></li>  
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hallo Welt: Octopress Edition</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-21T22:46:19-05:00" pubdate data-updated="true">Apr 21<span>st</span>, 2014</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.t3rse.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;ve been through a lot of blogging engines. My first blog was built on the <a href="http://en.wikipedia.org/wiki/Radio_UserLand">Radio Userland</a> platform, created by Dave Winer who technorati know as the guy (controversially) behind RSS. I&rsquo;ve used <a href="https://dasblog.codeplex.com/">Das Blog</a>, <a href="http://metadeveloper.blogspot.com/">Blogger</a>, and  <a href="http://www.t3rse.com">BlogEngine.net</a>. I&rsquo;ve used <a href="http://da5id.tumblr.com/">Tumblr</a>. I&rsquo;ve even implemented my own lightweight blogging platform in the past. It&rsquo;s interesting how the concept of blogging is so simple but the platforms and tools are anything but. Perhaps it has to do with what I will call the &ldquo;Todo List Software Principle&rdquo; &ndash; the more generalized a problem set, the more variety and churn will exist for technical solutions.</p>
+
+<p>Each platform I&rsquo;ve used had things I liked: Userland dealt with hosting and server configuration while I simply wrote, Das Blog was written with a toolset I understand well, Blogger was painless like Userland but also free, writing my own blog engine helped me understand why it was so difficult and BlogEngine was more modern and sleek than Das Blog.</p>
+
+<p>Each platform also had pain points: Userland wasn&rsquo;t free and ultimately my content was not my own. Das Blog had pain points when new versions of the .NET framework started to come around. Blogger was free but complex if you needed to engage the templates and underlying structure of the engine. BlogEngine&rsquo;s ecosystem seems to have died and comments are a nightmare.</p>
+
+<p>My colleague <a href="http://staxmanade.com/" title="Staxmanade">Staxmanade</a> introduced me to <a href="http://octopress.org/">Octopress</a> as he was in the process of migrating old posts from blogger and writing <a href="http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/">a series of posts about it</a>. Octopress is an experiment but here is what I like: it strips away a lot of the abstractions from my previous blog engines and allows me to deal with, for the most part, plain text. It also integrates with Github where my content can be hosted for free. Finally it&rsquo;s a programmer&rsquo;s blog engine; the idea of using markdown and code to build my blog is appealing.</p>
+
+<p>Although I&rsquo;m certain <a href="http://octopress.org/">Octopress</a> is not the last blog engine I try my hand at (foreshadowing here) I will be using it in the forthcoming weeks both to follow <a href="http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/">the Staxmanade series</a> and to learn more about Ruby and statically generated websites.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">David aka t3rse</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-21T22:46:19-05:00" pubdate data-updated="true">Apr 21<span>st</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.t3rse.com/2014/04/21/hello-from-octopress/" data-via="t3rse" data-counturl="http://blog.t3rse.com/2014/04/21/hello-from-octopress/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/" title="Previous Post: The Day Barry Ritholtz Replied">&laquo; The Day Barry Ritholtz Replied</a>
+      
+      
+        <a class="basic-alignment right" href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/" title="Next Post: Moving from BlogEngine.net to Octopress">Moving from BlogEngine.net to Octopress &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2014/06/04/trend-talk/">Trend Talk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/07/going-mac/">Going Mac: A Developer Encountering Operating Systems as Place</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/05/06/moving-from-blogengine-dot-net-to-octopress/">Moving From BlogEngine.net to Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/04/21/hello-from-octopress/">Hallo Welt: Octopress Edition</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/23/The-Day-Barry-Ritholtz-Replied/">The Day Barry Ritholtz Replied</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/t3rse">@t3rse</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 't3rse',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - David aka t3rse -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 't3rse';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.t3rse.com/2014/04/21/hello-from-octopress/';
+        var disqus_url = 'http://blog.t3rse.com/2014/04/21/hello-from-octopress/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
