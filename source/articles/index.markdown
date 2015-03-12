@@ -9,6 +9,12 @@ footer: true
 
 I have contributed several articles to the [Sioux Falls Business Journal](http://www.argusleader.com/news/business-journal/ "Sioux Falls Business Journal") on topics within the realm of technology and business. If you're interested in having me write for your publication, feel free to get in touch: **david [at] t3rse.com**
 
+###[Decide what to store before how to do it](http://www.argusleader.com/story/news/business-journal/2015/03/11/insight-decide-store/24728775/)
+
+###### Published Mar 11, 2014
+
+Decide upon a **concept first** taxonomy of your data before you select a tool that solves the problem.
+
 ###[Minds of the many outweigh minds of the few](http://www.argusleader.com/story/news/business-journal/2014/08/13/minds-many-outweigh-minds/13965815/)
 
 ###### Published Aug 12, 2014
