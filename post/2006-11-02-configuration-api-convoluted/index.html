@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Configuration API Convoluted? &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-11-02-configuration-api-convoluted/">Configuration API Convoluted?</a></h1>
+			<span class="post-date">Nov 2, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I'm having an evening when I can't believe what is wrong with me because something that should be trivial is giving me hell.<br /><br />Our application has had connection strings littered all over the place - okay, 8 to be exact and I know this because of my frequent usage of "replace in files" to toggle connection strings. But we're at a point when this needs to be centralized and mutable without doing a new build.<br /><br />In my head this is simple: slap a config file into the project and off I go.  Some kind of one liner along the lines of:<br /><br />ConfLib.CONNECTION  = ConfigurationSettings.AppSettings["Connect"];<br /><br />Simple, right?  I do it with web applications all the time.<br /><br />The first issue is that ConfigurationSettings, which the old school .NET folks are used to, is deprecated.  The message tells you to use ConfigurationManager but neglects to mention that a physical reference to System.Configuration.dll (in the GAC) is needed.  This isn't a big issue and 2 minutes later I've referenced it, and rewritten my line of code as:<br /><br />ConfLib.CONNECTION  = ConfigurationManager.AppSettings["Connect"];<br /><br />Not quite.  I'm now in the habit of doing unit tests so I realize that Visual Studio 2005 <span style="font-style: italic;">copies your libraries</span> to a new directory when it does unit tests.  I look at the "post build event" options and wonder if it's worth the hassle. So instead I ditch the unit test and return to the main solution, manually copy the *.config file into my application's directory and try.<br /><br />No dice.<br /><br />Maybe ConfigurationManager is too nebulous?  So I try the following:<br /><br />Configuration conf = ConfigurationManager.OpenExeConfiguration("ConfigHelper.dll");<br /><br />Which, when I run it in the debugger seems to pull my keys out of the config file but gives me an access violation when I try:<br /><br />ConfLib.CONNECTION  = conf.AppSettings["Connect"];<br /><br />This is quite some time later and I'm pretty annoyed because I must have absolutely not gotten the memo or configuration is bloated.  Almost to prove to myself how simple this should be, I create a file called Settings.xml and put in a couple of elements and write the following:<br /><br />XmlDocument configDoc = new XmlDocument();<br />configDoc.Load(Path.Combine(Directory.GetCurrentDirectory(), "Settings.xml"));<br />ConfLib.CONNECTION = configDoc.SelectSingleNode("//Database/text()").Value;<br />ConfLib.VERSION = configDoc.SelectSingleNode("//Version/text()").Value;<br /><br />That simple.<br /><br />Granted I am WELL AWARE that the Configuration API has lots of goodies stuffed into it but should that make the process of pulling it out of a configuration file so convoluted?  Things that are designed well work for the simple things as easily as they solve the complex.<br /><br />My configuration files always have the same pattern: I create a class that is designed to read the xml file with static variables for each configuration value.  I use a static initializer to read these from the file and have a single static variable I reference when the app is loaded.  I've worked on a lot of stuff that benefits from this but almost always configuration stuff seems to boil down to a simple name/value pair you can leverage.<br /><br />I could have made an indexer and had the pulling look like the AppSettings collection on the ConfigurationManager but I dislike the fact that the compiler doesn't catch errors related to misspelled key names. <br /><br />Oh well, I'll leave it in its current state. Maybe I'll get the memo tomorrow but I doubt it.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

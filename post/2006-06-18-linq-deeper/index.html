@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> LINQ, deeper &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-06-18-linq-deeper/">LINQ, deeper</a></h1>
+			<span class="post-date">Jun 18, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><p class="MsoNormal">My Tuesday morning session was with Luca Bolognese, lead program manager on LINQ, covering a slightly different flavor than what Pablo Castro was demonstrating with ADO.NET vNext on Monday morning.<span style="">  </span>Luca’s Italian accent was charming, but it was even more exciting to see what LINQ does on a deeper level.<o:p> </o:p></p>  <p class="MsoNormal">He started by showing a classical problem that LINQ solves. Imagine a collection of integers which you need to filter out based on a certain criteria, something like: </p>      <p class="MsoNormal">int[] nums = {2,3,5,7,11};<br /><o:p> </o:p></p>  <p class="MsoNormal">It’s usually done with some kind of iteration in the form of: </p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:blue;">int</span>[] nums = { 2,3,5,7,11};<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:teal;">List</span><<span style="color:blue;">int</span>> selected = <span style="color:blue;">new</span> <span style="color:teal;">List</span><<span style="color:blue;">int</span>>();<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:blue;">for</span> (<span style="color:blue;">int</span> i = 0; i <></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                </span><span style="color:blue;">if</span> (nums[i] > 4) {<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                    </span>selected.Add(nums[i]);<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">                </span>}<o:p></o:p></span></p>  <p class="MsoNormal" style=""><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span>}<o:p></o:p></span></p>  <p class="MsoNormal"><span style=";font-family:&quot;;font-size:10;"  ><span style="">            </span><span style="color:green;">// selected represents my values</span></span></p>      <p class="MsoNormal"><o:p> </o:p>I write code like that on a daily basis, it seems. In LINQ, queries become a “first class” member of the language and operate on anything that implements the IEnumerable interface.<span style="">  </span>A problem like the above can be solved without line noise and iteration:<o:p> </o:p></p>  <p class="MsoNormal">int[] nums = {2,3,5,7,11};</p>  <p class="MsoNormal">var selected = from i in nums </p>  <p class="MsoNormal"><span style="">                        </span>where i > 4</p>  <p class="MsoNormal"><span style="">                        </span>select i;</p>  <p class="MsoNormal"><o:p> </o:p></p>    <p class="MsoNormal">From the perspective of someone who writes the iteration + selection stuff every day, I think that LINQ is going to have a big impact on my code.<span style="">  </span>But this is just the beginning. Luca then showed how LINQ is split out to target several different forms of data structures:<o:p> </o:p></p>  <ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style="">LINQ      to Objects (Anything implementing IEnumerable, collections etc… )</li><li class="MsoNormal" style="">LINQ      enabled ADO.NET (mapping database structures to objects and then querying      off of them)</li><li class="MsoNormal" style="">LINQ      to XML</li></ol>    <p class="MsoNormal"><o:p></o:p>The first example above is a typical LINQ to Objects scenario where filtering, querying, or manipulation can be applied to a collection that supports IEnumerable.<span style="">  </span>Being able to do this sort of manipulation on HashTables, DictionaryEntries, and so on is the type of power that I demonstrated above.</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">In a LINQ enabled ADO.NET scenario, you can take an object that is mapped to some entity in your database and query off of it. I don’t recall the exact demonstration, but an example would be querying a collection of “customer” objects based on some filter: </p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">var topcustomers = from customer in customers</p>  <p class="MsoNormal"><span style="">                                    </span>where customer.orderCount > 10</p>  <p class="MsoNormal"><span style="">                                    </span>select {customer.id, customer.fullName};</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">I’ve heard a lot about ORM ever since my friend <a href="http://www.cephas.net/blog/">Aaron</a> started talking about Hibernate (some time ago) but what catapults this over the typical ORM scenario is that the functionality is built into language and not abstracted through method calls.<span style="">  </span>I’ve been a bit lukewarm to the notion since it seemed like a lot of work up front and because this type of abstraction where objects can represent data and provide some manipulative capacity is already built in the DataSet/DataTable model.<span style="">  </span>However two things make LINQ enabled ADO.NET a little different: first, the IDE facilitates the mappings that are made through an “EDM” diagram and mapping providers that give a lot of flexibility in connecting to the datastore, secondly the developer wields a lot of control over how the mapping works and how things are updated – the queries, the stored procedures, all data access still belongs to you and not to some “tool.”</p>  <p class="MsoNormal"><o:p> </o:p></p>  <p class="MsoNormal">Finally the LINQ enabled XML is powerful – it exposes XML data to yet another format of “query” besides XQuery and XPath.<span style="">  </span>There is also the ability to work with the hierarchical structure that XML documents sometimes expose as collections within collections.<span style="">  </span>The LINQ processing, with a bit of instruction, can also be instructed how to retrieve content (depth first traversal, and so on).</p>      <p class="MsoNormal"><a href="http://blogs.msdn.com/lucabol/">Luca’s blog</a> seems to have died, but for some interesting tidbits, it’s here.<span style="">  </span>Maybe with a few hits it can start up again?<o:p><br /></o:p></p><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

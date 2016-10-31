@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Reading Source, Minima II &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-07-21-reading-source-minima-ii/">Reading Source, Minima II</a></h1>
+			<span class="post-date">Jul 21, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Yesterday I wrote that my next stop was the use of Generics with WCF. Sometimes, it seems, a lot of experience is a handicap to learning new things - such was definitely the case when it comes to the full use of Generics with C#.&#160; Most of my usage, I admit, has been limited to Generic Collections such as List&lt;T&gt; or Dictionary&lt;T, K&gt;.&#160; But there is a beautiful leveraging of Generics I see with WCF that can be applied all over the place.&#160; As a trivial example, consider the code that is used to safely read values from a database field.&#160; I will admit to writing a lot of code like: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />	public static void GetSafeString(object field);<br />	public static void GetSafeDecimal(object fiel);<br />	// and so on.<br />	<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.GetSafeString(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.GetSafeDecimal(rs[&quot;Salary&quot;]);</pre><br /><br /><p>A lot of redundancy and little extensibility. Here's how a WCF infected mind might write that: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">class ReaderHelper{<br />        static T SafeField&lt;T&gt;(object field, T defaultValue){<br />            return (field == DBNull.Value) ? defaultValue : (T)field;<br />        }<br />}<br />// somewhere else in code:<br />string firstname = ReaderHelper.SafeField&lt;string&gt;(rs[&quot;FirstName&quot;]);<br />decimal salary = ReaderHelper.SafeField&lt;decimal&gt;(rs[&quot;Salary&quot;]);</pre><br /><br /><p>If you coupled the above with some <em>inversion of control</em> you'd have a pretty powerful and extensible code for dealing with any potentially null field type coming from your database.&#160; It's not that such use is an innovation exclusive to WCF, I see it used a lot more there.&#160; Back to Minima, one can see a good example of this in the project responsible for exposing configuration values:</p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">namespace Themelia.Configuration<br />{<br />    public static class ConfigAccessor<br />    {<br />        public static T ApplicationSettings&lt;T&gt;(string key);<br />        public static string ApplicationSettings(string key);<br />        public static T ApplicationSettings&lt;T&gt;(string key, bool isRequired);<br />        public static string ApplicationSettings(string key, bool isRequired);<br />        public static string ConnectionString(string key);<br />    }<br />}</pre><br /><br /><p>&#160;</p><br /><br /><p>More on Minima later (hopefully tomorrow), taking a look at database access.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

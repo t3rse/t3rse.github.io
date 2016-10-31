@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Shuffled Arrays &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-07-21-shuffled-arrays/">Shuffled Arrays</a></h1>
+			<span class="post-date">Jul 21, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One of my weaknesses is that I love puzzles.  And once I'm puzzle solving, I usually dwell on the problem beyond its worth.  I recently saw a job ad - I'll leave this post disconnected - that had a quiz associated with it.  The quiz amounts, basically, to shuffling items in an array (javascript). <br /><br />My first stab was intuitive, but I wonder if it's the most optimal because it relies on a lot of discarded data.  In my loop generating a random order, I essentially go through an undetermined amount of times discarding results that already exist in the randomized array.  Additionally the array with random numbers is just for positioning and is probably unnecessary. <br />Here is the code:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />function BuildArray(){<br /> // just builds a random array to work with<br /> var testArray = new Array();<br /> testArray.push('Test 0');<br /> testArray.push('Test 1');<br /> testArray.push('Test 2');<br /> testArray.push('Test 3');<br /> return testArray;<br />}<br /><br />function GetShiftOrder(testObject){<br /> // this is what sorts things out<br /> var upperBound = testObject.length;<br /> var newOrder = new Array();<br /> var shuffledArray = new Array();<br /> builder:<br /> while(newOrder.length < upperBound){<br />  n = parseInt(Math.random() * upperBound);<br />  for(i=0;i&lt;newOrder.length;i++){<br />   if(newOrder[i] == n){<br />    continue builder;<br />   }<br />  }<br />  newOrder.push(n);<br />  shuffledArray.push(testObject[n]);<br /> }<br /> alert(newOrder + '\n' + shuffledArray);<br />}<br /></pre><br /><br />I was thinking about this today and it may be more effecient to make a random number of passes at the array swapping pairs of items.  A shuffling cards approach may be slightly more effecient although to have meaningful swaps there would need to be a minimum number of passes - and additional complexity with making sure pairs were swapped in random pattern.<br /><br />Anyway, it was interesting and I'm always curious about more elegant solutions.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}<br /></span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

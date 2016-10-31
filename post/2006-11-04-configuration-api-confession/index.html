@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Configuration API Confession, Repentance &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-11-04-configuration-api-confession/">Configuration API Confession, Repentance</a></h1>
+			<span class="post-date">Nov 4, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />The beauty of blogs, in particular this one: I can flaunt my ignorance on any given area.  A few nights ago I thought I'd update my current development project to have its connection string maintained in a config file so that it could be changed without a recompile in a single location.<br /><br />I knew this was the approach we'd eventually take having used it like breathing on all of my previous .NET projects (which were ASP.NET).  But Windows Forms applications are slightly different and I ran into the brick wall of not grokking the structure Microsoft uses for configuration.<br /><br />The big problem in my understanding was that I wanted to have my configuration read in a separate library, thinking I'd reuse the pattern on any future project where I wanted to do something similar.  So I created a library project and knowing a little but not enough created a config file manually to use. Knowing a little but not enough (or not updated?) I named my configuration file ConfigHelper.dll.config because this is a well known convention in .NET. I also manually copied this file to the \bin folder and even considered adding a "post build event" to the Visual Studio 2005 project to do this. And when it didn't work and my attempts to read the config file weren't successful, I became very frustrated and even took the time to write it up.  Luckily no one besides <a href="http://www.cephas.net/blog/">A</a> the jedi master reads this blog so my voice of ignorance got drown in the black hole that is blogger. No matter: this blog is for me, like a "captains log" to chart my experiences and thoughts.<br /><br />I realized a while back that I knew just enough from the past few years programming ASP.NET to make ignorant mistakes and convoluted work-around solutions so I've been reading <a href="http://www.softinsight.com/bnoyes/">Brian Noyes's</a> <a href="http://www.awprofessional.com/bookstore/product.asp?isbn=032126892X&rl=1">Data Binding with Windows Forms 2.0</a> on <a href="http://safari.oreilly.com">Safari</a> trying to grok the whole picture as Microsoft intends it. <br /><br />So here is the skinny, as embarrasing as it is for me to explain how wrong I had it:<br /><br />1. In your project, create an App.config file.  In Visual Studio 2005 this is the "Application Configuration File" option.<br />2. Make entries as you like in the configuration file.<br />3. Compiling your application will produce a MyAssembly.exe.config or MyLibrary.dll.config file in the \bin directory.<br />4. Libraries aren't meant to read from their own configuration files. Hence attempting to read an entry even if you've manually copied over your MyLibrary.dll.config file will result in an empty string once retrieved. BUT!<br />5. BUT! BUT! The library is designed to read values from the configuration file of the executable.  So if you place the following line in your library:<br />string foo = ConfigurationManager.AppSettings["bar"];<br />Your library is looking for the "bar" value in the configuration file of your application.<br /><br />To my own credit, a lot of the time when I find myself fighting with something I usually know deep down that it's a struggle to understand what the framework designer intended and not something that is "stupid."  In this case, what the framework designers intended is quite elegant because when you have, like us, many different libraries that all need to pull something common (connection string is probably most obvious) it can be based on the configuration of the application and managed in a single location.<br /><br />Okay, now that I got the memo, I can move on.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >} </span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

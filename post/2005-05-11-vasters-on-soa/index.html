@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Vasters on SOA &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2005-05-11-vasters-on-soa/">Vasters on SOA</a></h1>
+			<span class="post-date">May 11, 2005 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;">{</span><br /><br />A small time ago I <a href="http://metadeveloper.blogspot.com/2005/02/more-soa.html">admitted </a>that SOA is still a bit elusive to me as this ubiquitous need we were all unaware of having.  Multiple marketing machines are in full swing with it, however, and it's hard to separate useful and useless facts, much less fact and fiction.<br /><br />I found a lengthy <a href="http://java.sun.com/developer/technicalArticles/WebServices/soa/">article </a>on java.sun.com which should prove to be more technical (and therefore more useful) but meanwhile I'm also beginning to find some other questions similar to my own. <br /><br />Clemens Vasters writes in his <a href="http://staff.newtelligence.net/clemensv/PermaLink,guid,535d4a96-2cc3-4306-8b56-9a96c7c6fa39.aspx">blog</a>:<br /><br /><blockquote>" When you look at what’s being advertised as “serviced oriented architecture”, you see either the marketing-glorified repackaging of Ethernet, TCP/IP, and LDAP (“Enterprise Service Bus”), or architectural blueprints that looks strikingly similar to things that people have been doing for a long time with DCE, CORBA, J2EE, COM, or mainframe technologies. What’s different now is that it is easier, cheaper and likely more productive to create bridges between systems. "</blockquote><br /><br />A Bill Simser <a href="http://weblogs.asp.net/bsimser/archive/2005/05/04/405642.aspx">responds</a>:<br /><br /><blockquote>"Indeed at the lower levels of the architecture stack the base concepts of SO have been around as good practices for years. However, we as an industry haven't been applying these base concepts consistently or properly across solutions so it's somewhat academic. If calling them SOA means that people now pay attention to them and somehow feel better about using them, then that's reason enough for me to accept that SOA exists. "</blockquote><br /><br />And finally, visiting his blog, I read something that gels the concept a bit more clearly as he speculates on how SAP might have been implemented in a SOA world:<br /><br /><blockquote>"But what if the architects for SAP had applied SOA from the get-go? The actual architecture would have been defined as several aggregations of financial capabilities (like accounts, money movements, and so on) with appropriate service contracts. It would have also included a collection of capability that would be needed by the finance functions of a typical organization, again with appropriate service contracts. It would have have included some UI capabilities (Web Parts if they were really on the ball) that could consume these services (and indeed other services from different providers) and have the "appearance" of a traditional "application". However, as architects we would recognize that what the user thinks is the "application" is really just a thin facade to the orchestrations of functions they need. An important additional capability is to easily orchestrate other services that are not part of SAP (for example, a service with AMEX to get your credit card statements that can augment expense reports)."</blockquote><br /><br />Definitely food for thought, with my own response as follows:<br /><br /><blockquote>Relating to your speculating about SAP, however, a few things come to mind. First, a different way of thinking when it comes to enterprise applications. You are right when you say that "traditional" thinking lies around task automation rather than loosely coupled "services" that are stitched together by consuming applications (or environments).  <br />  <br />But how much of development revolves around loosely coupled services versus automation? Has the nature of the application changed to justify all the force behind service orientation? In one sense I can see it: the elegance of separate, contractual, modular partners, on the other I see architecture astronauts [<a target="_new" href="http://www.joelonsoftware.com/articles/fog0000000018.html">http://www.joelonsoftware.com/articles/fog0000000018.html</a>] building a massive framework that ultimately doesn't propel us.    <br />  <br />All this talk of "contracts" and "services" and so on, and I contrast this with Amazon ECS - making requests for XML formatted data over HTTP: simple, elegant, and effecient. </blockquote>The journey continues, but it's midnight and tomorrow's coming fast.<br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Bil Simser</div>
+<div class='content'>
+But Amazon ECS is exactly the point. Their "architecture astronauts" did a lot of heavy lifting so their Web Services would indeed be "simple, elegant, and efficient" for the users of these services. Behind these contracts are significant systems (it's not just XML data), and many other services that they orchestrate for you. It just appears simple from the outside looking in (which is a good end result).<BR/> <BR/>When we can publish Web Services that are as easy for our customers to use as theirs are for their customers, we'll be somewhere too. I don't imagine it will be simple behind the contract, at least initially.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

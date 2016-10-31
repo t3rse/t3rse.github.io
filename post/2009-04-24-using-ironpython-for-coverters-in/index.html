@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Using IronPython For Converters in Silverlight &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-04-24-using-ironpython-for-coverters-in/">Using IronPython For Converters in Silverlight</a></h1>
+			<span class="post-date">Apr 24, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>&#160;</p>  <p>Tim Heuer has a <a href="http://timheuer.com/blog/archive/2008/07/30/format-data-in-silverlight-databinding-valueconverter.aspx">great intro post</a> on Silverlight data binding and value converters. The concept is a really nice one but I’m not wild about having to write a class that implements the IValueConverter interface every time I need some ad-hoc tweaking of the values I get from being data bound and how I’d like to use them within XAML. What set me off this track was a case where I simply needed to invert a boolean – what should just be “not myvalue” ended up requiring a class, an interface, and so on.</p>  <p>Dynamic languages excel at this sort of thing and since they support the ability to evaluate code on the fly I thought it would make sense to write a single implementation of IValueConverter and host Python inside of it to evaluate binding expressions that are passed in. Here is what that might look like: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class PythonExpConverter : IValueConverter<br />    {<br />        private ScriptEngine _engine;<br /><br />        public PythonExpConverter()<br />        {<br />	   <span style="color: orange"><br />            ScriptRuntimeSetup setup = Python.CreateRuntimeSetup(null);<br />            setup.DebugMode = true;<br />            var runtime = new ScriptRuntime(setup);<br />            _engine = Python.GetEngine(runtime);<br /> 	    </span><br />        }<br /><br />        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            object result;<br />            string python = parameter.ToString()<br />                                .Replace(&quot;value&quot;, value.ToString());<br />            try<br />            {<br />                <span style="color: orange">result = _engine.Execute(python);</span><br />            }<br />            catch (Exception ex)<br />            {<br />                // pass, just use original value<br />                result = value;<br />            }<br />            return result;<br />        }<br /><br />        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)<br />        {<br />            // same concept as above<br />            return value;<br />        }<br />    }</pre><br /><br /><p>No magic, just instantiate the Python runtime and then proceed to leverage it in the Convert phase by taking a string as the parameter for the conversion method. Use value as a keyword in your Python expression to get at the value of the underlying data.&#160; Once this is added as a static resource, you can leverage it in many ways. For example, if I had a class “Person”:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">public class Person<br />    {<br />        public string FirstName { get; set; }<br />        public string LastName { get; set; }<br />        public bool OnVacation { get; set; }<br />        public double Balance { get; set; }<br />    }</pre><br /><br /><p>Let’s say I’m binding to an instance of Person (yeah, very contrived) with the following template conversions: <br />  <br />1. Uppercase last name. <br /><br />  <br />2. If OnVacation is true, disable a link to their schedule. <br /><br />  <br />3. Format balance using some currency specific format. <br /><br />  <br />Here is the XAML that leverages my single converter for all of the above:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: xml;">&lt;StackPanel Orientation=&quot;Vertical&quot;&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;First Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Last Name&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Is Active&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock Text=&quot;Rating&quot; Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;<br />                &lt;TextBlock Text=&quot;{Binding FirstName}&quot; Width=&quot;100&quot; /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding LastName, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'value\'.upper()}&quot;</span> Width=&quot;100&quot; /&gt;<br />                &lt;HyperlinkButton Width=&quot;100&quot; NavigateUri=&quot;http://foo&quot; Content=&quot;View&quot; <br />                        <span style="color: orange">IsEnabled=&quot;{Binding OnVacation, Converter={StaticResource PythonExpConverter}, ConverterParameter=not value}&quot;</span> /&gt;<br />                &lt;TextBlock <span style="color: orange">Text=&quot;{Binding Balance, Converter={StaticResource PythonExpConverter}, ConverterParameter=\'%2.2f\' % value}&quot;</span> Width=&quot;100&quot; /&gt;<br />            &lt;/StackPanel&gt;<br />        &lt;/StackPanel&gt;</pre><br /><br /><p>This is a very powerful approach since the limitations you hit will probably be born by a limitation in skill with Python or your dynamic language of choice rather than the approach.&#160; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> How much code do you write? &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-04-15-how-much-code-do-you-write/">How much code do you write?</a></h1>
+			<span class="post-date">Apr 15, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I've previously identified perl as my "night language." In other words, I'm hacking away at it in the off hours trying to get better. Maybe, just maybe, I will find a way to get paid for writing perl code.  As of now, however, I write C#/.NET code to put food on the table.<br /><br />As an exercise in perl, in order to demonstrate how fast it is, I wrote <a href="http://hobbitwerk.brinkster.net/metadeveloper/LineCounter.txt">a small script</a> that would count the number of lines of code I was responsible for last year.  That's an easy task; I keep all the code I am working on for a given year in the same directory.  There are a few projects that span a year's end, but it's okay since there's a lot of code that is written that doesn't make it to my directory, and there is a lot of code I write that isn't C#, which is all I was counting in this instance.<br /><br />After a little tweaking, I had a script I felt happy enough with to point at my CODE06 directory.  I was fairly curious - the folder is about 650MB but a lot of that is binary stuff, everything from installers to compiled bits of projects.  My script - or perl, I should say - is unbelievably fast; when I changed output to a file it was able to run in less than a half minute.    The first run showed that there were ~160,000 lines of code in the directories *.cs files.<br /><br />Interesting - not an accurate estimate of things but 438 lines of code per day (160,000 / 365) and if you consider only business days (251), that's on the order of 637.5 per day.  I can hear the Herbert song playing <a href="http://www.last.fm/music/Herbert/_/Something+Isn%27t+Right"><span style="font-style: italic;">Something Isn't Right</span></a> in my head at this point.<br /><br />I do use Visual Studio, and one of the points of interest for me was the difference in how much code I actually wrote and how much was generated.  Again back to estimating I excluded Visual Studio generated files from my project and that cut the number down to ~30,000 lines of code.<br /><br />This is very imprecise because there are some *.cs files which are generated but it still has the <span style="font-style: italic;">Something Isn't Right</span> going in my head because a little bit of help and organization from an IDE is fine, but the cost of 84% of output being machine generated is steep.<br /><br />It's an <a href="http://archive.salon.com/21st/feature/1998/05/cov_12feature.html">Ellen Ullman moment</a>; the realization that there are so many layers of abstraction between you and your tool - that you're unaware of all the hiding it does for you.  It's a reminder of a moment a while back when I was showing someone <a href="http://metadeveloper.blogspot.com/2006/10/commands-and-abstractions.html">how dangerous</a> letting a tool do something for you can really be.<br /><br /><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://hobbitwerk.brinkster.net/metadeveloper/LineCounter.txt"><img style="cursor: pointer;" src="http://hobbitwerk.brinkster.net/metadeveloper/LOC.jpg" alt="" border="0" /></a><br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

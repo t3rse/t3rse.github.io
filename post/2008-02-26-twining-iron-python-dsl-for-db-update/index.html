@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Twining: Iron Python DSL for DB Update III &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-02-26-twining-iron-python-dsl-for-db-update/">Twining: Iron Python DSL for DB Update III</a></h1>
+			<span class="post-date">Feb 26, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>My thoughts as exhibited in a little Python script now have a name: Twining.&nbsp; </p> <p>Unplanned illness slowed me down over the weekend, but the beauty of lambda expressions make transformations a breeze. I'll let the code document what I added.</p> <p><pre>cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br />mytrans = {"Field1":"upper","Field1": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br />database(cn).table("Photos").transform(mytrans).copyto.csv("c:\\foo.csv")<br /></pre><br /><p>As you can see, "mytrans" is a dictionary containing a matching of column names to both a keyword string, "upper", and also lambda expressions that model functions to operate on the constituent data (the [::-1] idiom reverses a string).&nbsp; I'd add a few keywords for simple things people often do to data but the beauty of lambda expressions is that it keeps my code lazy and empowers whoever is using the script to make their own judgement about what to do with data.</p><br /><p>Here's what goes on behind the scenes - the <font face="Courier New" size="2">copyto</font> class has a <font face="Courier New" size="2">checkAndTransform</font> method that matches up a field value with it's "transform":</p><br /><p><pre>	def checkAndTransform(self, field, value):<br />		if registrar.transforms.has_key(field):<br />			if repr(type(registrar.transforms[field])) == "&lt;type  'function'&gt;":<br />				value = registrar.transforms[field](value)<br />			if registrar.transforms[field] == "upper":<br />				value = value.upper()<br />		return value	<br /></pre><br /><p></p><br /><p>I'm not <em>Pythonic</em> enough yet to know if I need to call repr and do a string comparison when testing if a type is a function, but it works just fine.</p><br /><p>So a few thoughts:</p><br /><p>1. What are the usual changes we make to data when exporting or importing?<br>2. Is it stupid to have shortcut strings or should I just fall back on writing lambdas?<br>3. Is there a better way of testing for a function than <br><font face="Courier New" size="2">repr(type(registrar.transforms[field])) == "&lt;type 'function'&gt;"</font></p><br /><p>The to-do list from my previous post is still intact, I'll be working through it in the near future.&nbsp; Have a look at <a href="http://www.seruyange.com/metadeveloper/database.py.txt">the complete script</a> and if you have thoughts or opinions, please let me know. A big goal here is not only to make something useful, but to learn Python (and be Pythonic, the two don't necessarily coincide).</p><br /><p>Here's a full list of what can be done at this point:</p><br /><p><pre>mytrans = {"Field1":"upper","Field2": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br /><br />database(cn).table("MyTable").transform(mytrans).copyto.csv("c:\\foo.csv") #with transform<br />database(cn).table("MyTable").copyto.csv("c:\\foo.csv") #without transform<br />database(cn).table("MyTable").copyto.database(cn2)<br />database(cn).table("MyTable").copyto.xmlFieldsAsAttributes("c:\\here.xml")<br />database(cn).table("MyTable").copyto.xmlFieldsAsElements("c:\\there.xml")<br />database(cn).backupto("C:\\temp\\my_backup.bak")<br /><br /></pre><br /><p></p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Great feedback!  <BR/><BR/>I changed my function checking 'cuteness' for callable - what you say makes total sense and I ran into it while studying Mark Pilgrim's <A HREF="http://www.diveintopython.org/" REL="nofollow">Dive Into Python</A>.<BR/><BR/>@fuzzyman - I started with the idea of built in types but the thing that I'm loving about the lambda is that it's a generic, lazy approach that defers exactly which types of "transforms" are needed until the time of use if that makes sense.<BR/><BR/>@fuzzyman/catherine - I tried to merge both of your comments into the following compromise: I use the try/except from your comment but rather than let it pass I put a list in registrar (which is a goofy way of having a "global" space for things) called "warnings" in which I store the exceptional occurance. After something occurs I'll check the length of warnings and display anything I find in there. Something like: <BR/>except TypeError:<BR/> registrar.warnings.append("Your transform failed on field %s" % field)<BR/><BR/>I'll post the updates I've made within the next day or so.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Regarding this approach:<BR/><BR/><BR/>try:<BR/>value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>pass<BR/><BR/>It has a minor problem that TypeErrors raised inside the transform will then be swallowed. *Personally* I think using callable is slightly better for this situation.</div>
+</div>
+<div class='comment'>
+<div class='author'>Catherine</div>
+<div class='content'>
+David, you're writing code faster than I can read it and comment.  :)<BR/><BR/>What fuzzyman said about using callable - good advice.  Writing Pythonically, you try not to think about what an object <EM>is</EM>, but <EM>what you can do with it</EM>, because then you don't break polymorphism - if I write some funky object that doesn't look like a function to your test, but can be called, then you still want to accept it.<BR/><BR/>You can go a step further - not test at all and apply EAFP - Easier to Ask Forgiveness than Permission -<BR/><BR/>try:<BR/>    value = registrar.transforms[field](value)<BR/>except TypeError:<BR/>    pass<BR/><BR/>Also, "if registrar.transforms.has_key(field):" is 100% legitimate, but I like "if field in registrar.transforms" better, because it looks prettier.<BR/><BR/>Anyway, I like your approach!  I'm looking at some ETL code I wrote years ago and thinking that it would be better using your dict-of-transforms idea.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Third and final thought (I promise...) - even better than checking for objects that are functions you can simply check if the object is callable:<BR/><BR/>if callable(something):<BR/><BR/>This is more Pythonic as it doesn't restrict you to using functions, but allows any callable object.</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+You can also replace your lambdas with builtin functions:<BR/><BR/>str.upper<BR/>reversed</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Your technique for checking if objects are functions is 'cute'. :-)<BR/><BR/>The best way is to use the types module from the Python standard library.<BR/><BR/>from types import FunctionType<BR/><BR/>isinstance(something, FunctionType)<BR/><BR/>If you want to avoid the import you can do:<BR/><BR/>def nothing: pass<BR/>FunctionType = type(nothing)<BR/><BR/>Hope that helps.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

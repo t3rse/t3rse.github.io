@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Currying with C# and Algotron &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-03-04-currying-with-c-and-algotron/">Currying with C# and Algotron</a></h1>
+			<span class="post-date">Mar 4, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Friend and coworker <a href="http://algotron.blogspot.com/2009/03/function-curry.html">Algotron</a> just posted an intro and sample of currying with C#. I decided to try out currying with the idea of successive regular expressions on a string array - I found it easy to approach first with anonymous delegate syntax and then use lambda expressions. Once this was in place it was easy to understand the use of an extension method to curry any binary function.&#160; </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; fil = <br />delegate(string pattern, string[] lines){<br />    return delegate(string pattern2)<br />    {<br />	return lines<br />		    .Where(p=&gt; Regex.IsMatch(p, pattern))<br />		    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />		    .ToArray();<br />    };<br />};<br /><br /><br />Func&lt;string, string[], Func&lt;string, string[]&gt;&gt; regFil = <br />				(pattern, input) =&gt; <br />				    (pattern2) =&gt; <br />					input<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern))<br />					    .Where(p =&gt; Regex.IsMatch(p, pattern2))<br />					    .ToArray();<br />					    <br />// assume some address data<br />string[] data = new string[]{&quot;1234 Somewhere&quot;, &quot;this&quot;, &quot;777 dakota&quot;};<br /><br />var filterNumeric = regFil(@&quot;\d&quot;, data); // make sure it has a number<br />var filterUCase = filterNumeric(&quot;[A-Z]&quot;); // make sure it has an uppercase character<br /><br />Console.Write(String.Join(&quot;,&quot;, filterUCase));					    </pre><br /><br /><p>That's cool stuff, worth looking at for a while to try to understand.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

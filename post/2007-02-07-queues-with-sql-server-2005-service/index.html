@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Queues with SQL Server 2005 Service Broker and C# &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-02-07-queues-with-sql-server-2005-service/">Queues with SQL Server 2005 Service Broker and C#</a></h1>
+			<span class="post-date">Feb 7, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I recently had to set this up and didn't find all too many resources online.  I don't have time for a full commentary but suffices to say this: SQL Server 2005 has some excellent reliable messaging capabilities through what's called Service Broker.  If you, like me, are a complete skeptic when it comes to new products, this is what I think of as a compelling feature.  In the following example, I'm setting up a queue for FileIDs - assume these are identifiers for files that need to be processed asynchronously. After I created my database in SQL 2005, I opened up the query tool and went ahead with the following TSQL:<br /><br /><span style="font-family:courier new;font-size:78%;">-- you can attribute an hour to finding this requirement :(<br />CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Password1';<br />GO</span><br /><span style="font-family:courier new;font-size:78%;"><br />-- message, contract, queue, service creation<br />CREATE MESSAGE TYPE FileIDForQueue<br />VALIDATION = NONE;<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">CREATE CONTRACT FileQueueContract<br />(FileIDForQueue SENT BY INITIATOR)<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">CREATE QUEUE dbo.FileIDReceiverQueue<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">CREATE QUEUE dbo.FileIDSenderQueue<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">CREATE SERVICE SenderService<br />ON QUEUE dbo.FileIDSenderQueue<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">CREATE SERVICE ReceiverService<br />ON QUEUE dbo.FileIDReceiverQueue (FileQueueContract)<br />GO</span><br /><br />In order to leverage the queue, I wrote the following stored procedures to enqueue, dequeue, and peek:<br /><br /><span style="font-family:courier new;font-size:78%;">/*<br />STORED PROCEDURE RESPONSIBLE FOR INSERTING A QUEUE ITEM<br />*/<br />CREATE PROC spSendFileToQueue<br />@FileID INT<br />AS<br />BEGIN TRANSACTION;<br />DECLARE @conversationID UNIQUEIDENTIFIER<br />BEGIN DIALOG CONVERSATION @conversationID<br />FROM SERVICE SenderService<br />TO SERVICE 'ReceiverService'<br />ON CONTRACT FileQueueContract;<br />SEND ON CONVERSATION @conversationID<br />MESSAGE TYPE FileIDForQueue(@fileid);<br />--END CONVERSATION @conversationID;<br />COMMIT TRANSACTION;<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">/*<br />STORED PROCEDURE RESPONSIBLE FOR RETRIEVING QUEUE ITEMS IN FIFO STYLE<br />*/<br />CREATE PROC spGetFileFromQueue<br />@FileID INT OUTPUT<br />AS<br />RECEIVE TOP(1) @FileID = CONVERT(INT, message_body) FROM FileIDReceiverQueue<br />GO<br /></span><br /><span style="font-family:courier new;font-size:78%;">/*<br />STORED PROCEDURE RESPONSIBLE FOR "PEEKING" INTO QUEUE<br />*/<br />CREATE PROC spPeekFileQueue<br />@FileID INT OUTPUT<br />AS<br />SELECT TOP(1) @FileID = CONVERT(INT, message_body) FROM FileIDReceiverQueue<br />WHERE message_body IS NOT NULL<br />GO</span><br /><br />Now that my stored procedures are in place, I can test in TSQL:<br /><br /><span style="font-family:courier new;font-size:78%;">-- to send it to the queue:<br />spSendFileToQueue 45<br /></span><br /><span style="font-family:courier new;font-size:78%;">-- peek into the queue<br />DECLARE @F INT<br />EXEC spPeekFileQueue @FileID=@F OUTPUT<br />PRINT @F<br /></span><br /><span style="font-family:courier new;font-size:78%;">-- to get it back<br />DECLARE @F INT<br />EXEC spGetFileFromQueue @FileID=@F OUTPUT<br />PRINT @F</span><br /><br />From here it's trivial to port the procedure calls to C#:<br /><br /><span style="font-family:courier new;font-size:78%;">public static void RunActionProc(string procName, SqlParameter parm) {<br />   SqlParameter[] parms = new SqlParameter[] { parm };<br />   RunActionProc(procName, parms);<br />}<br /></span><br /><span style="font-family:courier new;font-size:78%;">public static void RunActionProc(string procName, SqlParameter[] parms)<br />{<br />   SqlCommand co = new SqlCommand(procName, GetConnection(true));<br />   co.CommandType = CommandType.StoredProcedure;<br />   foreach (SqlParameter parm in parms)<br />   {<br />     co.Parameters.Add(parm);<br />    }<br />    co.ExecuteNonQuery();<br />}</span><br /><span style="font-family:courier new;font-size:78%;"></span><br /><span style="font-family:courier new;font-size:78%;">public static void Enqueue(int value)<br />{<br />    DBHelper.RunActionProc("spSendFileToQueue", new SqlParameter("@FileID", value));<br />}<br /></span><br /><span style="font-family:courier new;font-size:78%;">public static int Peek(){<br />   SqlParameter fileIdParameter = new SqlParameter("@FileID", SqlDbType.Int);<br />   fileIdParameter.Direction = ParameterDirection.Output;<br />   DBHelper.RunActionProc("spPeekFileQueue", fileIdParameter);<br />   return Convert.ToInt32(fileIdParameter.Value);<br />}<br /></span><br /><span style="font-family:courier new;font-size:78%;">public static int Dequeue() {<br />   SqlParameter fileIdParameter = new SqlParameter("@FileID", SqlDbType.Int);<br />   fileIdParameter.Direction = ParameterDirection.Output;<br />   DBHelper.RunActionProc("spGetFileFromQueue", fileIdParameter);<br />   return Convert.ToInt32(fileIdParameter.Value);<br />}</span><br /><br />A sample project in C# can be found <a href="http://hobbitwerk.brinkster.net/metadeveloper/BrokerQueue.zip">here</a>.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>radafanas</div>
+<div class='content'>
+there&#39;s something weird.. I copied and run your code but it doent work..</div>
+</div>
+<div class='comment'>
+<div class='author'>Anurag</div>
+<div class='content'>
+I have one type of message, one process to input in the queue and multiple readers of the queue.  Are there any simplifications possible in your model or is it the minimum that I have to use.<BR/><BR/>Thanks.</div>
+</div>
+<div class='comment'>
+<div class='author'>Patrick</div>
+<div class='content'>
+Very helpful. Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Jason Nadrowski</div>
+<div class='content'>
+I found this helpful. Thank you.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

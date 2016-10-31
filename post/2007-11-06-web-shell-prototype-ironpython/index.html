@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Web Shell: Prototype &amp; IronPython &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-11-06-web-shell-prototype-ironpython/">Web Shell: Prototype &amp; IronPython</a></h1>
+			<span class="post-date">Nov 6, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I've been experimenting with IronPython of late trying to get the gestalt of Python as a language.&nbsp; It occurred to me that something I had been thinking about for a while as a web project would make sense as an Iron Python project so I dabbled a bit.</p> <p>The idea I had was a command line type application that approximated commands going to a windows shell and sent the results back to the user.&nbsp; It's a part of a larger suspicion that I've had: that command lines are crisp, efficient user interfaces that are easy to lose sight of because it's not a natural way of thinking on the web.</p> <p>The screen shots tell you the basic story: you open your browser to nothing but an underlined textbox after which you type your command and press the enter key.&nbsp; </p> <p><a href="http://www.seruyange.com/metadeveloper/eru1.jpg" atomicselection="true"><img height="275" src="http://www.seruyange.com/metadeveloper/eru1.jpg" width="406"></a> </p> <p><a href="http://www.seruyange.com/metadeveloper/eru2.jpg" atomicselection="true"><img height="402" src="http://www.seruyange.com/metadeveloper/eru2.jpg" width="407"></a> </p> <p>The client code is pretty straight forward - I've become disillusioned with YUI and moved back to using Prototype:</p> <p><font face="Courier New" size="2">function runCommand(cmd){<br>&nbsp;&nbsp;&nbsp; var request = new Ajax.Request(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'eruServer.aspx', <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; parameters:'cmd=' + cmd, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; onComplete: handleResult <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; );<br>}</font> <p><font face="Courier New" size="2">function handleResult(response){<br>&nbsp;&nbsp;&nbsp; $('loaderImage').style.visibility = 'hidden'; <br>&nbsp;&nbsp;&nbsp; var cmdResult = response.responseText;<br>&nbsp;&nbsp;&nbsp; $('stdoutDiv').innerHTML = '&lt;pre&gt;' + cmdResult + '&lt;/pre&gt;';<br>}</font> <p>So that's all pretty simple, on the server processing the request is equally simple in IronPython. </p> <p><font face="Courier New" size="2">from System.Diagnostics import *<br>from System.IO import * </font> <p><font face="Courier New" size="2">def Page_Load(sender, e):<br>&nbsp;&nbsp;&nbsp; cmd = Request.cmd<br>&nbsp;&nbsp;&nbsp; p = Process()<br>&nbsp;&nbsp;&nbsp; p.StartInfo.FileName = "cmd.exe"<br>&nbsp;&nbsp;&nbsp; p.StartInfo.UseShellExecute = 0<br>&nbsp;&nbsp;&nbsp; p.StartInfo.CreateNoWindow = 1<br>&nbsp;&nbsp;&nbsp; p.StartInfo.RedirectStandardInput = 1<br>&nbsp;&nbsp;&nbsp; p.StartInfo.RedirectStandardOutput = 1<br>&nbsp;&nbsp;&nbsp; p.Start() <br>&nbsp;&nbsp;&nbsp; myOut = p.StandardInput<br>&nbsp;&nbsp;&nbsp; myIn = p.StandardOutput&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; myOut.WriteLine(cmd)&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; p.StandardInput.Flush() <br>&nbsp;&nbsp;&nbsp; p.StandardInput.Close()<br>&nbsp;&nbsp;&nbsp; output = myIn.ReadToEnd()<br>&nbsp;&nbsp;&nbsp; p.StandardOutput.Close()&nbsp;&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; p.Dispose() <br>&nbsp;&nbsp;&nbsp; Response.Write(Server.HtmlEncode(output)) </font> <p>The web project is fairly small - go ahead and <a href="http://www.seruyange.com/metadeveloper/ERU.zip">download it here</a>. If you have any improvement, let me know - I'm not sure how to start this as an "open source" affair but it would be a great solution as a light weight tool for remotely operating on a server.</p> <p>Oh yeah, security: I was thinking of simple NTFS permissions on the files along with Windows Security on the website.&nbsp; Should do the trick... </p> <h1><font color="#0000ff">}</font></h1></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

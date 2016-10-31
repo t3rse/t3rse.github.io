@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Reading Source, Minima I &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-07-20-reading-source-minima-i/">Reading Source, Minima I</a></h1>
+			<span class="post-date">Jul 20, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I'm interested in the notion of deliberate practice as it relates to software developers.&#160; How do we &quot;practice&quot; effectively?&#160; One of the things I've been wanting to be more serious and deliberate about was reading source code.&#160; Hanselman has inspired me with his &quot;weekly source code&quot; posts and since good ideas are worth copying I'll start to document some of the projects I download and look into for examples of good code.</p>  <p>The project I'm currently working on involves a lot of WCF. I've got mixed feelings (as well as a lot to learn) about it so I thought I'd start off by running <a href="http://www.netfxharmonics.com/2008/05/Minima-30-Released">Minima</a>, Dave Betz's WCF/.NET 3.5 blog engine as a sample of an end-to-end application I can model my own WCF architectures after.&#160; </p>  <p>Minima was not easy to get going. While I'm perhaps not the brightest kid on the block, the biggest item I struggled with would probably be a challenge to anyone: the certificates used in the WCF security model. While Betz has <a href="http://notgartner.wordpress.com/2007/09/06/using-certificate-based-authentication-and-protection-with-windows-communication-foundation-wcf/">a blog entry</a> documenting the basic usage of certificates with WCF, it is predicated on the WCF host not being IIS. For the blog I assumed everything should be deployed to IIS and ran into the a lesser known fact that one must use the <a href="http://www.microsoft.com/downloads/thankyou.aspx?familyId=c42e27ac-3409-40e9-8667-c748e422833f&amp;displayLang=en#">Windows HTTP Services Certification Configuration Tool</a> to enable the ASPNET account access to the certificates for their usage. There were also a couple of post build events in the project that I removed after getting my references set up.</p>  <p>But before I get into particulars, I wanted to go over the broader structure of the project.&#160; The Minima solution has the following projects:   <br />* Minima.Service    <br />This has the service and data contracts with no implementation    <br />* Minima.ServiceImpl    <br />This has the implementation of the service    <br />* Minima.Configuration    <br />A configuration helper which makes use of a library called Themelia (Betz is, apparently, a Biblical Greek scholar on the side)    <br />* Minima.Web    <br />Library for the blog website's features    <br />* Website    <br />A website project    <br />* Website Service project (exposes services for posting content to the database via WCF)</p>  <p>I'll write about more particulars in my next post but for this overview my biggest takeaway in the project structure is decoupling.&#160; Separating the service from the service implementation, separating the website from it's functionality by a project with the only purpose of implementing that backend logic, and separating general purpose frameworks like Themelia (for reading the config file etc).</p>  <p>When I start my own projects I usually think too much about doing a proof of concept and less about decoupling the overall structure. As a result most projects start off as a &quot;sketch&quot; in a single Visual Studio project and by the first release end up staying that way on a permanent basis. But perhaps what we should focus on as programmers is less the cleverest algorithms and more the most elegant structure for building solid applications.</p>  <p>Next stop: WCF and Generics.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

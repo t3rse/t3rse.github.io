@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Crypto with Schneier II: One Way Hash &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-05-23-crypto-with-schneier-ii-one-way-hash/">Crypto with Schneier II: One Way Hash</a></h1>
+			<span class="post-date">May 23, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />My reading of Schneier has continued.  He still proves to be a very accomodating writer; consider the following on the "One-Time Pad," a encryption scheme that can be literally unbreakable:<br /><br /><blockquote>"Many Soviet spy messages to agents were encrypted using one-time pads.  These messages are still secure today and will remain that way forever. It doesn't matter how long the supercomputers work on the problem. Even after the aliens from Andromeda land with their massive spaceships and undreamed-of computing power, they will not be able to read the Soviet spy messages encrypted with one-time pads (unless they can also go back in time and get the one-time pads)."</blockquote>In the second chapter he is discussing the basics of protocols and describes the one-way hash: "a function, mathematical or otherwise, that takes a variable-length input string (pre-image) and converts it to a fixed-length output string.  Essentially, a computed hash represents a fixed length byte array that is unique for whatever its input stream was.  This is interesting and useful beyond cryptography. <br /><br />Here's a simple idea from Steve Oualline's book "<a href="http://www.nostarch.com/frameset.php?startat=wcps"><span style="font-style: italic;">Wicked Cool Perl Scripts</span></a>," but implemented in C#: you can compute a hash to check to see if two files are different or the same.<br /><br />The following code uses the System.IO and System.Security.Cryptography namespaces:<br /><br />        private static bool CompareFiles(string path1, string path2) {<br />            byte[] hash1 = GetMD5Hash(path1);<br />            byte[] hash2 = GetMD5Hash(path2);<br />            for (int i = 0; i < hash1.Length; i++)<br />            {<br />                if (hash1[i] != hash2[i])<br />                {<br />                    return false;<br />                }<br />            }<br />            return true;<br />        }<br /><br />        private static byte[] GetMD5Hash(string pth)<br />        {<br />            MD5 hasher = MD5.Create();<br />            byte[] fileBytes = File.ReadAllBytes(pth);<br />            byte[] hash = hasher.ComputeHash(fileBytes);<br />            return hash;<br />        }<br /><br />I was curious about the performance of this technique - I was originally testing it on 40MB files.  I extracted some old database backup files - about 200MB a piece and the comparison took somewhere on the order of 20 seconds.  My laptop has a P4  3Ghz with  1GB of RAM.  Nice, but not out of the ordinary (especially these days).  I've also got suspicions that the speed was not necessarily on the hash computation, but rather on reading out the byte array in the file. I'll test sometime to see...<br /><br /><span style="font-size:180%;"><span style="color: rgb(51, 51, 255);">}</span></span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

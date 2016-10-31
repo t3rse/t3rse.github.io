@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Thinking Atlas &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-06-08-thinking-atlas/">Thinking Atlas</a></h1>
+			<span class="post-date">Jun 8, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One thing I'm very interested in hearing about at TechEd is going to be the <a href="http://atlas.asp.net/Default.aspx?tabid=47">Microsoft Atlas </a>framework.  Ajax is haute couture and Atlas seems to be at the center of Microsoft's strategy.  On my current project I took a look at using Atlas but never really "got" the benefits of the technology.  The declarative side of things seems to be designed for the IDE, and without the IDE here it's a bit of a non-intuitive hassle to hand code things out.   The second thing that made me leary was the direction Atlas took towards web services.  The tasks I needed to perform were very simple and I shuddered when I thought about how much overhead there would be, say, for a webservice whose only job was to send me a filtered list of things for a dropdown.  In the end I used my own XmlHttp and a bit of POX (I love that acronym, "Plain Old XML") to send things back and forth.  Also courtesy of the O'Reilly <a href="http://www.oreilly.com/catalog/ajaxhks/index.html"><span style="font-style: italic;">Ajax Hacks</span></a> book I got a handle on <a href="http://www.json.org/">JSON</a> and how awesome it is when it comes to sending things from the server and handling it with client side javascript. <br /><br />Today I listened to <a href="http://dotnetrocks.com/default.aspx?showID=177">Ken Alstad</a> interviewed on <a href="http://www.dotnetrocks.com">.NET Rocks</a> concerning Atlas and it confirmed my suspicions on Atlas leveraging web services and how easy it was to "bind" data from the server using javascript.<br /><br />It's interesting that there seem to be two directions here - looking on the open source side of things, <a href="http://prototype.conio.net/">Prototype</a> seems to be generating quite a buzz.  I ran into Prototype in December courtesy of <a href="http://www.24ways.org/">24 ways</a> and it took about 35 minutes to really "get" it.  Prototype is getting mixed in with a lot of JSON and other javascript libraries and techniques for some pretty cool stuff like script.aculo.us. <br /><br />On the Microsoft side we're waiting for Atlas to become standardized, complete, (marketable?).  It's declarative, more IDE friendly it seems, and at least for me, less intuitive.<br /><br />Anyway, part of the problem might be my ability to understand it and see where I can leverage it so I'm going to be in <a href="http://www.wintellect.com/Weblogs/CategoryView,category,Jeff%20Prosise.aspx">Jeff Prosise's</a> session on Atlas at TechEd. A few questions I'm thinking of are as follows:<br /><br />1. How to control when data is bound, doing filtering and other operations using javsacript.<br />2. Will Atlas play well with JSON?  Not JSON being shoehorned into some Atlas app, but more like the ability to return JSON style strings from the server.<br />3. What sort of IDE interface can we expect with Atlas's release?  Can we expect any improvements to javascript editing in Visual Studio as a result?<br /><br />... I'm sure there are more, and I'm sure that after the session I'll have a much clearer picture of Atlas and it's future in web apps for Microsoft developers.  I am pretty sure we made the right choice on the current project, but a year from now I could be singing praises for Atlas.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>James Baker</div>
+<div class='content'>
+I just came across your blog and wanted to<BR/>drop you, Blogger, a note telling you how impressed I was with <BR/>the information you have posted here.<BR/>If you have a moment, please visit my site: <BR/><A HREF="http://www.job-portal.ws" REL="nofollow">job portal</A><BR/>It covers job portal related contents.<BR/>I send you warm regards and wish you continued success.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

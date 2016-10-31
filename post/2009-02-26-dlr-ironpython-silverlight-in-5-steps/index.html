@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> DLR &#43; IronPython &#43; Silverlight in 5 Steps (with pictures) &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-02-26-dlr-ironpython-silverlight-in-5-steps/">DLR &#43; IronPython &#43; Silverlight in 5 Steps (with pictures)</a></h1>
+			<span class="post-date">Feb 26, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A simple step by step<sup>1</sup>.</p>  <p>1. Download the <a href="http://www.codeplex.com/sdlsdk/Release/ProjectReleases.aspx?ReleaseId=11955">Silverlight DLR SDK</a></p>  <p>2. Map the binaries (the folder with Chiron<sup>2</sup> et. al.)&#160; in your PATH Environment variable.     <br />    <br /><img src="http://seruyange.com/metadeveloper/ChironPath.jpg" /> </p>  <p>3. Download <a href="http://seruyange.com/metadeveloper/Starter.zip">this starter template</a>.</p>  <p>4. Run <font face="Courier New"><strong>chiron /w</strong></font> from the command line in the directory of the starter.     <br />    <br /><img src="http://seruyange.com/metadeveloper/ChironInit.jpg" />     <br />    <br /><em>a) Make sure you're in the correct folder      <br />b) The command is</em><font face="Courier New"><em> </em><strong><em>chiron /w          <br /></em></strong></font><em>c) You'll get a message that Chiron is serving at </em><a href="http://localhost:2060"><em></em><a href="http://localhost:2060a">http://localhost:2060</a></a>a</a></p>  <p>5. Navigate to <a href="http://localhost:2060">http://localhost:2060</a> and hit index.html to see what's up.</p>  <p><img src="http://seruyange.com/metadeveloper/ChironRunning.jpg" />     <br />    <br /><img src="http://seruyange.com/metadeveloper/StarterPyLight.jpg" />&#160; <br />The starter<sup>3</sup> should make it easy to get up and running. Open the <em>app.py</em> and <em>app.xaml</em> files and you will be able to modify the xaml and write code to customize it into your own creation.</p>  <p>1. Michael Foord aka Voidspace is <strong>the guy</strong> when it comes to IronPython. He wrote a book on it. He has <a href="http://www.voidspace.org.uk/ironpython/silverlight/introduction.shtml">a &quot;getting started&quot; tutorial that is much more extensive</a> if you want more details. His tutorial isn't as terse so I thought I'd write this one for people who just want a step by step before poking around. There are other people like <a href="http://blog.jimmy.schementi.com/">JimmyThinking</a> who offer a lot of help to beginners but lean towards IronRuby.</p>  <p>2. The name <a href="http://en.wikipedia.org/wiki/Chiron">Chiron</a> for a tool makes me think about a few things: first, being born out of time since most BigCo shops today name computers and tools in a hollow, mechanistic fashion. In the salad days of computing on Unix, tools had cool names like ed or yacc. The second thing I think is that <a href="http://blogs.msdn.com/dmitryr/default.aspx">Dmitri</a> (and I'm sure there's an &quot;et. al.&quot;) must be a cool, interdisciplinary fellow to come up with a name like that.</p>  <p>3. The exchange in the sample is from Swahili classes at <a href="http://www.rusinga.ac.ke/">Rusinga Primary School</a> in Nairobi.</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>gefilte</div>
+<div class='content'>
+When you said "in 5 steps" I was hoping for interpretive dance.  C'est la vie.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

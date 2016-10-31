@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Proper 0.2: INotify, DependencyProperty Support &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-05-06-proper-02-inotify-dependencyproperty/">Proper 0.2: INotify, DependencyProperty Support</a></h1>
+			<span class="post-date">May 6, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Several years ago, in a land of Visual Studio 2005 and no CodeRush, I made a tool called <a href="http://t3rse.com/proper">Proper</a> to automate the monotony of creating properties. You just type something like “int Foo;string Bar;” and you’d get basic property generation. You can use shortcuts to types by typing an undercore “_” character. For example, “i_” will pop up int, “dt_” would pop up DateTime (<a href="http://metadeveloper.blogspot.com/2007_04_01_archive.html">You can also create your own</a>). It’s funny how the stuff that you’re half serious about can last so long – at the time I wanted to write something useful entirely in JavaScript and to experiment a little with JQuery. </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-simple.png" /> </p>  <p>The tool suffered neglect for the next few years until recently when I began working with Silverlight and was amazed at how a similar monotony (and more code!) accompanies using INotifyPropertyChanged and implementing dependency properties. I remembered my old tool and added support for generating them there. Here are some screenshots that should illustrate how it works (you select “advanced options” and then select a few checkboxes, in a nutshell). I’ll update the feature to report bugs – I’m sure there are a few. I also neglected to update it for VB.NET – I’ll do that over the next few weeks.</p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-INotify.png" /> </p>  <p><img style="border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid" src="http://seruyange.com/metadeveloper/Proper4179-Dependency.png" /> </p>  <p>If you do spot a bug, let me know. There are a few new goals I have with the tool, the first of which is refactoring some of the embarrassing JavaScript I crufted together to make this work. I remember <a href="http://www.blueskyonmars.com/">Kevin Dangoor</a> talking about Embarrassment Driven Development (when your code is so embarrassing that you’re motivated to update it); that’s the one thing about JavaScript – you can’t hide the way things are constructed. :)</p>  <h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Hey Dave, <br /><br />Thanks for the questions, I&#39;ll try to be brief and avoid &quot;one time at band camp&quot; stories... :)<br /><br />&gt; Why not use VS Snippets<br /><br />It&#39;s a valid alternative - something tells me a majority of developers prefer to stay in VS. There are a few reasons I went down this alternative path which may or may not resonate with other developers: <br /><br />1. The built in snippets require a &quot;one by one&quot; approach. You&#39;d need to type in prop A, B, C sequentially. This approach is &quot;batched&quot; in that you set everything up and then generate the code. <br />2. Snippets involve more typing. At the time I made this tool you&#39;d need to tab through 3 items on a snippet: type, private member, and property name. This uses a convention to allow you to type less and get more faster.<br />3. Customized snippets tether a person to an installation of Visual Studio (or customizing each one they touch). Because I am constantly developing across several machines and because I don&#39;t like tying myself to an instance of Visual Studio, that&#39;s another reason I do a lot of webby type tools like this.<br /><br />&gt; Why not output a CodeDom object<br />That&#39;s an interesting concept. I think I&#39;d be leaving the world of JavaScript but it could be much more flexible in the end. Perhaps an Ajaxy implementation where the CodeDom stuff lived on the server  would be apropos. <br /><br />&gt; dep props are only necessary for the TARGET of a data binding the the DubPeeEff/&quot;web killer&quot;<br /><br />You&#39;re right in the above although as I&#39;ve been building more UserControls that are templates for displaying data within the context of some larger list bound control (ItemsControl/DataGrid/etc) I see the need cropping up more and more. <br /><br />&gt; What is the answer to life, the<br />&gt; universe, and everything?<br /><br />http://www.youtube.com/watch?v=hkbdP7sq0w8</div>
+</div>
+<div class='comment'>
+<div class='author'>Dave</div>
+<div class='content'>
+Nice idea... few questions though (I promise the fourth one is easy):<br /><br />We could talk for hours why this isn't easier to do withe the lang primitives... but in the meantime people (using VS) could use code snippets for a more integrated experience... why not do it as snippets?<br /><br />To address the lack of VB support... why not output a CodeDom object and leave it to a language provider to write the code... that is, recently I discovered the XsdDataContractImporter class that lets you take a set of XML schema documents and generate a CodeCompileUnit which is then sent to a code provider that does the "semi-harry" details of writing code (give me a little room here... I might have gotten a few class names wrong, I didn't verify it all, it's "Memory Driven Development"). I realize you've got a website here and CodeCompiieUnit probably isn't a serializable types... but you could probably stop the "strcat" and move to the CodeDom (assuming you are doing strcat... "Assumption Driven Development")?<br /><br />As I understand it (mem driven dev again) dep props are only necessary for the TARGET of a data binding the the DubPeeEff/"web killer" (aka Silverlight) world so why bother... just make the source props INotifyPropertyChanged (don't "ultra"-long interface names make you think something is inherently wrong) instead?<br /><br />What is the answer to life, the universe, and everything?</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

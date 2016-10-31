@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> C# Extension Method for Generic Collections &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-05-05-c-extension-method-for-generic/">C# Extension Method for Generic Collections</a></h1>
+			<span class="post-date">May 5, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>Tinkering a bit with extension methods tonight, <a href="http://www.hanselman.com/blog/ASmarterOrPureEvilToStringWithExtensionMethods.aspx">inspired</a> in part by Scott Hanselman to write something I've frequently needed with generic collections: to spit them out in some delimited format.&nbsp; Here are the extension class and method:</p><pre class="csharpcode">    <span class="kwrd">static</span> <span class="kwrd">class</span> EnumerableExtensions<br />    {<br />        <span class="kwrd">public</span> <span class="kwrd">static</span> <span class="kwrd">string</span> AsDelimited&lt;T&gt;(<span class="kwrd">this</span> List&lt;T&gt; obj, <span class="kwrd">string</span> delimiter)<br />        {<br />            List&lt;<span class="kwrd">string</span>&gt; items = <span class="kwrd">new</span> List&lt;<span class="kwrd">string</span>&gt;();<br />            <span class="kwrd">foreach</span> (T data <span class="kwrd">in</span> obj) {<br />                items.Add(data.ToString());<br />            }<br />            <span class="kwrd">return</span> String.Join(delimiter, items.ToArray());<br />        }<br />    }</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p>You can spit out your delimited instances of any List&lt;T&gt; now:</p><pre class="csharpcode">            List&lt;<span class="kwrd">string</span>&gt; test = <span class="kwrd">new</span> List&lt;<span class="kwrd">string</span>&gt;(<span class="kwrd">new</span> <span class="kwrd">string</span>[] { <span class="str">"David"</span>, <span class="str">"Morgan"</span>, <span class="str">"Philip"</span> });<br />            Console.WriteLine(test.AsDelimited(<span class="str">" =&gt; "</span>));<br /><br />            List&lt;<span class="kwrd">int</span>&gt; primes = <span class="kwrd">new</span> List&lt;<span class="kwrd">int</span>&gt;(<span class="kwrd">new</span> <span class="kwrd">int</span>[] { 2, 3, 5, 7, 11, 13, 17 });<br />            Console.WriteLine(primes.AsDelimited(<span class="str">" , "</span>));<br /></pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>D. Patrick Caldwell</div>
+<div class='content'>
+Hey, I enjoyed your blog post.  I've been writing <A HREF="http://dpatrickcaldwell.blogspot.com/search/label/Extension%20Methods" REL="nofollow">a lot of extension methods</A> lately myself.  Sometimes you really have to be thankful to be a C# developer, you know?<BR/><BR/>I hadn&#39;t seen the syntax for adding an extension method to a generic type.  I&#39;m still not sure I understand why you need Foo&lt;T&gt;(this List&lt;T&gt;) and not just Foo(this List&lt;T&gt;).<BR/><BR/>Also, I was wondering if you&#39;ve tried any syntax highlighters?  I use one from google code and I have <A HREF="http://dpatrickcaldwell.blogspot.com/2009/03/one-line-script-highlighter.html" REL="nofollow">a pretty easy one liner</A> you can add to your template.  If you'd like to use it, feel free.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

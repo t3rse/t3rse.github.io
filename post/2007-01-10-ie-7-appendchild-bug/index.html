@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> IE 7 appendChild bug &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-01-10-ie-7-appendchild-bug/">IE 7 appendChild bug</a></h1>
+			<span class="post-date">Jan 10, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I'm working on <a href="http://www.t3rse.com/proper">t3rse::proper</a> to allow custom shortcuts but discovered a bug with IE 7 when using the appendChild method of an element. It will take a bit more time to nail down specifics but try the following:<br /><br /><span style="font-family:courier new;font-size:85%;">var tr = document.createElement("tr"); <br />var tdchar = document.createElement("td"); <br />var tdtext = document.createElement("td"); <br />tdchar.appendChild(document.createTextNode('foo')); <br />tdtext.appendChild(document.createTextNode('bar')); <br />tr.appendChild(tdchar); <br />tr.appendChild(tdtext); <br />// you need some table with the id as testTable<br />document.getElementById("testTable").appendChild(tr); </span><br /><br />Pretty straight forward and does _not_ work in IE 7. Check it out in Firefox and it works like a charm.<br /><br />But the bug doesn't seem to be that simple; if you are called appendChild on a DIV or SPAN outside the context of a table, it works fine in both browsers.<br /><br /><span style="font-family:courier new;font-size:85%;">// make a div with an id attribute of 'test'</span><br /><span style="font-family:courier new;font-size:85%;">document.getElementById('test').appendChild(</span><br /><span style="font-family:courier new;font-size:85%;">document.createElement('span').appendChild(document.createTextNode('foo'))</span><br /><span style="font-family:courier new;font-size:85%;">);</span><br /><br />I'll dig into this a bit more - I see comments on similar things via Google search but nothing definitive. Unless <a href="http://www.cephas.net/blog">AJ</a> has answers... you always have answers...<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>VBKesha</div>
+<div class='content'>
+In IE table row must be in &lt;TBODY&gt; tags.<br>&lt;table id=&quot;tbl_log&quot; border=&quot;1&quot;&gt;<br> &lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;msg&lt;/th&gt;&lt;/tr&gt;<br> &lt;tbody id=&quot;tbl_log_bd&quot;&gt;<br> &lt;/tbody&gt;<br>&lt;/table&gt;<br><br>var t = document.getElementById(&#39;tbl_log_bd&#39;);<br>var tr, td;<br>  tr = document.createElement(&#39;tr&#39;);<br>  td = document.createElement(&#39;td&#39;);<br>  td.innerHTML = &#39;11&#39;;<br>  tr.appendChild(td);<br>  td = document.createElement(&#39;td&#39;);<br>  td.innerHTML = &#39;222&#39;;<br>  tr.appendChild(td);<br>        t.appendChild(tr);</div>
+</div>
+<div class='comment'>
+<div class='author'>Aryan</div>
+<div class='content'>
+Thanks Even. Helped me fixing a bug.</div>
+</div>
+<div class='comment'>
+<div class='author'>Olga</div>
+<div class='content'>
+You can use something like this<br /><br />var tr = document.getElementById(&quot;testTable&quot;).insertRow(0);<br />var tdchar = tr.insertCell(0);<br />var tdtext = tr.insertCell(0);<br />tdchar.appendChild(document.createTextNode(&#39;foo&#39;));<br />tdtext.appendChild(document.createTextNode(&#39;bar&#39;));<br /><br /><br />But note that this code works very slow in Firefox. And innerHTML works very slow in IE</div>
+</div>
+<div class='comment'>
+<div class='author'>Olga</div>
+<div class='content'>
+This comment has been removed by the author.</div>
+</div>
+<div class='comment'>
+<div class='author'>Even Simon</div>
+<div class='content'>
+Here, try this, works perfect in all the browsers...<br /><br />var tr = document.getElementById(&quot;testTable&quot;).insertRow(0); <br />var tdchar = document.createElement(&quot;td&quot;); <br />var tdtext = document.createElement(&quot;td&quot;); <br />tdchar.appendChild(document.createTextNode(&#39;foo&#39;)); <br />tdtext.appendChild(document.createTextNode(&#39;bar&#39;)); <br />tr.appendChild(tdchar); <br />tr.appendChild(tdtext);<br /><br />Have fun,<br />Simon</div>
+</div>
+<div class='comment'>
+<div class='author'>sOURABH sHANKAR</div>
+<div class='content'>
+Append the child in <B>"tbody"</B> tag of table instead of appending it directly to table :) i'll work in IE7 and FF<BR/><BR/><A HREF="http://desicode.blogspot.com" REL="nofollow">http://desicode.blogspot.com</A></div>
+</div>
+<div class='comment'>
+<div class='author'>estelle</div>
+<div class='content'>
+Thank you aaron!! I've been stuffing around for ages, if only I'd found out earlier that I just had to use a tbody element!</div>
+</div>
+<div class='comment'>
+<div class='author'>Kid Lunch</div>
+<div class='content'>
+(and yes, IE is the only browser that chokes on appendChild in a different window)</div>
+</div>
+<div class='comment'>
+<div class='author'>Kid Lunch</div>
+<div class='content'>
+Grrr, I feel your pain.  For me, appendChild() causes severe problems when trying to add to a node in another window (iFrame,popup, or parent).  <BR/><BR/>The only, and I mean only, recourse was using innerHTML.  <BR/><BR/>Makes me feel like I need to shower.</div>
+</div>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I think the philosophy I'm shooting for is akin to the "webstandards" folks; sticking with standards will not only allow my stuff to work on multiple platforms but also encourage browser makers to stay away from things that are proprietary. That being said, I agree with you that if something is supported by the important browsers it is probably okay to use.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+I'm totally ignorant: what does keeping with within the W3C DOM confines gain you?<br /><br />I guess I'm not a purist: if there's something that the majority of browsers support (ie: innerHTML), then I'm going to use it if it helps me get something done (not saying that you're not getting anything done, just that I'm not a purist).</div>
+</div>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Point #1 well taken; I thought about using innerHTML but I've been trying to stay on the 'web standards' tip by keeping everything I do within W3C DOM confines. <br /><br />I've got to decide either to go for 'practical' rather than being a standards zealot and take the innerHTML approach.  <br /><br />What's your take on the "standards" stuff - these days I use DIVs + CSS a lot even when my natural instinct is to design with tables like I always have.  <br /><br />In the Javascript world I've been trying to ween myself of anything that isn't cross browser, but innerHTML seems to have good support.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+Also, if you desperately want to use the DOM, it looks like the trick is that you have to append your row to a tbody element rather than the table element:<br /><br />http://ncyoung.com/entry/494<br /><br />I ran into a similiar problem a couple months back:<br /><br />http://cephas.net/blog/2006/05/30/cant-add-hyperlink-with-onclick-to-ie-using-dom/<br /><br />AJ</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+Use innerHTML instead:<br /><br />t = document.getElementByID('mytable');<br />tContent = t.innerHTML;<br />newRow = '&lt;tr&gt;&lt;td&gt;foo&lt;/td&gt;&lt;td&gt;b&lt;/td&gt;&lt;/tr&gt;';<br />t.innerHTML = tContent + newRow;<br /><br />Plus, it should be WAY faster:<br /><br />http://www.quirksmode.org/dom/innerhtml.html<br /><br />AJ</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

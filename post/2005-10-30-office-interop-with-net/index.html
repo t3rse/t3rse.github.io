@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Office Interop with .NET &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2005-10-30-office-interop-with-net/">Office Interop with .NET</a></h1>
+			<span class="post-date">Oct 30, 2005 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">Are you still doing VBA with Office even though you know you should be doing your coding with the .NET Framework? Probably like many I did things the old way rather than dealing with COM Interop, especially since this was particularly daunting with Office. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">It isn't as of a while ago, but you, like me, may have been a bit too busy to notice. </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">First, you must download the Office Interop Libraries from </span><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=C41BD61E-3060-4F71-A6B4-01FEBA508E52&displaylang=en"><span style="font-size:85%;">here</span></a><span style="font-size:85%;">. The instructions are clear; run the <em>register.bat</em> from the VS.NET command prompt. After that you can make a reference to the application interop assembly of your choice, such as Microsoft.Office.Interop.Excel.dll.</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Reference the namespace in your app:<br /><span style="color:#ff0000;">using Excel = Microsoft.Office.Interop.Excel;</span></span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">Code away:</span><br /><br /><span style="font-size:85%;color:#ff0000;">Excel.Application app = new Excel.Application();<br />Excel.Workbook book = app.Workbooks.Open(@"c:\data\Daita.xls",Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing, Type.Missing, Type.Missing,<br />Type.Missing, Type.Missing);<br />Excel.Worksheet sheet = (Excel.Worksheet)book.Worksheets[1];<br />for(int i=1;i<10;i++) j="1;j<7;j++)" rg =" (Excel.Range)sheet.Cells[i,j];"><br /><br /><span style="color:#000000;"><span style="font-size:85%;">A few interesting things:</span><br /></span><ul><li><span style="font-size:85%;color:#000000;">The Type.Missing passed for all those COM-esque optional parameters. Ugh.</span></li><li><span style="font-size:85%;color:#000000;">Casting the cell you are on into a Excel.Range when you need to access its contents.</span></li></ul><span style="font-size:85%;"></span><br /><span style="color:#000000;"><span style="font-size:85%;">Finally:</span><br /><span style="font-size:85%;">Many more articles can be found </span></span><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_wrcore/html/wroriAutomatingOfficeApplications.asp"><span style="font-size:85%;color:#000000;">here</span></a><span style="font-size:85%;color:#000000;">, on MSDN.</span><br /><br /><span style="font-size:180%;color:#000099;">}</span><br /></span><span style="font-size:85%;color:#ff0000;"></span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>[konoimo]   &gt;-</div>
+<div class='content'>
+Interesting post man... have you tried this with ASP.net? I do mostly web apps and it would be cool if I can use interop with ASP.net...</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

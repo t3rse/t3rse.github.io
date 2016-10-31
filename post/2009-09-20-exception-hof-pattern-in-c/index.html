@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Exception HOF Pattern in C# &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-09-20-exception-hof-pattern-in-c/">Exception HOF Pattern in C#</a></h1>
+			<span class="post-date">Sep 20, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>There’s probably a name for this specific approach but in a personal project of late I’ve found a useful pattern for generalizing my exception handling. I write a ExceptionHelper class that takes a variety of high order function style methods to handle my exceptions in a single spot. Here is a somewhat simple form of what I've been doing:</p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public class ExceptionHelper<br />    {<br /><br />        public static void ExecuteWithSuppress(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                // pass and ignore the exception<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine(&quot;An exception occured! Details: \n&quot; + ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithHandler(Action code, Action onError, string errorMessage)<br />        {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                Console.WriteLine((errorMessage.Length &gt; 0) ? errorMessage : ex.ToString());<br />                if (onError != null)<br />                {<br />                    onError();<br />                }<br />            }<br />        }<br /><br />        public static bool ExecuteWithNotificationButIgnore(Action code)<br />        {<br />            bool ret = true;<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                ret = false;<br />            }<br />            return ret;<br />        }<br /><br />        public static void ExecuteWithLogging&lt;T&gt;(Action code) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                if (ex is T) {<br />                    Console.WriteLine(&quot;Logging exception &quot; + ex.ToString());<br />                }<br />            }<br />        }<br /><br />        public static void ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles) {<br />            try<br />            {<br />                code();<br />            }<br />            catch (Exception ex)<br />            {<br />                handles(ex);<br />            }<br />        }<br /><br />    }</pre><br /><br /><p>At this point I use it in a lot of places, here are a few scenarios: </p><br /><br /><p><strong>ExecuteWithSuppress(Action code)</strong> – code that has a low impact of failure or an expected failure under some conditions. For example, a client of mine once had a legacy database they wanted to me parse a “name” field from. We set up basic heuristics to separate out first and last and so on, but on failure we just returned a blank string. </p><br /><br /><p><strong>ExecuteWithHandler(Action code)</strong> – you have some generalized exception handling to do something: prompt the user, do logging, etc. ExecuteWithHandler(Action code, Action handler) – you get to pass in the exception handling you want<br /><br />  <br /><strong>ExecuteWithHandler(Action code, string errorMessage)</strong> – pass a custom error message<br /><br />  <br /><strong>ExecuteWithNotificationButIngore(Action code)</strong> – try to execute some code but return a boolean to indicate success<br /><br />  <br /><strong>ExecuteWithLogging&lt;T&gt;(Action code)</strong> – run some code, indicate the types of exceptions to differentiate<br /><br />  <br /><strong>ExecuteWithLogging(Action code, Action&lt;Exception&gt; handles)</strong> – pass a method to catch be passed the exception that occurs.<br /><br />  <br /></p><br /><br /><p>The resulting code I write with this pattern, I find pleasant. Here are some examples:</p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    string userName = String.Empty;<br />    ErrorHelper.ExecuteWithSuppress(() =&gt; userName = doc.Descendants(&quot;Name&quot;).First().Value);<br />    return userName;</pre><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">if (ErrorHelper.ExecuteWithNotificationButIgnore(() =&gt;<br />{<br />	SendEmail();<br />}<br />else<br />{<br />	// message not delivered, etc, etc.<br />}</pre><br /><br /><p>I want it to be absolutely clear that this is not a replacement for try/catch/finally logic where it is warranted. It is simply an alternative that can help to keep code clear and readable. As with many things in software, there is taste involved in when and where something like this is leveraged. But it works well enough for me that I thought I’d share. </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>empi</div>
+<div class='content'>
+Hi,<br /><br />I must say that I really don&#39;t like this pattern.<br />First of all, you catch Exception (not a specific one) and then you do nothing. It&#39;s very easy to suppress some important exceptions.<br />If you have code that throws so many exceptions that you need helpers to handle them, then maybe there is something wrong with the code in the first place.<br />Imho, it&#39;s much better to have some global exception handler that logs unhandled exceptions and to catch only specific exceptions when you exactly know what to do with them.<br />Maybe you should look at some aspect oriented frameworks and find better ways to handle exceptions globally.<br /><br />Greetings.<br /><br />http://codepark.blogspot.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Ivan</div>
+<div class='content'>
+Reminds me of a similar pattern that we use from time to time with Python decorators. We create a decorator that uses the given function and arguments to call the function, handling any exceptions that occur as desired. <br /><br />ie. Something similar to your console writing example would be.<br /><br />@print_exception<br />def foo(a, b=None):<br />...some code..<br /><br />When an exception occurs in foo, the print_exception decorator would handle it and print to std out.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

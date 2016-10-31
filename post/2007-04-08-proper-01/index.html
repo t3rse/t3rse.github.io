@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Proper 0.1 &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-04-08-proper-01/">Proper 0.1</a></h1>
+			<span class="post-date">Apr 8, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{<br /><br /></span><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://www.t3rse.com/proper"><img style="cursor: pointer;" src="http://hobbitwerk.brinkster.net/metadeveloper/proper01.jpg" alt="" border="0" /></a><br />A while back I made a property code generator I called <a href="http://www.t3rse.com/proper">t3rse::proper</a>. It was an exercise to solve a problem I'd had as well as write something useful entirely in javascript.  I've added a few new features to it that will hopefully make it even more useful in future:<br /><br />1. Custom Shortcuts<br />Proper allows shortcuts for common datatypes - for int you simly type <span style="font-style: italic;font-family:courier new;" >i_</span> and the same is true for bool (<span style="font-style: italic;">b_</span>), string (<span style="font-style: italic;">s_</span>), datetime (<span style="font-style: italic;">dt_</span>), as well as a few others.  If you have a classname that you need to build properties on, you can add your own prefix and follow that with an underscore when you're defining your properties. You could, for example, use sq for SqlConnection.<br /><br /><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://hobbitwerk.brinkster.net/metadeveloper/proper01shortCuts.jpg"><img style="cursor: pointer;" src="http://hobbitwerk.brinkster.net/metadeveloper/proper01shortCuts.jpg" alt="" border="0" /></a><br /><br />2. DebuggerStepThrough<br />More often than not properties have a simple definition that needn't be stepped through when debugging.  A while back I started adding the System.Diagnostics.DebuggerStepThrough attribute to pieces of code like this - I've added this feature to proper with a checkbox option.<br /><a onblur="try {parent.deselectBloggerImageGracefully();} catch(e) {}" href="http://hobbitwerk.brinkster.net/metadeveloper/proper01debugger.jpg"><img style="cursor: pointer;" src="http://hobbitwerk.brinkster.net/metadeveloper/proper01debugger.jpg" alt="" border="0" /></a><br /><br />Future features?  Whenever I have time the following:<br />1. Ability to remove custom shortcuts gracefully<br />2. Settings and shortcuts stored in a cookie<br /><br />One final thing I'm pondering is whether to try to implement <a href="http://secretgeek.net/wscg.asp">The World's Simplest Code Generator</a> as an exclusively javascript/ajax application.  I thought about it as a newer version of proper but I like the idea of proper being so dead simple that it doesn't become unwieldy. Does it suck? Tell me why at <span style="font-style: italic;">proper at t3rse dot com</span>. Want to make it better? It's all there as javscript, just send me an update and I'll see if I can include it in a newer release.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

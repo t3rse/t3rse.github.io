@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Sieve of Eratosthenes, Python, Set Operations &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-07-15-sieve-of-eratosthenes-python-set/">Sieve of Eratosthenes, Python, Set Operations</a></h1>
+			<span class="post-date">Jul 15, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />I pretty much broke down after TechEd.  I thought I'd be patient enough to wait for Ruby but because Python is most mature I have started to learn it, whitespaces or no.<br /><br />The first thing I did was check out Guido van Rossum's tutorial for programmers, which was an excellent first step.  I've followed that up with some random programming - a lot of fun so far.<br /><br />I was wondering about the set operations in python and how that made a difference in programming since there aren't syntactical equivalents in .NET.  Incidentally at the time I was reading The Man Who Loved Only Numbers and ran across a short description of the Sieve of Eratosthenes as a way of finding primes.  I thought it would be a good way to check out the set operations of Python.<br /><br />I wrote the following:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />def multiples(num, thresh):<br /> multi = []<br /> for i in range(2,thresh):<br />  m = num * i<br />  if(m < thresh):<br />   multi.append(m)<br />  else:<br />   break<br /> return multi<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> nums = set(nums) - set(multiples(n, primeThresh))<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />Interesting, but slow.  The way I may do something like that in C# (which also works just fine in Python) would be this, which I wrote later:<br /><br /><pre style="font-family:courier;font-size:8pt;color: #eee;background: #000; margin: 1em 0; padding: 10px;overflow: auto; width:425px;"><br />from System import *<br /><br />primeThresh = 5000<br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br />nums = range(2,primeThresh)<br /><br />for n in nums:<br /> for m in range(2,primeThresh):<br />  try:<br />   mult = n * m<br />   if(mult > primeThresh):<br />    break<br />   nums.remove(mult)<br />  except:<br />   pass<br /><br />print nums<br /><br />print DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss")<br /></pre><br /><br />It's a lot faster than the previous approach which makes sense - doing set algebra on large sets should take a long time... but that begs the question: are those set operations dangerous (ie. so slow as to be costly).<br /><br />I'm wondering what's "pythonic" and how a jedi would write this most effeciently.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>marc.gaudette</div>
+<div class='content'>
+I also found The Man Who Loved Only Numbers a fun read. Since you're interested in the sieve, site www.primestructure.com has an extensive discussion re. adding structure to it.<BR/><BR/>Marc</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

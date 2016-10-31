@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Agile Perlcast &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-07-19-agile-perlcast/">Agile Perlcast</a></h1>
+			<span class="post-date">Jul 19, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />The <a href="http://perlcast.com/2006/07/12/practices-of-an-agile-developer/">latest Perlcast</a> features <a href="http://toolshed.com/blog/">Andy Hunt</a>, one of the <a href="http://www.pragmaticprogrammer.com/">Pragmatic Programmers</a>, talking about Agile Programming.  Although my use of perl in a professional context is limited, Perlcast is one of my favorite developer podcasts in no small part to its host, Josh McAdams -<br /><br />The following are discussed:<br /><br />1. Pair programming<br />Andy gives an analogy of a driver and navigator.  Interesting, but I have to admit the whole pair thing has never quite had appeal for me. At least, not as the "navigator."<br /><br />2. Learning sessions<br />Andy recommends company learning sessions in the middle of the week (my own company does it on Friday).  It's a good idea since the beginning of the week is catch up usually, and by the end a lot of people have checked out.  I do like the fact that on Friday, however, there is a bit more of a relaxed atmosphere in the office, making the learning sessions double as a sort of group bonding where the developers can hang out and not feel too much stress. <br /><br />3. On keeping up with what's current<br />Focus on awareness, not necessarily depth.  It's impossible to know about absolutely everything going on, but keep your radar going and understand the big picture meaning of what's new.  Easily said, but I will admit to frequent moments like today: feeling utterly overwhelmed by  the amount of useful information that's out there. And no time to process the little I get a handle on from time to time.<br /><br />4. Estimation<br />Andy's gotten companies to go with incremental estimates of time for projects.  This is a great idea, but as Andy seemed to concede, it's sometimes hard to get a client to look at things that way.  Because budgeting for a project is usually based on a proposal, and the proposal must take into account the entire scope of work, I wonder at a good angle from which to introduce this... maybe with shorter cycles up front.  Unfortunately, the beginning of a project is usually a lot of design work and may not involve a ton of demonstrated progress.  Hm...<br /><br />5. Testing<br />Wow - this was the best part of the podcast.  Andy goes through a bunch of acronyms to use to remember the different ways to approach unit testing.  I'm not usually one for acronyms, but in this case I think it can't hurt.  He recommends as much test code as production code... a really tough sell since I don't think any of the clients I've worked with run numbers on bug fixing costs.  Because of that what's important to budget both time and financially is the "development" cycle and whatever is left over before the magic deadline must be applied to bugs.<br />But here's where I take it: the half/half production/test code thing is about the effort a developer makes to test and have automated unit tests available for their code.  And, from a guy who's spent the last many days almost exclusively fixing bugs, I'd rather invest in test cases than bug fixes.  I'll have to strategize on having lots of shiny things to throw at the client in order to demonstrate progress but somehow pace development so that much more is invested in unit testing.<br /><br />6. SCRUM<br />Andy finishes with some talk about <a href="http://www.controlchaos.com/">SCRUM</a> as a lightweight development process. I'll have to read into that a bit; it seems to formalize some of the things that I've done in the past but it seems like a magical ideal that is very difficult to be disciplined with in real life. For example, quick meetings at the beginning of each day tend to expand in the amount of time they take. A lot of the time, if there's something that is really involved (like it's going to take a few days or weeks to develop) I prefer to just get to work and get into my code since mornings are one of the more productive times of day for me.<br />One thing we've done on my current project is have an email sent out that lists what everyone is working on, seems like a good compromise.<br /><br />7. Write readable code<br />'nuff said.<br /><br />8.  Some OO design commentary, bleeds into contracts, encapsulation.<br /><br />9. Architects should code.<br />I think Joel said it all when he <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">wrote</a> about Architecture Astronauts. Another funny article I recently refound online a  humorous essay about  <span style="text-decoration: underline;"></span><a href="http://www.acmqueue.org/modules.php?name=Content&pa=showpage&amp;pid=130">UML Fever</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Remove Carriage Return, Line Feed, Tab in TSQL &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-03-30-remove-carriage-return-line-feed-tab/">Remove Carriage Return, Line Feed, Tab in TSQL</a></h1>
+			<span class="post-date">Mar 30, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><span style="color: rgb(0, 153, 0);">-- remove carriage return, line feed, and tab from a field in tsql</span><br />REPLACE(REPLACE(REPLACE(MyField, CHAR(10), ''), CHAR(13), ''), CHAR(9), '')<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>GuitarSam7</div>
+<div class='content'>
+Superb!!  Thank yoU!!!</div>
+</div>
+<div class='comment'>
+<div class='author'>New blogger</div>
+<div class='content'>
+Life saver, thanks!! </div>
+</div>
+<div class='comment'>
+<div class='author'>ramakrishna</div>
+<div class='content'>
+thanks u very much this exactly im looking for..</div>
+</div>
+<div class='comment'>
+<div class='author'>Deepak Giri</div>
+<div class='content'>
+<b>Thanks,</b> was looking for exactly this! :)</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad Renstrom</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>raj</div>
+<div class='content'>
+TQ very much</div>
+</div>
+<div class='comment'>
+<div class='author'>Brent</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>Chad</div>
+<div class='content'>
+That was exactly what I have been after.<br /><br />Thank you !</div>
+</div>
+<div class='comment'>
+<div class='author'>Me</div>
+<div class='content'>
+Thanks!</div>
+</div>
+<div class='comment'>
+<div class='author'>alex_uk</div>
+<div class='content'>
+Found this helpful. Thanks you.</div>
+</div>
+<div class='comment'>
+<div class='author'>Safety Harbor Shaman</div>
+<div class='content'>
+Thanks, this line of code was great - did it exactly what I needed - <br /><br />Thx,<br /><br />Jon Bloom<br />http://www.tampabaybi.com/</div>
+</div>
+<div class='comment'>
+<div class='author'>Lily</div>
+<div class='content'>
+Thanks for your help my boyfriend was having many problems with that last week so when I saw your blog I called him immediately and even he pay for it to a technician we never imagine that it was so easy. <a href="http://www.safemeds.com/" rel="nofollow">Viagra Online</a> <br /> <a href="http://www.safemeds.com/generic-viagra.htm" rel="nofollow">Generic Viagra</a>  <a href="http://www.safemeds.com/viagra/buy.html" rel="nofollow">Buy Viagra</a></div>
+</div>
+<div class='comment'>
+<div class='author'>musclPete</div>
+<div class='content'>
+Excellent - googled it and in 20 seconds had a working app!!</div>
+</div>
+<div class='comment'>
+<div class='author'>caractacus</div>
+<div class='content'>
+Trim leading/trailing characters.<br /><br /><br />DECLARE @value VARCHAR(1000)<br />DECLARE @pat varchar(10) <br />SET @pat = &#39;%[^ &#39; + char(09) + char(10) + &#39;]%&#39;<br /><br />SET @value = CHAR(10) + &#39;   &#39; + CHAR(10) + &#39;message test &#39; + char(10) + &#39; values  &#39; + CHAR(10) + &#39;   &#39; + CHAR(10) + CHAR(10) + &#39;   &#39; + CHAR(10) <br /><br />SELECT SUBSTRING(<br />  @value, <br />  PATINDEX(@pat, @value),<br />  LEN(@value) - PATINDEX(@pat, @value) - PATINDEX(@pat, REVERSE(@value)) + 2)</div>
+</div>
+<div class='comment'>
+<div class='author'>Darkstar</div>
+<div class='content'>
+Pure Briliance!</div>
+</div>
+<div class='comment'>
+<div class='author'>Durga</div>
+<div class='content'>
+Thanks a million.Instant code.I fixed my code in exactly 5 mts with this Info</div>
+</div>
+<div class='comment'>
+<div class='author'>Bharath</div>
+<div class='content'>
+Thanks... This post helped me....</div>
+</div>
+<div class='comment'>
+<div class='author'>Nae</div>
+<div class='content'>
+thank you for your code.</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Do you have any suggestions on how to strip just the trailing CR/LFs?</div>
+</div>
+<div class='comment'>
+<div class='author'>Jon</div>
+<div class='content'>
+Perfect!</div>
+</div>
+<div class='comment'>
+<div class='author'>Katie</div>
+<div class='content'>
+Thank you so much! This is exactly what I was looking for - and so much more simple than everything else I found out there. Nice job!</div>
+</div>
+<div class='comment'>
+<div class='author'>ME2007</div>
+<div class='content'>
+I have a flat file with multiple lines that belong to one person account and i need to bring all lines to one line making them as one line of comma separate type data. For example as below:<BR/>DateIn" 2007/01/01 account:155555<BR/>name" john smith Age: 18<BR/>--------<BR/>DateIn" 2007/01/01 account:166665<BR/>name" josh sammy Age: 20<BR/><BR/>With this example, how can i join the 2 lines to one line then i join the final 2 lines in one line.  By the way, i have been trying to work on this in my sql server 2000.<BR/><BR/>Thanks,<BR/><BR/>ME2007.</div>
+</div>
+<div class='comment'>
+<div class='author'>Oscar "Oggelito" Aagren</div>
+<div class='content'>
+Thanks, was looking for exactly this.</div>
+</div>
+<div class='comment'>
+<div class='author'>jakrpanda</div>
+<div class='content'>
+just wanted to say thanks for the snippet of SQL code to remove carriage return/line feeds</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

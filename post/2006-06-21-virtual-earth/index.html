@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Virtual Earth &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-06-21-virtual-earth/">Virtual Earth</a></h1>
+			<span class="post-date">Jun 21, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I'm not sure what day I'm on as far as TechEd coverage (a lot to swallow!) but the next session I see notes for was called "Location Solutions with Virtual Earth."  It was a tour of <a href="http://local.live.com/">Virtual Earth</a> and how to write applications using the javascript library they expose in the <a href="http://dev.live.com/virtualearth/sdk/">Virtual Earth SDK</a>.<br /><br />You can get an idea of what Virtual Earth looks like by going to the site: <a href="http://local.live.com/">http://local.live.com</a><br /><br />The SDK is also quite simple; it consists of referencing some javascript libraries and using a DIV to position the mapped content.  For example, to get the basics, just view source on <a href="http://hobbitwerk.brinkster.net/virtualearth/">this page</a>.<br /><br />The Virtual Earth API has the following features, per the presentation:<br /><br /><ul><li>User Navigation</li><li>Mapping Imagery</li><li>"Bird's Eye" views</li><li>Pushpins</li><li>Find Places/Addresses</li><li>Directions/Routing</li><li>Polylines</li><li>Collections of GeoRSS</li></ul><br />For each of these features there is an interactive SDK that generates example code so that you can follow along for your own application.  *Very cool*. <br /><br />I did have a few issues with timing and synchronous processing; in other words sometimes the wait time for processing one command seemed to cancel out a command that directly followed it.  In my case I was trying to do a search for "Sioux Falls, SD" and then follow it with a ZoomIn method like so:<br /><br />            map.FindLocation('Sioux Falls, SD');<br />            map.SetMapStyle(VEMapStyle.Hybrid);<br />            map.ZoomIn();<br /><br />I'll dig around a bit - my idea for a helpful little location solution is a map of Sioux Falls and all the coffee shops along with their attributes: how good the coffee is, whether WiFi is free, and the general atmosphere.<br /><br />I'm also planning to dink around with the <a href="http://www.google.com/apis/maps/">Google Maps API</a> to see how it stacks up.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

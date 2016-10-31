@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>t3rse</title>
+    <link>http://www.t3rse.com/categories/blogging-octopress/index.xml</link>
+    <description>Recent content on t3rse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://www.t3rse.com/categories/blogging-octopress/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Moving from BlogEngine.net to Octopress</title>
+      <link>http://www.t3rse.com/post/2014-05-06-moving-from-blogengine-dot-net-to-octopress/</link>
+      <pubDate>Tue, 06 May 2014 22:42:36 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2014-05-06-moving-from-blogengine-dot-net-to-octopress/</guid>
+      <description>&lt;p&gt;Although I switched to Octopress via inspiration from &lt;a href=&#34;http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/&#34;&gt;Staxmanade&amp;rsquo;s blog series&lt;/a&gt; on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.&lt;/p&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Export to BlogML&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;The first task was to export my current blog entries. You can generate a BlogML file with all of your posts with the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Log into the administration portal then choose Settings.&lt;/li&gt;
+&lt;li&gt;On the subnavigation select the &amp;ldquo;Import &amp;amp; Export&amp;rdquo; option.&lt;/li&gt;
+&lt;li&gt;Click the &lt;em&gt;Export&lt;/em&gt; button.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Importing to Octopress&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;You need to generate files for each of your posts. I found &lt;a href=&#34;https://github.com/philippkueng/philippkueng.github.com/blob/30ef1570f06d33938b18d5eee7767d6641b9a779/source/_import/blogml.rb&#34;&gt;a lengthy Ruby script&lt;/a&gt; to do this but I just hacked up what I needed in a few lines of powershell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$file_name = &amp;quot;{0}-{1}.html&amp;quot;
+$post_template = 
+@&amp;quot;
+---
+layout: post
+title: `&amp;quot;{0}`&amp;quot;
+comments: true
+---
+
+{1}
+&amp;quot;@
+$xml = [xml](get-content BlogML.xml)
+$xml.blog.posts.post | % { 
+  $name = $file_name -f [DateTime]::Parse($_.&amp;quot;date-created&amp;quot;).ToString(&amp;quot;yyyy-MM-dd&amp;quot;), ($_.&amp;quot;post-url&amp;quot; -replace &amp;quot;.aspx&amp;quot;, &amp;quot;&amp;quot;)
+  $name = $name -replace &amp;quot;/post/\d{4}/\d{2}/\d{2}/&amp;quot;, &amp;quot;&amp;quot;
+  $value = $post_template -f $_.title.InnerText, $_.content.InnerText
+
+  New-Item -Path . -Name $name -Value $value -ItemType file
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I ran it in the same directory as my BlogML.xml file and it iterates over each post generating a file and using the post name and created date for a unique file name.&lt;/p&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Fixing Images and Links&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;You may need to clean up links to images and other posts. I&amp;rsquo;ve done it for images and something similar could be done for posts (I don&amp;rsquo;t link to myself very often though I may update this script when there is time). First, I copied all my images out of the /App_Data/files directory and into /public/images in my octopress folder structure. Next, here is an powershell one liner (where my BlogEngine was &amp;ldquo;&lt;a href=&#34;http://www.t3rse.com&amp;quot;&#34;&gt;http://www.t3rse.com&amp;quot;&lt;/a&gt; you will need to make sure you replace with whatever domain name you were using):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ls *.html -rec | %{ $f=$_; (gc $f.PSPath) | %{ $_ -replace &amp;quot;http://www.t3rse.com/image.axd\?picture=&amp;quot;, &amp;quot;/images/&amp;quot; } | sc $f.PSPath }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script, run in the same directory as the generated posts visits each (the .html extension) and does simple replace.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;There may be some additional details migrating (for example, I ignored comments, I also didn&amp;rsquo;t pull in the categories for each post) that I add tweaks for in the future. If you have a bright idea comment or modify my gists on github - I&amp;rsquo;d love to improve them for anyone else to use.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/t3rse/11241697&#34;&gt;Blog Engine Import Gist&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/t3rse/11401972&#34;&gt;Blog Engine Image Fix&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

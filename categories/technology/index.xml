@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>t3rse</title>
+    <link>http://www.t3rse.com/categories/technology/index.xml</link>
+    <description>Recent content on t3rse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://www.t3rse.com/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Post Desktop</title>
+      <link>http://www.t3rse.com/post/2015-06-29-post-desktop/</link>
+      <pubDate>Mon, 29 Jun 2015 13:52:51 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-06-29-post-desktop/</guid>
+      <description>&lt;p&gt;The nice thing about a blog is that you can trace decisions you blogged about to the exact date. It was July 18, 2013 when I &lt;a href=&#34;http://blog.t3rse.com/2013/07/18/Moving-Forward-Backward/&#34;&gt;wrote about&lt;/a&gt; using a desktop pc rather than a laptop. It&amp;rsquo;s been an interesting journey but it came crashing (pun intended) to a halt when my desktop died a few weeks ago.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s lazy writing but I&amp;rsquo;ll bullet point a few random thoughts about 2+ years on a desktop:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Home built desktops are more powerful for the price. I was able to run a bunch of VMs, IDEs, games without thinking about resources.&lt;/li&gt;
+&lt;li&gt;Running powerful hardware is often noisy.&lt;/li&gt;
+&lt;li&gt;Desktops make you sedentary. It wasn&amp;rsquo;t just that I stopped leaving the house, I stopped leaving my desk. Whereas before I&amp;rsquo;d occasionally work in a coffee shop. I even forgot how handy it is to work in different parts of the house (e.g. kitchen table).&lt;/li&gt;
+&lt;li&gt;Desktops are noisy.&lt;/li&gt;
+&lt;li&gt;Although mobile devices let you do a lot of &amp;lsquo;reading&amp;rsquo; away from your desk, they aren&amp;rsquo;t very good for writing: email, blog posts, code - you name it.&lt;/li&gt;
+&lt;li&gt;Home built desktops make you into a hardware technician whether you like it or (in my case) not.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My experiences, especially in having to troubleshoot hardware, have led me to the conclusion that while the desktop experiment had some upside, I prefer an indestructible laptop if only because the hardware configuration is more stable. Yes, it is possible to have a flakey laptop but I&amp;rsquo;m several generations into Lenovo and they&amp;rsquo;ve all been solid. The big question going forward is whether my next laptop is a Lenovo or a Macbook. I suspect the latter but time (and the pocket book) will tell.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Learning F# with FizzBuzz: Match &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2011-01-22-learning-f-with-fizzbuzz-match/">Learning F# with FizzBuzz: Match</a></h1>
+			<span class="post-date">Jan 22, 2011 </span>
+			<div class="post-content">
+				<div class='post'>
+<h3><font color="#0000ff">{</font></h3>  <p>I had previously done <a href="http://metadeveloper.blogspot.com/2011/01/learning-f-with-fizzbuzz.html">a solution</a> for FizzBuzz in F# (from a long time ago) but now that I’m more familiar with the idioms of F# I tend more towards pattern matching instead of if/else logic for quite a few scenarios. Here is an example of my rewriting what could otherwise been a conditional if/else checking for factors of 3 and 5, but using a pattern match instead. </p>    <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 10pt; overflow: auto; padding-top: 10px">#light <br />let fizz num = <br />    match (num % 3 = 0) with <br />    | true -&gt; &quot;fizz&quot;<br />    | false -&gt; &quot;&quot;<br /><br />let buzz num = <br />    match (num % 5 = 0) with <br />    | true -&gt; &quot;buzz&quot;<br />    | false -&gt; &quot;&quot;<br /><br />let outform num fizCalc = <br />    match fizCalc.ToString().Length = 0 with<br />    | true -&gt; num.ToString()<br />    | false -&gt; fizCalc<br /><br />let rec printer nums =<br />    match nums with<br />    | [] -&gt; printfn &quot;-&quot;<br />    | h::t -&gt;         <br />        printfn &quot;%s&quot; (outform h ((fizz h) + (buzz h)))<br />        printer t<br /><br />let numbers = [1..100]<br />printer numbers</pre><br /><br /><br /><br /><p>Although I read claims that if/else conditional operations are more readable, I think the pattern match used consistently across scenarios above makes for something I find quite readable.</p><br /><br /><h3><font color="#0000ff">}</font></h3>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

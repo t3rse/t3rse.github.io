@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Generics &#43; Bad Idea Jeans &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-07-26-generics-bad-idea-jeans/">Generics &#43; Bad Idea Jeans</a></h1>
+			<span class="post-date">Jul 26, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I can't get the <a href="http://snltranscripts.jt.org/90/90abadidea.phtml">Bad Idea Jeans</a> SNL sketch out of my head, but I'm not sure I trust myself.  At the request of a coworker, I wrote the following to show how a generic Dictionary could be returned from a method with underlying types for key/value stated ahead of time:<br /><br /><div style="background-color: gray; color: white;"><br /><blockquote><br /><pre><br />public static Dictionary&lt;X, G&gt; BuildDictionary&lt;X, G&gt;(string cmd, string keyColumn, string valColumn) {<br /> Dictionary&lt;X, G&gt; myDictionary = new Dictionary&lt;X, G&gt;();<br /> SqlDataReader rd = new SqlCommand(cmd, GetConnection()).ExecuteReader();<br /> while (rd.Read()) {<br />  myDictionary.Add((X)rd[keyColumn], (G)rd[valColumn]); // ? good idea?<br /> }<br /> rd.Close();<br /> return myDictionary;<br />}<br /></pre><br /></blockquote><br /></div><br /><br />It leverages generics to define the returned dictionary so that a call could be made like this:<br /><br /><div style="background-color: gray; color: white;"><br /><blockquote><br /><pre><br />Dictionary&lt;int, int&gt; data = DBDictionary.BuildDictionary&lt;int, int&gt;("myproc", "key", "val");<br /></pre><br /></blockquote><br /></div><br /><br />Perhaps I'm paranoid, or I've been burned too much, or I'm not scared of a little type dynamism, but this seems like a Bad Idea.  The big reason, of course, is the casting that goes on in the method:<br /><br />myDictionary.Add((X)reader["someField"], (G)reader["someField"]);<br /><br />Reasons for my anxiety?<br />1. What if the underlying field has a change of type?  You won't know until runtime when things blow up.<br />2. Maintenance if underlying field type does, in fact, change.  If being type specific is avoided, you can gracefully accept these changes without a recompile.  Even if your lookup (what's in the dictionary) is used, if it's passed to a SqlCommand as a parameter (which is the way I normally do it), the reference it expects is to an object type as in:<br /><br />SqlParameter para = new SqlParameter("@Foo", objectRef);<br /><br />3. I'm not afraid of strings.  Over time I've been more reluctant to convert things, especially numbers.  For example, if a numeric value is passed in the querystring, like:<br /><br />http://myserv/Page.aspx?custId=101<br /><br />Why should we convert custId to a numer if it's going to be passed to a parameter (see code above)?  Another scenario is when some underlying value is going to end up in a textbox.  I do not fear the string, just the Convert.ToXXYYZZ code I'd have to type out if I did want to be "type safe."<br /><br />But some may feel differently, especially the ones who think that if something in the database changes you may want to intentionally have your code break so that you're aware of it.  That's the only idea besides premature optimization that I can use to justify this approach...<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>falco348</div>
+<div class='content'>
+Hey what a great site keep up the work its excellent.<BR/><A HREF="http://jarre.at/arbeitsschutz_unfallverhuetung.html" REL="nofollow">&raquo;</A></div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

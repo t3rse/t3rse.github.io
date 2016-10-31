@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Using SGMLParser With IronPython &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-12-31-using-sgmlparser-with-ironpython/">Using SGMLParser With IronPython</a></h1>
+			<span class="post-date">Dec 31, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>Mark Pilgrim's excellent Dive Into Python has <a href="http://diveintopython.org/html_processing/index.html">a section</a> on using SGMLParser and having seen nothing similar (and imagining its many uses!) I thought I'd give it a whirl in IronPython. I thought a good proof of concept would be creating a database out of link heavy sites.&#160; Since I visit <a href="http://www.aldaily.com/">Arts &amp; Letters Daily</a> every so often and the closet intellectual in me likes to hang onto what I find there, I thought I'd target it: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">import urllib2<br />import sgmllib<br />from sgmllib import SGMLParser<br /><br />import clr<br />clr.AddReference(&quot;System.Data&quot;)<br />clr.AddReference(&quot;System.Net&quot;)<br />from System import *<br />from System.Data import *<br />from System.Net import *<br /><br />class AlReader(SGMLParser):<br />    def reset(self):<br />        SGMLParser.reset(self)<br />        self.urls = []<br />        self.pieces = []<br />        self.track = 0<br />        self.prePend = &quot;No Category&quot;<br />        self.counter = 0<br />        <br />    def start_a(self, attrs):<br />        href = [v for k,v in attrs if k == &quot;href&quot;]<br />        key = [v for k,v in attrs if k == &quot;name&quot;]<br />        if href:<br />            self.urls.extend(href)<br />            self.track = 1<br />        elif key:<br />            self.prePend = attrs[0][1]<br />    <br />    def handle_data(self, text):<br />        if self.track:<br />            self.pieces.append(&quot;|&quot;.join([self.prePend, text]))<br />            self.counter = self.counter + 1<br />    <br />    def end_a(self):<br />        self.track = 0<br />    <br />    def get_links(self):<br />        links = []<br />        for i in range(0, len(self.urls)):<br />            links.append(&quot;|&quot;.join([self.pieces[i], self.urls[i]]))<br />        return links<br />        #print &quot;%s %s&quot; % (self.counter, &quot;Total links&quot;) <br />    <br />    def get_link_datatable(self):<br />        d = DataTable()<br />        d.Columns.Add(DataColumn(&quot;Category&quot;, Type.GetType(&quot;System.String&quot;)))<br />        d.Columns.Add(DataColumn(&quot;Site&quot;, Type.GetType(&quot;System.String&quot;)))<br />        d.Columns.Add(DataColumn(&quot;Url&quot;, Type.GetType(&quot;System.String&quot;)))<br />        <br />        for text in self.get_links():<br />            newRow = d.NewRow()<br />            newRow[&quot;Category&quot;], newRow[&quot;Site&quot;], newRow[&quot;Url&quot;] = text.split(&quot;|&quot;)<br />            d.Rows.Add(newRow)<br /><br />        return d<br />        <br />response = urllib2.urlopen(&quot;http://www.aldaily.com&quot;)<br />a = AlReader()<br />a.feed(response.read())<br />linkdata = a.get_link_datatable()<br /># write it out to prove we got it.<br />ds = DataSet()<br />ds.Tables.Add(linkdata)<br />ds.WriteXml(&quot;c:\\temp\\arts and letters links.xml&quot;)</pre><br /><br /><p>If you find tihs interesting do make sure you look at Pilgrim's <a href="http://diveintopython.org/html_processing/index.html">chapter on HTML Processing</a>.&#160; </p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

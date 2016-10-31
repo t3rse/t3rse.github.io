@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Twining: Iron Python DSL for DB Update V &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-03-19-twining-iron-python-dsl-for-db-update-v/">Twining: Iron Python DSL for DB Update V</a></h1>
+			<span class="post-date">Mar 19, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I'm still at it with Twining. A few projects and events have distracted me temporarily but I had a few moments last night to do a few things that I've intended to for some time.&nbsp; First a summary of functionality with what's new in red.</p> <p><font face="Courier New" size="2">cn = "Data Source=.\\sqlexpress;Initial Catalog=MyDB1;Integrated Security=SSPI;"<br>cn2 = "Data Source=.\\sqlexpress;Initial Catalog=MyDB2;Integrated Security=SSPI;" </font> <p><font size="2"><font face="Courier New"><font color="#ff0000"># dest, source (you can use the same source column over and over)<br># dest, source can be field names, example below uses ordinal position<br>colmap = {"DestinationField1":1, "DestinationField2":2, "DestinationField3":1}<br>database(cn).table("MyTable").mapcolumns(colmap).importfrom.csv("C:\\foo.csv")</font> </font></font> <p><font face="Courier New" size="2">#old stuff<br>mytrans = {"Field1":"upper","Field2": lambda x: x.upper(),"Field3": lambda x: x[::-1]}<br>database(cn).table("MyTable").transform(mytrans).copyto.database(cn2)<br>database(cn).table("MyTable").transform(mytrans).copyto.xmlFieldsAsAttributes("c:\\here.xml")<br>database(cn).table("MyTable").transform(mytrans).copyto.xmlFieldsAsElements("c:\\there.xml")<br>database(cn).table("MyTable").transform(mytrans).copyto.delimited("\t", "c:\\foaf.tsv")<br>database(cn).table("MyTable").copyto.delimited("\t", "c:\\foaf_no_trans.tsv")<br>database(cn).table("MyTable").transform(mytrans).copyto.csv("c:\\foo.csv")<br>database(cn).table("MyTable").copyto.xmlFieldsAsAttributes("c:\\here.xml")<br>database(cn).table("MyTable").copyto.xmlFieldsAsElements("c:\\there.xml")<br>database(cn).backupto("C:\\temp\\loungin.bak")</font>  <p>Footnotes: I'm working on changing my implementation of all things CSV/delimiter to using ADO.NET providers - the manually concatenated strings were just proof of concept. Back in 2004 in <a href="http://discuss.techinterview.org/default.asp?joel.3.1282.11">a thread</a> that none other than Joel Spolsky responded to I learned not to try to reinvent a very hard CSV wheel. <p>The other bigger change I made was breaking the project apart. What was originally in multiple files as a "sketch" was becoming a nuisance besides poorly structured. I've deconstructed into the following files:  <p>registrar.py - holds global, static data.<br>sqlhelper.py - runs dynamic sql statements<br>errorhandle.py - exception handling<br>database.py - reference to databases, constituent tables, and holds the copyto and importfrom objects<br>copyto.py - object for exporting as CSV, XML, and database to database<br>importfrom.py - object for importing data (currently on rough sketch for CSV import)  <p>Most remains unchanged from the last upload but here is the code for the importfrom functionality: <pre>import clr<br />clr.AddReference("System.Data")<br />from System import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br />from System.Data.OleDb import *<br />from System.IO import *<br /><br />from registrar import *<br />from sqlhelper import *<br /><br /><br />class importfrom:<br />	"""Model data import process"""<br />	<br />	def __init__(self):<br />		self.columnmap = {}<br />	<br />	def build_destination(self):<br />		""" If destination does not exist, construct table"""<br />		pass<br />	<br />	def csv(self, path):<br />		""" Import data from a csv file """<br />		fileName = path.split("\\")[-1]<br />		fileDir = path.replace(fileName, "")<br />		connect = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='text;HDR=No;FMT=Delimited'"<br />		csvConnection = OleDbConnection(String.Format(connect, fileDir))<br />		csvConnection.Open()<br />		csvCommand = OleDbCommand("select * from " + fileName, csvConnection)<br />		sourceReader = csvCommand.ExecuteReader(CommandBehavior.CloseConnection)<br />		masterInsert = ""<br /><br />		while sourceReader.Read():<br />			cols, vals = "", ""<br />			for k in self.column_map.keys():<br />				cols, vals = cols + "[" + k + "],", vals + "'" + str(sourceReader[self.column_map[k]]) + "',"<br />			masterInsert += "insert into " + registrar.tableRegister + "(" + cols[:-1] + ")VALUES(" + vals[:-1] + ")\n"<br />		sourceReader.Close()<br /><br />		try:<br />			sqlhelper().run_sql(registrar.databaseRegister, masterInsert)<br />		except Exception, inst:<br />			errorhandle().print_error("Error occured during import", inst)<br /></pre><br /><p><a href="http://www.seruyange.com/metadeveloper/Twining.zip">Download everything here</a> as a zip file. I've hopefully carved a little space in the schedule amongst various projects to spend more time going back and polishing things. I've just been tasked with migrating about 120,000 records out of Excel so this should provide a good opportunity to add functionality and test it's breakability for the type of thing I often have to do.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Hey Robert, <BR/><BR/>The story I'm hoping for this will be: <BR/><BR/>database('excel').tables('sheet1').copyto.database('mydb')<BR/><BR/>Since I find myself having to do this often, I'm willing to deal with some pain and nuances for an easy one liner in the future. I've seen a lot of "copy/paste" approaches to importing data from excel and because it's something one can't automate I tend to avoid it.<BR/><BR/>Hopefully no mangling will take place but I do need to check out Resolver.</div>
+</div>
+<div class='comment'>
+<div class='author'>robert</div>
+<div class='content'>
+Wow. That looks like a hard way to solve your problem. <BR/><BR/>If you absolutely have to mangle Excel data through Python and into a database... can I recommend Resolver? It won't cost you anything and it might just solve your problem.<BR/><BR/>Cheers, Robert</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

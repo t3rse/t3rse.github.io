@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> NDepend vs Me &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-06-21-ndepend-vs-me/">NDepend vs Me</a></h1>
+			<span class="post-date">Jun 21, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 102, 255);font-size:180%;" >{</span><br /><br />I didn't manage a blog post during TechEd but I'll take a stab at a few things that have swilled in my mind since then.  The first thing I've been working on is understanding <a href="http://www.ndepend.com/">NDepend</a>, the tool for static analysis.  I went to a "Birds of a Feather" spearheaded by <a href="http://www.cauldwell.net/patrick/blog/">some</a> <a href="http://ferncrk.com/blog/">folks</a> from Corillian and had to keep my mouth shut tight so as not to look a fool. Luckily many of the folks there were like me: they knew about static analysis as a concept but were trying to figure out how they could make good use of it.<br /><br />It will be quite some time before we have static analysis as a part of our build process but I'm most interested in using a tool like NDepend to take the emotion out of code reviews.  That is to say that while I do love a vigorous discussion on style and preference, there are concrete measures one can look at objectively to evaluate the well being of software design.<br /><br />While I'm shaky on the exact meaning of all the metrics (it was suggested to run repeatedly looking for trends) I ran it against a project that has pretty much taken my thirty first year on this earth.  For a while that's been on my "to do" list but I think there's always a bit of hesitancy on my part when I'm about to be brutally honest with myself; I designed this software and wrote quite a bit of the code. <br /><br />The results weren't great, but they weren't horrible.  When I used it on the libraries by themselves, the visualizations of the dependencies seemed clean and tidy, and many of the metrics weren't too badly outside of some of the pointers in <a href="http://www.hanselman.com/blog/EducatingProgrammersWithPlacematsNDependStaticAnalysisPoster.aspx">the cheat sheet</a> we got.<br /><br />However.<br /><br />There are some obvious weaknesses that came to light.  First and foremost, we were solidly in the zone of instability for most of our assemblies.  There are two things that were suspicions now confirmed: first, we didn't have a very formal design process.  I need to get better at perceiving my job at an architect level versus as a coder.  The second is that we rushed.  The rush was not just a schedule thing, it can also be attributed to our short release cycles.  The agile folks recommend these, but it should be balanced with a period of silence at the beginning when overall design decisions are being made.  The final item, which NDepend would have helped us with in a continuous integration cycle, was showing unused code.  After a year's worth of work it's hard to look at so much and except oneself to clean it up, but as a weekly task it would be an easy way to keep things healthy and tight.<br /><br />Final note: running NDepend is ridiculously easy.  The hardest thing besides looking at metrics and trying to understand them is having the courage to look objectively at what you've done.<br /><br /><span style="color: rgb(51, 102, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

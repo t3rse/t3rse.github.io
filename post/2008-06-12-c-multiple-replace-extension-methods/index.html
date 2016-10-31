@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> C# Multiple Replace Extension Methods, Levithan Style &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-06-12-c-multiple-replace-extension-methods/">C# Multiple Replace Extension Methods, Levithan Style</a></h1>
+			<span class="post-date">Jun 12, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A couple of nights ago I <a href="http://metadeveloper.blogspot.com/2008/06/regex-replace-multiple-strings-in.html">blogged</a> about an implementation of a technique to replace multiple patterns in a string on a single pass. Steve Levithan had <a href="http://blog.stevenlevithan.com/archives/multi-replace">an entry</a> on the approach (not mine in specific, just the approach and commenting on a few weaknesses). It inspired a few things out of me: first, making the multiple replace an extension method of the string class, and second to duplicate Steve's approach which enables a more robust model because you can use metasequences etc... </p>  <p>Here is the code (included the using statement since the use of ToArray() from the Dictionary key collection isn't available without System.Linq): </p>  <pre>using System;<br />using System.Linq;<br />using System.Collections.Generic;<br />using System.Text.RegularExpressions;<br /><br />static class RegexExtender {<br />    public static string MultiReplace(this string target, Dictionary<string , string> replacementDictionary) {<br />        return Regex.Replace(target,<br />                                &quot;(&quot; + String.Join(&quot;|&quot;, replacementDictionary.Keys.ToArray()) + &quot;)&quot;,<br />                                delegate(Match m) { return replacementDictionary[m.Value]; }<br />                                );<br />    }<br /><br />    public static string LevithansMultiReplace(this string target, Dictionary<string , string> replacementDictionary)<br />    {<br />        foreach (string key in replacementDictionary.Keys) {<br />            Regex r = new Regex(key, RegexOptions.None);<br />            target = r.Replace(target, replacementDictionary[key]);<br />        }<br />        return target;<br />    }<br /><br />}</pre><br /><p><br />Here is some usage:<br /></p><br /><pre><br /><br />// the original approach, as an extension method<br />string x = "Holly was a hunter";<br />Dictionary<string, string> rdict = new Dictionary<string, string>();<br />rdict.Add("Holly", "Hannah");<br />rdict.Add("hunter", "hatter");<br />Console.WriteLine(x.MultiReplace(rdict));<br /><br />// Steve's technique<br />rdict = new Dictionary<string, string>();<br />rdict.Add(@"[A-z]", "x");<br />rdict.Add(@"\d", "y");<br />string test = "David is 33";<br />Console.WriteLine(test.LevithansMultiReplace(rdict));<br /></pre><br /><br><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+I think at the time I wrote this the regular .NET Dictionary defaulted to have a string key/value pair. Now you will need to use a strongly typed Dictionary. <br /><br />That is: Dictionary&lt;string, string&gt; instead of just Dictionary.</div>
+</div>
+<div class='comment'>
+<div class='author'>Marc W</div>
+<div class='content'>
+LevithansMultiReplace will not compile for me.  Any idea what I&#39;m missing?</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

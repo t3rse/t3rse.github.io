@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Twining &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-04-01-twining/">Twining</a></h1>
+			<span class="post-date">Apr 1, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I've been quiet but still working on <a href="http://www.t3rse.com/twining">Twining</a>.&nbsp; Unfortunately lots of distractions at work have slowed me down. Most of what I've done of late is adding unit tests for the functionality that already exists.&nbsp; I twittered that adding unit tests <em>a posteriori</em> is not fun and tends to have the effect of one simply verifying what they've done with pasted code.&nbsp;&nbsp; Now that most of that is done I'd like to add a few things: </p> <p>1. Operating on queries like tables for export and copy.&nbsp; Everywhere that you see "table" below, I'd like to have "query":<br></p><pre class="csharpcode">database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.database(cn2)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.xmlFieldsAsAttributes(<span class="str">"c:\\here.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.xmlFieldsAsElements(<span class="str">"c:\\there.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.delimited(<span class="str">"\t"</span>, <span class="str">"c:\\foaf.tsv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.delimited(<span class="str">"\t"</span>, <span class="str">"c:\\foaf_no_trans.tsv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).transform(mytrans).copyto.csv(<span class="str">"c:\\foo.csv"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.xmlFieldsAsAttributes(<span class="str">"c:\\here.xml"</span>)<br />database(cn).table(<span class="str">"MyTable"</span>).copyto.xmlFieldsAsElements(<span class="str">"c:\\there.xml"</span>)</pre><pre class="csharpcode">how about: </pre><pre class="csharpcode">database(cn).query(<span class="str">"select this, that, [the other] from foo"</span>).copyto.csv(<span class="str">"c:\\querydata.csv"</span>)</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p><font color="#0000ff"><font color="#000000">2. Support for SqlBulkCopy - as far as I know this is only available between Sql Servers (or, more specifically SqlConnection instances).</font></font></p><br /><p>3. Cloning of tables - if you use sql server, this is quite simple with the following TSQL:</p><pre class="csharpcode"><span class="kwrd">SELECT</span> * <span class="kwrd">INTO</span> MYCOPYTABLE <span class="kwrd">FROM</span> MYORIGINALTABLE <span class="kwrd">WHERE</span> 1 = 2</pre><br /><p><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br />4. Database "ping" - just a simple way to test connection strings.</p><pre class="csharpcode">cn = <span class="str">"my connection string"</span><br />database(cn).ping() </pre><br /><p>5. Inspired by ConfigObj I'm wondering what a JSON like table definition would look like. In ConfigObj, you can define things like: </p><pre class="csharpcode">section2 = {<br />    <span class="str">'keyword5'</span>: <span class="str">'value5'</span>,<br />    <span class="str">'keyword6'</span>: <span class="str">'value6'</span>,<br />    <span class="str">'sub-section'</span>: {<br />        <span class="str">'keyword7'</span>: <span class="str">'value7'</span><br />        }<br />}</pre><br /><p>I wonder if one could have the following for a table: </p><pre class="csharpcode">tableDef = {<br />    <span class="str">'personid'</span>: {<br />        <span class="str">'datatype'</span>:<span class="str">'int'</span>,<br />        <span class="str">'identity'</span>:<span class="str">'true'</span>,<br />        <span class="str">'seed'</span>:1        <br />    },<br />    <span class="str">'firstname'</span>:[<span class="str">'varchar'</span>,50, <span class="str">'null'</span>]<br />}</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br />Just something to gnaw on... <br /><p>&nbsp;</p><br /><p>I'll hopefully get a chance to work on this stuff soon. </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

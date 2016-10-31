@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Remove Duplicate Lines In Python &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-07-29-remove-duplicate-lines-in-python/">Remove Duplicate Lines In Python</a></h1>
+			<span class="post-date">Jul 29, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />I had posted about the set operator in Python with some questions.  All that changed today when I wrote a little script to remove duplicate lines from a file. The set operator takes a list and automatically gets rid of duplicate items.  Very useful for situations like this:<br /><br /><pre style="margin: 1em 0pt; padding: 10px; background: rgb(0, 0, 0) none repeat scroll 0% 50%; overflow: auto; font-family: courier; font-size: 12pt; color: rgb(238, 238, 238); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; width: 425px;"><br />#!/usr/bin/env python<br /><br />f = open("c:\\temp\\Original.txt")<br />f2 = open("c:\\temp\\Unique.txt", "w")<br />uniquelines = set(f.read().split("\n"))<br />f2.write("".join([line + "\n" for line in uniquelines]))<br />f2.close()<br /></pre><br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Ramen</div>
+<div class='content'>
+But the problem is the set operator automatically sort after removing the duplicate...What if we don&#39;t want to change the order...</div>
+</div>
+<div class='comment'>
+<div class='author'>Covert Assassin</div>
+<div class='content'>
+Hi.. I just used this one to eliminate duplicates in my file. I would like to know more about this function set. I&#39;m seriously left wondering how did such few LOC do that perfectly?! Any thoughts?</div>
+</div>
+<div class='comment'>
+<div class='author'>G.T. Rajpurohit</div>
+<div class='content'>
+it is great.<br />but it alter the sequence of file in it</div>
+</div>
+<div class='comment'>
+<div class='author'>Admin</div>
+<div class='content'>
+Superb!<br /><br />I had a database in filemaker with 250000 records and had written a script to delete duplicates. I was looking at around 24 hours to run that in Filemaker.<br /><br />Exported it as a CSV and ran your code in Python. Took less than 3 seconds and spat out a CSV that I imported back to filemaker.<br /><br />Thank you!</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

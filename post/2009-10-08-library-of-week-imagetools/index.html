@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Library Of The Week: ImageTools &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-10-08-library-of-week-imagetools/">Library Of The Week: ImageTools</a></h1>
+			<span class="post-date">Oct 8, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’m not exactly sure of the reasoning, but Silverlight <strong>does not</strong> have support for either GIF or BMP file formats. This is to say that if you use the Image control, you will be unsuccessful setting the source property to a GIF/BMP file. It’s heresay from nearly a year ago but a member of the Silverlight team, Ashish Thapliyal, <a href="http://blogs.msdn.com/ashish/archive/2008/04/03/silverlight-roadmap-questions.aspx">posted on (his|her) blog</a> the following: </p>  <blockquote>   <p>“We don’t want to take the hit for another codec. It may only be a little bit of download time—but our mandate is small and fast and every little bit counts. We are also hesitant to support .gif because it implies support for animated .gif, which we decided would have to be integrated into our animation scheme somehow—and that will be a lot of work. </p>    <p>Looking from Flash perspective, Flash does not support .gif either. However, as of present, this is something being evaluated, but no date has been announced.”</p> </blockquote>  <p>Initially it was this roadblock that led me down the path to <a href="http://imagetools.codeplex.com/">ImageTools</a>. ImageTools is a project that provides Silverlight with good support for GIF and BMP amongst other formats, complete with its own Image control that allows a user to preview either format. It’s been a lifesaver for me on my current project since we have a requirement for preview capability with both. </p>  <p>ImageTools is more than just support for those antiquated formats. Once you’ve downloaded the latest release you’ll see there are a series of demos to look at: </p>  <p><strong>Animation      <br /></strong>This project shows how easy it is to load an image using the AnimatedImage type. All the sample files are GIF format.</p>  <p><strong>Colors</strong>     <br />This project shows the ability to apply brightness and contrast to images on the fly using the ImageTools.Image type.</p>  <p><strong>Dialog</strong>     <br />Asynchronously loading an image file using ImageTools.Image with IsLoadingSynchronously flag.</p>  <p><strong>Editor</strong>     <br />Shows the ImageEditorContainer control and some editing features</p>  <p><strong>Flip</strong>     <br />Shows the ImageTools.Image.Transform method which supplies not just the ability to rotate, but also to “flip” the pixels within an image either on the X or Y axis (horizontally or vertically)</p>  <p><strong>Loading</strong>     <br />I’m not completely sure why this is called “loading” because there’s a lot more going on here: the AnimatedImage control is on display with the ability to apply filters to images that are loaded. The examples given are&#160; Sepia, Inverter, and GrayscaleBT709.&#160; The IImageFilter interface allows an extensible way to define filters, look into the ImageTools.Filtering library to see the interface and other filters available.</p>  <p><strong>Resizing</strong>     <br />Shows dynamic resizing of an existing image (returns an Image object with resized Image type)</p>  <p><strong>SaveCanvas</strong>     <br />Pretty sick; this handy extension method can return an Image object representing any canvas. </p>  <p>As you can see, my simple problem of needing support for more image formats resulted in finding a library that went the distance in giving a developer flexibility with image manipulation. One more thing, I love the dependency injected goodness of how the library works. Here’s a little snippet of code to give you an idea of how well designed (extensible!) the library is: </p>  <p>1. Add a reference to ImageTools, ImageTools.IO.Bmp, ImageTools.IO.Gif</p>  <p>2. Here is code to load the files – notice the Decoders.AddDecoder takes the generic type parameter to dynamically support the desired file format which means you need only reference the format specific libraries that you need: </p>  <p></p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">    public partial class MainPage : UserControl<br />    {<br />        public MainPage()<br />        {<br />            InitializeComponent();<br />            <span style="color: #00ff00">// add decoders</span><br />            <span style="color: orange">Decoders.AddDecoder&lt;BmpDecoder&gt;();<br />            Decoders.AddDecoder&lt;GifDecoder&gt;();</span><br />        }<br /><br />        private void Button_Click(object sender, RoutedEventArgs e)<br />        {<br />            OpenFileDialog ofd = new OpenFileDialog();<br />            if (ofd.ShowDialog() == true)<br />            {<br />                <span style="color: #00ff00">// because decoders are taken care of, <br />                // load images as needed!</span><br />                <span style="color: orange">ImageTools.Image i = new ImageTools.Image();</span><br />                using(FileStream fs = ofd.File.OpenRead()){<br />			<span style="color: #00ff00">// note: myImage is ImageTools.Controls.AnimatedImage</span><br />			<span style="color: orange">i.SetSource(fs);<br />	                myImage.Source = i;</span><br />		}<br />            }<br />            <br />        }<br />    }</pre><br /><br /><p></p><br /><br /><p>It's a bummer when support for things, like well known file formats like GIF are not supported via a more arbitrary decision making process but the consolation is that it’s an opportunity for people make up for it in the community. <a href="http://imagetools.codeplex.com/">ImageTools</a> is a great library, every Silverlight developer should check it out.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

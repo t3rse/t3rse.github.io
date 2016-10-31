@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Getting Random Rows, Random Numbers with Sql Server &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2011-06-10-getting-random-rows-random-numbers-with/">Getting Random Rows, Random Numbers with Sql Server</a></h1>
+			<span class="post-date">Jun 10, 2011 </span>
+			<div class="post-content">
+				<div class='post'>
+<h2><font color="#0000ff">{</font></h2>  <p>The 5 second version of this, should you arrive via search, is that to get random rows, simply use an TOP query with&#160; <strong><em>ORDER BY NewId()</em></strong> expression. It’s really that simple! Take a look: </p>  <pre class="brush:sql">-- SAMPLE TABLE<br />CREATE TABLE Keywords(<br />	KeywordId INT IDENTITY(1,1) PRIMARY KEY, <br />	KeywordValue VARCHAR(50)<br />)<br />GO<br /><br />-- SAMPLE DATA<br />DECLARE @N INT<br />SET @N = 1<br />WHILE @N &lt; 101 BEGIN<br />	INSERT INTO Keywords(KeywordValue)<br />		VALUES('key word ' + CONVERT(VARCHAR(5), @N))<br />	SET @N = @N + 1<br />END<br /><br />-- A TOP QUERY WITH ORDER BY NEWID()<br />SELECT TOP 5 * FROM Keywords ORDER BY NEWID()</pre><br /><br /><p>The longer version of this is that I recently was asked to generate random keywords for a website I was working on with a lookup table. Getting random numbers in TSQL is easy, the RAND() function does all the magic but getting rows is a lot more tricky, especially if you want to make sure you exclude anything you’ve previously retrieved. The above technique worked quite well and made it easy to allow for them to add and remove keywords on demand. </p><br /><br /><p>One interesting application of this is that you can combine it with RAND() to get random numbers via multiplier and random rows (RAND gets a random between 0 and 1 leaving you the responsibility to multiply it to control the range you want). </p><br /><br /><p>Here is where I thought this could be taken as a flexible way to get random numbers within a bounded range: </p><br /><br /><pre class="brush:sql">-- get a series of random numbers<br />SELECT TOP 5 Rand() * KeywordId FROM Keywords ORDER BY NEWID()</pre><br /><br /><p>There’s a lot of flexibility but SQL Server makes it trivial.&#160; </p><br /><br /><h2><font color="#0000ff">}</font></h2>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

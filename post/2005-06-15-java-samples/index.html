@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Java Samples &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2005-06-15-java-samples/">Java Samples</a></h1>
+			<span class="post-date">Jun 15, 2005 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(0, 0, 153);font-size:180%;" >{</span><br /><br /><span style="font-size:85%;">Generated during class with South Dakota State employees but hopefully useful to anyone who wanders this way.<br /><br />[<span style="color: rgb(255, 0, 0); font-weight: bold;">NOTE: My web host doesn't serve the *.java files, so download the zipfile at the end of this post instead. I'll rename with *.txt later.</span>]<br /><br />We began things with a Hello World program in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Hello.java">Hello.java</a>. Soon after we talked about defining classes, the basic building block of any java program. <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Clerk.java">Clerk.java</a> shows an example of a class with fields, methods, getters and setters (accessor methods), and a constructor. Along the way we also learned about overloading, as seen in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Calculator.java">Calculator.java</a>.<br /><br />We learned more details about class definitions: <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Clock.java">Clock.java</a> (check with <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/TestClock.java">TestClock.java</a>) and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Employee.java">Employee.java</a> are examples of how you can chain constructors. <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/BankAccount.java">BankAccount.java</a> was used to show the difference between static and instance methods and fields.  You can see the BankAccount class tested in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Thursday.java">Thursday.java</a>.  Once we were comfortable with the static keyword, we talked about defining constants, using <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Constants.java">Constants.java</a> as our example.<br /><br />We had a chapter that covered arrays, in which we looked at <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/UsingArrays.java">UsingArrays.java</a>. I added an aside about Collection classes in java, which are a more robust alternative to arrays in most cases, and we looked at <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Swapmeet.java">Swapmeet.java</a>. Even though I got the bubble sort wrong in class, it's fixed in this example with some helper methods, sortMyArray and printArray. We looked at working with Calendars and dates in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/TestBed.java">TestBed.java</a>.  I also included a <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DateDiff.java">DateDiff.java</a> that shows how to get the functionality of a basic DateDiff command.  Like other things, it's ugly in java.<br /><br />You saw one class from the swing library, the JOptionPane, which was used to talk about getting user input. I also showed you the BufferedReader along with it in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Dialoging.java">Dialoging.java</a>. I would recommend the BufferedReader approach if your application runs from the command line, personally. For most other examples in class, we used <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/EasyConsole.java">EasyConsole.java</a>, which abstracted reading and writing from the console with a few simple methods.<br /><br />At this point we began to cover inheritance.  We looked at a basic inheritance heirarchy in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Person.java">Person.java</a>, <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/InhEmployee.java">InhEmployee.java</a>, and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Executive.java">Executive.java</a>.  We looked at abstract classes in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Shape.java">Shape.java </a>and we briefly looked at interfaces in <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/IPrintable.java">IPrintable.java</a>.<br /><br />We closed out with the basics of exception handlers and subclassing exception. The try{..}catch{...}finally{...} is probably best introduced by your material.<br /><br />Our final two topics were File I/O and parsing XML documents.  On the File I/O side, I had two classes: <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DavidFileReader.java">DavidFileReader.java</a> to demonstrate methods of reading from a file stream, and <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/DavidFileWriter.java">DavidFileWriter.java</a>, to demonstrate writing to a file stream.  In terms of XML, I have a class called <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Xreader.java">Xreader.java</a> which should help you get started parsing XML files.<br /><br />Wow, that was a lot for three days. Even typing it out makes me tired. In regards to the samples, you can download them individually, or you can <a href="http://hobbitwerk.brinkster.net/metadeveloper/PierreJava/Classfiles.zip">download a zip archive</a> of the entire set.  If you have questions or comments, don't hesitate to email me.</span><br /><br /><span style="color: rgb(0, 0, 153);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

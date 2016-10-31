@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Step In, Step Over, Step Out &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-03-29-step-in-step-over-step-out/">Step In, Step Over, Step Out</a></h1>
+			<span class="post-date">Mar 29, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Just a quick note from a late night's coding session, something that I sort of knew but finally got fed up enough to begin implementing everywhere.  I'm working on a fairly large Windows Forms application and one library devoted to safe type conversion is filled with methods like this (yes, could've used <span style="font-family:courier new;font-size:85%;">Int32.TryParse</span>, I'm not the original author though... ):<br /><br /><span style="font-family:courier new;font-size:85%;">private int ToInt32(object val){</span><br /><span style="font-family:courier new;font-size:85%;">  int ret = 0;</span><br /><span style="font-family:courier new;font-size:85%;">  try{ </span><br /><span style="font-family:courier new;font-size:85%;">    ret = Convert.ToInt32(val)</span><br /><span style="font-family:courier new;font-size:85%;">  }</span><br /><span style="font-family:courier new;font-size:85%;">  catch(Exception ex){</span><br /><span style="font-family:courier new;font-size:85%;">     // suppress</span><br /><span style="font-family:courier new;font-size:85%;">  }</span><br /><span style="font-family:courier new;font-size:85%;">  return ret;</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />It's nice to just attempt conversion and expect a zero for an invalid value, but it's annoying when you've got a method call like:<br /><br /><span style="font-family:courier new;font-size:85%;">MyCall(SafeConvert.ToInt32(num1), SafeConvert.ToDecimal(num2));</span><br /><br />The easy, clean fix is to apply the <span style="font-family:courier new;font-size:85%;">System.Diagnostics.DebuggerStepThrough</span> attribute to your method. Any calls to that method are stepped over, making your life in debug mode that much easier.<br /><br />System.Diagnostics has quite a few other debugger attributes, one of which allows you to mark code that came from a library you didn't write (<span style="font-family:courier new;font-size:85%;">DebuggerNonUserCode</span>).  Very useful indeed, especially when you've got unit tests that can assert something needs never be "debugged" again.<br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

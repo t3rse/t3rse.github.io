@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Parting the List &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2012-10-19-Parting-the-List/">Parting the List</a></h1>
+			<span class="post-date">Jan 1, 0001 </span>
+			<div class="post-content">
+				<p>Here’s a nice quick solution. Let’s say you have some List&lt;T&gt; and you need to separate it into chunks of some number N or less, for example taking 100 numbers and separating them into batches of 25. </p>  <div class="code">   <pre class="brush: csharp">List&lt;int&gt; myListOfNumbers = Enumerable.Range(1, 100).ToList();
+
+var parted = Enumerable.Range(0, myListOfNumbers.Count)
+						.GroupBy(n =&gt; n / 25) // &lt;-- clever sleight of hand here
+						.Select(n =&gt; n.Select(index =&gt; myListOfNumbers[index]).ToList());
+
+// prints 1-24, 25-49, 50-74, 75-100
+foreach (var part in parted) {
+	Debug.WriteLine(String.Join(&quot;,&quot;, part.Select(p =&gt; p.ToString())));
+}</pre>
+</div>
+
+<p>
+  <br />The sleight of hand I’m noting is a neat trick with integer division truncating or flooring values. You can fairly easily generalize this into a method where you pass a List&lt;T&gt; and a parameter for how many items you want in a group.</p>
+
+<div class="code">
+  <pre class="brush: csharp">Func&lt;List&lt;int&gt;, int, IEnumerable&lt;List&lt;int&gt;&gt;&gt; splitList = (list, groupSize) =&gt; {
+	return Enumerable.Range(0, list.Count)
+						.GroupBy(n =&gt; n / groupSize) 
+						.Select(n =&gt; n.Select(index =&gt; list[index]).ToList());            
+};
+
+List&lt;int&gt; primes = new List&lt;int&gt;(){ 2, 3, 5, 7, 11, 13, 17 };
+var primesGrouped = splitList(primes, 3);</pre>
+</div>
+
+<p>
+  <br />Pretty cool no? </p>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

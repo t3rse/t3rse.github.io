@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>t3rse</title>
+    <link>http://www.t3rse.com/index.xml</link>
+    <description>Recent content on t3rse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Oct 2016 21:27:26 -0500</lastBuildDate>
+    <atom:link href="http://www.t3rse.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>hello hugo</title>
+      <link>http://www.t3rse.com/post/hello-hugo/</link>
+      <pubDate>Tue, 18 Oct 2016 21:27:26 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/hello-hugo/</guid>
+      <description>&lt;p&gt;Just a hello from the world of Hugo.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About t3rse</title>
+      <link>http://www.t3rse.com/about/</link>
+      <pubDate>Tue, 18 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.t3rse.com/about/</guid>
+      <description>
+
+&lt;p&gt;I am a software developer based in Sioux Falls, South Dakota. I arrived here via Southern California and before that, East Africa. I have spent more than a decade working at my craft in all kinds of environments: publicly traded companies, small businesses, and startups amongst others.&lt;/p&gt;
+
+&lt;p&gt;My approach to work is inspired by 3 things&lt;sup&gt;1&lt;/sup&gt; I believe must exist in good software:&lt;/p&gt;
+
+&lt;h4 id=&#34;commodity&#34;&gt;Commodity&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;To serve some given purpose&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;firmament&#34;&gt;Firmament&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Durability under use&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;delight&#34;&gt;Delight&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Aesthetic and functional beauty&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I have always been interested in many things. As a programmer I like syntactical constructs and language. As an aesthete I am an architecture and design enthusiast. Both my background and education give me a penchant for literature, economics, history, and public policy. As a thinker I can’t evade brushes with the philosophical.&lt;/p&gt;
+
+&lt;p&gt;&lt;sup&gt;1&lt;/sup&gt;This idea was originally purposed for architecture by Vitrivius. I encountered them in the excellent book The Look of Architecture by Witold Rybczynski.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exhaustive Use</title>
+      <link>http://www.t3rse.com/post/2015-11-09-exhaustive-use/</link>
+      <pubDate>Mon, 09 Nov 2015 21:20:38 -0600</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-11-09-exhaustive-use/</guid>
+      <description>
+
+&lt;p&gt;I once read a book 12 times. By the 8th repeat it had become an overlap of entertainment and sport; I began to wonder just how many times could I get through from start to finish. Context is important here: the book was &lt;a href=&#34;https://en.wikipedia.org/wiki/Cannibal_Adventure&#34;&gt;Cannibal Adventure&lt;/a&gt; by Willard Price, I was 10 or 11, and we were stuck on a long road trip from Nairobi, Kenya to visit family in the hinterland of Uganda. As much as my siblings and I  tried to prepare to occupy oursevles, we always ran out of entertainment. It was perfectly normal to be bored enough to read each other&amp;rsquo;s books; I even remember reading a Sweet Valley High novel my sister brought along. Desperation has its boundaries though and I was soon back to the adventures of Hal and Roger in the wilds of New Guinea.&lt;/p&gt;
+
+&lt;p&gt;My experience is unique but glancing through reviews on Amazon I see a fellow with the following review of a Willard Price book:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I AM NOW 35 AND SOME OF MY BEST CHILHOOD MEMORIES ARE OF THE HOURS SPENT ON THE MANY ADVENTURES WITH
+HAL AND ROGER&amp;hellip;AT OUR LOCAL PUBLIC LIBRARY YOU COULD FIND MY NAME ON THE CHECK OUT RECORD FOR EACH AND
+EVERY BOOK (AT LEAST 10 DIFFERENT READINGS OF EACH) FROM AMAZON ADVENTURE
+TO AFRICA, DIVING,SOUTH SEAS,LION,WELL YOU UNDERSTAND.
+I HIGHLY RECOMEND THESE BOOKS FOR
+KIDS OF ALL AGES. AND THANKS TO WILLARD PRICE FOR TAKING THIS YOUNG BOY ALL AROUND THE WORLD VIA HAL AND ROGER HUNTS MANY ADVENTURES&amp;hellip;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I imagine this fellow was not stuck in a Toyota Corolla somewhere on the African savannah but like many fans of Price he returned to the material, again and again.&lt;/p&gt;
+
+&lt;p&gt;Today is so different; we have so much. It&amp;rsquo;s less that I&amp;rsquo;m old and more that I&amp;rsquo;m one of those people who lived both before and after the web. The internet in all its magnificence has given us the ability to experience the new all the time, not just in how we entertain oursevles but also in work. If you are a software engineer, every day a new framework, language, or tool becomes available. If you are an investor, markets are always open and the ticker tape never ends; as I write this on a Monday evening Asian markets are in full swing bridging the gap to the European open in a few hours and carry forward a synthesis of news and financial data into the open of the large American exchanges. Even if your profession doesn&amp;rsquo;t throttle you forward a person with even modest curiosity is easily overwhelmed by Wikipedia, Project Guttenberg, or the treadmill of pop culture. Your music collection is no longer a handful of CDs that you&amp;rsquo;ve carefully accumulated in small steps, it&amp;rsquo;s the internet and Pandora is not just in your browser - it&amp;rsquo;s everywhere. This means that you hear a lot but do you actually listen to anything?&lt;/p&gt;
+
+&lt;p&gt;It is the default but it doesn&amp;rsquo;t have to be that way; many of the people I admire throttle input and practice &lt;em&gt;exhaustive use&lt;/em&gt; of the resources that they have. Most programmers I admire stick with a language despite the waxes and wanes of fashion in the industry. The most significant things in the digital world are only built with time, iteration, and accretion so constant change is not possible.&lt;/p&gt;
+
+&lt;p&gt;The world of scholarship, even as humanities and the liberal arts are supposedly dying, is built upon exhaustive use: the classics instructor who have come to an intimate knowledge of Homer after hundreds of readings of The Odyssey, or the archaeologist who lives not just in the present but in a past surrounded by ancient script that hasn&amp;rsquo;t changed for thousands of years. In a world of &lt;em&gt;shallow use&lt;/em&gt; this is hard to understand - until you realize that this set of people interact with a world more rich and deep than can be had while flipping through young adult novels. It takes time to find the contours of ring composition or translate tablets written in dead languages.&lt;/p&gt;
+
+&lt;p&gt;Before I lose the engineers who read this because of my reference to the humanities, and before I lose anyone from the liberal arts because I can&amp;rsquo;t generalize beyond my professional inclinations, I want to make a small list of what exhaustive use means to me and then summarize.&lt;/p&gt;
+
+&lt;h4 id=&#34;exhaustive-use-means-multiple-encounters-over-an-extended-time-period&#34;&gt;Exhaustive use means multiple encounters over an extended time period&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A book which is reread over and over.&lt;/li&gt;
+&lt;li&gt;Many projects with the same programming language or framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;exhaustive-use-means-the-ability-to-construct-a-completely-mental-model-of-something-complex-because-of-depth-of-knowledge&#34;&gt;Exhaustive use means the ability to construct a completely mental model of something complex because of depth of knowledge&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Blindfold_chess&#34;&gt;Blind folded chess&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Vast memorization of narrative, context in a piece of literature&lt;/li&gt;
+&lt;li&gt;Defining software structure, architecture end-to-end without needing to write code.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.mocpages.com/moc.php/84927&#34;&gt;Improvisational lego&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;exhaustive-use-means-exclusion-of-unrelated-material&#34;&gt;Exhaustive use means exclusion of unrelated material&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Software Engineer focused on a single language/paradigm&lt;/li&gt;
+&lt;li&gt;Focus on a specific topic area for scholarship (e.g. Tolstoy, archaeology, valuation models etc)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;exhaustive-use-is-not-being-incurious&#34;&gt;Exhaustive use is &lt;strong&gt;not&lt;/strong&gt; being incurious&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Think the self-satisfied type who are disinterested in anything except their field of choice - I always suspect a lack of confidence or some other problem when I observe a person who is happily and/or wilfully ignorant.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In a world of overabundance it is counter cultural and might even feel wasteful to draw boundaries - to impose a fast of sorts on all that is possible. But the shallow use and experience of things, no matter the discipline, is the true wastefulness that stunts personal and professional growth. Rather than chasing after novelty perhaps it is what we already have in front of us, what we may feel that we already understand, that needs our attention - again - to yield from repeated effort and familiarity something that is truly meaningful.&lt;/p&gt;
+
+&lt;p&gt;I remember a bus ride home when I realized with dismay that I&amp;rsquo;d forgotten to charge my walkman batteries. I had 45 excruciating minutes to burn with no entertainment&amp;hellip; until I realized I could &amp;ldquo;play&amp;rdquo; my favorite album (&lt;a href=&#34;https://www.youtube.com/watch?v=MYwNLlTt3AQ&amp;amp;list=PL6FDF3250BBC152F6&#34;&gt;New Order, Technique&lt;/a&gt;) - melody, counter melody, percussion and all - right in my head. Not as a result of aptitude, but because I&amp;rsquo;d listened to it more than 100 times on that same trip home.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Podcast Listening Habits</title>
+      <link>http://www.t3rse.com/post/2015-10-26-podcast-listening-habits/</link>
+      <pubDate>Mon, 26 Oct 2015 17:36:42 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-10-26-podcast-listening-habits/</guid>
+      <description>
+
+&lt;p&gt;My colleague Staxmanade is building a &lt;a href=&#34;http://staxmanade.com/apps/xbox-one-podcast/development/&#34;&gt;podcast app for XBox&lt;/a&gt;. You should check it out, he&amp;rsquo;s good at what he does.&lt;/p&gt;
+
+&lt;p&gt;Based on our conversations I&amp;rsquo;ve decided to catalog my habits around listening to podcasts. Not to navel gaze for its own sake, more because I&amp;rsquo;m curious about what YOUR habits are and what the more broader trends are beyond my sample size of 1.&lt;/p&gt;
+
+&lt;h5 id=&#34;i-use-pocket-casts-http-www-shiftyjelly-com-pocketcasts-for-just-about-everything-because-it-s-on-my-phone-and-i-take-my-phone-everywhere-even-jogging&#34;&gt;I use &lt;a href=&#34;http://www.shiftyjelly.com/pocketcasts&#34;&gt;Pocket Casts&lt;/a&gt; for just about everything because it&amp;rsquo;s on my phone and I take my phone everywhere (even jogging).&lt;/h5&gt;
+
+&lt;p&gt;I will occasionally listen in-browser when I either want to test-drive a podcast or listen to a single episode. This happens maybe once or twice a month.&lt;/p&gt;
+
+&lt;h5 id=&#34;i-m-a-stop-and-go-listener&#34;&gt;I&amp;rsquo;m a stop-and-go listener.&lt;/h5&gt;
+
+&lt;p&gt;It is very rare to listen to a podcast from start to finish without pausing. For example, my son comes to visit my office. I get a refill of coffee. I&amp;rsquo;m walking to the car. And so on.&lt;/p&gt;
+
+&lt;h5 id=&#34;quality-does-not-matter-but-sometimes-it-does&#34;&gt;Quality does NOT matter but sometimes it does.&lt;/h5&gt;
+
+&lt;p&gt;When any podcaster I listen to starts down the trail of what mic they use and other details, my eyes glaze over. Content is what drives me to a podcast - if &lt;a href=&#34;http://hanselminutes.com/&#34;&gt;Scott Hanselman&lt;/a&gt; is interviewing someone interesting over a skype call and they have an Israeli accent, I will crane my neck and listen because the content is good. With that said, there are shows like &lt;a href=&#34;http://thisdeveloperslife.com/&#34;&gt;This Developers Life&lt;/a&gt; which were compelling because of the care and detail put into eachepisode. This was not because they purchased any of the mics podcasters like talking about, it was because of Rob&amp;rsquo;s post production and editing.&lt;/p&gt;
+
+&lt;h5 id=&#34;podcasts-i-listen-to-involve-multiple-people&#34;&gt;Podcasts I listen to involve multiple people.&lt;/h5&gt;
+
+&lt;p&gt;It is incredibly hard for a single person to be engaging over any length of time. Conversations work best. A great
+hybrid is a personal essay that opens each show - Debbie Millman used to do this on &lt;a href=&#34;http://www.debbiemillman.com/designmatters/&#34;&gt;Design Matters&lt;/a&gt;. More recently Tim Ferris has used this tactic as well. But for
+show content, conversations work best. There is one notable exception to this: &lt;a href=&#34;http://www.dancarlin.com/hardcore-history-series/&#34;&gt;Hardcore History&lt;/a&gt; although despite his claims that he doesn&amp;rsquo;t do much planning Dan Carlin seems to present his content in an effecient, essay-like narrative.&lt;/p&gt;
+
+&lt;h5 id=&#34;often-i-don-t-finish-especially-long-podcasts-going-more-than-40-minutes&#34;&gt;Often I don&amp;rsquo;t finish. Especially long podcasts going more than 40 minutes.&lt;/h5&gt;
+
+&lt;p&gt;I work from home so perhaps with a commute this woul be different. But even then,
+some of the podcasts that stretch into the 2+ hour range almost seem like work in order to finish.&lt;/p&gt;
+
+&lt;h5 id=&#34;i-switch-a-lot-even-mid-podcast&#34;&gt;I switch a lot. Even mid-podcast.&lt;/h5&gt;
+
+&lt;p&gt;To give an idea of how this works, I might be listening to a long podcast like ATP in the morning but when I take a walk
+(usually 20 minutes) I like to have something I can start and finish so I&amp;rsquo;ll switch to something shorter.&lt;/p&gt;
+
+&lt;h5 id=&#34;despite-all-the-podcasts-i-subscribe-to-there-are-few-that-i-m-religious-about-listening-to&#34;&gt;Despite all the podcasts I subscribe to there are few that I&amp;rsquo;m religious about listening to.&lt;/h5&gt;
+
+&lt;p&gt;I&amp;rsquo;ll drift for a while and then binge through a few episodes.&lt;/p&gt;
+
+&lt;p&gt;A few thoughts on podcasts but enough of my own narcisicm. I&amp;rsquo;m curious about any other habits, tactics, or nuances people might have when it comes to listening to podcasts. If you haven&amp;rsquo;t already
+been there, please check out &lt;a href=&#34;http://staxmanade.com/apps/xbox-one-podcast/development/&#34;&gt;Staxmanade&amp;rsquo;s podcast app&lt;/a&gt;. I&amp;rsquo;m lobbying for a version that will run in a browser for those of us without Xboxes.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Habits of a Solid Developer</title>
+      <link>http://www.t3rse.com/post/2015-09-24-habits-of-a-solid-developer/</link>
+      <pubDate>Thu, 24 Sep 2015 15:51:38 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-09-24-habits-of-a-solid-developer/</guid>
+      <description>&lt;p&gt;So you want to be a better developer? My colleague has a blog series on the topic that should be well worth your tme.&lt;/p&gt;
+
+&lt;p&gt;Start &lt;a href=&#34;http://staxmanade.com/2015/08/habit-of-a-solid-developer-introduction/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Newsletter Questions</title>
+      <link>http://www.t3rse.com/post/2015-07-17-newsletter-questions/</link>
+      <pubDate>Fri, 17 Jul 2015 14:29:07 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-07-17-newsletter-questions/</guid>
+      <description>
+
+&lt;p&gt;It’s very hard to go through a web browsing session without having a modal dialog popup to ask for your email address. Or how about this: you go to a website and in the margins there is an offer: enter your email address to receive &lt;strong&gt;The Completely Free Guide to X&lt;/strong&gt; or some other PDF document, usually written by the author of the site.&lt;/p&gt;
+
+&lt;p&gt;The playbook, from bloggers&lt;sup&gt;1&lt;/sup&gt; to marketing agencies to big companies is simple: harvest email addresses, constantly engage through email marketing newsletters&lt;sup&gt;2&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;In many cases this is done in earnest; the person asking for your email address is crafting a message as an act of community building&lt;sup&gt;3&lt;/sup&gt;. Other cases are less sinister than they are purely commercial; your email address is a monetization unit. They will try to make money by bundling you up with others and in turn, you’ll give them a chance because the carrot at the end of the stick (daily deal?) is worth an email address (maybe not your primary – maybe a specific one you’ve designed for just this purpose).&lt;/p&gt;
+
+&lt;p&gt;I occasionally write &lt;a href=&#34;http://blog.t3rse.com/articles/&#34;&gt;articles&lt;/a&gt; for the &lt;a href=&#34;http://www.argusleader.com/news/business-journal/&#34;&gt;Sioux Falls Business Journal&lt;/a&gt; and I want to explore the impact of newsletters as well as different ways to manage all of the email they generate. As an informal survey I’m looking for answers/opinions on the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Do you subscribe to any newsletters or email marketing offers (think daily deals like Groupon)?&lt;/li&gt;
+&lt;li&gt;How many emails would you guess you get (daily or weekly, please specify) that are newsletters or solicitations?&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Do you use any specific tactics to manage non-personal/non-work email that they generate?
+Here are some common techniques (though do tell if you do something different):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A burner email address that is not your primary&lt;/li&gt;
+&lt;li&gt;Priority Inbox at gmail / Outlook.com features&lt;/li&gt;
+&lt;li&gt;Your own customized filtering scheme&lt;/li&gt;
+&lt;li&gt;Gmail aliases (e.g. david.smith+newsletter@gmail.com)&lt;/li&gt;
+&lt;li&gt;Third party service: IFTT or Unroll.me&lt;/li&gt;
+&lt;li&gt;Evernote (send newsletters to a notebook)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;notes&#34;&gt;Notes&lt;/h4&gt;
+
+&lt;p&gt;######&lt;sup&gt;1&lt;/sup&gt;I used to consider myself a &amp;ldquo;blogger&amp;rdquo; though these days I&amp;rsquo;ve had to reconsider since the wordpress + plugins universe is so different in form and substance from the &lt;a href=&#34;http://www.amazon.com/gp/product/B00994UMH4/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B00994UMH4&amp;amp;linkCode=as2&amp;amp;tag=t3rse-20&amp;amp;linkId=I4F3XXAGKLKBRPMJ&#34;&gt;Rebecca Blood&lt;/a&gt; version I knew before.&lt;/p&gt;
+
+&lt;p&gt;######&lt;sup&gt;2&lt;/sup&gt;I&amp;rsquo;ve noticed that most of my &amp;ldquo;old school&amp;rdquo; blogs don&amp;rsquo;t work this way, even the popular ones (e.g. xkcd). They seem built for a time when most readers kept up via RSS readers rather than the inbox.&lt;/p&gt;
+
+&lt;p&gt;######&lt;sup&gt;3&lt;/sup&gt;It might not be clear but I really do &lt;em&gt;love&lt;/em&gt; these. A part of my exploration of the newsletter world is to think about ways I can optimize  my consumption of curated thoughts like those from &lt;a href=&#34;http://www.brainpickings.org/&#34;&gt;Brainpickings&lt;/a&gt; to &lt;a href=&#34;https://www.farnamstreetblog.com/&#34;&gt;Farnam Street&lt;/a&gt;. I&amp;rsquo;ve got mixed feelings about the strictly commercial ones, especially the ones which have no other intended purpose than to make money for the owner and whomever else they share email addresses with.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Post Desktop</title>
+      <link>http://www.t3rse.com/post/2015-06-29-post-desktop/</link>
+      <pubDate>Mon, 29 Jun 2015 13:52:51 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-06-29-post-desktop/</guid>
+      <description>&lt;p&gt;The nice thing about a blog is that you can trace decisions you blogged about to the exact date. It was July 18, 2013 when I &lt;a href=&#34;http://blog.t3rse.com/2013/07/18/Moving-Forward-Backward/&#34;&gt;wrote about&lt;/a&gt; using a desktop pc rather than a laptop. It&amp;rsquo;s been an interesting journey but it came crashing (pun intended) to a halt when my desktop died a few weeks ago.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s lazy writing but I&amp;rsquo;ll bullet point a few random thoughts about 2+ years on a desktop:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Home built desktops are more powerful for the price. I was able to run a bunch of VMs, IDEs, games without thinking about resources.&lt;/li&gt;
+&lt;li&gt;Running powerful hardware is often noisy.&lt;/li&gt;
+&lt;li&gt;Desktops make you sedentary. It wasn&amp;rsquo;t just that I stopped leaving the house, I stopped leaving my desk. Whereas before I&amp;rsquo;d occasionally work in a coffee shop. I even forgot how handy it is to work in different parts of the house (e.g. kitchen table).&lt;/li&gt;
+&lt;li&gt;Desktops are noisy.&lt;/li&gt;
+&lt;li&gt;Although mobile devices let you do a lot of &amp;lsquo;reading&amp;rsquo; away from your desk, they aren&amp;rsquo;t very good for writing: email, blog posts, code - you name it.&lt;/li&gt;
+&lt;li&gt;Home built desktops make you into a hardware technician whether you like it or (in my case) not.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My experiences, especially in having to troubleshoot hardware, have led me to the conclusion that while the desktop experiment had some upside, I prefer an indestructible laptop if only because the hardware configuration is more stable. Yes, it is possible to have a flakey laptop but I&amp;rsquo;m several generations into Lenovo and they&amp;rsquo;ve all been solid. The big question going forward is whether my next laptop is a Lenovo or a Macbook. I suspect the latter but time (and the pocket book) will tell.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Little and Big</title>
+      <link>http://www.t3rse.com/post/2015-03-07-little-and-big/</link>
+      <pubDate>Sat, 07 Mar 2015 08:45:04 -0600</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-03-07-little-and-big/</guid>
+      <description>&lt;p&gt;Over the last few weeks I&amp;rsquo;ve been looking into client side frameworks for the web. Almost everyone I know laments the   proliferation of frameworks and &amp;ldquo;noun.js&amp;rdquo; modules in existence and yet we can&amp;rsquo;t help ourselves. The snowball keeps      rolling forward with new layers of granularity and complexity - language transpilers, package managers, browser         adoption&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Then I ran into the following paragraph which explained it all: why frameworks grow like mushrooms and why most of the  complex web based software I use runs on what is considered boring (asp.net, php, etc):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Little programs are delightful to write in isolation, but the process of maintaining large-scale software is always   miserable. Because of this, digital technology tempts the programmer&amp;rsquo;s psyche into a kind of schizophrenia. There is    constant confusion between real and ideal computers. Technologists wish every program behaved like a brand-new, playful little program, and will use any available psychological strategy to avoid thinking about computers realistically.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; Jaron Lanier, &lt;a href=&#34;http://www.amazon.com/gp/product/0307389979/ref=as_li_tl?                      ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0307389979&amp;amp;linkCode=as2&amp;amp;tag=t3rse-20&amp;amp;linkId=BZ3JMDZ7QWIIHRJ4&#34;&gt;You Are Not A Gadget&lt;/a&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;sup&gt;1&lt;/sup&gt;Excerpting like this goes specifically against some broader themes of the book but this was too good. I     highly recommend the entire book for any thoughtful technologist.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Trend Talk</title>
+      <link>http://www.t3rse.com/post/2014-06-04-trend-talk/</link>
+      <pubDate>Wed, 04 Jun 2014 23:12:00 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2014-06-04-trend-talk/</guid>
+      <description>&lt;p&gt;The first developer conference I ever attended was VBITS (&amp;ldquo;Visual Basic Insider&amp;rsquo;s Technical Summit&amp;rdquo; - now defunct) in San Francisco. I won&amp;rsquo;t forget that experience or the keynote from &lt;a href=&#34;https://twitter.com/psaffo&#34;&gt;Paul Saffo&lt;/a&gt;, a futurist who exhorted us to look beyond our technological present and to try to anticipate and respond to trends.&lt;/p&gt;
+
+&lt;p&gt;It was not completely my own efforts but something must have stuck: learning about vtable binding and COM was useful but I also realized that I needed to do everything I could to get involved with web development. Soon after I was doing a lot more with Visual Interdev than I was with Visual Basic - and the rest is history.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.kpcb.com/partner/mary-meeker&#34;&gt;Mary Meeker&lt;/a&gt; recently released her 2014 Internet Trends Report and it&amp;rsquo;s an opportunity, these many years down the road, to try to see the big picture and get a bigger sense of direction. I looked at a few versions: &lt;a href=&#34;http://www.kpcb.com/internet-trends&#34;&gt;the primary source&lt;/a&gt; and a helpful &lt;a href=&#34;http://techcrunch.com/gallery/mary-meeker-internet-trends/&#34;&gt;annotated version&lt;/a&gt; on TechCrunch.&lt;/p&gt;
+
+&lt;p&gt;Here are my takeaways: (apologies for going &lt;a href=&#34;http://paulgraham.com/nthings.html&#34;&gt;List of N&lt;/a&gt;)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Mobile is the place to be as a developer.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m fortunate to be a full time Android dev at present and it will be important to hone and improve the skill set. Apple&amp;rsquo;s recent announcement of Swift is an opportunity to get in on the ground floor of iOS development as well.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Personal Education&lt;/p&gt;
+
+&lt;p&gt;In the midst of declining quality of education, online education is at a groundswell for those who are willing to take initiative. Taking initiative is easy for me (I love learning) but I&amp;rsquo;m easily distracted so focusing on a single topic or subject matter area is more of a challenge. Coursera has recently launched educational tracks (Android, Data Science) which will help with this.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Single Purpose Apps / Invisible Apps&lt;/p&gt;
+
+&lt;p&gt;Apps should be designed to do one thing. Invisible apps leverage notification, context, and predictive computation to give you information when you need it. Here is the quote lifted from slide 41:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;We’re entering the age of apps as service layers.
+  These are apps you have on your phone but only open
+  when you know they explicitly have something to say to you.
+  They aren’t for ‘idle browsing,’ they’re purpose-built &amp;amp;
+  informed by contextual signals like hardware sensors,
+  location, history of use &amp;amp; predictive computation.&amp;rdquo;
+  – Matthew Panzarino, TechCrunch, 5/15/14&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;My mindset to date is on apps that users interact with but I need to start thinking more of apps as a way of passively doing things for the user - as &lt;a href=&#34;http://www.deepelement.com/articles&#34;&gt;my colleague&lt;/a&gt; at Vertigo put it: &amp;ldquo;giving [users] an additional sense.&amp;rdquo; Sometimes this can be a simple matter of phrasing; several times now &lt;a href=&#34;http://forecast.io&#34;&gt;forecast.io&lt;/a&gt; will tell me it will be raining &amp;ldquo;in a few minutes&amp;rdquo; with incredible accuracy.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Design as a feature&lt;/p&gt;
+
+&lt;p&gt;Rethinking old concepts (e.g. Yellow pages) in mobile design. I was impressed by the WWDC 2014 keynote in which Apple demonstrated for those of us who have forgotten that for them, design is a feature. I saw people joking during the keynote about all the references to transparency in UI of the new version of OSX, Yosemite, but in my mind spending as much time in the keynote on the topic just shows how important it is on their part for things to look and behave correctly.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There is a lot more in the report: the growth of advertising, the flow of information through social networks, apps as second screens, China (the big project there for my son to learn Chinese?), among others. Definitely worth a few minutes of reading and some time reflecting.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Going Mac: A developer encountering operating systems as place</title>
+      <link>http://www.t3rse.com/post/2014-05-07-going-mac/</link>
+      <pubDate>Wed, 07 May 2014 22:54:12 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2014-05-07-going-mac/</guid>
+      <description>&lt;p&gt;I visited New York for the first time when I was still based in a Southern California exurb. It was overwhelming, beginning with the clear memory of a man yelling at me to get out of his way upon exiting an elevator. I&amp;rsquo;d been to many cities but New York is a singular experience: dense, difficult, and beautiful.&lt;/p&gt;
+
+&lt;p&gt;When I got a new Mac earlier this year, my first reaction was to its beauty. After years on stodgy looking PCs, the contours and heft of the hardware were a revelation. I think of it with the same sensibility as I do New York the city - a place I visited, a place that was cool and surprised you continuously.&lt;/p&gt;
+
+&lt;p&gt;The exurbs I&amp;rsquo;d gotten used to are comfortable places. You must have a car to get around but it&amp;rsquo;s easy to find places you like to eat and hang out. The people are relaxed. You can still get to the proper &amp;ldquo;city&amp;rdquo; but only after working up the motivation to deal with traffic and drive for 30 minutes. I did it all the time but relegated it to night time, when working hours were over.&lt;/p&gt;
+
+&lt;p&gt;I think about my PC in terms of those exurbs. The comfort and familiarity of oft wandered environs, an intuition for where things are and how they can be managed. I can still get to &amp;ldquo;the city&amp;rdquo; - install powershell, cygwin, other components to have feature/tool parity and yet these are always visits; my real home is in explorer and other executables I run in the gui. Like MarkdownPad, where I am typing this entry.&lt;/p&gt;
+
+&lt;p&gt;Oddly enough though, now the Mac is where I get my work done. I commute from comfort and familiarity to a polished, glittering environment that is seductive and yet requires regular interaction with a terminal, vi, and unix utilities of yore. When it all works I feel like one of the cosmopolitans I saw navigating the streets and public transit with power and ease. When I hit a road block I go back into bumpkin mode sensing that if so many people can do it I should be able to figure it out and yet yearning for a the kind of protective abstractions built into suburbs: cars that separate you from the street; chain stores where service is standardized; Faustian bargains with cheap fast food.&lt;/p&gt;
+
+&lt;p&gt;And yet time is having its effect. No one becomes a part of the city overnight but the difference between a small country town and a booming metropolis is that an outsider can live in the former for decades and never really become the embodiment of the place while cities absorb people whole, blurring origins until they are a part of the throng and cannot remember when they arrived.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Moving from BlogEngine.net to Octopress</title>
+      <link>http://www.t3rse.com/post/2014-05-06-moving-from-blogengine-dot-net-to-octopress/</link>
+      <pubDate>Tue, 06 May 2014 22:42:36 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2014-05-06-moving-from-blogengine-dot-net-to-octopress/</guid>
+      <description>&lt;p&gt;Although I switched to Octopress via inspiration from &lt;a href=&#34;http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/&#34;&gt;Staxmanade&amp;rsquo;s blog series&lt;/a&gt; on exporting content from Blogger, my current blogging has been with BlogEngine.net. Here is how I migrated the content over.&lt;/p&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Export to BlogML&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;The first task was to export my current blog entries. You can generate a BlogML file with all of your posts with the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Log into the administration portal then choose Settings.&lt;/li&gt;
+&lt;li&gt;On the subnavigation select the &amp;ldquo;Import &amp;amp; Export&amp;rdquo; option.&lt;/li&gt;
+&lt;li&gt;Click the &lt;em&gt;Export&lt;/em&gt; button.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Importing to Octopress&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;You need to generate files for each of your posts. I found &lt;a href=&#34;https://github.com/philippkueng/philippkueng.github.com/blob/30ef1570f06d33938b18d5eee7767d6641b9a779/source/_import/blogml.rb&#34;&gt;a lengthy Ruby script&lt;/a&gt; to do this but I just hacked up what I needed in a few lines of powershell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$file_name = &amp;quot;{0}-{1}.html&amp;quot;
+$post_template = 
+@&amp;quot;
+---
+layout: post
+title: `&amp;quot;{0}`&amp;quot;
+comments: true
+---
+
+{1}
+&amp;quot;@
+$xml = [xml](get-content BlogML.xml)
+$xml.blog.posts.post | % { 
+  $name = $file_name -f [DateTime]::Parse($_.&amp;quot;date-created&amp;quot;).ToString(&amp;quot;yyyy-MM-dd&amp;quot;), ($_.&amp;quot;post-url&amp;quot; -replace &amp;quot;.aspx&amp;quot;, &amp;quot;&amp;quot;)
+  $name = $name -replace &amp;quot;/post/\d{4}/\d{2}/\d{2}/&amp;quot;, &amp;quot;&amp;quot;
+  $value = $post_template -f $_.title.InnerText, $_.content.InnerText
+
+  New-Item -Path . -Name $name -Value $value -ItemType file
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I ran it in the same directory as my BlogML.xml file and it iterates over each post generating a file and using the post name and created date for a unique file name.&lt;/p&gt;
+
+&lt;p&gt;*&lt;strong&gt;&lt;em&gt;Fixing Images and Links&lt;/em&gt;&lt;/strong&gt;*&lt;/p&gt;
+
+&lt;p&gt;You may need to clean up links to images and other posts. I&amp;rsquo;ve done it for images and something similar could be done for posts (I don&amp;rsquo;t link to myself very often though I may update this script when there is time). First, I copied all my images out of the /App_Data/files directory and into /public/images in my octopress folder structure. Next, here is an powershell one liner (where my BlogEngine was &amp;ldquo;&lt;a href=&#34;http://www.t3rse.com&amp;quot;&#34;&gt;http://www.t3rse.com&amp;quot;&lt;/a&gt; you will need to make sure you replace with whatever domain name you were using):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ls *.html -rec | %{ $f=$_; (gc $f.PSPath) | %{ $_ -replace &amp;quot;http://www.t3rse.com/image.axd\?picture=&amp;quot;, &amp;quot;/images/&amp;quot; } | sc $f.PSPath }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script, run in the same directory as the generated posts visits each (the .html extension) and does simple replace.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;There may be some additional details migrating (for example, I ignored comments, I also didn&amp;rsquo;t pull in the categories for each post) that I add tweaks for in the future. If you have a bright idea comment or modify my gists on github - I&amp;rsquo;d love to improve them for anyone else to use.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/t3rse/11241697&#34;&gt;Blog Engine Import Gist&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://gist.github.com/t3rse/11401972&#34;&gt;Blog Engine Image Fix&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hallo Welt: Octopress Edition</title>
+      <link>http://www.t3rse.com/post/2014-04-21-hello-from-octopress/</link>
+      <pubDate>Mon, 21 Apr 2014 22:46:19 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2014-04-21-hello-from-octopress/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been through a lot of blogging engines. My first blog was built on the &lt;a href=&#34;http://en.wikipedia.org/wiki/Radio_UserLand&#34;&gt;Radio Userland&lt;/a&gt; platform, created by Dave Winer who technorati know as the guy (controversially) behind RSS. I&amp;rsquo;ve used &lt;a href=&#34;https://dasblog.codeplex.com/&#34;&gt;Das Blog&lt;/a&gt;, &lt;a href=&#34;http://metadeveloper.blogspot.com/&#34;&gt;Blogger&lt;/a&gt;, and  &lt;a href=&#34;http://www.t3rse.com&#34;&gt;BlogEngine.net&lt;/a&gt;. I&amp;rsquo;ve used &lt;a href=&#34;http://da5id.tumblr.com/&#34;&gt;Tumblr&lt;/a&gt;. I&amp;rsquo;ve even implemented my own lightweight blogging platform in the past. It&amp;rsquo;s interesting how the concept of blogging is so simple but the platforms and tools are anything but. Perhaps it has to do with what I will call the &amp;ldquo;Todo List Software Principle&amp;rdquo; - the more generalized a problem set, the more variety and churn will exist for technical solutions.&lt;/p&gt;
+
+&lt;p&gt;Each platform I&amp;rsquo;ve used had things I liked: Userland dealt with hosting and server configuration while I simply wrote, Das Blog was written with a toolset I understand well, Blogger was painless like Userland but also free, writing my own blog engine helped me understand why it was so difficult and BlogEngine was more modern and sleek than Das Blog.&lt;/p&gt;
+
+&lt;p&gt;Each platform also had pain points: Userland wasn&amp;rsquo;t free and ultimately my content was not my own. Das Blog had pain points when new versions of the .NET framework started to come around. Blogger was free but complex if you needed to engage the templates and underlying structure of the engine. BlogEngine&amp;rsquo;s ecosystem seems to have died and comments are a nightmare.&lt;/p&gt;
+
+&lt;p&gt;My colleague &lt;a href=&#34;http://staxmanade.com/&#34; title=&#34;Staxmanade&#34;&gt;Staxmanade&lt;/a&gt; introduced me to &lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt; as he was in the process of migrating old posts from blogger and writing &lt;a href=&#34;http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/&#34;&gt;a series of posts about it&lt;/a&gt;. Octopress is an experiment but here is what I like: it strips away a lot of the abstractions from my previous blog engines and allows me to deal with, for the most part, plain text. It also integrates with Github where my content can be hosted for free. Finally it&amp;rsquo;s a programmer&amp;rsquo;s blog engine; the idea of using markdown and code to build my blog is appealing.&lt;/p&gt;
+
+&lt;p&gt;Although I&amp;rsquo;m certain &lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt; is not the last blog engine I try my hand at (foreshadowing here) I will be using it in the forthcoming weeks both to follow &lt;a href=&#34;http://staxmanade.com/2014/04/migrating-blogspot-to-octopress-part-1-introduction/&#34;&gt;the Staxmanade series&lt;/a&gt; and to learn more about Ruby and statically generated websites.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NDC 2011</title>
+      <link>http://www.t3rse.com/post/2011-06-20-ndc-2011/</link>
+      <pubDate>Mon, 20 Jun 2011 05:25:00 -0700</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2011-06-20-ndc-2011/</guid>
+      <description>&lt;div class=&#39;post&#39;&gt;
+&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;{&lt;/font&gt;&lt;/h2&gt;  &lt;p&gt;It may be easy to miss amidst all the hoopla around Windows 8 but the Norwegian Developers Conference just released all their session vidoes on the site. &lt;/p&gt;  &lt;p&gt;It’s been a while since I’ve gotten to go to a conference but the last few I have attended were put on by Microsoft. Although this has advantages in the sense that it coalesces the “experts” of specific Microsoft technologies, many of the presenters work at Microsoft and therefore don’t have a similar problem set that you or I might slogging our way through building products, often with older (read: more “boring”) software. There are also some talks on development techniques like &lt;a href=&#34;http://behaviour-driven.org/&#34;&gt;BDD&lt;/a&gt; and &lt;a href=&#34;http://en.wikipedia.org/wiki/Domain-driven_design&#34;&gt;DDD&lt;/a&gt; that are not product specific.&lt;/p&gt;  &lt;p&gt;The good thing about NDC is that it seems a lot of the presenters come from an outside perspective so it’s a good balance for a lot of the MIX / PDC type stuff I’ve been watching of late. Without further ado:&lt;/p&gt;  &lt;p&gt;Direct Download from NDC website: &lt;a href=&#34;http://ndc2011.no/agenda.aspx?cat=1071&amp;amp;id=-1&amp;amp;day=3726&#34;&gt;Day 1&lt;/a&gt; | &lt;a href=&#34;http://ndc2011.no/agenda.aspx?cat=1071&amp;amp;id=-1&amp;amp;day=3727&#34;&gt;Day 2&lt;/a&gt; | &lt;a href=&#34;http://ndc2011.no/agenda.aspx?cat=1071&amp;amp;id=-1&amp;amp;day=3728&#34;&gt;Day 3&lt;/a&gt;&lt;/p&gt;  &lt;p&gt;&lt;a href=&#34;http://goo.gl/IKrBh&#34;&gt;Roy Osherove’s “unofficial” torrent&lt;/a&gt;&lt;/p&gt;  &lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;}&lt;/font&gt;&lt;/h2&gt;  &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Search, Match, Replace, Generate</title>
+      <link>http://www.t3rse.com/post/2011-06-15-search-match-replace-generate/</link>
+      <pubDate>Wed, 15 Jun 2011 21:56:00 -0700</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2011-06-15-search-match-replace-generate/</guid>
+      <description>&lt;div class=&#39;post&#39;&gt;
+&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;{&lt;/font&gt;&lt;/h2&gt;  &lt;p&gt;Many moons ago I got about &lt;a href=&#34;http://www.hanselman.com/blog/ScottHanselmans2007UltimateDeveloperAndPowerUsersToolListForWindows.aspx&#34;&gt;0.25 seconds of fame&lt;/a&gt; when &lt;a href=&#34;http://www.nregex.com&#34;&gt;nRegex&lt;/a&gt;, a tool I wrote for evaluating regular expressions of the .NET flavor,&amp;#160; got a bit of acclaim. It was one of the better days of my life, an encouragement that sometimes struggling alone in a South Dakota basement can lead to a little bit of notice. &lt;/p&gt;  &lt;p&gt;One of the tricks that keeps me going back to nRegex is being able to generate code by using a regular expressions. Regular Expressions, though often reviled, turn out to be quite handy in a lot of situations. &lt;/p&gt;  &lt;p&gt;Let’s say you have a table that looks like this:&lt;/p&gt;  &lt;pre class=&#34;brush:sql&#34;&gt;	CREATE TABLE PackingList(&lt;br /&gt;		PackingListId	INT IDENTITY PRIMARY KEY, &lt;br /&gt;		PackingItem		VARCHAR(50), &lt;br /&gt;		Destination		VARCHAR(50)&lt;br /&gt;	)&lt;br /&gt;	GO&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;&amp;#160;&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;Let’s say you have a list of values:&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:sql&#34;&gt;Shoes&lt;br /&gt;Camera&lt;br /&gt;Laptop&lt;br /&gt;Wallet&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;The list is short for brevity but let&#39;s say you want to insert them all into your table for a destination called //Build/. You know the syntax for an INSERT but it&#39;s a bit of a nuisance to type over and over again. One thing you can do is to use a regular expression to match and then reference the results of your match in a replace. Over on nRegex, we&#39;d paste in our list of items into the main text area and then use the regular expression (.+) to match each item, line by line. Because the items are matched into a group with your parenthesis, you can now write something like the following for your replace: &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:sql&#34;&gt;INSERT INTO PackingList VALUES(&#39;$1&#39;, &#39;//Build/&#39;)&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;And voila! You now just have to copy the results: &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:sql&#34;&gt;INSERT INTO PackingList VALUES(&#39;Shoes&#39;, &#39;//Build/&#39;)&lt;br /&gt;INSERT INTO PackingList VALUES(&#39;Camera&#39;, &#39;//Build/&#39;)&lt;br /&gt;INSERT INTO PackingList VALUES(&#39;Laptop&#39;, &#39;//Build/&#39;)&lt;br /&gt;INSERT INTO PackingList VALUES(&#39;Wallet&#39;, &#39;//Build/&#39;)&lt;/pre&gt;&lt;br /&gt;&lt;img style=&#34;border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid&#34; src=&#34;http://www.t3rse.com/meta_images/GeneratingCode1.jpg&#34; /&gt; &lt;br /&gt;&lt;br /&gt;&lt;p&gt;But that&#39;s just a tip of the iceberg. There&#39;s a lot more nifty regular expressions tricks for working with code. Here&#39;s another one I run into quite often. Let&#39;s say I have some code that looks like this:&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:csharp&#34;&gt;  rs[&amp;quot;foo&amp;quot;] = myFoo;&lt;br /&gt;  rs[&amp;quot;bar&amp;quot;] = myBar;&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;I want to swap what&#39;s on either side of the equals sign to do the opposite type of assignment. Here&#39;s my regular expression: &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:pl&#34;&gt;(.+)\s=\s(.+);&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;And my replacement expression&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:pl&#34;&gt;$2 = $1;&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;Et voila aussi! You can now copy the swapped values to wherever they need to go. &lt;/p&gt;&lt;br /&gt;&lt;img style=&#34;border-bottom: gray 1px solid; border-left: gray 1px solid; border-top: gray 1px solid; border-right: gray 1px solid&#34; src=&#34;http://www.t3rse.com/meta_images/GeneratingCode2.jpg&#34; /&gt; &lt;br /&gt;&lt;br /&gt;&lt;p&gt;One final thing: any place that offers you regular expressions you can use these techniques. There are some subtle differences but as long as you have a conceptual understanding of what your goal is it&#39;s quite easy to bend to the flavor of regular expressions presented. For example, if you are using Notepad++ and want to accomplish the same thing, you reference your groups with a leading backslash rather than the &amp;quot;$&amp;quot; character - in our first example you would use the following:&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:sql&#34;&gt;INSERT INTO PackingList VALUES(&#39;\1&#39;, &#39;//Build/&#39;)&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;This is, of course, just scratching the surface. It’s not that hard though! Once you learn the meaning of things like ^ or $ then you can manipulate strings in all sorts of ways that may have once not seemed possible. The best way to learn regular expressions hasn’t changed for many years. The two canonical books I always refer to are &lt;a href=&#34;http://oreilly.com/catalog/9780596528126/index.html&#34;&gt;Mastering Regular Expressions&lt;/a&gt; by &lt;a href=&#34;http://regex.info/blog/&#34;&gt;Jeffrey Friedl&lt;/a&gt; and the &lt;a href=&#34;http://oreilly.com/catalog/9780596520694&#34;&gt;Regular Expressions Cookbook&lt;/a&gt; by Goyvaerts and Levithan. &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;table&gt;&lt;tbody&gt;&lt;br /&gt;    &lt;tr&gt;&lt;br /&gt;      &lt;td&gt;&lt;a href=&#34;http://oreilly.com/catalog/9780596528126/index.html&#34;&gt;&lt;img src=&#34;http://www.t3rse.com/meta_images/Mastering Regular Expressions.gif&#34; /&gt;&lt;/a&gt;&lt;/td&gt;&lt;br /&gt;&lt;br /&gt;      &lt;td&gt;&lt;a href=&#34;http://oreilly.com/catalog/9780596520694&#34;&gt;&lt;img src=&#34;http://www.t3rse.com/meta_images/Regular Expressions Cookbook.gif&#34; /&gt;&lt;/a&gt;&lt;/td&gt;&lt;br /&gt;    &lt;/tr&gt;&lt;br /&gt;  &lt;/tbody&gt;&lt;/table&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;&amp;#160;&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;Although nRegex will allow you to hobble by I also recommend &lt;a href=&#34;http://www.regexbuddy.com/&#34;&gt;RegexBuddy&lt;/a&gt;. &lt;a href=&#34;http://www.rexv.org&#34;&gt;Rexv&lt;/a&gt; (which inspired nRegex) is a good tool though the Regular Expression engine is not .NET.&lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;Last thing: do you have any nifty regex to code generation tricks you use on a regular basis? The audience of one you have in this space would love to learn them. &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;}&lt;/font&gt;&lt;/h2&gt;  &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>On Features</title>
+      <link>http://www.t3rse.com/post/2011-06-14-on-features/</link>
+      <pubDate>Tue, 14 Jun 2011 22:05:00 -0700</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2011-06-14-on-features/</guid>
+      <description>&lt;div class=&#39;post&#39;&gt;
+&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;{&lt;/font&gt;&lt;/h2&gt;  &lt;blockquote&gt;   &lt;p style=&#34;line-height: 160%; font-size: 3em&#34;&gt;“More features isn’t [sic] better. More features is unfocused. More features means you’ll do them worse. More features means you probably don’t have any differentiation. If you’re doing a startup, you should have &lt;em&gt;less &lt;/em&gt;[sic] features than your competitors. If you have more features, you’re probably doing it wrong.”&lt;/p&gt; &lt;/blockquote&gt;  &lt;p&gt;Nugget from &lt;a href=&#34;http://poorbuthappy.com/ease/archives/2011/06/12/4875/more-features-competitive-advantage-for-a-startup&#34;&gt;Peter Van Dijck&lt;/a&gt;. So the question is: when do you add a new feature? Joel Spolsky (who has written about most interesting things already, way back in the day (although it would be interesting to hear if things are still done the same in the present day FogCreek) ) &lt;a href=&#34;http://www.joelonsoftware.com/articles/SetYourPriorities.html&#34;&gt;wrote&lt;/a&gt; about how they decided on new features by prioritizing and voting as a group. &lt;/p&gt;  &lt;p&gt;As &lt;a href=&#34;http://www.t3rse.com&#34;&gt;a developer of one&lt;/a&gt; I’m interested in techniques on deciding what to put on a roadmap and how to prioritize features. Any insight? &lt;/p&gt;  &lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;}&lt;/font&gt;&lt;/h2&gt;  &lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

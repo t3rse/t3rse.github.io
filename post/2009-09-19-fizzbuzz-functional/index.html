@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> FizzBuzz Functional &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2009-09-19-fizzbuzz-functional/">FizzBuzz Functional</a></h1>
+			<span class="post-date">Sep 19, 2009 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>I’ve been reading Tomas Petricek and John Skeet’s <a href="http://www.manning.com/petricek/">Functional Programming for the Real World</a>. I’m hoping I can, as Steve McConnel says, <em>program into</em><sup>1</sup> my C# projects some elements of functional problem solving. As I was working to grok the beginning portions of the book I thought I’d rewrite FizzBuzz since I’ve aleady posted a <a href="http://metadeveloper.blogspot.com/2007/03/fizbuzz-conundrum-ramanujan.html">few</a> <a href="http://metadeveloper.blogspot.com/2007/09/pivot-udf-fizzbuzz.html">versions</a> of a solution. Here is my solution: </p>  <pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br /><br />foreach(var i in Enumerable<br />                    .Range(1, 100)<br />                    .Select(n =&gt;(isMultiple(n, new int[]{3,5}))<br />                                    ?fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                                    :fb(n, n, n.ToString())<br />    )Console.WriteLine(i);</pre><br /><br /><p>Another version, using ForEach on a List&lt;T&gt;: </p><br /><br /><pre style="padding-bottom: 10px; line-height: 120%; margin: 1em 0px; padding-left: 10px; padding-right: 10px; font-family: courier; background: #000; color: #eee; font-size: 12pt; overflow: auto; padding-top: 10px" class="brush: csharp;">Func&lt;int, int[], bool&gt; isMultiple = (n, n2) =&gt; n2.Any(m =&gt; n % m == 0);<br />Func&lt;int, int, string, string&gt; fb = (n, n2, s) =&gt; (n % n2 == 0) ? s : String.Empty;<br /><br />Enumerable<br />        .Range(1, 100)<br />        .Select(n =&gt; (isMultiple(n, new int[] { 3, 5 }))<br />                        ? fb(n, 3, &quot;Fizz&quot;) + fb(n, 5, &quot;Buzz&quot;)<br />                        : fb(n, n, n.ToString()))<br />        .ToList()<br />        .ForEach(num =&gt; Console.WriteLine(num));</pre><br /><br /><p>I'm just starting to wade into using F# but I'm hoping to start building my proficiency the further I get into the book</p><br /><br /><p><sup>1</sup>&quot;<em>Don't limit your programming thinking only to the concepts that are supported automatically by your language. The best programmers think of what they want to do, and then they assess how to accomplish their objectives with the programming tools at their disposal.</em>&quot; – Steve McConnell, <a href="http://cc2e.com/">Code Complete 2nd Edition</a></p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

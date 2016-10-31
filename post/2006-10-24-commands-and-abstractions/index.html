@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Commands and Abstractions &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-10-24-commands-and-abstractions/">Commands and Abstractions</a></h1>
+			<span class="post-date">Oct 24, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="COLOR: rgb(51,102,255);font-size:180%;" >{</span><br /><br />I clash with people occasionally over my approach to SQL Server. My approach to SQL Server is quite simple: Transact SQL. Never one for layers of abstraction and always seduced by speed, I prefer to keep my management activity in Query Analyzer. SQL Management Studio seems a bit slower than its older cousin, so quite often I prefer Query Analyzer even with the brand new SQL Server 2005.<br /><br />Often times for me preferences like this develop after bad experiences but today was a reminder of what kinds of things a layer of abstraction is capable of doing behind your back if you don't monitor it. We have a table with 82 columns and something like 50,000 rows. One of these columns needed to be extended from VARCHAR(10) to VARCHAR(50). I was walking through the steps as they may occur in Enterprise Manager so I opened the product (wait a few seconds), selected my database (wait a few seconds), opened the tables node (wait a few seconds), and then right clicked on my table to examine and manipulate the column (another few seconds, plus scrolling up and down to locate the column I wanted). I made my change and then proceeded to make a "change script" which, to my horror, creates a temp table, copies data and affects other tables referenced by the table whose column I was changing.<br /><br />My usual approach to something like this is the following: Start->Run (Instantaneous). "isqlw" and hit enter (Instantaneous). In the query window I type the following:<br /><br /><br /><br /><div style="BACKGROUND: white;font-family:Courier New;font-size:10pt;color:black;"   ><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    1</span> <span style="color:blue;">USE </span>MyTestDatabase</span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    2</span> GO </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    3</span> </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    4</span> <span style="color:blue;">ALTER TABLE </span>Foo </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    5</span>     <span style="color:blue;">ALTER COLUMN </span>Bar <span style="color:blue;">VARCHAR</span>(50) </span></p><br /><p style="MARGIN: 0px"><span style="font-size:85%;"><span style="color:#2b91af;">    6</span> GO </span></p><br /></div>This is a simple example, titled away from the GUI but there's more to this. Because the GUI represents an abstraction, there are limitations a person who is there encounters and begins to operate with. A simple example is the following: assume a table has 3 stored procedures (select, insert, update) and you've added a few columns that you'd like to include as parameters in each of the procs. In Enterprise Manager, or SQL Management Studio, a person is inclined to think in terms of a single procedure at once and likely to visit each procedure to make this change. A wise Unix gray beard or someone else who's comfortable with a text editor will dump all the procedures they need to modify into a single file, do some search/replace operations as a single step, and do the update.<br /><br />The point for me really veers from SQL Server at this point and gets into the question of the abstractions which I myself rely on unnecessarily - which prevent my thinking to get past a certain point.  Although I have come to rely on the command line more and more over time, there are still things I learn: DOS things! that have really changed how I think about certain types of problems.  A simple example of this is from a few months ago when I learned of the existence of pushd and popd, commands for storing and retrieving working directories on a stack.  These relatively trivial techniques make it easy to do things that never really occured to me before. Like the fact that I could just use fc to check for differences in files. Or piping a request for help to a file so I could have documentation for a command. Here is an example that might be interesting:  wsdl.exe /? >wsdlParameters.txt<br /><br />One last point of clarification: I am not against abstractions. In many instances they work quite well. A while back I wrote a web based tool for viewing objects in SQL Server databases - basically outputting queries to the Information Schema views.  Everything that tool does can be duplicated in query analyzer or in SQL Management Studio.  But in terms of raw speed, flipping back and forth on table definitions in the web based tool beats clicking around in the GUI or retyping the same select statement with a different table name in the where clause.  What I believe is that abstractions are used best when what they are hiding is understood fully.  This is counter intuitive; most people think the abstractions - an easy GUI, a simple command, and so on - are there to make things simpler for people who want to keep details hidden.  That is always dangerous, even when it's effective.  I'd prefer to struggle with what's underneath and then live blissfully choosing the abstractions I find useful.<br /><br /><span style="COLOR: rgb(51,102,255);font-size:180%;" >} </span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Spoken from one who knows.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron Johnson</div>
+<div class='content'>
+Another good thing about using TSQL instead of SQL Enterprise Manager is that you'll be able to reproduce and test your modifications programatically.  You can't test 'Expand Server &gt; Expand Database &gt; Right click on table n &gt; Add column'.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

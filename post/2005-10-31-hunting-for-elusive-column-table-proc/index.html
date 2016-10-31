@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Hunting for the elusive column, table, proc, ... &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2005-10-31-hunting-for-elusive-column-table-proc/">Hunting for the elusive column, table, proc, ...</a></h1>
+			<span class="post-date">Oct 31, 2005 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#000099;">{</span><br /><br /><span style="font-size:85%;">One of our clients has a Microsoft SQL Server table with 284 fields. So when I'm given a spec that references the "OrigLoanAmount" field, it's sometimes difficult to ascertain where that field lives. On some systems, especially if you've got familiarity where data are likely to be stored, you can make an educated guess. But if you're interested in some quick digging, try these queries from the Information Schema views:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">-- find that elusive column</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Columns WHERE Column_Name LIKE '%MyColumn%'</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">-- list out the tables</span><br /><span style="font-size:85%;">SELECT * FROM Information_Schema.Tables</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">For procedures, views, and functions, I've just queried sysobjects. I learned this from a guy who was in my class once; I used to be one of the hapless Enterprise Manager users until I saw him digging effortlessly with queries like:</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">-- show me all stored procedures</span><br /><span style="font-size:85%;">SELECT * FROM syobjects WHERE type = 'p' AND name NOT LIKE 'dt%'</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">-- show me all views </span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type='v'</span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;color:#33cc00;">-- show me all user defined functions</span><br /><span style="font-size:85%;">SELECT * FROM sysobjects WHERE type='FN' </span><br /><span style="font-size:85%;"></span><br /><span style="font-size:85%;">... and so on. </span><br /><br /><span style="font-size:180%;color:#000099;">}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

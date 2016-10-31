@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> The FizBuzz Conundrum, Ramanujan &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-03-02-fizbuzz-conundrum-ramanujan/">The FizBuzz Conundrum, Ramanujan</a></h1>
+			<span class="post-date">Mar 2, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br /><a href="http://tickletux.wordpress.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/">Imran</a> observed not too long ago that one proof of the difficulty of finding "quality" developers was that he (or she) was encountering a shocking amount of failure among applicants to write code that solved even simple problems.  This was picked up for comment by <a href="http://weblog.raganwald.com/2007/01/dont-overthink-fizzbuzz.html">Raganwald</a>, <a href="http://www.codinghorror.com/blog/archives/000781.html">Atwood</a>, and even <a href="http://www.hanselman.com/blog/YouCantTeachHeightMeasuringProgrammerCompetenceViaFizzBuzz.aspx">Hanselman</a>.<br /><br />I resisted the urge to write up a solution but after that much buzz I thought there's got to be a catch.  So this morning, before I "clocked in" from my basement (we're under blizzard conditions here in South Dakota), I wrote up the first thing that came to mind:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">for (int i = 1; i &lt; 101; i++) {</span><br /><span style="font-family:courier new;"> Console.WriteLine((i % 3 == 0 &&amp; i % 5 == 0) ?</span><br /><span style="font-family:courier new;">  "Fizz-Buzz":((i %3==0)?</span><br /><span style="font-family:courier new;">    "Fizz":(i%5==0)?</span><br /><span style="font-family:courier new;">       "Buzz":i.ToString())); </span><br /><span style="font-family:courier new;">}</span></span><br /><br />No catches, it seems.  But after thinking about it, I thought that a lot of people I work with wouldn't be happy with my solution to that particular problem.  It could come across as "convoluted."<br /><br />The more I thought about it, the more I knew the more acceptable answer was:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">// iterate given range</span><br /><span style="font-family:courier new;">for (int i = 1; i &lt; 101; i++) </span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">string output;</span><br /><span style="font-family:courier new;">// if the number I'm on is divisble by 3 or 5</span><br /><span style="font-family:courier new;">if (i % 3 == 0 &&amp; i % 5 == 0)</span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">  output = "Fizz-Buzz";</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if it is divisible by 3 then set output to "Fizz"</span><br /><span style="font-family:courier new;">else if (i % 3 == 0)</span><br /><span style="font-family:courier new;">{  </span><br /><span style="font-family:courier new;">  output = "Fizz";</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if it is divisble by 5 then set output to "Buzz"</span><br /><span style="font-family:courier new;">else if (i % 5 == 0) {</span><br /><span style="font-family:courier new;">  output = "Buzz";</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">// if divisible by neither 3 or 5, output the number.</span><br /><span style="font-family:courier new;">else</span><br /><span style="font-family:courier new;">{</span><br /><span style="font-family:courier new;">  output = i.ToString();</span><br /><span style="font-family:courier new;">}</span><br /><span style="font-family:courier new;">Console.WriteLine(output);</span><br /><span style="font-family:courier new;">}</span></span><br /><br />And as I think about it, there may be more to this test than just the matter of output - you may be able to get a sense of what type of thinking a person employs in solutions and how their values mesh with them.  Even if the answer is "right" it may not be <span style="font-style: italic;">right</span>.<br /><br />A while back I was feeling some angst toward my employer (when I used to live in California) and put my resume on Monster to see what I was "worth."  The first party to express interest went under the guise of an actual company, but really they were just recruiters.  They scheduled me for a "test" at 8:30 am in downtown Los Angeles.<br /><br />At 8:30 am in downtown Los Angeles.<br /><br />Traffic and personal discomfort aside, I made it to the office where a person who was obviously non-technical gave me a (photocopied?) sheet of paper and a number two pencil to write some javascript code that manipulated the DOM and XML.<br /><br />I was a little green and was writing stuff like this:<br /><br /><span style="font-size:85%;"><span style="font-family:courier new;">document.getElementById("foo").appendChild(root.createTextNode((entry == foo)?"This":"That")... </span></span><br /><br />You get the picture.  I wasn't used to writing things on paper so I was erasing here and there, and because I tended towards multiple steps in one line, my lines were going across the page and I'd curve them upward so I could get it to fit.  It was pretty messy, and I'm sure the recruiter picking up the "test" wasn't impressed with how disjointed it was.<br /><br />And I can imagine the people at the software company, if it ever made it there, looking at smudges and pencil marks and an utter lack of comments on a piece of paper which they'd never be able to verify unless they entered it by hand.  I doubt it made it that far but if it did, they might have thought the messy code was indicative of a "messy" mind that didn't write enough comments and consolidated steps too much. It would either go into the "Not a team player" or "Quixotic" pile before it was dumped to the trash.<br /><br />In defense of myself, or if I may be bold enough to think of my ideals in this light, I keep thinking about <a href="http://en.wikipedia.org/wiki/Srinivasa_Ramanujan">Ramanujan</a>, the brilliant Indian mathematician. As an autodidact, he was not familiar with protocol and convention and the step by step approach other mathematicians used... he would skip steps by presenting formulas without rigorous proof in order to arrive to his solutions.  Of course this is an unassailable attribute if you're as smart as a Ramanujan and a death blow if you're not.<br /><br />Now Hanselman has <a href="http://www.hanselminutes.com/default.aspx?showID=69">a podcast</a> on the whole thing. I'm going to check it out.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

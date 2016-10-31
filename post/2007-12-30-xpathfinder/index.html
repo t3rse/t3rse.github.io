@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> xPathFinder &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-12-30-xpathfinder/">xPathFinder</a></h1>
+			<span class="post-date">Dec 30, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p><em>The short version:</em> <br>I'm releasing xPathFinder, a tool I wrote for doing XPATH expressions against xml files on the file system. You can get information about it as a tool by going to the <a href="http://www.t3rse.com/xPathFinder">website</a>. Here are some screenshots:</p> <p><img src="http://www.t3rse.com/xPathFinder/Screen1_small.jpg"> </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen2_small.jpg">&nbsp; </p> <p><img src="http://www.t3rse.com/xPathFinder/Screen3_small.jpg"> </p> <p><em>The long version:</em><br>Not too long ago I ran into a problem that I thought would be common but didn't seem to have a canned solution. We use a webservice to store some data in a database but we also store the xml files transmitted on the file system as a defensive maneuver in case the database is unavailable or the xml is invalid. After a while I was dealing with a lot of xml files - far too many to search one at a time and needing more structured lookup than a desktop search tool offered. This is the raison d'etre of this tool. Of course it could have been a quick script in -insert language of choice- but this was something I needed to do repeatedly and have more facility with than console output. I'm also planning to make it simple enough for our client to use. It was a goal of mine to get it up before the end of the year so I'm happily posting this a day early. </p> <p>One more footnote to this tool - stylistically I've done quite a bit of blending between Windows Forms and Web by leveraging the WebBrowser control heavily for things I thought would be easier to quickly generate html for as well as the feedback mechanism which allows users to report bugs or request features. It's so tightly coupled that while it will work without an internet connection, it's a much more limited experience. I really like this model and will probably start doing more blending like this for new work.</p> <p>You can get more detail from <a href="http://www.t3rse.com/xPathFinder/">the website</a> or just ask directly by <a href="http://www.t3rse.com/xPathFinder/SubmitFeedback.html">submitting feedback</a>.</p> <p>Future plans?</p> <p>1. XPATH functionality works for most xml documents, but namespace heavy documents with prefixes seem to throw a curve ball. <br>2. What I'm posting was actually a fast prototype I intended to use to make this tool in WPF from - I'm not sure that the WPF step is still necessary but I may release an updated version since this is a fairly straight forward utility.<br>3. I'd like to make it open source. Not sure of what steps to follow, but CodePlex is probably the best starting point. I always promise myself I'll clean up my code before doing something like that but maybe I should just bite the bullet since I think the idea is sound enough.</p> <h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

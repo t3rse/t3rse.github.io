@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Keyboard shortcuts with Javascript &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-03-02-keyboard-shortcuts-with-javascript/">Keyboard shortcuts with Javascript</a></h1>
+			<span class="post-date">Mar 2, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{</span><br /><br />Creating shortcuts on textboxes is none too difficult in Javascript, but (and don't get me wrong - I love Mr. Flanagan) the <a href="http://www.amazon.com/dp/0596101996?tag=davidflanagancom&camp=14573&amp;creative=327641&linkCode=as1&amp;creativeASIN=0596101996&adid=1DZYSV00EEJ1FSS84DY1&amp;">Rhino book</a> is a bit abstruse. I was adding this functionality to my night project and pared it down to:<br /><br /><span style="font-family:courier new;font-size:85%;">function handleKeyCommand(event){ </span><br /><span style="font-family:courier new;font-size:85%;">var e = event window.event; // Key event object </span><br /><span style="font-family:courier new;font-size:85%;">var kCode = e.keyCode &#166;&#166; e.which; // What key was pressed </span><br /><span style="font-family:courier new;font-size:85%;">// I am trapping Ctrl+e (69) here </span><br /><span style="font-family:courier new;font-size:85%;">if(e.ctrlKey &&amp; (kCode == 69)){ </span><br /><span style="font-family:courier new;font-size:85%;">var theButton = document.getElementById('actionButton'); </span><br /><span style="font-family:courier new;font-size:85%;">theButton.click(); </span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><span style="font-family:courier new;font-size:85%;">}</span><br /><br />I'm calling that from the onKeyDown event of a TextArea the boring way; because I'm assigning it from the server side in ASP.NET, I have:<br /><br /><span style="font-family:courier new;font-size:85%;">actionButton.Attributes.Add("onKeyDown", "handleKeyCommand(event);");</span><br /><br />Which translates to onKeyDown="handleKeyCommand(event)"... the Web 2.0 kids would thumb this down since it's not an <a href="http://raibledesigns.com/rd/entry/tse_building_modern_web_applications">anonymous javacript function</a> assigned after the page is loaded (I need to question that "inobtrusive javascript" ideology, but it's a post in the making), but this keeps it simple.<br /><br />The main pitfall for me was in using onKeyDown rather than onKeyPress - the latter is more appropriate for obtaining ASCII related keyboard events, not special keys like shift, control, and so on. Another pitfall was browser compatibility; Flanagan also uses a nifty idiom when he allows the assignment of the event object occur with the operator. It returns the first true value and since an unassigned object returns false in javascript, writing the following assigns a reference to the event object based either on the parameter which would be passed by the browser (Firefox) or the built in window.event object (IE):<br /><br /><span style="font-family:courier new;font-size:85%;">var e = event &#166;&#166; window.event; // Key event object </span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>David Seruyange</div>
+<div class='content'>
+Thanks Aaron, very good alternative with a smaller footprint.</div>
+</div>
+<div class='comment'>
+<div class='author'>Aaron</div>
+<div class='content'>
+So another way to get a form button clicked using the keyboard: accesskey. <BR/><BR/>&lt;input type="submit" name="go" value="Click me" accesskey="e" /&gt;<BR/><BR/>In FF 2: use ALT-SHIFT-E<BR/>In pre FF 2: use ALT-E<BR/>In IE: use ALT-E<BR/><BR/>One difference is that in IE the button just gets focus while in FF the button is actually clicked, you can work around this by adding both an accesskey and an onfocus attribute:<BR/><BR/>&lt;input type="submit" name="go" value="Click me" accesskey="e" <BR/>onfocus="document.form.submit()"<BR/>/&gt;<BR/><BR/>Safari doesn't support accesskey's, but that's just because it sucks.<BR/><BR/>AJ</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

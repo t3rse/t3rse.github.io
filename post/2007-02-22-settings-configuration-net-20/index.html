@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Settings, Configuration, .NET 2.0 &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-02-22-settings-configuration-net-20/">Settings, Configuration, .NET 2.0</a></h1>
+			<span class="post-date">Feb 22, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="font-size:180%;color:#3333ff;">{<br /></span><br />A while back I complained about <a href="http://metadeveloper.blogspot.com/2006/11/configuration-api-convoluted.html">configuration</a> within Windows Forms applications, mostly because I lacked an understanding of the API. I hacked a simple xml file together wherein I could store simple name value pairs that we'd utilize for the application and surprisingly it's been the approach for quite some time.<br /><br />I've been studying for the Microsoft 70-552 exam which would update my "MCAD" certification to "MCPD." I know, I know, certification is frown upon by so many people who think I should really be reading <a href="http://www.ccs.neu.edu/home/matthias/BTLS/">The Little Schemer</a> to do <a href="http://dangermouse.brynmawr.edu/cs245/ycomb_jim.html">cool parlor tricks</a>. But this is a case where what I'd said earlier about certification rings true: it probes for weakness and exposes where you "fake it" with hacks without understanding the real structure and purpose of the technology. Case in point, configuration.<br /><br />In my earlier post, I'd used <span style="font-family:courier new;">Configuration.AppSettings</span> which I now know as deprecated. Instead there's a nifty configuration/settings API one can leverage. What I've done here is based very heavily on Chris Sells's Windows Forms 2.0 Programming although I took liberty to modify some of the code to make it more reusable and generic (his intent was to show basics).<br /><br />The first stop one needs to make is to add a Settings file to the project along with a reference to System.configuration (not sure why configuration is not Configuration).<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsSetup.jpg" /><br /><br />Underneath the properties node if you "edit" the settings file, it's really a grid that allows you to enter settings with a key, datatype, scope, and value. The scope in here can be either as a user setting or an application setting - it's also possible to write your own section handler and extend the model.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsEntry.jpg" /><br /><br />After compiling this is converted into your app.exe.config file - the physical storage of your settings in the xml format well know to config files.<br /><br /><img src="http://hobbitwerk.brinkster.net/metadeveloper/settingsAppConfig.jpg" /><br /><br />The code for retrieval is still, in my own view, a little verbose but it's easy to develop a simple accessor helper class. Even more slick in the design of the .NET Framework is that class library projects (DLLs) pull configuration settings from their hosted EXE so you the utility code here is from a DLL designed to be referenced and used from any application.<br /><br /><span style="font-family:courier new;font-size:78%;">using System;<br />using System.Collections.Generic;<br />using System.Text;<br />using System.Configuration;<br /><br />namespace SettingsGroperLib<br />{<br />public enum SettingType {<br />userSettings,<br />applicationSettings<br />}<br /><br />public class ConfHelp<br />{<br /><br />public static string GetConfSetting(SettingType settingType, string settingKey) {<br />// obtain current configuration<br />Configuration currentConfig =<br />ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);<br />// obtain section utilizing enumeration<br />ConfigurationSectionGroup group =<br />currentConfig.GetSectionGroup(settingType.ToString());<br />// get calling assembly settings class<br />string assemblyName = System.Reflection.Assembly.GetCallingAssembly().FullName;<br />// yah, it's ugly, but it works<br />string friendlyName = assemblyName.Split(',')[0];<br />// obtain section by combining friendlyname to settings class<br />ClientSettingsSection section =<br />(ClientSettingsSection)group.Sections.Get(<br />String.Format(<br />"{0}.Properties.Settings",<br />friendlyName<br />)<br />);<br />// get setting key<br />SettingElement element =<br />section.Settings.Get(settingKey);<br />// return settings value as<br />return element.Value.ValueXml.FirstChild.Value;<br />}<br /><br />}<br />}<br /></span><br />Sorry about the format; you can download a nice formated version <a href="http://hobbitwerk.brinkster.net/metadeveloper/ConfHelp.cs.txt">here</a>.<br /><br />It all seems so easy once you take the time. I think the unlearning was a big obstacle for me since working with config files was something I did all the time in .NET 1.x and old habits die hard. Oh yeah, the retrieval:<br /><br /><span style="font-family:courier new;font-size:78%;">string test = ConfHelp.GetConfSetting(SettingType.applicationSettings, "DBUrl");</span><br /><br /><span style="font-size:180%;color:#3333ff;">}</span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

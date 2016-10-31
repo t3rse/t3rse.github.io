@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Generate Catalog Images in IronPython &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-04-02-generate-catalog-images-in-ironpython/">Generate Catalog Images in IronPython</a></h1>
+			<span class="post-date">Apr 2, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>What if you had a client who has a big product catalog you're integrating with the web.&nbsp; You work out a convention for how data is displayed and want to generate some test images for yourself... </p> <p>First, just some basics on generating a single image:</p><pre class="csharpcode">import clr<br />clr.AddReference(<span class="str">"System.Drawing"</span>)<br />from System import *<br />from System.Drawing import *<br /><br />def GenerateImage(text):<br />    starter = Bitmap(1,1)<br />    g = Graphics.FromImage(starter)<br />    f = Font(<span class="str">"Arial"</span>, 14) <br />    theImage = Bitmap(starter, Size(200,200))<br />    g = Graphics.FromImage(theImage)<br />    g.Clear(Color.Orange)<br />    g.DrawString(text, f, SolidBrush(Color.DarkBlue), 0, 0)<br />    g.Flush()<br />    theImage.Save(<span class="str">"c:\\temp\\pyImage.gif"</span>)    <br /><br /><span class="kwrd">if</span> __name__ == <span class="str">"__main__"</span>:<br />    GenerateImage(<span class="str">"Holly was a hunter"</span>)</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p>Here's some TSQL for the sample data I'll use: </p><pre class="csharpcode"><span class="kwrd">create</span> <span class="kwrd">table</span> testdata(<br />    testid <span class="kwrd">int</span> <span class="kwrd">identity</span>(1,1), <br />    testvalue <span class="kwrd">varchar</span>(50)<br />)<br /><br /><span class="kwrd">declare</span> @i <span class="kwrd">int</span><br /><span class="kwrd">set</span> @i = 0<br /><span class="kwrd">while</span> @i &lt; 25 <span class="kwrd">begin</span><br />    insert <span class="kwrd">into</span> testdata(testvalue)<br />        <span class="kwrd">values</span>(<span class="str">'PRODUCT '</span> + <span class="kwrd">convert</span>(<span class="kwrd">varchar</span>(2), @i))<br />    <span class="kwrd">set</span> @i = @i + 1<br />end</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p>Now for a finalized version that hits the database and generates images:</p><pre class="csharpcode">import clr<br />clr.AddReference(<span class="str">"System.Drawing"</span>)<br />clr.AddReference(<span class="str">"System.Data"</span>)<br /><br />from System import *<br />from System.Drawing import *<br />from System.Data import *<br />from System.Data.SqlClient import *<br /><br />def GenerateImage(text, path):<br />    starter = Bitmap(1,1)<br />    g = Graphics.FromImage(starter)<br />    f = Font(<span class="str">"Arial"</span>, 14) <br />    theImage = Bitmap(starter, Size(200,200))<br />    g = Graphics.FromImage(theImage)<br />    g.Clear(Color.Orange)<br />    g.DrawString(text, f, SolidBrush(Color.DarkBlue), 0, 0)<br />    g.Flush()<br />    theImage.Save(path)<br />    <br />def GenerateImagesFromDatabase(connectString, query, sourceColumn, outPath):<br />    cn = SqlConnection(connectString)<br />    cn.Open()<br />    cmd = SqlCommand(query, cn)<br />    r = cmd.ExecuteReader(CommandBehavior.CloseConnection)<br />    <span class="kwrd">while</span> r.Read():<br />        baseText = r[sourceColumn].ToString()<br />        GenerateImage(baseText, outPath + <span class="str">"\\" + baseText + "</span>.gif<span class="str">")<br />    r.Close()<br /><br />if __name__ == "</span>__main__<span class="str">":<br />    connect = "</span>Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;<span class="str">"<br />    sql = "</span>select * from testdata<span class="str">"<br />    col = "</span>testvalue<span class="str">"<br />    GenerateImagesFromDatabase(connect, sql, col, "</span>c:\\temp\\fobot")</pre><br /><style type="text/css">.csharpcode, .csharpcode pre<br />{<br />	font-size: small;<br />	color: black;<br />	font-family: consolas, "Courier New", courier, monospace;<br />	background-color: #ffffff;<br />	/*white-space: pre;*/<br />}<br />.csharpcode pre { margin: 0em; }<br />.csharpcode .rem { color: #008000; }<br />.csharpcode .kwrd { color: #0000ff; }<br />.csharpcode .str { color: #006080; }<br />.csharpcode .op { color: #0000c0; }<br />.csharpcode .preproc { color: #cc6633; }<br />.csharpcode .asp { background-color: #ffff00; }<br />.csharpcode .html { color: #800000; }<br />.csharpcode .attr { color: #ff0000; }<br />.csharpcode .alt <br />{<br />	background-color: #f4f4f4;<br />	width: 100%;<br />	margin: 0em;<br />}<br />.csharpcode .lnum { color: #606060; }<br /></style><br /><br /><p><img src="http://www.seruyange.com/metadeveloper/generatedimages.jpg"> </p><br /><p>&nbsp;</p><br /><p>Pretty cool stuff, I hope it's useful to more people than just myself.&nbsp; Download the first script <a href="http://www.seruyange.com/metadeveloper/GenerateCatalog.py.txt">here</a>, the second more elaborate one <a href="http://www.seruyange.com/metadeveloper/GenerateCatalogv2.py.txt">here</a>.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

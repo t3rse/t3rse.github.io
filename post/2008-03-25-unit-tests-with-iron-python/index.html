@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Unit Tests with Iron Python &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-03-25-unit-tests-with-iron-python/">Unit Tests with Iron Python</a></h1>
+			<span class="post-date">Mar 25, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>"Testing is the engineering rigor of software development" - <a href="http://www.nealford.com/">Neal Ford</a></p> <p>Got a little tip from <a href="http://www.voidspace.org.uk/ironpython/index.shtml">fuzzyman</a> on using <a href="http://docs.python.org/lib/module-unittest.html">unittest</a> for Unit Testing with Iron Python. Because I'm a slouch I had an old IronPython 1.1 release and kept getting a BaseException error when my tests failed.&nbsp; The class has since been implemented and should work with the latest version of IronPython that you can download (I'm using a beta release of 2.0).</p> <p>Here is the code from my unit tests, of course it's destined to change but I was in the mode of getting it to work with IronPython: </p> <p><pre>from Twining import *<br />import exceptions<br />import random<br />import unittest<br />import os<br /><br />class TestSequenceFunctions(unittest.TestCase):<br />    <br />    def setUp(self):<br />        self.cn = "Data Source=.\\sqlexpress;Initial Catalog=MVCBaby;Integrated Security=SSPI;"<br /><br />    def test_exportcsv(self):<br />        """ Export a CSV style data """<br />        outPath = "c:\\foo.csv"<br />        database(self.cn).table("Photos").copyto.csv(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def test_exportxmlattribstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_attrib.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />        <br />    def test_exportxmlelementstyle(self):<br />        """ Export xml data attribute style """<br />        outPath = "c:\\xml_as_elem.xml"<br />        database(self.cn).table("Photos").copyto.xmlFieldsAsAttributes(outPath)<br /><font color="#ff0000">        self.assert_(os.path.exists(outPath), "File was not created")</font><br />    <br />    def tearDown(self):<br />        if os.path.exists("c:\\foo.csv"): os.remove("c:\\foo.csv")<br />        if os.path.exists("c:\\xml_as_attrib.xml"): os.remove("c:\\xml_as_attrib.xml")<br />        if os.path.exists("c:\\xml_as_elem.xml"): os.remove("c:\\xml_as_elem.xml")        <br />        <br />if __name__ == '__main__':<br />    unittest.main()<br /></pre><br /><p></p><br /><p>You can download this and the latest version of things from the new <a href="http://www.t3rse.com/twining/">Twining page</a>.&nbsp; </p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+<h2>Comments</h2>
+<div class='comments'>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Introspecting .NET objects from IronPython is really easy.<BR/><BR/>dir(someObject)<BR/><BR/>returns a list of strings of member names (public and protected) of that object. <BR/><BR/>help(someObject.someMethod)<BR/><BR/>can also be useful sometimes.<BR/><BR/>Lots of other easy reflection techniques (hasattr, getattr and setattr for example).<BR/><BR/>Experimenting from the interactive interpreter will give you a feel for what is possible.</div>
+</div>
+<div class='comment'>
+<div class='author'>sevenseeker</div>
+<div class='content'>
+Do you have any experience with testing existing .NET code and assemblies with IronPython?<BR/><BR/>How would I go about reflecting and introspecting elements to see what I can do if I don't have access to all of the code?</div>
+</div>
+<div class='comment'>
+<div class='author'>Fuzzyman</div>
+<div class='content'>
+Hmmm... we use unittest with IronPython 1.1.1 and don't have any 'BaseException' problems.<BR/><BR/>You're better off with IronPython 2 for a host of other reasons though.</div>
+</div>
+</div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

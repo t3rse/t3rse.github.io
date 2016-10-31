@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Leveraging CSS opacity for help &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-10-21-leveraging-css-opacity-for-help/">Leveraging CSS opacity for help</a></h1>
+			<span class="post-date">Oct 21, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>A few projects ago a control was created (who exactly did it I'm not sure) for displaying dialog "popups" without new browser windows.&nbsp; The technique was fairly straightforward: an IFRAME with an opacity filter and a div with the popup values.&nbsp; </p> <p>I wasn't a huge fan of the infamous "popup" which managed to come up in project after project, but the idea of using opacity on an IFRAME for an overlay of helpful information struck me about a week ago.&nbsp; </p> <p>The <a href="http://www.nregex.com/">nRegex</a> interface, which is quite straightforward to me, still seems to pose some confusion to new users and so I thought I'd use it might be suitable for a virgin implementation of the idea.&nbsp; It's a little crude* but the idea should come across: use the 'How to use Nregex' button to display the overlay and it seeks to explain the various pieces of the interface.</p> <p><img height="110" src="http://www.seruyange.com/metadeveloper/nRegexOverlayLaunch.jpg" width="381"> </p> <p><img height="197" src="http://www.seruyange.com/metadeveloper/nregexoverlay.jpg" width="379"> </p> <p>The implementation is quite simple. There's an IFRAME with the following attributes:</p> <p>frameBorder="0" <br>scrolling="no" <br>style="z-index:1000;position:absolute;<br>top:0;left:0;width:2000px;height:2000px;<br><font color="#ff0000">FILTER:alpha(opacity=80);-moz-opacity:.80;opacity:.80;</font><br>display:none;" <br>src="infoFrame.htm"</p> <p>Within the frame, a button hides the IFRAME calling a javascript function from the parent window.&nbsp; </p> <p>The easiest way to implement this is to use the skeleton of the interface in the *original* design.&nbsp; I'm interested in comments on this approach - would it be feasible as a way to document an interface's functionality?</p> <h1><font color="#0000ff">}</font></h1></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

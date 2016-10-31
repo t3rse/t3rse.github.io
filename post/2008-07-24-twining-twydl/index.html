@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Twining, TwyDL &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2008-07-24-twining-twydl/">Twining, TwyDL</a></h1>
+			<span class="post-date">Jul 24, 2008 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1>  <p>A quick note that <a href="http://www.t3rse.com/twining">Twining</a> isn't dead and that I actually have been working on it. Some work I've done in the past few months has involved a lot of databases I don't have more than an ISPs user/password level of access to so it's been quite handy to copy data in and out with brief pieces of code. Here's one feature I've used, exporting a table definition and all of its contents to a scripted insert statement in a file: </p>  <pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).table(&quot;MY_TABLE&quot;).copyto.script(&quot;c:\\temp\\MY_SCRIPT.sql&quot;)</pre><br /><br /><p>&#160;</p><br /><br /><p>Another piece that I've been working on is the ability to generate schema objects in a more fluid, compact way. I like SQL just fine but after seeing how easy it is to make data structures with the Google App Engine I sought to shoot for something similar. Also within the flow of writing a Twining script it's easy to keep this type of syntax Pythonic for certain scenarios (you want to create a temp table and dump data into it from somewhere; you want to create a table and generate sample data, etc, etc). I call it TwyDL as a play on <a href="http://en.wikipedia.org/wiki/Drop_(SQL)">DDL</a>: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">database(cn).create.table(&quot;Employees&quot;, <br />                               [<br />                                   col.ident(&quot;EmployeeID&quot;), <br />                                   col.string(&quot;FirstName&quot;), <br />                                   col.string(&quot;LastName&quot;), <br />                                   col.numeric(&quot;Salary&quot;)<br />                               ]<br />                          )</pre><br /><br /><p>&#160;</p><br /><br /><p>The methods you see for defining column types take optional parameters so you can pass additional specifications when you feel the need. For example, the string columns default to varchar(50) but if you wanted to have a specific length all you'd need to do is: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.string(&quot;FirstName&quot;, 25)</pre><br /><br /><p>The same is true for numeric types: </p><br /><br /><pre style="padding-right: 10px; padding-left: 10px; font-size: 12pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; color: #eee; line-height: 120%; padding-top: 10px; font-family: courier">col.numeric(&quot;Salary&quot;, 18, 4)</pre><br /><br /><p>I've got one more thing I'm interested in implementing (time! time!) which is generating sample data given some table definition. I'm hoping to get up a rough cut of it all in the next day or two, after I've updated unit tests and organized things.</p><br /><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

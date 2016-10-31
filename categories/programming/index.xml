@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>t3rse</title>
+    <link>http://www.t3rse.com/categories/programming/index.xml</link>
+    <description>Recent content on t3rse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://www.t3rse.com/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Habits of a Solid Developer</title>
+      <link>http://www.t3rse.com/post/2015-09-24-habits-of-a-solid-developer/</link>
+      <pubDate>Thu, 24 Sep 2015 15:51:38 -0500</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-09-24-habits-of-a-solid-developer/</guid>
+      <description>&lt;p&gt;So you want to be a better developer? My colleague has a blog series on the topic that should be well worth your tme.&lt;/p&gt;
+
+&lt;p&gt;Start &lt;a href=&#34;http://staxmanade.com/2015/08/habit-of-a-solid-developer-introduction/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Little and Big</title>
+      <link>http://www.t3rse.com/post/2015-03-07-little-and-big/</link>
+      <pubDate>Sat, 07 Mar 2015 08:45:04 -0600</pubDate>
+      
+      <guid>http://www.t3rse.com/post/2015-03-07-little-and-big/</guid>
+      <description>&lt;p&gt;Over the last few weeks I&amp;rsquo;ve been looking into client side frameworks for the web. Almost everyone I know laments the   proliferation of frameworks and &amp;ldquo;noun.js&amp;rdquo; modules in existence and yet we can&amp;rsquo;t help ourselves. The snowball keeps      rolling forward with new layers of granularity and complexity - language transpilers, package managers, browser         adoption&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Then I ran into the following paragraph which explained it all: why frameworks grow like mushrooms and why most of the  complex web based software I use runs on what is considered boring (asp.net, php, etc):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Little programs are delightful to write in isolation, but the process of maintaining large-scale software is always   miserable. Because of this, digital technology tempts the programmer&amp;rsquo;s psyche into a kind of schizophrenia. There is    constant confusion between real and ideal computers. Technologists wish every program behaved like a brand-new, playful little program, and will use any available psychological strategy to avoid thinking about computers realistically.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; Jaron Lanier, &lt;a href=&#34;http://www.amazon.com/gp/product/0307389979/ref=as_li_tl?                      ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=0307389979&amp;amp;linkCode=as2&amp;amp;tag=t3rse-20&amp;amp;linkId=BZ3JMDZ7QWIIHRJ4&#34;&gt;You Are Not A Gadget&lt;/a&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;sup&gt;1&lt;/sup&gt;Excerpting like this goes specifically against some broader themes of the book but this was too good. I     highly recommend the entire book for any thoughtful technologist.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

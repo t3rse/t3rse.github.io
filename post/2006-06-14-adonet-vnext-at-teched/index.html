@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> ADO.NET vNext at TechEd &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2006-06-14-adonet-vnext-at-teched/">ADO.NET vNext at TechEd</a></h1>
+			<span class="post-date">Jun 14, 2006 </span>
+			<div class="post-content">
+				<div class='post'>
+<span style="color: rgb(51, 51, 255);font-size:180%;" >{</span><br /><br />One of the best talks of this week was Pablo Castro's Monday session covering some of the new features of ADO.NET.  Having used some form of data access library from Microsoft for a while, the changes he showed were fairly dramatic, and they will really impact on a fundamental level how programmers think about data access when it becomes widely available.<br /><br />The general direction from Microsoft seems to be giving more modelling capabilities to developers to manage in an application space.  The original step in this direction was ADO.NET from which we can model on the application level using a DataSet and it's associated classes.  But the features in ADO.NET vNext - and I hesitate on superlatives - are an unparalleled shift (in my short life as a developer) in what we do for data access.<br /><br />The rational behind my claim of this being as big a change is that it is no longer limited to the object model or some IDE-fu that Microsoft implements in Visual Studio.  This change is a part of the language with which we express ourselves when talking to the database.  My rational is LINQ.<br /><br />LINQ is simply understood by unpacking the acronym: language integrated query.  From a syntactical point of view in ADO.NET we can obtain a reference to the database and retrieve a collection of objects that represent what's inside.<br /><br />I think this is a huge revelation - something that goes well beyond even the Object Relational stuff I hear about from time to time simply because it's not just objects, it's syntax.<br /><br />Around LINQ as a syntactical approach to getting data from the database is the ability to create what is now called an EDM diagram which is essentially a mapping of the database to the class types that will be used to represent the internals.  The EDM diagram can be manipulated so that you can do trivial things such as changing a column name reference in the object versus what's in the database, to complex things such as consolidating content from tables in order to avoid SQL JOIN expressions.<br /><br />On keynote night the topic of Microsoft "innovation" came up and based on what was delivered, it didn't seem as though there was much in the way of newness to Microsoft's portfolio.  But LINQ in all it's forms - for xml, for databases, and for that which implements IEnumerable, this is an innovation indeed.<br /><br />I'm definitely staying tuned to the <a href="http://msdn.microsoft.com/data/ref/linq/">LINQ project</a> and the <a href="http://blogs.msdn.com/dataaccess/default.aspx">Microsoft Data Access blog</a>.<br /><br /><span style="color: rgb(51, 51, 255);font-size:180%;" >} </span></div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>

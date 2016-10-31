@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Comment Spam Begone &middot; t3rse </title>
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.13" />
+
+
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="http://www.t3rse.com/css/nix.css">
+
+ 
+<link href="https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans|Roboto|Montserrat|Concert+One" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body>
+		<header>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse font-header">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" id="green-terminal" href=http://www.t3rse.com/>t3rse@t3rse ~ $</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="http://www.t3rse.com/">/home/t3rse</a>
+				</li>
+				
+				
+				<li >
+					<a href="/post">~/post</a>
+				</li>
+				
+				
+				<li >
+					<a href="/about">~/about</a>
+				</li>
+				
+
+			</ul>
+		</div>
+	</div>
+</nav>
+</header>
+
+		<div class="container wrapper">
+			<h1><a href="http://www.t3rse.com/post/2007-12-04-comment-spam-begone/">Comment Spam Begone</a></h1>
+			<span class="post-date">Dec 4, 2007 </span>
+			<div class="post-content">
+				<div class='post'>
+<h1><font color="#0000ff">{</font></h1> <p>I maintain a few personal websites, one of the closest to my heart is <a href="http://hobbitwerk.brinkster.net/phoDak">phoDak</a>, a photoblog.&nbsp; I wrote the site using ASP.NET about two years ago and intended it to be a low key, personal area to post pictures.&nbsp; I had absolutely no validation on comments and my "what will be" attitude worked for a long time until about a week ago when I saw a comment spam link to porn right off the most recent picture.&nbsp; No longer avoidable, I looked into a few ways to block unwanted comments and came up with a hybrid approach: </p> <p>1. Use a photo/word as validation for a human user, just like <a href="http://www.codinghorror.com/blog/">Jeff Atwood's</a> blog.<br>2. I heard about <a href="http://akismet.com/">Akismet</a> from Phil Haack who mentioned it in passing on a Dot Net Rocks episode. I found a <a href="http://www.arnebrachhold.de/2006/04/18/akismet-anti-spam-library-for-the-dotnet-framework/">free library</a> and wrote about 10 lines of code:</p><pre style="padding-right: 10px; padding-left: 10px; font-size: 8pt; background: #000; padding-bottom: 10px; margin: 1em 0px; overflow: auto; width: 500px; color: #eee; padding-top: 10px; font-family: verdana">AkismetManager akismetManager = <br />	new AkismetManager("my key", "my site");<br />string ip = <br />	Request.ServerVariables["REMOTE_ADDR"].ToString();<br />if(akismetManager.IsValidKey()){<br />	AkismetItem item = <br />		new AkismetItem(ip, Request.UserAgent.ToString());<br />	item.AuthorName = <br />		CommentOwnerTextbox.Text;<br />	item.AuthorUrl = <br />		CommentURLTextbox.Text;<br />	item.Content = <br />		CommentTextbox.Text;<br />	if(akismetManager.IsSpam(item)){<br />		akismetManager.SubmitSpam(item);<br />		return;<br />	}<br />}<br /></pre><br /><p>Q.E.D., really. Somewhat Mort-ish for me to lean solely on the library but it works beautifully: my spam comments since implementation remain at absolute zero.</p><br /><h1><font color="#0000ff">}</font></h1>  </div>
+
+			</div>
+			<div class="post-comments">
+				
+			</div>
+			<div class="push"></div>
+		</div>
+		<footer class="footer text-center">
+<p>Copyright &copy; 2016  -
+<span class="credit">
+	Powered by 
+	<a target="_blank" href="https://gohugo.io">Hugo</a>
+	and mostly the
+	<a target="_blank" href="https://github.com/LordMathis/hugo-theme-nix/">Nix</a> theme though
+	<span style="font-style:italic">
+		I had to hack it up a bit
+	</span>
+</span>
+
+</p>
+</footer>
+
+	</body>
