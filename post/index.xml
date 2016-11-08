@@ -6,8 +6,32 @@
     <description>Recent content in Post-rsses on t3rse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Oct 2016 21:27:26 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 08 Nov 2016 06:02:08 -0600</lastBuildDate>
     <atom:link href="http://www.t3rse.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting started with Android - South Dakota Code Camp 2016</title>
+      <link>http://www.t3rse.com/post/getting-started-android/</link>
+      <pubDate>Tue, 08 Nov 2016 06:02:08 -0600</pubDate>
+      
+      <guid>http://www.t3rse.com/post/getting-started-android/</guid>
+      <description>&lt;p&gt;I gave an overview talk at the South Dakota Codecamp designed as a bird’s eye view of developing Android apps.  Here is some follow up:&lt;/p&gt;
+
+&lt;p&gt;The repository for the app we walked through is &lt;a href=&#34;https://bitbucket.org/t3rse/standings&#34;&gt;on bitbucket&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For those who asked about learning resources here are a few options:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;If you want to approach android on a “slow burn,” Coursera has a great &lt;a href=&#34;https://www.coursera.org/learn/android-programming&#34;&gt;Android developer track&lt;/a&gt;. I went through the track as a part of my journey to working fulltime with Android. I have not used it but Udacity also has an Android engineering track.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If you want an approach designed for professionals, &lt;a href=&#34;http://www.pluralsight.com&#34;&gt;Pluralsight&lt;/a&gt; and &lt;a href=&#34;http://www.lynda.com&#34;&gt;Lynda&lt;/a&gt; have good resources. I’m usually a big proponent of Pluralsight but their content for beginning Android developers is a little dated. Lynda, on the other hand, seems to have a lot of material to get you going.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If you want online tutorials, definitely check out &lt;a href=&#34;http://www.vogella.com/tutorials/android.html&#34;&gt;Vogella&lt;/a&gt;. Their stuff will come up repeatedly in online search for a reason: it&amp;rsquo;s well written and to the point.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;I don’t know of any great books on Android development. &lt;a href=&#34;https://commonsware.com/Android/&#34;&gt;The Busy Coder’s Guide to Android&lt;/a&gt; was one a colleague used several years ago to get up to speed but after a quick scan of the most recent version, it starts developers out on the path of Eclipse which is not just dated as an Android development tool, it is done. The author has included references to working with Android Studio so maybe this is just a matter of reworking the content.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>hello hugo</title>
@@ -413,17 +437,6 @@ $xml.blog.posts.post | % {
       <guid>http://www.t3rse.com/post/2011-06-14-on-features/</guid>
       <description>&lt;div class=&#39;post&#39;&gt;
 &lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;{&lt;/font&gt;&lt;/h2&gt;  &lt;blockquote&gt;   &lt;p style=&#34;line-height: 160%; font-size: 3em&#34;&gt;“More features isn’t [sic] better. More features is unfocused. More features means you’ll do them worse. More features means you probably don’t have any differentiation. If you’re doing a startup, you should have &lt;em&gt;less &lt;/em&gt;[sic] features than your competitors. If you have more features, you’re probably doing it wrong.”&lt;/p&gt; &lt;/blockquote&gt;  &lt;p&gt;Nugget from &lt;a href=&#34;http://poorbuthappy.com/ease/archives/2011/06/12/4875/more-features-competitive-advantage-for-a-startup&#34;&gt;Peter Van Dijck&lt;/a&gt;. So the question is: when do you add a new feature? Joel Spolsky (who has written about most interesting things already, way back in the day (although it would be interesting to hear if things are still done the same in the present day FogCreek) ) &lt;a href=&#34;http://www.joelonsoftware.com/articles/SetYourPriorities.html&#34;&gt;wrote&lt;/a&gt; about how they decided on new features by prioritizing and voting as a group. &lt;/p&gt;  &lt;p&gt;As &lt;a href=&#34;http://www.t3rse.com&#34;&gt;a developer of one&lt;/a&gt; I’m interested in techniques on deciding what to put on a roadmap and how to prioritize features. Any insight? &lt;/p&gt;  &lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;}&lt;/font&gt;&lt;/h2&gt;  &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Closures, Anonymous: JavaScript influenced C#</title>
-      <link>http://www.t3rse.com/post/2011-06-13-closures-anonymous-javascript/</link>
-      <pubDate>Mon, 13 Jun 2011 06:12:00 -0700</pubDate>
-      
-      <guid>http://www.t3rse.com/post/2011-06-13-closures-anonymous-javascript/</guid>
-      <description>&lt;div class=&#39;post&#39;&gt;
-&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;{&lt;/font&gt;&lt;/h2&gt;  &lt;p&gt;I’ve taken knocks in the past because of my penchant for closures and lambdas. Syntactically they never looked that strange to me and most of the time when I used them it was because it made more sense to get a sense of the flow of how things were assigned. I thought: this feels so natural, what makes it so different from some of the people I’m around using C#? Here’s an example of how I’d approach something: in the constructor, assign a loading handler, in that handler, assign a click handler, and rather than putting it in some separate method where I’d have to scroll or look elsewhere, just place it here: &lt;/p&gt;  &lt;pre class=&#34;brush:csharp&#34;&gt;        public MainPage()&lt;br /&gt;        {&lt;br /&gt;            InitializeComponent();&lt;br /&gt;&lt;br /&gt;            this.Loaded += (o, e) =&amp;gt; &lt;br /&gt;            {&lt;br /&gt;                myButton.Click += (_, e2) =&amp;gt;&lt;br /&gt;                {&lt;br /&gt;                    myText.Text = &amp;quot;Hello World&amp;quot;;&lt;br /&gt;                };&lt;br /&gt;            };&lt;br /&gt;        }&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;But then the other day I was tinkering with KnockoutJS, writing some Javascript with jquery and it dawned on my why I approach things the way I do. &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;pre class=&#34;brush:js&#34;&gt;        $(document).ready(function () {&lt;br /&gt;            $(&#39;#myButton&#39;).click(function () {&lt;br /&gt;                $(&#39;#myLabel&#39;).text(&#39;Hello World&#39;);&lt;br /&gt;            });&lt;br /&gt;        });&lt;/pre&gt;&lt;br /&gt;&lt;br /&gt;&lt;p&gt;It&#39;s always interesting to make that connection more formally than trying to explain why my approach would be “better.” The advantage of being able to use a closure with the above approach has always been the main rational I’ve given when forced to come up with an answer. &lt;/p&gt;&lt;br /&gt;&lt;br /&gt;&lt;h2&gt;&lt;font color=&#34;#0000ff&#34;&gt;}&lt;/font&gt;&lt;/h2&gt;  &lt;/div&gt;
 </description>
     </item>
     
